@@ -1,0 +1,37 @@
+1. Simple
+    Java is easy to learn.
+    Java was designed to be easy to use and is therefore easy to write,
+    compile, debug, and learn than other programming languages. Java is 
+    object-oriented. This allows you to create modular programs and reusable code.
+--------------------------------------------------------------------------------------
+2. Secure
+    Java provides strong Exception Handling mechanism which makes it more secure as 
+    it does not allow to run the program until you rectify the error. Java provides 
+    access modifier/access specifier like private, protected, public and default. 
+    It helps in controlling the access of any member
+---------------------------------------------------------------------------------------
+
+3. Portable
+    Java programs are portable, which means that the same bytecode program can run on 
+    any computer system that has a Java interpreter
+    
+
+4. Robust
+    Java is robust because it utilizes strong memory management
+
+
+
+5. Architecture-Neutral
+    Java is architecture neutral because there are no implementation dependent features
+
+6. High performance
+    Java offers high performance as it uses the JIT (Just In Time) compiler
+
+7. Distributed
+    Java is distributed because it facilitates users to create distributed applications in Java. 
+    RMI and EJB are used for creating distributed applications.
+
+8. Dynamic
+    Java is considered to be more dynamic than C or C++ since 
+    it is designed to adapt to an evolving environment. 
+    Java programs can carry an extensive amount of run-time information that can be used to verify and resolve accesses to objects at run-time.
