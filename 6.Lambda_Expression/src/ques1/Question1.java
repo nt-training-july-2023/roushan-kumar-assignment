@@ -1,5 +1,6 @@
 package ques1;
 
+//Functional Interface;
 interface ReplaceVovel{
 	void replace(String word);
 }

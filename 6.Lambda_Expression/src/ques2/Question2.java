@@ -1,5 +1,6 @@
 package ques2;
 
+//Functional Interface;
 interface Shape{
 	
 	public void area();
