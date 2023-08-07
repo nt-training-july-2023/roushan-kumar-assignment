@@ -1,0 +1,51 @@
+
+localhost:8080/api/employee/save
+
+{
+    "name":"Roushan Kumar",
+    "age" : 25,
+    "salary":5000
+}
+
+localhost:8080/api/employee/getAll
+
+output
+[
+    {
+        "id": 6,
+        "name": "Roushan Kumar",
+        "salary": 5000,
+        "address": "Patna"
+    },
+    {
+        "id": 7,
+        "name": "Ansh Kumar",
+        "salary": 5000,
+        "address": "Patna"
+    }
+]
+
+
+localhost:8080/api/employee/saveAll
+body
+[
+	{
+		"name":"Ansh Kumar",
+		"address" : "Patna",
+		"salary":3000
+	},
+	{
+		"name":"Alok Kumar",
+		"address" : "Patna",
+		"salary":3000
+	}
+]
+
+localhost:8080/api/employee/{id}
+localhost:8080/api/employee/6
+{
+        "id": 6,
+        "name": "Roushan Kumar",
+        "salary": 5000,
+        "address": "Patna"
+}
