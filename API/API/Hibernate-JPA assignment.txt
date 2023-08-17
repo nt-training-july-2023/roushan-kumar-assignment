@@ -1,0 +1,15 @@
+Create Spring Hibernate/JPA project which has following workings :
+
+Write a API 
+1. To store/create single and bulk inserts of Employee records in database.
+2. fetch all employees from database.
+3. fetch specific employee based on Id.
+4. Update employee record.
+5. Delete employee.
+
+Consideration :
+Use Spring boot OR Spring framework
+Use JPA is prefrable but you can use Hibernate as well.
+Use any database (You can use inmemory H2 DB as well)
+All APIs should be in excutable state.
+Create document for API url and its payload.
