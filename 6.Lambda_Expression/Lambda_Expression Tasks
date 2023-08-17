@@ -1,0 +1,2 @@
+1. Write a Java program to implement a lambda expression to replace vowels with ‘#’ in a given string.
+2. Create a functional interface with the name ‘Shape’ and a method ‘area’. Write a program to implement these interfaces for shapes rectangle, square, circle, cube, sphere, cylinder and find out its area. All the implementation should be within a single class.
