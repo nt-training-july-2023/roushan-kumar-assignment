@@ -1,0 +1,162 @@
+body {
+    /* background-image: linear-gradient(to right ,#71b7e6,#9b59b6); */
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    background-color: #D5EEE8;
+    /* overflow: hidden; */
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #0f6197;
+}
+
+
+.container {
+    background-color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-bottom: 5%;
+    margin-top: 5%;
+    /* padding-top: 5%; */
+   
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.row {
+    display: table
+}
+
+.row div {
+    float: left;
+}
+
+.form-group {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1rem;
+}
+
+
+.inputBox {
+    width: 100%;
+    height: 30px;
+    margin-top: 1%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid #71b7e6;
+    font-size: 15px;
+    padding-left: 1rem;
+}
+
+/* .inputBox:focus{
+    border: 2px solid #105a8b;
+} */
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 200;
+    src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLFj_Z11lFc-K.woff2) format('woff2');
+    unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+}
+
+.labelbox {
+    font-family: Poppins;
+    font-size: 20px;
+}
+
+.myBtn {
+    /* background-image: linear-gradient(to right ,#71b7e6,#9b59b6); */
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    width: 20%;
+    color: white;
+    font-family: Poppins;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #34AAF2;
+}
+
+.myBtn:hover {
+    background-color: #1284C9;
+}
+
+
+.headline{
+    background-color: rgb(221, 217, 217);
+    font-family: 'Times New Roman';
+    text-align: center;
+    font-size: 30px;
+    padding: 1rem;
+    
+}
+.headline p{
+    margin: 0;
+    padding: 0;
+}
+.formName {
+    font-size: 25px;
+    position: relative;
+}
+
+.formName::before {
+    background: linear-gradient(to right, #71b7e6, #9b59b6);
+    height: 3px;
+    width: 23%;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    content: '';
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+.form-box{
+    box-shadow: 0 .4rem .8rem #838383;
+    border-radius: 5px;
+}
+@media screen and (max-width:800px) {
+    .myBtn {
+        height: 30px;
+        width: 50%;
+        font-size: 15px;
+    }
+
+    .form-group {
+        margin-left: 3%;
+        margin-right: 10%;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .headline{
+        font-size: 20px;
+    }
+    .container {
+        margin-left: 5%;
+        margin-right: 5%;
+       
+    }
+}
