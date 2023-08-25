@@ -6,10 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GrievanceManagementSystemApplication {
 
-	public static void main(String[] args) {
-		
-		
-		SpringApplication.run(GrievanceManagementSystemApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(GrievanceManagementSystemApplication.class, args);
+  }
 }

@@ -1,5 +1,8 @@
 package nucleusteq.com.grievanceManagementSystem.controller;
 
+import nucleusteq.com.grievanceManagementSystem.dto.UserDto;
+import nucleusteq.com.grievanceManagementSystem.entity.Users;
+import nucleusteq.com.grievanceManagementSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,34 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import nucleusteq.com.grievanceManagementSystem.dto.UserDto;
-import nucleusteq.com.grievanceManagementSystem.entity.Users;
-import nucleusteq.com.grievanceManagementSystem.service.UserService;
+/**
+ * @author roush
+ * @version 1.0.0
+ */
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class LoginController {
-	@Autowired
-	private UserService userService;
-	public LoginController(UserService userService) {
-		super();
-		this.userService = userService;
-	}
-	
-	@PostMapping("/login/authorization/data")
-	public  Users login(@RequestBody UserDto userDto)
-	{
-		return userService.login(userDto);
-	}
-	
-	@PostMapping("login/authorization")
-	public ResponseEntity<?> authenticateUser(@RequestBody UserDto userDto)
-	{
-		boolean auth =  userService.authenticate(userDto);
-		if(auth==true)
-			return new ResponseEntity<>("User login successfully!.", HttpStatus.OK);
-		else
-			return new ResponseEntity<>("Invalid credantial", HttpStatus.OK);
-	}
-	
+  @Autowired
+  private UserService userService;
+
+  public LoginController(UserService userService) {
+    super();
+    this.userService = userService;
+  }
+
+  @PostMapping("/login/authorization/data")
+  public Users login(@RequestBody UserDto userDto) {
+    return userService.login(userDto);
+  }
+
+  /**
+   * @param userDto Requestbody
+   * @return response
+   */
+  @PostMapping("login/authorization")
+  public ResponseEntity<?> authenticateUser(@RequestBody UserDto userDto) {
+    boolean auth = userService.authenticate(userDto);
+    if (auth == true) {
+      return new ResponseEntity<>("User login successfully!.", HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("Invalid credantial", HttpStatus.OK);
+    }
+  }
 }
