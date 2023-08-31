@@ -1,188 +1,298 @@
-package nucleusteq.com.grievanceManagementSystem.entity;
+package nucleusteq.com.grievance.entity;
 
-import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * @author roushan
- * @version 1.0.0
- * 
+ * Represents a user entity for the grievance management system.
  */
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "username")
-})
+@Table(name = "users",
+    uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 public class Users {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer userId;
-@Column(name="username", unique = true)
 
-private String username;
-@Column
-private String firstName;
-@Column
-private String lastName;
-@Column
-private String email;
-@Column
-private String password;
-@Column
-private Integer initalPassword;
-@ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-private Collection<Role> role;
-public Users() {}
-public Users(Integer id, String username, String firstName, String lastName, String email, String password, Integer initalPassword, Collection<Role> role) {
-	super();
-	this.userId = id;
-	this.username = username;
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.email = email;
-	this.password = password;
-	this.initalPassword = initalPassword;
-	this.role = role;
-}
-/**
- * @param username is unique 
- * @param firstName is first name of user
- * @param lastName is last name of user
- * @param email for user mail
- * @param password for login to the application
- * @param initalPassword change it on first login
- * @param role is the user type
- */
-public Users(String username, String firstName, String lastName, String email, String password,
-		Integer initalPassword, Collection<Role> role) {
-	super();
-	this.username = username;
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.email = email;
-	this.password = password;
-	this.initalPassword = initalPassword;
-	this.role = role;
-}
+  /**
+  * Id in Integer.
+  */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer userId;
 
-/**
- * @return the userId
- */
-public Integer getUserId() {
-	return userId;
-}
+  /**
+  * user name in string and uique.
+  */
+  @Column(name = "username", unique = true)
+  private String username;
 
-/**
- * @param userId the userId to set
- */
-public void setUserId(Integer userId) {
-	this.userId = userId;
-}
+  /**
+  * fullname in String.
+  */
+  @Column
+  private String fullName;
 
-/**
- * @return the username
- */
-public String getUsername() {
-	return username;
-}
+  /**
+  * emai in string.
+  */
+  @Column
+  private String email;
 
-/**
- * @param username the username to set
- */
-public void setUsername(String username) {
-	this.username = username;
-}
-/**
- * @return the firstName
- */
-public String getFirstName() {
-	return firstName;
-}
-/**
- * @param firstName the firstName to set
- */
-public void setFirstName(String firstName) {
-	this.firstName = firstName;
-}
-/**
- * @return the lastName
- */
-public String getLastName() {
-	return lastName;
-}
-/**
- * @param lastName the lastName to set
- */
-public void setLastName(String lastName) {
-	this.lastName = lastName;
-}
-/**
- * @return the email
- */
-public String getEmail() {
-	return email;
-}
-/**
- * @param email the email to set
- */
-public void setEmail(String email) {
-	this.email = email;
-}
-/**
- * @return the password
- */
-public String getPassword() {
-	return password;
-}
-/**
- * @param password the password to set
- */
-public void setPassword(String password) {
-	this.password = password;
-}
-/**
- * @return the initalPassword
- */
-public Integer getInitalPassword() {
-	return initalPassword;
-}
-/**
- * @param initalPassword the initalPassword to set
- */
-public void setInitalPassword(Integer initalPassword) {
-	this.initalPassword = initalPassword;
-}
-/**
- * @return the role
- */
-public Collection<Role> getRole() {
-	return role;
-}
-/**
- * @param role the role to set
- */
-public void setRole(Collection<Role> role) {
-	this.role = role;
-}
-@Override
-public String toString() {
-	return "Users [userId=" + userId + ", username=" + username + ", firstName=" + firstName + ", lastName="
-			+ lastName + ", email=" + email + ", password=" + password + ", initalPassword=" + initalPassword
-			+ ", role=" + role + "]";
-}
-	
-	
-	
-	
-	
+  /**
+  * password in string.
+  */
+  @Column
+  private String password;
+
+  /**
+  * intialPassworn in Integer.
+  */
+  @Column
+  private Integer initialPassword;
+
+  /**
+   * Role mapping.
+   */
+  @ManyToOne(
+      cascade = {
+        CascadeType.DETACH,
+        CascadeType.MERGE,
+        CascadeType.PERSIST,
+        CascadeType.REFRESH
+      })
+  @JoinColumn(name = "role_id")
+  private Role role;
+
+  /**
+   * Department mapping.
+   */
+  @ManyToOne
+  @JoinColumn(name = "department_id")
+  private Department department;
+
+  /**
+   * No arg constructor.
+   */
+  public Users() {
+  }
+
+  /**
+  * Constructor with userId (used for creating new users).
+  *
+  * @param userIdParam as Integer.
+  * @param userNameParam as string.
+  * @param fullNameParam as string.
+  * @param emailParam as string.
+  * @param passwordParam as string.
+  * @param initialPasswordParam as Integer.
+  * @param roleParam as Collection.
+  */
+  public Users(
+      final Integer userIdParam,
+      final String userNameParam,
+      final String fullNameParam,
+      final String emailParam,
+      final String passwordParam,
+      final Integer initialPasswordParam,
+      final Role roleParam) {
+    this.userId = userIdParam;
+    this.username = userNameParam;
+    this.fullName = fullNameParam;
+    this.email = emailParam;
+    this.password = passwordParam;
+    this.initialPassword = initialPasswordParam;
+    this.role = roleParam;
+  }
+
+  /**
+   * Constructor without userId (used for creating new users).
+   *
+   * @param userNameParam as string.
+   * @param fullNameParam as string.
+   * @param emailParam as string.
+   * @param passwordParam as string.
+   * @param initialPasswordParam as Integer.
+   * @param roleParam as class.
+   * @param departmentParam as class
+   */
+  public Users(
+      final String userNameParam,
+      final String fullNameParam,
+      final String emailParam,
+      final String passwordParam,
+      final Integer initialPasswordParam,
+      final Role roleParam,
+      final Department departmentParam) {
+    this.username = userNameParam;
+    this.fullName = fullNameParam;
+    this.email = emailParam;
+    this.password = passwordParam;
+    this.initialPassword = initialPasswordParam;
+    this.role = roleParam;
+    this.department = departmentParam;
+  }
+
+  /**
+   * Get the user's ID.
+   *
+   * @return The user's ID.
+   */
+  public Integer getUserId() {
+    return userId;
+  }
+
+  /**
+   * Set the user's ID.
+   *
+   * @param userIdParam The user's ID to set.
+   */
+  public void setUserId(final Integer userIdParam) {
+    this.userId = userIdParam;
+  }
+
+  /**
+   * Get the username.
+   *
+   * @return The username.
+   */
+  public String getUsername() {
+    return username;
+  }
+
+  /**
+   * Set the username.
+   *
+   * @param usernameParam The username to set.
+   */
+  public void setUsername(final String usernameParam) {
+    this.username = usernameParam;
+  }
+
+  /**
+   * Get the full name.
+   *
+   * @return The full name.
+   */
+  public String getFullName() {
+    return fullName;
+  }
+
+  /**
+   * Set the first name.
+   *
+   * @param fullNameParam The first name to set.
+   */
+  public void setFullName(final String fullNameParam) {
+    this.fullName = fullNameParam;
+  }
+
+  /**
+   * Get the email.
+   *
+   * @return The email.
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * Set the email.
+   *
+   * @param emailParam The email to set.
+   */
+  public void setEmail(final String emailParam) {
+    this.email = emailParam;
+  }
+
+  /**
+   * Get the password.
+   *
+   * @return The password.
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * Set the password.
+   *
+   * @param passwordParam The password to set.
+   */
+  public void setPassword(final String passwordParam) {
+    this.password = passwordParam;
+  }
+
+  /**
+   * Get the initial password.
+   *
+   * @return The initial password.
+   */
+  public Integer getInitialPassword() {
+    return initialPassword;
+  }
+
+  /**
+   * Set the initial password.
+   *
+   * @param initialPasswordParam The initial password to set.
+   */
+  public void setInitialPassword(final Integer initialPasswordParam) {
+    this.initialPassword = initialPasswordParam;
+  }
+
+  /**
+   * Get the user's roles.
+   *
+   * @return The user's roles.
+   */
+  public Role getRole() {
+    return role;
+  }
+
+  /**
+   * Set the user's roles.
+   *
+   * @param roleParam The roles to set.
+   */
+  public void setRole(final Role roleParam) {
+    this.role = roleParam;
+  }
+
+  
+  /**
+  * get department.
+  *
+  * @return the department
+  */
+  public Department getDepartment() {
+    return department;
+  }
+
+  /**
+  * set Department.
+  *
+  * @param departmentParam the department to set
+  */
+  public void setDepartment(Department departmentParam) {
+    this.department = departmentParam;
+  }
+
+  /**
+  * User Details.
+  */
+  @Override
+  public String toString() {
+    return "Users [userId=" + userId + ", username="
+      + username + ", fullName=" + fullName + ", email="
+      + email + ", password=" + password + ", initialPassword="
+      + initialPassword + ", role=" + role + ", department="
+      + department + "]";
+  }
+
 }

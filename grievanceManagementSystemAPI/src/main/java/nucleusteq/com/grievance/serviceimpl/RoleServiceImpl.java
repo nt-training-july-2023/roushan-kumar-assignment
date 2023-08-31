@@ -1,27 +1,42 @@
-package nucleusteq.com.grievanceManagementSystem.serviceImpl;
+package nucleusteq.com.grievance.serviceimpl;
 
-import nucleusteq.com.grievanceManagementSystem.entity.Role;
-import nucleusteq.com.grievanceManagementSystem.repository.RoleRepo;
-import nucleusteq.com.grievanceManagementSystem.service.RoleService;
+import nucleusteq.com.grievance.entity.Role;
+import nucleusteq.com.grievance.repository.RoleRepo;
+import nucleusteq.com.grievance.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-
 /**
+ * RoleServiceImpl.
+ *
  * @author roushan
  */
+@Service
 public class RoleServiceImpl implements RoleService {
+
+  /**
+   * variables.
+   */
   @Autowired
   private RoleRepo roleRepo;
 
-  public RoleServiceImpl(RoleRepo roleRepo) {
+  /**
+   * RoleService Impl.
+   *
+   * @param roleRepoParam roleRepo class.
+   */
+  public RoleServiceImpl(final RoleRepo roleRepoParam) {
     super();
-    this.roleRepo = roleRepo;
+    this.roleRepo = roleRepoParam;
   }
 
+  /**
+   * get role by role type.
+   *
+   *@param nameParam roleType.
+   */
   @Override
-  public Role getRoleByName(String name) {
-    return roleRepo.getRoleByName(name);
+  public Role getRoleByName(final String nameParam) {
+    return roleRepo.getRoleByName(nameParam);
   }
 }

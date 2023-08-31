@@ -1,4 +1,4 @@
-package nucleusteq.com.grievanceManagementSystem.entity;
+package nucleusteq.com.grievance.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,25 +8,52 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+/**
+ * Role class.
+ *
+ */
 @Entity
-@Table(name = "role", uniqueConstraints = { @UniqueConstraint(columnNames = "name") })
+@Table(name = "role",
+    uniqueConstraints = { @UniqueConstraint(columnNames = "name") })
 public class Role {
+
+  /**
+   * Role Id in integer.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer roleId;
 
+  /**
+   * Role type in string.
+   */
   @Column(name = "name", unique = true)
   private String name;
 
-  public Role() {}
+  /**
+   * No args constructor.
+   */
+  public Role() {
 
-  public Role(Integer roleId, String name) {
-    super();
-    this.roleId = roleId;
-    this.name = name;
   }
 
   /**
+   * Role constructor.
+   *
+   * @param roleIdParam role id as integer.
+   * @param nameParam name as String.
+   */
+  public Role(
+      final Integer roleIdParam,
+      final String nameParam) {
+    super();
+    this.roleId = roleIdParam;
+    this.name = nameParam;
+  }
+
+  /**
+   * get role id.
+   *
    * @return the roleId
    */
   public Integer getRoleId() {
@@ -34,13 +61,17 @@ public class Role {
   }
 
   /**
-   * @param roleId the roleId to set
+   * setRoleId.
+   *
+   * @param roleIdParam the roleId to set
    */
-  public void setRoleId(Integer roleId) {
-    this.roleId = roleId;
+  public void setRoleId(final Integer roleIdParam) {
+    this.roleId = roleIdParam;
   }
 
   /**
+   * get name.
+   *
    * @return the name
    */
   public String getName() {
@@ -48,9 +79,11 @@ public class Role {
   }
 
   /**
-   * @param name the name to set
+   * set name.
+   *
+   * @param nameParam the name to set
    */
-  public void setName(String name) {
-    this.name = name;
+  public void setName(final String nameParam) {
+    this.name = nameParam;
   }
 }

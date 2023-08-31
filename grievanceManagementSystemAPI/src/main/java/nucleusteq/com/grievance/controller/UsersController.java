@@ -1,10 +1,10 @@
-package nucleusteq.com.grievanceManagementSystem.controller;
+package nucleusteq.com.grievance.controller;
 
 import java.util.List;
 import javax.validation.Valid;
-import nucleusteq.com.grievanceManagementSystem.dto.UserDto;
-import nucleusteq.com.grievanceManagementSystem.entity.Users;
-import nucleusteq.com.grievanceManagementSystem.service.UserService;
+import nucleusteq.com.grievance.dto.UserDto;
+import nucleusteq.com.grievance.entity.Users;
+import nucleusteq.com.grievance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * UserController.
+ *
  * @author roush
  * @version 1.0.0
  */
@@ -23,36 +25,57 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 public class UsersController {
-	@Autowired
-	private UserService userService;
 
-	/**
-	 * @param userService userservice
-	 * @param roleService roleservice
-	 */
-	public UsersController(UserService userService) {
-		super();
-		this.userService = userService;
-		
-	}
+  /**
+   * userService interface.
+   */
+  @Autowired
+  private UserService userService;
 
-	@GetMapping("/all")
-	public List<Users> getAllUsers() {
-		return userService.getAllUser();
-	}
+  /**
+   * UserController.
+   *
+   * @param userServiceParam userservice.
+   *
+   *
+   *
+   */
+  public UsersController(final UserService userServiceParam) {
+    super();
+    this.userService = userServiceParam;
+  }
 
-	@PostMapping("/save")
-	public ResponseEntity<?> saveUser(@RequestBody @Valid UserDto userDto, BindingResult errors) {
-		// return ResponseEntity.ok(userService.save(userDto));
-		if (errors.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fields required");
-		}
-		try {
-			return ResponseEntity.ok(userService.save(userDto));
+  /**
+   * Get all users.
+   *
+   * @return all users.
+   */
+  @GetMapping("/all")
+  public List<Users> getAllUsers() {
+    return userService.getAllUser();
+  }
 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
-	}
+  /**
+   * save user.
+   *
+   * @param userDto userDto.
+   * @param errors BindingResult error.
+   * @return response.
+   */
+  @PostMapping("/save")
+  public ResponseEntity<?> saveUser(
+      @RequestBody @Valid final UserDto userDto,
+      final BindingResult errors) {
+    // return ResponseEntity.ok(userService.save(userDto));
+    if (errors.hasErrors()) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+      .body("Fields required");
+    }
+    try {
+      return ResponseEntity.ok(userService.save(userDto));
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return null;
+  }
 }

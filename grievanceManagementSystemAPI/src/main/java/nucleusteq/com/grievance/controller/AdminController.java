@@ -1,26 +1,45 @@
-package nucleusteq.com.grievanceManagementSystem.controller;
+package nucleusteq.com.grievance.controller;
 
-import nucleusteq.com.grievanceManagementSystem.service.UserService;
+import nucleusteq.com.grievance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * AdminController.
+ *
+ */
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
+
+  /**
+  * userservice class.
+  */
   @Autowired
+
   private UserService userService;
 
-
-  public AdminController(UserService userService) {
+  /**
+  * AdminController.
+  *
+  * @param userServiceParam userService as interface.
+  */
+  public AdminController(final UserService userServiceParam) {
     super();
-    this.userService = userService;
+    this.userService = userServiceParam;
   }
 
+  /**
+   * createPowerUser.
+   *
+   * @param key key as a integer
+   * @return string.
+   */
   @PutMapping("/create/poweruser/{key}")
-  public String createPowerUser(@PathVariable int key) {
+  public String createPowerUser(@PathVariable final int key) {
     return userService.savePowerUser(key);
   }
 }

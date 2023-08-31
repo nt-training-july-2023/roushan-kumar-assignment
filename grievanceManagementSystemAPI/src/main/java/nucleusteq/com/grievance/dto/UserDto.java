@@ -1,60 +1,112 @@
-package nucleusteq.com.grievanceManagementSystem.dto;
+package nucleusteq.com.grievance.dto;
 
-import java.util.Collection;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import nucleusteq.com.grievanceManagementSystem.entity.Role;
+
+import nucleusteq.com.grievance.entity.Department;
+import nucleusteq.com.grievance.entity.Role;
+
 /**
+ * userDto class.
+ *
  * @author roushan Kumar
- * 
+ *
  */
+
 public class UserDto {
+  /**
+   *class variable.
+   */
   private Integer userId;
 
-  @NotEmpty(message = "cjhdcdj")
+  /**
+   * username.
+   */
+  @NotEmpty(message = "username is required size > 2")
   @Size(min = 2)
   private String username;
 
-  @NotEmpty(message = "first name is required")
-  private String firstName;
+  /**
+   * full name.
+   */
+  @NotEmpty(message = "full name is required")
+  private String fullName;
 
-  @NotNull(message = "last name is required")
-  private String lastName;
-
+  /**
+   * email in string.
+   */
   @NotNull(message = "email is required")
   private String email;
 
+  /**
+   * Password in string.
+   */
   @NotNull(message = "password is required")
   private String password;
 
+  /**
+  * intailPassword is integer.
+  */
   private Integer initalPassword;
-  private Collection<Role> role;
 
-  public UserDto() {}
+  /**
+   * Role is Class.
+   */
+  private Role role;
 
-  public UserDto(
-    Integer userId,
-    @NotEmpty(message = "username is required") @Size(min = 2) String username,
-    @NotEmpty(message = "first name is required") String firstName,
-    @NotNull(message = "last name is required") String lastName,
-    @NotNull(message = "email is required") String email,
-    @NotNull(message = "password is required") String password,
-    Integer initalPassword,
-    Collection<Role> role
-  ) {
-    super();
-    this.userId = userId;
-    this.username = username;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-    this.initalPassword = initalPassword;
-    this.role = role;
+  /**
+   * Department is Class.
+   */
+  private Department department;
+
+  /**
+   * no argument constructor.
+   * Users data transfer object
+   */
+  public UserDto() {
+
   }
 
   /**
+   * All arg constructor.
+   *
+   * @param userIdParam unique id for user
+   * @param usernameParam unique email for user
+   * @param fullNameParam first name
+   * @param emailParam email
+   * @param passwordParam password
+   * @param initalPasswordParam initalPassword
+   * @param roleParam userType
+   */
+  public UserDto(
+      final Integer userIdParam,
+      @NotEmpty(message = "username is required") @Size(min = 2)
+      final String usernameParam,
+      @NotEmpty(message = "full name is required")
+      final String fullNameParam,
+      @NotNull(message = "email is required")
+      final String emailParam,
+      @NotNull(message = "password is required")
+      final String passwordParam,
+      final Integer initalPasswordParam,
+      final Role roleParam,
+      final Department departmentParam
+  ) {
+    super();
+    this.userId = userIdParam;
+    this.username = usernameParam;
+    this.fullName = fullNameParam;
+    this.email = emailParam;
+    this.password = passwordParam;
+    this.initalPassword = initalPasswordParam;
+    this.role = roleParam;
+    this.department = departmentParam;
+  }
+
+  /**
+   * get user id.
+   *
    * @return the userId
    */
   public Integer getUserId() {
@@ -62,13 +114,17 @@ public class UserDto {
   }
 
   /**
-   * @param userId the userId to set
+   * set user id.
+   *
+   * @param userIdParam the userId to set
    */
-  public void setUserId(Integer userId) {
-    this.userId = userId;
+  public void setUserId(final Integer userIdParam) {
+    this.userId = userIdParam;
   }
 
   /**
+   * get username.
+   *
    * @return the username
    */
   public String getUsername() {
@@ -76,41 +132,35 @@ public class UserDto {
   }
 
   /**
-   * @param username the username to set
+   * set username.
+   *
+   * @param usernameParam the username to set
    */
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUsername(final String usernameParam) {
+    this.username = usernameParam;
   }
 
   /**
+   * get first name.
+   *
    * @return the firstName
    */
-  public String getFirstName() {
-    return firstName;
+  public String getFullName() {
+    return fullName;
   }
 
   /**
-   * @param firstName the firstName to set
+   * set first name.
+   *
+   * @param firstNameParam the firstName to set
    */
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setFullName(final String firstNameParam) {
+    this.fullName = firstNameParam;
   }
 
   /**
-   * @return the lastName
-   */
-  public String getLastName() {
-    return lastName;
-  }
-
-  /**
-   * @param lastName the lastName to set
-   */
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  /**
+   * getEmail.
+   *
    * @return the email
    */
   public String getEmail() {
@@ -118,13 +168,17 @@ public class UserDto {
   }
 
   /**
-   * @param email the email to set
+   * setEmail.
+   *
+   * @param emailParam the email to set
    */
-  public void setEmail(String email) {
-    this.email = email;
+  public void setEmail(final String emailParam) {
+    this.email = emailParam;
   }
 
   /**
+   * getPassword.
+   *
    * @return the password
    */
   public String getPassword() {
@@ -132,13 +186,17 @@ public class UserDto {
   }
 
   /**
-   * @param password the password to set
+   * setPassword.
+   *
+   * @param passwordParam the password to set
    */
-  public void setPassword(String password) {
-    this.password = password;
+  public void setPassword(final String passwordParam) {
+    this.password = passwordParam;
   }
 
   /**
+   * getInitalPassword.
+   *
    * @return the initalPassword
    */
   public Integer getInitalPassword() {
@@ -146,23 +204,60 @@ public class UserDto {
   }
 
   /**
-   * @param initalPassword the initalPassword to set
+   * setInitalPassword.
+   *
+   * @param initalPasswordParam the initalPassword to set
    */
-  public void setInitalPassword(Integer initalPassword) {
-    this.initalPassword = initalPassword;
+  public void setInitalPassword(final Integer initalPasswordParam) {
+    this.initalPassword = initalPasswordParam;
   }
 
   /**
+   * getRole.
+   *
    * @return the role
    */
-  public Collection<Role> getRole() {
+  public Role getRole() {
     return role;
   }
 
   /**
-   * @param role the role to set
+   * setRole.
+   *
+   * @param roleParam the role to set
    */
-  public void setRole(Collection<Role> role) {
-    this.role = role;
+  public void setRole(final Role roleParam) {
+    this.role = roleParam;
   }
+
+  /**
+  * get Department.
+  *
+  * @return the department
+  */
+  public Department getDepartment() {
+    return department;
+  }
+
+  /**
+  * set department.
+  *
+  * @param department the department to set
+  */
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  /**
+   * To string method.
+   */
+  @Override
+  public String toString() {
+    return "UserDto [userId=" + userId + ", username="
+      + username + ", fullName=" + fullName + ", email="
+      + email + ", password=" + password + ", initalPassword="
+      + initalPassword + ", role=" + role + ", department="
+      + department + "]";
+  }
+
 }
