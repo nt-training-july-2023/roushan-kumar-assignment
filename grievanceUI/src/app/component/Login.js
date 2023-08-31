@@ -38,13 +38,8 @@ function Login() {
             return 
         }
         const res = await api.post('api/login/authorization', userLogin)
-        
-        
-
         if (res.data !== "Invalid credantial") {
-
             navigate("/admin")
-
         }
         else {
             console.log(res.data);
@@ -57,11 +52,13 @@ function Login() {
     }
     return (
         <>
-
-           
-
-            <div className='container form-box' >
             <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
+           <div className='Login-body'>
+            <div className='container-left'>
+
+            </div>
+            <div className='container form-box' >
+            
                 <div className='' >
                     <div className='headline'>
                         <p className="form-group ">Welcome to</p>
@@ -90,6 +87,7 @@ function Login() {
 
 
                 </div>
+            </div>
             </div>
         </>
     )

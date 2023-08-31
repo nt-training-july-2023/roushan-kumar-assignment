@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montaga&display=swap');
+
+.wrapper{
+    width: 60%;
+    padding: 0 10px;
+    background-color: rgb(208,244,220);
+    /* margin: 20px 20px auto; */
+    padding: 30px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
+    
+}
+
+.wrapper .title{
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 25px;
+    color: rgb(108, 187, 240) ;
+    text-align: center;
+}
+
+.wrapper .form{
+    width: 100%;
+}
+
+.wrapper .form .input_field{
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+}
+
+.wrapper .form .input_field label{
+    width: 200px;
+    margin-right: 10px;
+    font-size: 15px; 
+    font-style: 700;
+}
+
+.wrapper .form .input_field input,
+.wrapper .form .input_field textarea
+{
+   width: 100%;
+   padding: 8px 10px;
+   border: 1px solid #bac5ec;
+   font-size: 15px;
+   border-radius: 3px; 
+   
+}
+.wrapper .form .input_field textarea{
+    resize: none;
+    height: 125px;
+    outline: none;
+}
+
+.wrapper .form .input_field .custom_select
+{
+    position: relative;
+    width: 100%;
+    height: 37px;
+}
+
+.wrapper .form .input_field .custom_select select
+{
+    
+    width: 100%;
+    height: 100%;
+    padding: 8px 10px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #bac5ec;
+}
+
+.wrapper .form .input_field .input:focus,
+.wrapper .form .input_field .textarea:focus,
+.wrapper .form .input_field select:focus
+{
+    border: 1px solid rgb(3, 131, 178);
+}
+
+.wrapper .form .input_field .btnNew{
+ width: 100%;
+ padding: 8px 10px;
+ font-size: 15px;
+ border: none;
+ background-color: rgb(14, 124, 180);
+ border-radius: 3px;
+ cursor: pointer;
+ /* margin-right: 10px; */
+}
+.wrapper .form .input_field .btnNew:hover{
+    background-color: rgb(0, 145, 255);
+}
+.wrapper .form .input_field:last-child
+{
+    margin-bottom: 0;
+}
+
+@media (max-width:500px)
+{
+    .wrapper .form .input_field 
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .wrapper .form .input_field label
+    {
+       margin-bottom: 5px;
+    }
+
+    .wrapper .form .input_field .btnNew{
+        
+        margin-bottom: 10px;
+       }
+}
+
+ 

@@ -1,26 +1,80 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     /* background-image: linear-gradient(to right ,#71b7e6,#9b59b6); */
     margin: 0px;
     padding: 0px;
     height: 100vh;
-    background-color: #D5EEE8;
+    background-color: #46ACC3;
     /* overflow: hidden; */
 }
 
+.Login-body{
+    
+    background-color: #46ACC3;
+    margin: auto;
+    /* padding: 0px; */
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
 input:focus {
     outline: none;
     border: 2px solid #0f6197;
 }
 
-
+.login-wrapper{
+    /* box-shadow:  0 .1px 4px #282727;  */
+}
 .container {
-    background-color: white;
-    margin-left: 20%;
-    margin-right: 20%;
-    padding-bottom: 5%;
-    margin-top: 5%;
-    /* padding-top: 5%; */
+    background-color: rgb(208,244,220);
    
+    /* background-image: url("/src/assets/img/app/back.jpg"); */
+    backdrop-filter: blur(7px);
+    /* margin-left: 35%; */
+    /*margin-right: 20%; */
+    /* padding-bottom: 5%; */
+    /* margin-top: 15%; */
+    /* padding-top: 5%; */
+   width: 35%;
+   height: 27rem;
+   background-position: center;
+    background-size: cover;
+    box-shadow: 0px 15px 10px -15px #111;
+    box-shadow: 15px 0px 10px -15px #111; 
+}
+
+.container-left {
+    background-image: url("/src/assets/img/app/Grievance.jpg");
+    /* box-shadow:  0 .1px 4px #282727; */
+    /* backdrop-filter: blur(7px); */
+    /* margin-left: 35%; */
+    /*margin-right: 20%; */
+    /* padding-bottom: 5%; */
+    /* margin-top: 15%; */
+    /* padding-top: 5%; */
+   width: 35%;
+   height: 27rem;
+   background-position: center;
+    background-size: cover;
+    box-shadow: 0px 15px 10px -15px #111; 
+    box-shadow: -15px 0px 10px -15px #111; 
+    /* border-radius: 5px; */
+   
+}
+.form-box{
+    /* box-shadow:  0 .3rem .4rem #282727; */
+    /* border-radius: 5px; */
 }
 
 .col-12 {
@@ -56,9 +110,19 @@ input:focus {
     margin-top: 1%;
     margin-bottom: 10px;
     border-radius: 5px;
-    border: 2px solid #71b7e6;
+    border: 2px solid #71b7e632;
     font-size: 15px;
     padding-left: 1rem;
+    border: 2px solid #a5baa3;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+
+}
+.inputBox:focus{
+    outline: none;
+    border: 2px solid #a5baa3;
+    /* border: none; */
+    /* background-color: #91bfd2c3; */
 }
 
 /* .inputBox:focus{
@@ -97,7 +161,7 @@ input:focus {
 
 
 .headline{
-    background-color: rgb(221, 217, 217);
+    background-color: rgb(208,244,220);
     font-family: 'Times New Roman';
     text-align: center;
     font-size: 30px;
@@ -107,6 +171,8 @@ input:focus {
 .headline p{
     margin: 0;
     padding: 0;
+    color: #636567;
+    
 }
 .formName {
     font-size: 25px;
@@ -132,10 +198,7 @@ input:focus {
     background-color: #eee;
     border-radius: 50%;
 }
-.form-box{
-    box-shadow: 0 .4rem .8rem #838383;
-    border-radius: 5px;
-}
+
 @media screen and (max-width:800px) {
     .myBtn {
         height: 30px;
@@ -147,7 +210,11 @@ input:focus {
         margin-left: 3%;
         margin-right: 10%;
     }
-
+    .headline p{
+        font-size: 20px;
+        color: #636567;
+        
+    }
 }
 
 @media screen and (max-width: 480px) {
