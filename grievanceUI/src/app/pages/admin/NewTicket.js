@@ -2,22 +2,6 @@ import React, { useState } from 'react'
 import '../../../assets/css/forms.css'
 function NewTicket() {
    
-    const role = {
-        "name":""
-    }
-    const department = {
-        "deptName":""
-    }
-    const newUser = {
-            "username":"",
-            "fullName":"",
-            "email":"",
-            "password":"",
-            "role" : role,
-            "department" : department
-        }
-    
-    const [user,setUser] = useState(newUser);
     
 
     return (

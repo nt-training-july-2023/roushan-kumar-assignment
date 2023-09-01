@@ -37,9 +37,20 @@ function Login() {
             setShow("show")
             return 
         }
-        const res = await api.post('api/login/authorization', userLogin)
+        const res = await api.post('/api/login/authorization', userLogin)
         if (res.data !== "Invalid credantial") {
-            navigate("/admin")
+            const userData = await api.get('api/user/byUsername/'+username)
+            console.log(userData.data);
+            sessionStorage.setItem("userID",userData.data.userId);
+            sessionStorage.setItem("username",userData.data.username);
+            sessionStorage.setItem("userType",userData.data.role.name)
+            
+            if(userData.data.role.name==="Admin"){
+              navigate("/admin")
+            }
+            else if(userData.data.role.name === "Member"){
+            navigate("/member")
+            }
         }
         else {
             console.log(res.data);
