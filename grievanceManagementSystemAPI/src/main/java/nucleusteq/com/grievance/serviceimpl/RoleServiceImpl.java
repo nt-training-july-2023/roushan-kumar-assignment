@@ -1,5 +1,6 @@
 package nucleusteq.com.grievance.serviceimpl;
 
+import java.util.List;
 import nucleusteq.com.grievance.entity.Role;
 import nucleusteq.com.grievance.repository.RoleRepo;
 import nucleusteq.com.grievance.service.RoleService;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
-
   /**
    * variables.
    */
@@ -38,5 +38,10 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public Role getRoleByName(final String nameParam) {
     return roleRepo.getRoleByName(nameParam);
+  }
+
+  @Override
+  public List<Role> getAllRole() {
+    return roleRepo.findAll();
   }
 }

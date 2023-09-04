@@ -86,4 +86,8 @@ public class Role {
   public void setName(final String nameParam) {
     this.name = nameParam;
   }
+
+@Override public String toString(){return "Role [roleId=" + roleId + ", name=" + name + "]";}
+ 
+  
 }

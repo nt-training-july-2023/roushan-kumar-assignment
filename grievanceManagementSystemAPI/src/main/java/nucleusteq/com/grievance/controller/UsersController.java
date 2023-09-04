@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsersController {
 
   /**
@@ -69,13 +72,19 @@ public class UsersController {
     // return ResponseEntity.ok(userService.save(userDto));
     if (errors.hasErrors()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-      .body("Fields required");
+      .body(errors.getAllErrors());
     }
-    try {
+    //try {
       return ResponseEntity.ok(userService.save(userDto));
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-    return null;
+   // } catch (Exception e) {
+   //   System.out.println(e.getMessage());
+   // }
+   // return null;
+  }
+  
+  @GetMapping("/byUsername/{username}")
+  public UserDto getUserByUsername(@PathVariable("username") String username)
+  {
+    return userService.getByUsername(username);
   }
 }

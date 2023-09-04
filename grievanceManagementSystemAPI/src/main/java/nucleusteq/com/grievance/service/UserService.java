@@ -43,4 +43,17 @@ public interface UserService {
    * @return boolean
    */
   boolean authenticate(UserDto userDto);
+
+  /**
+   * get user by username.
+   *
+   * @param username as string
+   * @return
+   */
+  UserDto getByUsername(String username);
+
+  /*
+   * 
+   */
+  Users getById(Integer userId);
 }

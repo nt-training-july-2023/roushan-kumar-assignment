@@ -1,13 +1,20 @@
 package nucleusteq.com.grievance.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
+
 import nucleusteq.com.grievance.dto.UserDto;
+import nucleusteq.com.grievance.entity.Department;
+import nucleusteq.com.grievance.entity.Role;
 import nucleusteq.com.grievance.entity.Users;
+import nucleusteq.com.grievance.exception.InternalServerError;
+import nucleusteq.com.grievance.exception.UserNotFoundException;
 import nucleusteq.com.grievance.repository.UserRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.RoleService;
 import nucleusteq.com.grievance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.OpPlus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -64,19 +71,33 @@ public class UsersServiceImpl implements UserService {
    */
   @Override
   public UserDto save(final UserDto userDto) {
-    //System.out.println(userDto.toString());
-    //System.out.println(userDto.getEmail() +" "+ userDto.getDepartment());
+    System.out.println(userDto.toString());
+    System.out.println(userDto.getRole().toString() +" "+ userDto.getDepartment());
     Users tempUser = new Users();
     UserDto userSend = new UserDto();
-    try {
+    //try {
       tempUser.setUsername(userDto.getUsername());
       tempUser.setFullName(userDto.getFullName());
       tempUser.setEmail(userDto.getEmail());
       tempUser.setPassword(userDto.getPassword());
       tempUser.setInitialPassword(1);
-      tempUser.setRole(roleService.getRoleByName(userDto.getRole().getName()));
-      tempUser.setDepartment(departmentService.getDepartmentByName(
-          userDto.getDepartment().getDeptName()));
+      Role role = roleService.getRoleByName(userDto.getRole().getName());
+      if(role!=null) {
+      tempUser.setRole(role);
+      }
+      else
+      {
+      	throw new InternalServerError("Role is not found");
+      }
+      Department dept = departmentService.getDepartmentByName(
+          userDto.getDepartment().getDeptName());
+      if(dept!=null) {
+      tempUser.setDepartment(dept);
+      }
+      else
+      {
+      	throw new InternalServerError("Department is not found");
+      }
       Users savedUser = userRepo.save(tempUser);
 
       userSend.setUserId(savedUser.getUserId());
@@ -87,9 +108,9 @@ public class UsersServiceImpl implements UserService {
       userSend.setInitalPassword(savedUser.getInitialPassword());
       userSend.setRole(savedUser.getRole());
       userSend.setDepartment(savedUser.getDepartment());
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    //} catch (Exception e) {
+    //  System.out.println(e.getMessage());
+    //}
 
     return userSend;
   }
@@ -139,4 +160,42 @@ public class UsersServiceImpl implements UserService {
     }
     return "unable to create power user";
   }
+
+  /**
+   * get user by username.
+   *
+   * @param username as string.
+   */
+  @Override
+  public UserDto getByUsername(String username) {
+    UserDto userSend = new UserDto();
+    Users user ;
+    
+       user = userRepo.getByUserName(username);
+       if(user==null)
+       {
+         throw new UserNotFoundException("User not found : "+username);
+       }
+       userSend.setUserId(user.getUserId());
+       userSend.setUsername(user.getUsername());
+       userSend.setEmail(user.getEmail());
+       userSend.setFullName(user.getFullName());
+       userSend.setPassword(user.getPassword());
+       userSend.setInitalPassword(user.getInitialPassword());
+       userSend.setRole(user.getRole());
+       userSend.setDepartment(user.getDepartment());
+       return userSend;
+   
+
+  }
+
+@Override
+public Users getById(Integer userId) {
+	Optional<Users> user = userRepo.findById(userId);
+	if(user.isPresent())
+	{
+		return user.get();
+	}
+  return null;
+ }
 }

@@ -1,5 +1,6 @@
 package nucleusteq.com.grievance.repository;
 
+import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +25,5 @@ public interface UserRepo extends JpaRepository<Users, Integer> {
    */
   @Query(value = GET_USER_BY_USERNAME, nativeQuery = true)
   Users getByUserName(@Param("username") String username);
+
 }

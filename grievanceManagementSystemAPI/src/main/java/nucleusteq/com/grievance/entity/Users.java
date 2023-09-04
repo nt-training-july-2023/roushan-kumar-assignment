@@ -92,6 +92,7 @@ public class Users {
   * @param passwordParam as string.
   * @param initialPasswordParam as Integer.
   * @param roleParam as Collection.
+  * @param departmentParam as class.
   */
   public Users(
       final Integer userIdParam,
@@ -100,7 +101,8 @@ public class Users {
       final String emailParam,
       final String passwordParam,
       final Integer initialPasswordParam,
-      final Role roleParam) {
+      final Role roleParam,
+      final Department departmentParam) {
     this.userId = userIdParam;
     this.username = userNameParam;
     this.fullName = fullNameParam;
@@ -108,6 +110,7 @@ public class Users {
     this.password = passwordParam;
     this.initialPassword = initialPasswordParam;
     this.role = roleParam;
+    this.department = departmentParam;
   }
 
   /**

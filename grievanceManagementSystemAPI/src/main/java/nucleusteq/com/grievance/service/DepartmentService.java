@@ -1,5 +1,7 @@
 package nucleusteq.com.grievance.service;
 
+import java.util.List;
+
 import nucleusteq.com.grievance.entity.Department;
 
 /**
@@ -16,5 +18,20 @@ public interface DepartmentService {
    * get department by department name.
    */
   Department getDepartmentByName(String name);
+
+  /**
+   * get all department.
+   *
+   * @return all department.
+   */
+  List<Department> getAllDepartment();
+
+  /**
+   * delete Department.
+   *
+   * @param deptId as integer
+   * @return department
+   */
+  void delete(Integer deptId);
 }
 

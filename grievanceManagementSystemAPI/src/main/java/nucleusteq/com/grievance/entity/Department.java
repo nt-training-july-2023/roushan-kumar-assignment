@@ -6,12 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Department Class.
  */
 @Entity
-@Table(name = "department")
+@Table(
+  name = "department",
+  uniqueConstraints = { @UniqueConstraint(columnNames = "deptName") }
+)
 public class Department {
   /**
    * DeptId is Integer.
@@ -29,9 +33,7 @@ public class Department {
   /**
    * No args Constructor.
    */
-  public Department() {
-
-  }
+  public Department() {}
 
   /**
    * All arg Constructor.
@@ -39,8 +41,7 @@ public class Department {
    * @param deptIdParam department id.
    * @param deptNameParam department name.
    */
-  public Department(final Integer deptIdParam,
-      final String deptNameParam) {
+  public Department(final Integer deptIdParam, final String deptNameParam) {
     super();
     this.deptId = deptIdParam;
     this.deptName = deptNameParam;
@@ -99,5 +100,4 @@ public class Department {
   public String toString() {
     return "Department [deptId=" + deptId + ", deptName=" + deptName + "]";
   }
-
 }

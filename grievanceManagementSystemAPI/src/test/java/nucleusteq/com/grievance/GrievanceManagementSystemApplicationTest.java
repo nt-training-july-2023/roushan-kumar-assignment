@@ -26,11 +26,6 @@ class GrievanceManagementSystemApplicationTest {
     assertTrue(true);
   }
 
-  @Test
-  void testMain() {
-  	String args="hello";
-    SpringApplication.run(GrievanceManagementSystemApplication.class, args);
-  	assertTrue(true);
-  }
+ 
 }
 

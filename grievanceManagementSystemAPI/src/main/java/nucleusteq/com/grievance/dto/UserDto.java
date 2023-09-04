@@ -1,5 +1,6 @@
 package nucleusteq.com.grievance.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,6 +37,7 @@ public class UserDto {
   /**
    * email in string.
    */
+  @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$", message = "Email address invalid")
   @NotNull(message = "email is required")
   private String email;
 
@@ -85,6 +87,7 @@ public class UserDto {
       final String usernameParam,
       @NotEmpty(message = "full name is required")
       final String fullNameParam,
+      @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$", message = "Email address invalid")
       @NotNull(message = "email is required")
       final String emailParam,
       @NotNull(message = "password is required")
