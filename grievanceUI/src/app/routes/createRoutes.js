@@ -6,6 +6,9 @@ import App from "../../App"
 import Admin from "../pages/admin/Admin";
 import NewUser from "../pages/admin/NewUser";
 import NewTicket from "../pages/admin/NewTicket";
+import ErrorPage from "../pages/ErrorPage";
+import Department from "../pages/admin/Department";
+import Member from "../pages/member/Member";
 export default createBrowserRouter([
     {
         path: "/app",
@@ -20,6 +23,10 @@ export default createBrowserRouter([
     {
         path: "/",
         element:  <Login />
+    },
+    {
+        path: "/*",
+        element:  <ErrorPage />
     },
     {
         path:"/admin",
@@ -37,6 +44,22 @@ export default createBrowserRouter([
                 path: "newticket",
                 element: <NewTicket/>,
             },
+            {
+                path: "Department",
+                element: <Department/>,
+            },
+        ]
+    },
+
+    {
+        path:"/member",
+        element:<Member/>,
+        children:[
+            {
+                path: "home",
+                element: <Home/>,
+            },
+            
         ]
     }
 ]);

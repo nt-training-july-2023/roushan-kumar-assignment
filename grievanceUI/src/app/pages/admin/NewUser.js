@@ -1,33 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../../assets/css/forms.css'
 import { Link } from 'react-router-dom';
 import api from '../../../assets/axios';
 import MessageSucess from '../../component/MessageSucess';
 function NewUser() {
-    
-    const roleDataBack = [
-        {
-            "roleId":"1",
-            "name":"Admin"
-        },
-        {
-            "roleId":"2",
-            "name":"Member"
-        },
-    ]
-    
-    const deptDataBack = [
-        {
-            "deptId":"1",
-            "deptName":"HR"
-        },
-        {
-            "deptId":"2",
-            "deptName":"FN"
-        },
-    ]
-    
-
+           
     const roleData = {
         "name" : ""
     }
@@ -47,6 +24,42 @@ function NewUser() {
     const {username,fullName,email,password,role,department} = user;
     const [show, setShow] = useState("");
     const [errorMessage,setErrorMessage] = useState("");
+    const [roleAllData,setRoleData] = useState([]);
+    const [deptData,setDeptData] = useState([]);
+
+    const getAllRole = async ()=>{
+        try {
+            const res = await api.get('api/role/all');
+            if(res.data)
+            {
+                setRoleData(res.data);
+            }
+           console.log(res.data);
+        } catch (error) {
+            console.log(error.response.data);
+        }
+        
+       
+    }
+    const getAllDepartment = async ()=>{
+        try {
+            const res = await api.get('api/department/all');
+            if(res.data)
+            {
+                setDeptData(res.data);
+            }
+           console.log(res.data);
+        } catch (error) {
+            console.log(error.response.data);
+        }
+    }
+    useEffect(() => {
+        getAllRole();
+    }, [])
+    useEffect(() => {
+        getAllDepartment();
+    }, [])
+
     const inputHandler = (e)=>{
         setUser({
             ...user,
@@ -78,11 +91,12 @@ function NewUser() {
 
     const newUserHandler = async (e)=>{
         e.preventDefault();
-        setErrorMessage("Testing new user form")
-            setShow("show")
+        
         try {
             console.log("role : ",role);
             const result =   await api.post('/api/user/save', user);
+            setErrorMessage("New User Added")
+            setShow("show")
             console.log(result.data);
         } catch (error) {
             console.log(error.response.data)
@@ -96,14 +110,14 @@ function NewUser() {
   return (
     <>
         <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
-        <div className='wrapper'>
+        <div className='wrapper '>
         <Link to="/admin" value="back">back</Link>
             <div className='title'>
                 Add New User
             </div>
             <form className='form' onSubmit={newUserHandler} >
                 <div className='input_field'>
-                    <label>Name</label>
+                    <label>Name  <span className='error'>*</span></label>
                     <input type="text" 
                            className='input' 
                            id="fullname" 
@@ -117,7 +131,7 @@ function NewUser() {
                 </div>
 
                 <div className='input_field'>
-                    <label>User Name</label>
+                    <label>User Name  <span className='error'>*</span></label>
                     <input type="text" 
                     className='input' 
                     id="username" 
@@ -130,25 +144,28 @@ function NewUser() {
                     </input>
                 </div>
 
-                <div className='input_field'>
-                    <label>Email</label>
+                <div className='input_field  '>
+                    <label>Email  <span className='error'>*</span></label>
+                        
+                    <input type="text" 
+                            className='input' 
+                            style={{paddingRight:"8rem",width:"94%"}}
+                            id="email" 
+                            name="email" 
+                            value={email} 
+                            onChange={inputHandler} 
+                            placeholder='example'
+                            required
+                    >
+                    </input>
                     
-                        <input type="text" 
-                               className='input' 
-                               id="email" 
-                               name="email" 
-                               value={email} 
-                               onChange={inputHandler} 
-                               placeholder='example@nucleusteq.com'
-                               required
-                        >
-                        </input>
+                    <span className='defaut_domain'>@nucleusteq.com</span>
                     
                     
                 </div>
-
+                
                 <div className='input_field'>
-                    <label>Initial Password</label>
+                    <label>Initial Password  <span className='error'>*</span></label>
                     <input type="password" 
                            className='input'
                            id="password" 
@@ -163,13 +180,16 @@ function NewUser() {
                 </div>
 
                 <div className='input_field'>
-                    <label>User Type</label>
+                    <label>User Type  <span className='error'>*</span></label>
                     <div  name="role" id="role" className='custom_select' onChange={inputRoleHandler}>
                         <select>
                                     <option value="0">--select user type--</option>
                                     {
-                                    roleDataBack.map((role)=>(
-                                        <option key={role.roleId} value={role.name} >{role.name}</option>
+                                    roleAllData.map((role)=>(
+                                        <option key={role.roleId} 
+                                                value={role.name} 
+                                        >{role.name}
+                                        </option>
                                     ))
                                     }
                         </select>
@@ -177,15 +197,18 @@ function NewUser() {
                 </div>
 
                 <div className='input_field'>
-                    <label>Department</label>
+                    <label>Department  <span className='error'>*</span></label>
                     <div name="department" id="department" className='custom_select' onChange={inputDeptHandler}>
                         <select>
                         <option value="0">--select Department--</option>
-                                    {
-                                    deptDataBack.map((dept)=>(
-                                        <option key={dept.deptId} value={dept.deptName} >{dept.deptName}</option>
-                                    ))
-                                    }
+                        {
+                        deptData.map((dept)=>(
+                            <option key={dept.deptId} 
+                                    value={dept.deptName} 
+                                    >{dept.deptName}
+                            </option>
+                        ))
+                        }
                         </select>
                     </div>
                 </div>

@@ -1,0 +1,81 @@
+.initial_pass{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    animation:sucess 400ms ease-in-out forwards;
+}
+
+@keyframes sucess {
+    0%{
+        opacity: 0;
+        top: 0;
+    }
+    20%{
+        opacity: .2;
+        top: 3rem;
+    }
+    100%{
+        opacity: 1;
+        top: 6rem;
+    }
+}
+
+.wrapper_pass{
+    width: 30%;
+    padding: 0 10px;
+    background-color: rgb(77, 196, 255);
+    /* margin: 20px 20px auto; */
+    padding: 30px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
+    
+}
+
+.wrapper_pass .title{
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 25px;
+    color: rgb(55, 56, 57) ;
+    text-align: center;
+}
+
+
+
+.wrapper_pass .form .input_field{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+.wrapper_pass .form .input_field label{
+    width: 40%;
+    margin-right: 10px;
+    font-size: 15px; 
+    font-style: 700;
+}
+
+.wrapper_pass .form .input_field input
+{
+   width: 60%;
+   padding: 8px 10px;
+   border: 1px solid #bac5ec;
+   font-size: 15px;
+   border-radius: 3px; 
+   
+}
+
+.wrapper_pass .form .input_field .input:focus
+{
+    border: 1px solid rgb(3, 131, 178);
+}
+
+.wrapper_pass .form .input_field .btnNew{
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: none;
+    background-color: #6495ED;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 1px;
+}
