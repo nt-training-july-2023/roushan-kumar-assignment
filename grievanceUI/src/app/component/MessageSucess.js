@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import '../../assets/css/notification.css';
 import '../../assets/js/myJs'
 function MessageSucess(props) {
-    console.log("props show" +props.show)
+    console.log("props show" + props.show)
     // const closeNotify = ()=>
     // {
     //     const element = document.getElementById("sucessMsg");
@@ -12,7 +12,6 @@ function MessageSucess(props) {
     // }
     return (
         <>
-        
             <div id="sucessMsg" className={'sucessNotification '+props.show}>
                 <p>
                 {props.message}
@@ -25,6 +24,7 @@ function MessageSucess(props) {
                     {/* </button> */}
                 </div>
             </div>
+
         </>
     )
 }

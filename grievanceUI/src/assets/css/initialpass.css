@@ -3,10 +3,10 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
-    animation:sucess 400ms ease-in-out forwards;
+    animation:sucess_initial_password 400ms ease-in-out forwards;
 }
 
-@keyframes sucess {
+@keyframes sucess_initial_password {
     0%{
         opacity: 0;
         top: 0;

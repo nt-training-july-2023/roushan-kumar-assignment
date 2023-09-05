@@ -41,7 +41,7 @@ function Login() {
         if (res.data !== "Invalid credantial") {
             const userData = await api.get('api/user/byUsername/'+username)
             console.log(userData.data);
-            sessionStorage.setItem("userID",userData.data.userId);
+            sessionStorage.setItem("userId",userData.data.userId);
             sessionStorage.setItem("username",userData.data.username);
             sessionStorage.setItem("userType",userData.data.role.name)
             
@@ -63,7 +63,7 @@ function Login() {
     }
     return (
         <>
-            <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
+           <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
            <div className='Login-body'>
             <div className='container-left'>
 
