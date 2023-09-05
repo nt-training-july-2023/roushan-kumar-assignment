@@ -1,6 +1,7 @@
 package nucleusteq.com.grievance.serviceimpl;
 
 import nucleusteq.com.grievance.entity.Department;
+import nucleusteq.com.grievance.exception.BadRequestError;
 import nucleusteq.com.grievance.exception.InternalServerError;
 import nucleusteq.com.grievance.repository.DepartmentRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
@@ -37,11 +38,17 @@ public class DepartmentServiceImpl implements DepartmentService {
    * to save Department.
    */
   @Override
-  public Department save(Department department) {
+  public Department save(Integer userId,Department department) {
     Department tempDepartment;
     //try {
+    	
+       if(departmentRepo.isAdmin(userId)!=1)
+       {
+      	 throw new BadRequestError("You are not authorized to add department.");
+       }
+    	
       tempDepartment = departmentRepo.getDepartmentByName(department.getDeptName());
-      if(tempDepartment==null)
+      if(tempDepartment==null )
        return departmentRepo.save(department);
       else
        throw new InternalServerError("Department Already Exists");
@@ -79,7 +86,11 @@ public class DepartmentServiceImpl implements DepartmentService {
    * delete department by id.
    */
   @Override
-  public void delete(Integer deptId) {
+  public void delete(Integer userId,Integer deptId) {
+  	if(departmentRepo.isAdmin(userId)!=1)
+    {
+   	 throw new BadRequestError("You are not authorized to delete department.");
+    }
    departmentRepo.deleteById(deptId);
    return ;
   }

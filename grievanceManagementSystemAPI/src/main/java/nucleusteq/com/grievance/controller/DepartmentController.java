@@ -36,15 +36,19 @@ public class DepartmentController {
     return departmentSevice.getAllDepartment();
   }
 
-  @PostMapping("/save")
-  public Department saveDepartment(@RequestBody Department department) {
-    return departmentSevice.save(department);
+  @PostMapping("/save/{userId}")
+  public Department saveDepartment(@PathVariable Integer userId,
+  		@RequestBody Department department) {
+  	
+    return departmentSevice.save(userId,department);
   }
 
-  @DeleteMapping("/delete/{deptId}")
-  public void deleteDepartment(@PathVariable("deptId") Integer deptId)
+  @DeleteMapping("/delete/{deptId}/{userId}")
+  public void deleteDepartment(
+  		@PathVariable("userId") Integer userId,
+  		@PathVariable("deptId") Integer deptId)
   {
-     departmentSevice.delete(deptId);
+     departmentSevice.delete(userId,deptId);
      return;
   }
 }

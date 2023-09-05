@@ -68,12 +68,12 @@ public class DepartmentControllertTest {
     Department department = new Department(1, "Department 1");
 
     // Mock the behavior of the departmentService to return the saved department
-    when(departmentService.save(any(Department.class))).thenReturn(department);
+    when(departmentService.save(any(Integer.class),any(Department.class))).thenReturn(department);
 
     // Perform a POST request to the "/api/department/save" endpoint with JSON data
     mockMvc
       .perform(
-        post("/api/department/save")
+        post("/api/department/save/1")
           .contentType(MediaType.APPLICATION_JSON)
           .content("{\"deptId\": 1, \"deptName\": \"Department 1\"}")
       )
@@ -83,7 +83,7 @@ public class DepartmentControllertTest {
       .andExpect(jsonPath("$.deptName").value("Department 1"));
 
     // Verify that the departmentService's save method was called with the department object
-    verify(departmentService, times(1)).save(any(Department.class));
+    verify(departmentService, times(1)).save(any(Integer.class),any(Department.class));
     verifyNoMoreInteractions(departmentService);
   }
 

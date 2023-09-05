@@ -82,36 +82,36 @@ public class Users {
   public Users() {
   }
 
-  /**
-  * Constructor with userId (used for creating new users).
-  *
-  * @param userIdParam as Integer.
-  * @param userNameParam as string.
-  * @param fullNameParam as string.
-  * @param emailParam as string.
-  * @param passwordParam as string.
-  * @param initialPasswordParam as Integer.
-  * @param roleParam as Collection.
-  * @param departmentParam as class.
-  */
-  public Users(
-      final Integer userIdParam,
-      final String userNameParam,
-      final String fullNameParam,
-      final String emailParam,
-      final String passwordParam,
-      final Integer initialPasswordParam,
-      final Role roleParam,
-      final Department departmentParam) {
-    this.userId = userIdParam;
-    this.username = userNameParam;
-    this.fullName = fullNameParam;
-    this.email = emailParam;
-    this.password = passwordParam;
-    this.initialPassword = initialPasswordParam;
-    this.role = roleParam;
-    this.department = departmentParam;
-  }
+//  /**
+//  * Constructor with userId (used for creating new users).
+//  *
+//  * @param userIdParam as Integer.
+//  * @param userNameParam as string.
+//  * @param fullNameParam as string.
+//  * @param emailParam as string.
+//  * @param passwordParam as string.
+//  * @param initialPasswordParam as Integer.
+//  * @param roleParam as Collection.
+//  * @param departmentParam as class.
+//  */
+//  public Users(
+//      final Integer userIdParam,
+//      final String userNameParam,
+//      final String fullNameParam,
+//      final String emailParam,
+//      final String passwordParam,
+//      final Integer initialPasswordParam,
+//      final Role roleParam,
+//      final Department departmentParam) {
+//    this.userId = userIdParam;
+//    this.username = userNameParam;
+//    this.fullName = fullNameParam;
+//    this.email = emailParam;
+//    this.password = passwordParam;
+//    this.initialPassword = initialPasswordParam;
+//    this.role = roleParam;
+//    this.department = departmentParam;
+//  }
 
   /**
    * Constructor without userId (used for creating new users).

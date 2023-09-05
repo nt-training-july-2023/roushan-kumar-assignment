@@ -47,15 +47,6 @@ public class Department {
     this.deptName = deptNameParam;
   }
 
-  /**
-   * All arg Constructor.
-   *
-   * @param deptNameParam department name.
-   */
-  public Department(final String deptNameParam) {
-    super();
-    this.deptName = deptNameParam;
-  }
 
   /**
    * get department Id.

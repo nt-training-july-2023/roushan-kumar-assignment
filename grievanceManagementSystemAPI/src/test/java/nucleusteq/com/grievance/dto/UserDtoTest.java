@@ -65,34 +65,34 @@ public class UserDtoTest {
     assertNull(userDto.getDepartment());
   }
 
-  @Test
-  public void testParameterizedConstructor() {
-    Role role = new Role(); // Create a Role instance for testing
-    Department department = new Department(); // Create a Department instance for testing
-
-    UserDto userDto = new UserDto(
-      1,
-      "testUser",
-      "Roushan kumar",
-      "roushan.kumar@example.com",
-      "password123",
-      123456,
-      role,
-      department
-    );
-
-    // Verify that the userDto object is not null
-    assertNotNull(userDto);
-
-    // Verify that the fields of the userDto object are correctly initialized with the provided values
-    assertEquals(new Integer(1), userDto.getUserId());
-    assertEquals("testUser", userDto.getUsername());
-    assertEquals("Roushan kumar", userDto.getFullName());
-    assertEquals("roushan.kumar@example.com", userDto.getEmail());
-    assertEquals("password123", userDto.getPassword());
-    assertEquals(new Integer(123456), userDto.getInitalPassword());
-    assertEquals(role, userDto.getRole());
-    assertEquals(department, userDto.getDepartment());
-  }
+//  @Test
+//  public void testParameterizedConstructor() {
+//    Role role = new Role(); // Create a Role instance for testing
+//    Department department = new Department(); // Create a Department instance for testing
+//
+//    UserDto userDto = new UserDto(
+//      1,
+//      "testUser",
+//      "Roushan kumar",
+//      "roushan.kumar@example.com",
+//      "password123",
+//      123456,
+//      role,
+//      department
+//    );
+//
+//    // Verify that the userDto object is not null
+//    assertNotNull(userDto);
+//
+//    // Verify that the fields of the userDto object are correctly initialized with the provided values
+//    assertEquals(new Integer(1), userDto.getUserId());
+//    assertEquals("testUser", userDto.getUsername());
+//    assertEquals("Roushan kumar", userDto.getFullName());
+//    assertEquals("roushan.kumar@example.com", userDto.getEmail());
+//    assertEquals("password123", userDto.getPassword());
+//    assertEquals(new Integer(123456), userDto.getInitalPassword());
+//    assertEquals(role, userDto.getRole());
+//    assertEquals(department, userDto.getDepartment());
+//  }
 }
 

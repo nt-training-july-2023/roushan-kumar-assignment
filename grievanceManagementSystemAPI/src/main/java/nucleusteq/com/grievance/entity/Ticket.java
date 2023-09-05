@@ -84,41 +84,41 @@ public class Ticket {
   public Ticket() {
   }
   
-  /**
-   * @param ticketId
-   * @param title
-   * @param description
-   * @param creationTime
-   * @param lastUpdateTime
-   * @param department
-   * @param ticketType
-   * @param ticketStatus
-   * @param comments
-   */
-    public Ticket(
-    Integer ticketId,
-    String title,
-    String description,
-    LocalDateTime creationTime,
-    LocalDateTime lastUpdateTime,
-    Department department,
-    TicketType ticketType,
-    TicketStatus ticketStatus,
-    Collection<Comments> comments,
-    Users user
-  ) {
-    super();
-    this.ticketId = ticketId;
-    this.title = title;
-    this.description = description;
-    this.creationTime = creationTime; // Defensive copy
-    this.lastUpdateTime = lastUpdateTime;// Defensive copy
-    this.department = department;
-    this.ticketType = ticketType;
-    this.ticketStatus = ticketStatus;
-    this.comments = comments;
-    this.user = user;
-  }
+//  /**
+//   * @param ticketId
+//   * @param title
+//   * @param description
+//   * @param creationTime
+//   * @param lastUpdateTime
+//   * @param department
+//   * @param ticketType
+//   * @param ticketStatus
+//   * @param comments
+//   */
+//    public Ticket(
+//    Integer ticketId,
+//    String title,
+//    String description,
+//    LocalDateTime creationTime,
+//    LocalDateTime lastUpdateTime,
+//    Department department,
+//    TicketType ticketType,
+//    TicketStatus ticketStatus,
+//    Collection<Comments> comments,
+//    Users user
+//  ) {
+//    super();
+//    this.ticketId = ticketId;
+//    this.title = title;
+//    this.description = description;
+//    this.creationTime = creationTime; // Defensive copy
+//    this.lastUpdateTime = lastUpdateTime;// Defensive copy
+//    this.department = department;
+//    this.ticketType = ticketType;
+//    this.ticketStatus = ticketStatus;
+//    this.comments = comments;
+//    this.user = user;
+//  }
 
   /**
    * @return the ticketId

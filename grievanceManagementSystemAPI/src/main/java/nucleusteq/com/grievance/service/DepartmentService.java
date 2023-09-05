@@ -12,7 +12,7 @@ public interface DepartmentService {
   /*
    * save department.
    */
-  Department save(Department department);
+  Department save(Integer userId,Department department );
 
   /*
    * get department by department name.
@@ -30,8 +30,9 @@ public interface DepartmentService {
    * delete Department.
    *
    * @param deptId as integer
+   * @param deptId2 
    * @return department
    */
-  void delete(Integer deptId);
+  void delete(Integer deptId, Integer deptId2);
 }
 

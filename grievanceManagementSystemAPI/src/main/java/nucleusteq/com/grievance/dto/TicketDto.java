@@ -1,6 +1,10 @@
 package nucleusteq.com.grievance.dto;
 
 import java.sql.Date;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
@@ -15,16 +19,21 @@ import nucleusteq.com.grievance.entity.TicketType;
 public class TicketDto {
   private Integer ticketId;
 
+  @NotEmpty
   private String title;
 
+  @NotEmpty
   private String description;
 
+  @NotNull
   private Department department;
 
+  @NotNull
   private TicketType ticketType;
 
   private TicketStatus ticketStatus;
 
+  @NotNull
   private Integer userId;
 
   /**

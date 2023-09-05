@@ -43,8 +43,9 @@ public class DepartmentSeviceImplTest {
   	dept.setDeptId(1);
   	dept.setDeptName("HR");
   	when(departmentRepo.save(dept)).thenReturn(dept);
+  	when(departmentRepo.isAdmin(1)).thenReturn(1);
   	
-  	Department DeptReceived = departmentServiceImpl.save(dept);
+  	Department DeptReceived = departmentServiceImpl.save(1,dept);
   	System.out.print(DeptReceived.getDeptName());
   	assertEquals(dept.getDeptId().toString(),DeptReceived.getDeptId().toString());
   	assertEquals(dept.getDeptName().toString(),DeptReceived.getDeptName().toString());

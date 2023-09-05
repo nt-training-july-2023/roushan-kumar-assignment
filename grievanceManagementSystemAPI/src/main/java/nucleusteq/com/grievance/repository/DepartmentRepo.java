@@ -14,6 +14,10 @@ public interface DepartmentRepo extends JpaRepository<Department, Integer> {
 
   @Query(value = GET_DEPARTMENT_BY_NAME, nativeQuery = true)
   Department getDepartmentByName(@Param("name") String name);
+
+  String IS_ADMIN = "select count(user_id) from users where user_id=:userId";
+  @Query(value = IS_ADMIN , nativeQuery = true )
+  int isAdmin(@Param("userId") Integer userId);
   
 }
 

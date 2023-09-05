@@ -18,7 +18,7 @@ public class UsersTest {
   public void setUp() {
       // Initialize a Users object for testing
       user = new Users(
-      		new Integer(1),
+      		
           "testuser",
           "Test User",
           "testuser@example.com",
@@ -27,11 +27,13 @@ public class UsersTest {
           new Role(1,"Admin"),
           new Department(1,"HR")
       );
+      user.setUserId(1);
       System.out.println(user.toString());
   }
 
   @Test
   public void testGetters() {
+  	
       assertEquals(new Integer(1), user.getUserId());
       assertEquals("testuser", user.getUsername());
       assertEquals("Test User", user.getFullName());

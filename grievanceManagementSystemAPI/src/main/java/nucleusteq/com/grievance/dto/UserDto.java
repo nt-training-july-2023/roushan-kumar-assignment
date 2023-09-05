@@ -70,42 +70,42 @@ public class UserDto {
 
   }
 
-  /**
-   * All arg constructor.
-   *
-   * @param userIdParam unique id for user
-   * @param usernameParam unique email for user
-   * @param fullNameParam first name
-   * @param emailParam email
-   * @param passwordParam password
-   * @param initalPasswordParam initalPassword
-   * @param roleParam userType
-   */
-  public UserDto(
-      final Integer userIdParam,
-      @NotEmpty(message = "username is required") @Size(min = 2)
-      final String usernameParam,
-      @NotEmpty(message = "full name is required")
-      final String fullNameParam,
-      @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$", message = "Email address invalid")
-      @NotNull(message = "email is required")
-      final String emailParam,
-      @NotNull(message = "password is required")
-      final String passwordParam,
-      final Integer initalPasswordParam,
-      final Role roleParam,
-      final Department departmentParam
-  ) {
-    super();
-    this.userId = userIdParam;
-    this.username = usernameParam;
-    this.fullName = fullNameParam;
-    this.email = emailParam;
-    this.password = passwordParam;
-    this.initalPassword = initalPasswordParam;
-    this.role = roleParam;
-    this.department = departmentParam;
-  }
+//  /**
+//   * All arg constructor.
+//   *
+//   * @param userIdParam unique id for user
+//   * @param usernameParam unique email for user
+//   * @param fullNameParam first name
+//   * @param emailParam email
+//   * @param passwordParam password
+//   * @param initalPasswordParam initalPassword
+//   * @param roleParam userType
+//   */
+//  public UserDto(
+//      final Integer userIdParam,
+//      @NotEmpty(message = "username is required") @Size(min = 2)
+//      final String usernameParam,
+//      @NotEmpty(message = "full name is required")
+//      final String fullNameParam,
+//      @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$", message = "Email address invalid")
+//      @NotNull(message = "email is required")
+//      final String emailParam,
+//      @NotNull(message = "password is required")
+//      final String passwordParam,
+//      final Integer initalPasswordParam,
+//      final Role roleParam,
+//      final Department departmentParam
+//  ) {
+//    super();
+//    this.userId = userIdParam;
+//    this.username = usernameParam;
+//    this.fullName = fullNameParam;
+//    this.email = emailParam;
+//    this.password = passwordParam;
+//    this.initalPassword = initalPasswordParam;
+//    this.role = roleParam;
+//    this.department = departmentParam;
+//  }
 
   /**
    * get user id.
