@@ -27,7 +27,6 @@ public class Ticket {
   private String title;
   private String description;
   
-  @UpdateTimestamp
   private LocalDateTime creationTime;
   @UpdateTimestamp
   private LocalDateTime lastUpdateTime;
@@ -100,8 +99,8 @@ public class Ticket {
     Integer ticketId,
     String title,
     String description,
-    Date creationTime,
-    Date lastUpdateTime,
+    LocalDateTime creationTime,
+    LocalDateTime lastUpdateTime,
     Department department,
     TicketType ticketType,
     TicketStatus ticketStatus,
@@ -112,8 +111,8 @@ public class Ticket {
     this.ticketId = ticketId;
     this.title = title;
     this.description = description;
-    this.creationTime = new Date(creationTime.getTime()); // Defensive copy
-    this.lastUpdateTime = new Date(lastUpdateTime.getTime()); // Defensive copy
+    this.creationTime = creationTime; // Defensive copy
+    this.lastUpdateTime = lastUpdateTime;// Defensive copy
     this.department = department;
     this.ticketType = ticketType;
     this.ticketStatus = ticketStatus;
@@ -167,29 +166,34 @@ public class Ticket {
    * @return the creationTime
    */
   
-  public Date getCreationTime() {
-    return new Date(creationTime.getTime());
+  public LocalDateTime getCreationTime() {
+   // return new Date(creationTime.getTime());
+  	return creationTime;
   }
 
   /**
    * @param creationTime the creationTime to set
    */
-  public void setCreationTime(Date creationTime) {
-    if (creationTime != null) this.creationTime = new Date(creationTime.getTime());
+  public void setCreationTime(LocalDateTime creationTime) {
+    //if (creationTime != null) this.creationTime = new Date(creationTime.getTime());
+  	this.creationTime = creationTime;
   }
 
   /**
    * @return the lastUpdateTime
    */
-  public Date getLastUpdateTime() {
-    return new Date(lastUpdateTime.getTime());
+  public LocalDateTime getLastUpdateTime() {
+   // return new Date(lastUpdateTime.getTime());
+  	return lastUpdateTime;
+  	
   }
 
   /**
    * @param lastUpdateTime the lastUpdateTime to set
    */
-  public void setLastUpdateTime(Date lastUpdateTime) {
-    this.lastUpdateTime = new Date(lastUpdateTime.getTime());
+  public void setLastUpdateTime(LocalDateTime lastUpdateTime) {
+   // this.lastUpdateTime = new Date(lastUpdateTime.getTime());
+  	this.lastUpdateTime = lastUpdateTime;
   }
 
   /**

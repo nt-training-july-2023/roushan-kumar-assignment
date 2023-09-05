@@ -2,6 +2,8 @@ package nucleusteq.com.grievance.serviceimpl;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
@@ -54,7 +56,8 @@ public class TicketServiceImpl implements TicketService {
   @Override
   public ResponseDto save(TicketDto ticketDto) {
     Ticket ticket = new Ticket();
-
+    LocalDateTime currentDateTime  = LocalDateTime.now();
+    System.out.println(" currentDateTime : "+currentDateTime);
     TicketType tType = ticketTypeService.getTicketTypeByName(ticketDto.getTicketType().getTicketName());
     if(tType!=null) {
     ticket.setTicketType(tType);
@@ -62,12 +65,14 @@ public class TicketServiceImpl implements TicketService {
     else {
     	throw new BadRequestError("Not found Ticket Type : "+ ticketDto.getTicketType().getTicketName());
     }
+    ticket.setTicketId(ticketDto.getTicketId());
     ticket.setTitle(ticketDto.getTitle());
     ticket.setDescription(ticketDto.getDescription());
-    Date date = Date.valueOf(LocalDate.now());
-    System.out.println("Creation Time" + date);
-    ticket.setCreationTime(date);
-    
+    //Date date = Date.valueOf(LocalDate.now());
+    //System.out.println("Creation Time" + date);
+    //if(ticketDto.getTicketId()==null) {
+     ticket.setCreationTime(currentDateTime);
+    //}
     TicketStatus TStatus = ticketStatusService.getByName("OPEN");
     if(TStatus!=null)
     {
@@ -102,5 +107,26 @@ public class TicketServiceImpl implements TicketService {
     ResponseDto response = new ResponseDto(ticket.getTicketId(),"New Ticket Created","SAVE");
     
     return response;
+  }
+  
+  @Override
+  public ResponseDto update(TicketDto ticketDto) {
+  	Optional<Ticket> ticket = ticketRepo.findById(ticketDto.getTicketId());
+  	
+  	if(ticket.isPresent())
+  	{
+  		Ticket ticketData;
+  		ticketData = ticket.get();
+  		LocalDateTime lastUpdateTime = LocalDateTime.now();
+  		ticketData.setLastUpdateTime(lastUpdateTime);
+  		ticketRepo.save(ticketData);
+  		ResponseDto response = new ResponseDto(ticketDto.getTicketId(),"Ticket Update","UPDATE");
+      return response;
+  	}
+  	else
+  	{
+  		ResponseDto response = new ResponseDto(ticketDto.getTicketId(),"Ticket not found","NOT UPDATE");
+      return response;
+  	}
   }
 }

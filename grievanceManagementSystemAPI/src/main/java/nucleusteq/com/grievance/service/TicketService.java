@@ -6,5 +6,7 @@ import nucleusteq.com.grievance.dto.TicketDto;
 public interface TicketService {
 	
 	ResponseDto save(TicketDto ticketDto);
+
+  ResponseDto update(TicketDto ticketDto);
 }
 
