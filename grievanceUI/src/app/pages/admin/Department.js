@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import '../../../assets/css/table.css'
 import api from '../../../assets/axios';
+import AddDepartment from '../../component/AddDepartment';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);
+    const [showDept, setShowDept] = useState(false);
     const getAllDepartment = async () => {
         try {
             const res = await api.get('api/department/all');
@@ -19,12 +21,50 @@ function Department() {
         getAllDepartment();
     }, [])
 
+    const closeDeptHandler = () => {
+        setShowDept(false);
+        //document.getElementById('dep').style.cursor = 'default';
+        //document.getElementsByClassName('btn').style.cursor = 'default';
+        //document.getElementsByClassName('btn').style.cursor = 'default';
+
+        document.getElementById('dep').style.cursor = 'default';
+       // document.getElementsByClassName('btn').style.cursor = 'no-drop';
+        let buttons = document.getElementsByClassName('btn')
+
+        for(var i=0, len=buttons.length; i<len; i++)
+        {
+            //buttons[i].style["cursor"] = 'no-drop';
+            //pointer-events: none;
+            buttons[i].style["pointer-events"] = 'auto';
+        }
+    }
+
+    const openDeptHandler = () => {
+        setShowDept(true);
+        document.getElementById('dep').style.cursor = 'no-drop';
+       // document.getElementsByClassName('btn').style.cursor = 'no-drop';
+        let buttons = document.getElementsByClassName('btn')
+
+        for(var i=0, len=buttons.length; i<len; i++)
+        {
+            //buttons[i].style["cursor"] = 'no-drop';
+            //pointer-events: none;
+            buttons[i].style["pointer-events"] = 'none';
+        }
+    }
+
+    const deptDeleteHandle = ()=>{
+        console.log("clicked");
+
+    }
+
     return (
         <>
-            <main className="table">
+            {showDept && <AddDepartment onClick={closeDeptHandler} />}
+            <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>
-                    <button className='add_department'></button>
+                    <button className='add_department' onClick={openDeptHandler}></button>
                 </section>
                 <section className="table__body">
                     <table>
@@ -37,7 +77,7 @@ function Department() {
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             {
                                 deptData.map((dept) => {
                                     return <>
@@ -46,8 +86,8 @@ function Department() {
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>
-                                                    <button  className='button_edit'></button>
-                                                    <button  className='button_delete'></button>
+                                                    <button id="buttonEdit" className='btn button_edit' ></button>
+                                                    <button id="buttonDet" className='btn button_delete' onClick={deptDeleteHandle}></button>
                                                 </div>
                                             </td>
                                         </tr>
