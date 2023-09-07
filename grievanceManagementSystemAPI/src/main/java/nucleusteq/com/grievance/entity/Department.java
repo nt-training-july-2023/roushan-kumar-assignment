@@ -41,7 +41,9 @@ public class Department {
    * @param deptIdParam department id.
    * @param deptNameParam department name.
    */
-  public Department(final Integer deptIdParam, final String deptNameParam) {
+  public Department(
+      final Integer deptIdParam,
+      final String deptNameParam) {
     super();
     this.deptId = deptIdParam;
     this.deptName = deptNameParam;

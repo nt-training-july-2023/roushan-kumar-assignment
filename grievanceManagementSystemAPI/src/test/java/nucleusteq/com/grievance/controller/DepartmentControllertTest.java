@@ -10,12 +10,15 @@ import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.service.DepartmentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 
 public class DepartmentControllertTest {
   private MockMvc mockMvc;
@@ -27,11 +30,8 @@ public class DepartmentControllertTest {
   private DepartmentService departmentService;
 
   @BeforeEach
-  //  public void setup() {
-  //      MockitoAnnotations.initMocks(this);
-  //      mockMvc = MockMvcBuilders.standaloneSetup(departmentController).build();
-  //  }
-  public void setup() {
+  public void setUp() {
+  	System.out.println("setUp() method executed");
     MockitoAnnotations.openMocks(this);
     mockMvc = MockMvcBuilders.standaloneSetup(departmentController).build();
   }
@@ -91,11 +91,11 @@ public class DepartmentControllertTest {
   public void testDeleteDepartment() throws Exception {
     // Perform a DELETE request to the "/api/department/delete/{deptId}" endpoint
     mockMvc
-      .perform(delete("/api/department/delete/{deptId}", 1))
+      .perform(delete("/api/department/delete/{deptId}/{userId}",1,1))
       .andExpect(status().isOk());
 
     // Verify that the departmentService's delete method was called with the specified department ID
-    verify(departmentService, times(1)).delete(1);
+    verify(departmentService, times(1)).delete(1,1);
     verifyNoMoreInteractions(departmentService);
   }
 }

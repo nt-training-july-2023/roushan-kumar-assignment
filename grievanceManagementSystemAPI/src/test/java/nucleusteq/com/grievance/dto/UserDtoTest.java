@@ -15,6 +15,7 @@ public class UserDtoTest {
 
   @BeforeEach
   public void setUp() {
+  	System.out.print("UserDto setUP");
     userDto = new UserDto();
   }
 

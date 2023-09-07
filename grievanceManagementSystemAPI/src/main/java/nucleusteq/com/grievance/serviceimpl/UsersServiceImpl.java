@@ -7,6 +7,7 @@ import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
 import nucleusteq.com.grievance.entity.Users;
+import nucleusteq.com.grievance.exception.BadRequestError;
 import nucleusteq.com.grievance.exception.InternalServerError;
 import nucleusteq.com.grievance.exception.UserNotFoundException;
 import nucleusteq.com.grievance.repository.UserRepo;
@@ -87,7 +88,7 @@ public class UsersServiceImpl implements UserService {
       }
       else
       {
-      	throw new InternalServerError("Role is not found");
+      	throw new BadRequestError("Role is not found");
       }
       Department dept = departmentService.getDepartmentByName(
           userDto.getDepartment().getDeptName());
@@ -96,16 +97,22 @@ public class UsersServiceImpl implements UserService {
       }
       else
       {
-      	throw new InternalServerError("Department is not found");
+      	throw new BadRequestError("Department is not found");
       }
+      
+      if(userRepo.getByUserName(userDto.getUsername()) != null)
+      {
+      	throw new InternalServerError("Username is already exist.");
+      }
+      
       Users savedUser = userRepo.save(tempUser);
 
       userSend.setUserId(savedUser.getUserId());
       userSend.setUsername(savedUser.getUsername());
       userSend.setEmail(savedUser.getEmail());
       userSend.setFullName(savedUser.getFullName());
-      userSend.setPassword(savedUser.getPassword());
-      userSend.setInitalPassword(savedUser.getInitialPassword());
+      //userSend.setPassword(savedUser.getPassword());
+      //userSend.setInitalPassword(savedUser.getInitialPassword());
       userSend.setRole(savedUser.getRole());
       userSend.setDepartment(savedUser.getDepartment());
     //} catch (Exception e) {
@@ -148,7 +155,7 @@ public class UsersServiceImpl implements UserService {
       if (key == keyVal) {
         powerUser.setUsername("root");
         powerUser.setPassword("root");
-        powerUser.setEmail("root@nucleus.com");
+        powerUser.setEmail("root.root@nucleus.com");
         powerUser.setFullName("Power");
         powerUser.setInitialPassword(1);
         powerUser.setRole(roleService.getRoleByName("Admin"));

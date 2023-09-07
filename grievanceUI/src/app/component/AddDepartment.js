@@ -1,8 +1,24 @@
 import React from 'react'
 import '../../assets/addDepartmen.js'
-function AddDepartment({onClick}) {
-    const submitHandler = (e)=>{
+import api from '../../assets/axios.js';
+ function AddDepartment({onClick}) {
+    const submitHandler = async (e)=>{
         e.preventDefault();
+
+        try {
+          const res = await api.post("/api/department/save/1",{
+            "deptName": "SDE 2",
+            "password": "passfdadf"
+         },
+         {
+          headers: {password:"auth"},
+         }
+         )
+
+        } catch (error) {
+          console.log(error.response)
+        }
+
       }
       const clearHandler = (e)=>{
         e.preventDefault();

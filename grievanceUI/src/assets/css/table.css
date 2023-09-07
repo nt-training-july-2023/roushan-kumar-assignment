@@ -153,3 +153,20 @@ tbody tr:nth-child(even)
 .add_department:hover {
     box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
 }
+
+.add_department:hover  .tooltiptext{
+    visibility: visible;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    top:0px;
+    position: absolute;
+    z-index: 1;
+  }

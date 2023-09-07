@@ -15,7 +15,14 @@ public class TicketStatus {
 
   private String ticketStatusName;
 
+  public TicketStatus() {
+  }
   /**
+ * @param ticketStatusId
+ * @param ticketStatusName
+ */public TicketStatus(Integer ticketStatusId,String ticketStatusName){super();this.ticketStatusId=ticketStatusId;this.ticketStatusName=ticketStatusName;}
+
+/**
    * @return the ticketStatusId
    */
   public Integer getTicketStatusId() {

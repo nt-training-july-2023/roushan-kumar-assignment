@@ -9,6 +9,7 @@ import NewTicket from "../pages/admin/NewTicket";
 import ErrorPage from "../pages/ErrorPage";
 import Department from "../pages/admin/Department";
 import Member from "../pages/member/Member";
+import SessionExpire from "../pages/SessionExpire";
 export default createBrowserRouter([
     {
         path: "/app",
@@ -27,6 +28,10 @@ export default createBrowserRouter([
     {
         path: "/*",
         element:  <ErrorPage />
+    },
+    {
+        path: "/session-expired",
+        element:  <SessionExpire />
     },
     {
         path:"/admin",

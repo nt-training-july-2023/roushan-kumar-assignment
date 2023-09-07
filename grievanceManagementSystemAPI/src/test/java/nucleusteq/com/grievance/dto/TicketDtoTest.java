@@ -24,6 +24,17 @@ public class TicketDtoTest {
   public void testConstructor() {
       assertNotNull(ticketDto);
   }
+  
+  @Test
+  public void testGetUserId() {
+      assertEquals(new Integer(1), ticketDto.getUserId());
+  }
+
+  @Test
+  public void testSetUserId() {
+      ticketDto.setUserId(2);
+      assertEquals(new Integer(2), ticketDto.getUserId());
+  }
 
   @Test
   public void testGetTicketId() {

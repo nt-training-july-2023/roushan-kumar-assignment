@@ -1,1 +1,6 @@
 */*/*.class
+*/bin
+grievanceUI/node_modules
+grievanceUI/coverage
+# production
+grievanceUI/build

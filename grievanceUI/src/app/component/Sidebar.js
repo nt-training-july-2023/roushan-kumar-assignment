@@ -2,9 +2,18 @@ import React from 'react'
 import '../../assets/css/sidebar.css'
 import { SidebarData as adminSidebar } from '../data/SidebarData'
 import { MSidebarData as  memberSidebar} from '../data/MSidebarData'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 function Sidebar({ children }) {
+
+  const navigate = useNavigate();
+//   const history = ();
+
+//   if(sessionStorage.getItem("userId") === null || sessionStorage.getItem("userId") === "")
+//   {
+//     console.log("sidebar");
+//     navigate("/");
+//   }
 
     let SidebarData;
     if(sessionStorage.getItem('userType') === 'Admin')
@@ -15,6 +24,15 @@ function Sidebar({ children }) {
     {
         SidebarData = memberSidebar;
     }
+    else{
+       // navigate("/");
+       window.location.href = "http://localhost:3000/";
+    }
+
+    const logout = ()=>{
+        sessionStorage.clear();
+        navigate("/")
+    }
 
     return (
         <>
@@ -24,7 +42,7 @@ function Sidebar({ children }) {
                 <div className='sidebar'>
                     <ul className='sidebarList'>
                         {
-                            SidebarData.map((val, key) => {
+                            SidebarData?.map((val, key) => {
                                 return (
                                     <li key={key} >
 
@@ -39,6 +57,12 @@ function Sidebar({ children }) {
                                 )
                             })
                         }
+                        <li>
+                        <button className='logout-button' onClick={logout}>Log out</button>
+                        </li>
+                    </ul>
+                    <ul>
+                       
                     </ul>
                 </div>
                 <main className='main_container '>{children}</main>

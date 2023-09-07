@@ -1,8 +1,8 @@
 package nucleusteq.com.grievance.entity;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,76 +14,114 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
+/**
+ * Ticket Entity.
+ */
 @Entity
 @Table(name = "ticket")
 public class Ticket {
+
+  /**
+   * ticket id as integer.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer ticketId;
 
+  /**
+   * ticket titel as string.
+   */
   private String title;
+
+  /**
+   * description as string.
+   */
   private String description;
-  
+
+  /**
+   * creationTime as LocalDateTime.
+   */
   private LocalDateTime creationTime;
+
+  /**
+   * lastUpdateTime as LocalDateTime.
+   */
   @UpdateTimestamp
   private LocalDateTime lastUpdateTime;
 
+  /**
+   * department class.
+   */
   @OneToOne(
       cascade = {
           CascadeType.DETACH,
           CascadeType.MERGE,
           CascadeType.PERSIST,
           CascadeType.REFRESH
-        })
+      })
   @JoinColumn(name = "department_id")
   private Department department;
 
+  /**
+   * ticket Type.
+   */
   @ManyToOne(
       cascade = {
           CascadeType.DETACH,
           CascadeType.MERGE,
           CascadeType.PERSIST,
           CascadeType.REFRESH
-        })
+      })
   @JoinColumn(name = "ticket_type_id")
   private TicketType ticketType;
 
+  /**
+   * ticket Status.
+   */
   @ManyToOne(
       cascade = {
           CascadeType.DETACH,
           CascadeType.MERGE,
           CascadeType.PERSIST,
           CascadeType.REFRESH
-        })
+      })
   @JoinColumn(name = "ticket_status_id")
   private TicketStatus ticketStatus;
 
+  /**
+   * Tickets Comments.
+   */
   @OneToMany(
       cascade = {
           CascadeType.DETACH,
           CascadeType.MERGE,
           CascadeType.PERSIST,
           CascadeType.REFRESH
-        })
+      })
   @JoinColumn(name = "comments_id")
   private Collection<Comments> comments;
-  
+
+  /**
+   * user entity.
+   */
   @ManyToOne(
       cascade = {
           CascadeType.DETACH,
           CascadeType.MERGE,
           CascadeType.PERSIST,
           CascadeType.REFRESH
-        })
+      })
   @JoinColumn(name = "user_id")
   private Users user;
-  
+
+  /**
+   * No args constructor.
+   */
   public Ticket() {
   }
-  
+
 //  /**
 //   * @param ticketId
 //   * @param title
@@ -106,7 +144,8 @@ public class Ticket {
 //    TicketStatus ticketStatus,
 //    Collection<Comments> comments,
 //    Users user
-//  ) {
+//  )
+//   {
 //    super();
 //    this.ticketId = ticketId;
 //    this.title = title;
@@ -118,9 +157,11 @@ public class Ticket {
 //    this.ticketStatus = ticketStatus;
 //    this.comments = comments;
 //    this.user = user;
-//  }
+//}
 
   /**
+   * Get ticket Id.
+   *
    * @return the ticketId
    */
   public Integer getTicketId() {
@@ -128,13 +169,17 @@ public class Ticket {
   }
 
   /**
-   * @param ticketId the ticketId to set
+   * set Ticket id.
+   *
+   * @param ticketIdParam the ticketId to set
    */
-  public void setTicketId(Integer ticketId) {
-    this.ticketId = ticketId;
+  public void setTicketId(final Integer ticketIdParam) {
+    this.ticketId = ticketIdParam;
   }
 
   /**
+   * Get tilte.
+   *
    * @return the title
    */
   public String getTitle() {
@@ -142,13 +187,17 @@ public class Ticket {
   }
 
   /**
-   * @param title the title to set
+   * set Tilte.
+   *
+   * @param titleParam the title to set
    */
-  public void setTitle(String title) {
-    this.title = title;
+  public void setTitle(final String titleParam) {
+    this.title = titleParam;
   }
 
   /**
+   * get description.
+   *
    * @return the description
    */
   public String getDescription() {
@@ -156,47 +205,53 @@ public class Ticket {
   }
 
   /**
-   * @param description the description to set
+   * set description.
+   *
+   * @param descriptionParam the description to set
    */
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(final String descriptionParam) {
+    this.description = descriptionParam;
   }
 
   /**
+   * get CreationTime.
+   *
    * @return the creationTime
    */
-  
   public LocalDateTime getCreationTime() {
-   // return new Date(creationTime.getTime());
-  	return creationTime;
+    return creationTime;
   }
 
   /**
-   * @param creationTime the creationTime to set
+   * set CreationTime.
+   *
+   * @param creationTimeParam the creationTime to set
    */
-  public void setCreationTime(LocalDateTime creationTime) {
-    //if (creationTime != null) this.creationTime = new Date(creationTime.getTime());
-  	this.creationTime = creationTime;
+  public void setCreationTime(final LocalDateTime creationTimeParam) {
+    this.creationTime = creationTimeParam;
   }
 
   /**
+   * get Last Update Time.
+   *
    * @return the lastUpdateTime
    */
   public LocalDateTime getLastUpdateTime() {
-   // return new Date(lastUpdateTime.getTime());
-  	return lastUpdateTime;
-  	
+    return lastUpdateTime;
   }
 
   /**
-   * @param lastUpdateTime the lastUpdateTime to set
+   * set Last Update Time.
+   *
+   * @param lastUpdateTimeParam the lastUpdateTime to set
    */
-  public void setLastUpdateTime(LocalDateTime lastUpdateTime) {
-   // this.lastUpdateTime = new Date(lastUpdateTime.getTime());
-  	this.lastUpdateTime = lastUpdateTime;
+  public void setLastUpdateTime(final LocalDateTime lastUpdateTimeParam) {
+    this.lastUpdateTime = lastUpdateTimeParam;
   }
 
   /**
+   * Get department.
+   *
    * @return the department
    */
   public Department getDepartment() {
@@ -204,13 +259,17 @@ public class Ticket {
   }
 
   /**
-   * @param department the department to set
+   * set department.
+   *
+   * @param departmentParam the department to set
    */
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setDepartment(final Department departmentParam) {
+    this.department = departmentParam;
   }
 
   /**
+   * get Ticket Type.
+   *
    * @return the ticketType
    */
   public TicketType getTicketType() {
@@ -218,13 +277,17 @@ public class Ticket {
   }
 
   /**
-   * @param ticketType the ticketType to set
+   * set Ticket Type.
+   *
+   * @param ticketTypeParam the ticketType to set
    */
-  public void setTicketType(TicketType ticketType) {
-    this.ticketType = ticketType;
+  public void setTicketType(final TicketType ticketTypeParam) {
+    this.ticketType = ticketTypeParam;
   }
 
   /**
+   * get Ticket Status.
+   *
    * @return the ticketStatus
    */
   public TicketStatus getTicketStatus() {
@@ -232,13 +295,17 @@ public class Ticket {
   }
 
   /**
-   * @param ticketStatus the ticketStatus to set
+   * set Ticket Status.
+   *
+   * @param ticketStatusParam the ticketStatus to set
    */
-  public void setTicketStatus(TicketStatus ticketStatus) {
-    this.ticketStatus = ticketStatus;
+  public void setTicketStatus(final TicketStatus ticketStatusParam) {
+    this.ticketStatus = ticketStatusParam;
   }
 
   /**
+   * get Comments.
+   *
    * @return the comments
    */
   public Collection<Comments> getComments() {
@@ -246,34 +313,78 @@ public class Ticket {
   }
 
   /**
-   * @param comments the comments to set
+   * set Comments.
+   *
+   * @param commentsParam the comments to set
    */
-  public void setComments(Collection<Comments> comments) {
-    this.comments = comments;
+  public void setComments(final Collection<Comments> commentsParam) {
+    this.comments = commentsParam;
   }
 
-  
-  
   /**
- * @return the user
- */
-public Users getUser() {
-return user;}
+  * getUser.
+  *
+  * @return the user
+  */
+  public Users getUser() {
+    return user;
+  }
 
-/**
- * @param user the user to set
- */
-public void setUser(Users user) {
-this.user = user;}
+  /**
+   * set User.
+   *
+   * @param userParam the user to set
+   */
+  public void setUser(final Users userParam) {
+    this.user = userParam;
+  }
 
-@Override
+  /**
+   * ticket details.
+   */
+  @Override
   public String toString() {
     return "Ticket [ticketId=" + ticketId + ", title=" + title
         + ", description=" + description + ", creationTime="
         + creationTime + ", lastUpdateTime=" + lastUpdateTime
         + ", department=" + department + ", ticketType=" + ticketType
         + ", ticketStatus=" + ticketStatus + ", comments=" + comments
-        +"]";
-    }
+        + "]";
+  }
+
+@Override public int hashCode() {
+	return Objects.hash(
+			comments,
+			creationTime,
+			department,
+			description,
+			lastUpdateTime,
+			ticketId,
+			ticketStatus,
+			ticketType,
+			title,
+			user);
+	}
+
+@Override public boolean equals(Object obj){
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	
+	Ticket other=(Ticket)obj;
+	return Objects.equals(comments,other.comments) 
+			&& Objects.equals(creationTime,other.creationTime) 
+			&& Objects.equals(department,other.department) 
+			&& Objects.equals(description,other.description) 
+			&& Objects.equals(lastUpdateTime,other.lastUpdateTime) 
+			&& Objects.equals(ticketId,other.ticketId) 
+			&& Objects.equals(ticketStatus,other.ticketStatus) 
+			&& Objects.equals(ticketType,other.ticketType) 
+			&& Objects.equals(title,other.title) 
+			&& Objects.equals(user,other.user);}
+  
 }
 

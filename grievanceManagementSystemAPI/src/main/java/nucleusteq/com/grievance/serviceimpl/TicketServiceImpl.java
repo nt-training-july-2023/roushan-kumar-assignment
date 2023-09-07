@@ -1,7 +1,5 @@
 package nucleusteq.com.grievance.serviceimpl;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -19,10 +17,12 @@ import nucleusteq.com.grievance.service.TicketService;
 import nucleusteq.com.grievance.service.TicketStatusService;
 import nucleusteq.com.grievance.service.TicketTypeService;
 import nucleusteq.com.grievance.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * TicketServiceImpl class.
+ */
 @Service
 public class TicketServiceImpl implements TicketService {
   @Autowired
@@ -32,7 +32,9 @@ public class TicketServiceImpl implements TicketService {
   private TicketStatusService ticketStatusService;
   private UserService userService;
 
-  /**
+   /**
+    * constructor.
+    *
    * @param ticketRepo
    * @param departmentService
    * @param ticketType
@@ -53,17 +55,20 @@ public class TicketServiceImpl implements TicketService {
     this.userService = userService;
   }
 
+    /**
+     * save ticket.
+     */
   @Override
   public ResponseDto save(TicketDto ticketDto) {
     Ticket ticket = new Ticket();
     LocalDateTime currentDateTime  = LocalDateTime.now();
-    System.out.println(" currentDateTime : "+currentDateTime);
+    //System.out.println(" currentDateTime : "+currentDateTime);
     TicketType tType = ticketTypeService.getTicketTypeByName(ticketDto.getTicketType().getTicketName());
     if(tType!=null) {
     ticket.setTicketType(tType);
     }
     else {
-    	throw new BadRequestError("Not found Ticket Type : "+ ticketDto.getTicketType().getTicketName());
+      throw new BadRequestError("Not found Ticket Type : "+ ticketDto.getTicketType().getTicketName());
     }
     ticket.setTicketId(ticketDto.getTicketId());
     ticket.setTitle(ticketDto.getTitle());
@@ -108,7 +113,10 @@ public class TicketServiceImpl implements TicketService {
     
     return response;
   }
-  
+
+  /**
+   * update ticket.
+   */
   @Override
   public ResponseDto update(TicketDto ticketDto) {
   	Optional<Ticket> ticket = ticketRepo.findById(ticketDto.getTicketId());

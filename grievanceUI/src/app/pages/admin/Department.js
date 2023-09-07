@@ -64,7 +64,10 @@ function Department() {
             <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>
-                    <button className='add_department' onClick={openDeptHandler}></button>
+                    <button className='add_department' onClick={openDeptHandler}>
+                     <span class="tooltiptext">click here to add department</span>
+                    </button>
+                    
                 </section>
                 <section className="table__body">
                     <table>

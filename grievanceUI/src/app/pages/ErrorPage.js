@@ -24,7 +24,7 @@ function ErrorPage() {
                     <label >opps! the page you are looking for might have been removed or its temporarily unavailable.</label>
                 </div>
                 <div className='button_area'>
-                    <button className='back_button' onClick={handleButtonClick} >GO TO BAck</button>
+                    <button className='back_button' onClick={handleButtonClick} >GO TO BACK</button>
                 </div>
             </div>
         </div>

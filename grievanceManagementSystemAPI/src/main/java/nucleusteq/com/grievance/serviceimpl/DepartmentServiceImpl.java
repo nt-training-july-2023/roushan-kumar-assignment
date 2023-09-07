@@ -1,13 +1,10 @@
 package nucleusteq.com.grievance.serviceimpl;
 
+import java.util.List;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.exception.BadRequestError;
-import nucleusteq.com.grievance.exception.InternalServerError;
 import nucleusteq.com.grievance.repository.DepartmentRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +13,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-
   /**
    * class variables.
    */
@@ -26,10 +22,9 @@ public class DepartmentServiceImpl implements DepartmentService {
   /**
    * All args constructor.
    *
-  * @param departmentRepoParam department repo is interface.
-  */
+   * @param departmentRepoParam department repo is interface.
+   */
   public DepartmentServiceImpl(DepartmentRepo departmentRepoParam) {
-    
     super();
     this.departmentRepo = departmentRepoParam;
   }
@@ -38,20 +33,20 @@ public class DepartmentServiceImpl implements DepartmentService {
    * to save Department.
    */
   @Override
-  public Department save(Integer userId,Department department) {
+  public Department save(Integer userId, Department department) {
     Department tempDepartment;
     //try {
-    	
-       if(departmentRepo.isAdmin(userId)!=1)
-       {
-      	 throw new BadRequestError("You are not authorized to add department.");
-       }
-    	
-      tempDepartment = departmentRepo.getDepartmentByName(department.getDeptName());
-      if(tempDepartment==null )
-       return departmentRepo.save(department);
-      else
-       throw new InternalServerError("Department Already Exists");
+    String deptName = department.getDeptName().toUpperCase();
+    department.setDeptName(deptName);
+    if (departmentRepo.isAdmin(userId) != 1) {
+      throw new BadRequestError("You are not authorized to add department.");
+    }
+
+    tempDepartment = departmentRepo.getDepartmentByName(department.getDeptName());
+    if (tempDepartment == null) 
+    	return departmentRepo.save(department);
+    else 
+    	throw new BadRequestError("Department Already Exists");
     //} catch (Exception e) {
     //  System.out.println(e.getMessage());
     //}
@@ -86,13 +81,12 @@ public class DepartmentServiceImpl implements DepartmentService {
    * delete department by id.
    */
   @Override
-  public void delete(Integer userId,Integer deptId) {
-  	if(departmentRepo.isAdmin(userId)!=1)
-    {
-   	 throw new BadRequestError("You are not authorized to delete department.");
+  public void delete(Integer userId, Integer deptId) {
+    if (departmentRepo.isAdmin(userId) != 1) {
+      throw new BadRequestError("You are not authorized to delete department.");
     }
-   departmentRepo.deleteById(deptId);
-   return ;
+    
+    departmentRepo.deleteById(deptId);
+    return;
   }
 }
-

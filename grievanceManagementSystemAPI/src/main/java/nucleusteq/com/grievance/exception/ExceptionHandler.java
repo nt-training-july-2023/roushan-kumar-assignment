@@ -13,7 +13,7 @@ public class ExceptionHandler {
         return ex.getMessage();
     }
     
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @org.springframework.web.bind.annotation.ExceptionHandler(InternalServerError.class)
     public String internalServerError(InternalServerError ex) {
         return ex.getMessage();

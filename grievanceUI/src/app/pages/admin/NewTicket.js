@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../../assets/css/forms.css';
 import api from '../../../assets/axios';
 import MessageSucess from '../../component/MessageSucess';
+import NewTicketValid from '../validations/NewTicketValid';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
@@ -104,8 +105,14 @@ function NewTicket() {
 
     const newTicketHandler = async (e) => {
         e.preventDefault();
-
-
+        var val = NewTicketValid(ticket);
+        if(val)
+        {
+            setNotificationMessage(val)
+            setShow("show")
+            return ;
+        }
+        console.log("result val"+val)
         console.log("before hit api" + ticket);
         try {
             const result = await api.post("/api/ticket/save", ticket);
