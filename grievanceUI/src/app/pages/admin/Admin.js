@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import Sidebar from '../../component/Sidebar'
 import Home from '../Home'
 import InitialPassword from '../../component/InitialPassword'
+import Header from '../../component/Header'
 
 function Admin() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Admin() {
       <div >
       {initalPass && <InitialPassword onclick = {initalPAsswordHandler}/>}
       
-        
+      <Header/>
       <Sidebar >
           <Outlet>
             

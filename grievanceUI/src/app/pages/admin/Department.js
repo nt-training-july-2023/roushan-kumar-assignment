@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import '../../../assets/css/table.css'
 import api from '../../../assets/axios';
 import AddDepartment from '../../component/AddDepartment';
+import ConfirmBox from '../../component/ConfirmBox';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);
     const [showDept, setShowDept] = useState(false);
+    const [confirmShow,setConfirmShow] = useState(false);
     const getAllDepartment = async () => {
         try {
             const res = await api.get('api/department/all');
@@ -23,18 +25,11 @@ function Department() {
 
     const closeDeptHandler = () => {
         setShowDept(false);
-        //document.getElementById('dep').style.cursor = 'default';
-        //document.getElementsByClassName('btn').style.cursor = 'default';
-        //document.getElementsByClassName('btn').style.cursor = 'default';
-
         document.getElementById('dep').style.cursor = 'default';
-       // document.getElementsByClassName('btn').style.cursor = 'no-drop';
         let buttons = document.getElementsByClassName('btn')
 
         for(var i=0, len=buttons.length; i<len; i++)
         {
-            //buttons[i].style["cursor"] = 'no-drop';
-            //pointer-events: none;
             buttons[i].style["pointer-events"] = 'auto';
         }
     }
@@ -42,25 +37,33 @@ function Department() {
     const openDeptHandler = () => {
         setShowDept(true);
         document.getElementById('dep').style.cursor = 'no-drop';
-       // document.getElementsByClassName('btn').style.cursor = 'no-drop';
         let buttons = document.getElementsByClassName('btn')
-
         for(var i=0, len=buttons.length; i<len; i++)
         {
-            //buttons[i].style["cursor"] = 'no-drop';
-            //pointer-events: none;
             buttons[i].style["pointer-events"] = 'none';
         }
     }
 
     const deptDeleteHandle = ()=>{
         console.log("clicked");
+        setConfirmShow(true);
 
     }
+
+    const confirmCancel = ()=>{
+        setConfirmShow(false);
+    }
+
+    const confirmDelete = ()=>{
+        setConfirmShow(false);
+    }
+
+
 
     return (
         <>
             {showDept && <AddDepartment onClick={closeDeptHandler} />}
+            {confirmShow && <ConfirmBox onClickCancel={confirmCancel} onClickDelete = {confirmDelete}  />}
             <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>

@@ -26,7 +26,7 @@ function Sidebar({ children }) {
     }
     else{
        // navigate("/");
-       window.location.href = "http://localhost:3000/";
+       window.location.href = "http://localhost:3000/session-expired";
     }
 
     const logout = ()=>{
