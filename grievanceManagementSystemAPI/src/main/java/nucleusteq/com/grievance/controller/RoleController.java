@@ -23,12 +23,19 @@ import nucleusteq.com.grievance.service.RoleService;
 @CrossOrigin(origins = "http://localhost:3000")
 public class RoleController {
 
+  /**
+   * RoleService.
+   */
   @Autowired
   private RoleService roleService;
 
+  /**
+   * get all role.
+   *
+   * @return return all roles.
+   */
   @GetMapping("/all")
-  public List<Role> getAllRole()
-  {
+  public List<Role> getAllRole() {
     return roleService.getAllRole();
   }
 }

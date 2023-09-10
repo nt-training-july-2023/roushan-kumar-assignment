@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -12,7 +14,13 @@ import static org.mockito.Mockito.when;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
+import nucleusteq.com.grievance.entity.Ticket;
+import nucleusteq.com.grievance.entity.TicketStatus;
+import nucleusteq.com.grievance.entity.TicketType;
 import nucleusteq.com.grievance.entity.Users;
+import nucleusteq.com.grievance.exception.BadRequestError;
+import nucleusteq.com.grievance.exception.InternalServerError;
+import nucleusteq.com.grievance.exception.UserNotFoundException;
 import nucleusteq.com.grievance.repository.DepartmentRepo;
 import nucleusteq.com.grievance.repository.RoleRepo;
 import nucleusteq.com.grievance.repository.UserRepo;
@@ -159,5 +167,139 @@ public class UserServiceImplTest {
     
   }
   
+  /**
+   * test Save Unsuccess when department is null.
+   */
+  @Test
+  public void testSaveUnSuccessNullDepartment()
+  {
+  	Department dept = new Department(1,"HR");
+  	Role role = new Role(); 
+  	role.setName("Admin");
+  	
+  	UserDto userDto = new UserDto();
+  	userDto.setUsername("Roushan20");
+  	userDto.setFullName("Roushan Kumar");
+    userDto.setEmail("roushan@gmail.com");
+    userDto.setPassword("123");
+    userDto.setRole(role);
+    userDto.setDepartment(dept);
+    
+    Users tempUser1 = new Users();
+    tempUser1.setUsername("Roushan20");
+    tempUser1.setFullName("Roushan Kumar");
+    tempUser1.setEmail("roushan@gmail.com");
+    tempUser1.setPassword("123");
+    tempUser1.setRole(role);
+    tempUser1.setDepartment(dept);
+    
+    Users tempUser2 = new Users();
+    tempUser2.setUserId(1);
+    tempUser2.setUsername("Roushan20");
+    tempUser2.setFullName("Roushan Kumar");
+    tempUser2.setEmail("roushan@gmail.com");
+    tempUser2.setPassword("123");
+    tempUser2.setRole(role);
+    tempUser2.setDepartment(dept);
+    tempUser2.setInitialPassword(1);
+    
+  	
+    when(roleService.getRoleByName("Admin")).thenReturn(null);
+    when(departmentService.getDepartmentByName("HR"))
+    .thenReturn(dept);
+    
+    when(userRepo.save(tempUser1)).thenReturn(tempUser2);
+    
+    assertThrows(BadRequestError.class, ()->{
+    	userServiceImpl.save(userDto);
+    });
+    verify(userRepo, never()).save(tempUser1);
+    
+  }
   
+  /**
+   * test Save Unsuccess when UserAlreadyExist.
+   */
+  @Test
+  public void testSaveUnSuccessUserAlreadyExist()
+  {
+  	Department dept = new Department(1,"HR");
+  	Role role = new Role(); 
+  	role.setName("Admin");
+  	role.setRoleId(1);
+  	
+  	UserDto userDto = new UserDto();
+  	userDto.setUsername("Roushan20");
+  	userDto.setFullName("Roushan Kumar");
+    userDto.setEmail("roushan@gmail.com");
+    userDto.setPassword("123");
+    userDto.setRole(role);
+    userDto.setDepartment(dept);
+    
+    Users tempUser1 = new Users();
+    tempUser1.setUsername("Roushan20");
+    tempUser1.setFullName("Roushan Kumar");
+    tempUser1.setEmail("roushan@gmail.com");
+    tempUser1.setPassword("123");
+    tempUser1.setRole(role);
+    tempUser1.setDepartment(dept);
+    
+    Users tempUser2 = new Users();
+    tempUser2.setUserId(1);
+    tempUser2.setUsername("Roushan20");
+    tempUser2.setFullName("Roushan Kumar");
+    tempUser2.setEmail("roushan@gmail.com");
+    tempUser2.setPassword("123");
+    tempUser2.setRole(role);
+    tempUser2.setDepartment(dept);
+    tempUser2.setInitialPassword(1);
+    
+  	
+    when(roleService.getRoleByName("Admin")).thenReturn(role);
+    when(departmentService.getDepartmentByName("HR"))
+      .thenReturn(dept);
+    when(userRepo.getByUserName(userDto.getUsername()))
+         .thenReturn(tempUser2);
+    when(userRepo.save(tempUser1)).thenReturn(tempUser2);
+    
+    assertThrows(InternalServerError.class, ()->{
+    	userServiceImpl.save(userDto);
+    });
+    verify(userRepo, never()).save(tempUser1);
+    
+  }
+
+  /**
+   * test get by user name already exist.
+   */
+  @Test
+  public void getUserByNameTestUnsuccess()
+  {
+    UserDto userDto = new UserDto();
+    userDto.setFullName("Roushan");
+    when(userRepo.getByUserName(userDto.getUsername())).thenReturn(null);
+    assertThrows(UserNotFoundException.class, ()->{
+    	userServiceImpl.getByUsername("Roushan");
+    });
+    
+  }
+
+  /**
+   * test get by user name.
+   */
+  @Test
+  public void getUserByNameTestSuccess()
+  {
+    UserDto userDto = new UserDto();
+    userDto.setFullName("Roushan");
+    
+    Users user = new Users();
+    user.setUsername("Roushan");
+    
+    when(userRepo.getByUserName("Roushan"))
+        .thenReturn(user);
+
+    userDto = userServiceImpl.getByUsername("Roushan");
+    assertEquals("Roushan", userDto.getUsername());
+  }
 }

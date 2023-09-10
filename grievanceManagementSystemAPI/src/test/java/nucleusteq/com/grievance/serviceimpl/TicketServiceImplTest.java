@@ -2,7 +2,8 @@ package nucleusteq.com.grievance.serviceimpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -23,6 +24,7 @@ import nucleusteq.com.grievance.entity.Ticket;
 import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
 import nucleusteq.com.grievance.entity.Users;
+import nucleusteq.com.grievance.exception.BadRequestError;
 import nucleusteq.com.grievance.repository.TicketRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.TicketStatusService;
@@ -111,6 +113,9 @@ public class TicketServiceImplTest {
     ticketSaved.setTicketStatus(ticketStatus);
     ticketSaved.setDepartment(dept);
     ticketSaved.setUser(new Users());
+    
+   // assertTrue(true);
+    
     // Mock dependencies' behavior using when-thenReturn
     when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
       .thenReturn(ticketType);
@@ -122,7 +127,7 @@ public class TicketServiceImplTest {
       .thenReturn(new Users());
 
     // Mock ticketRepo.save() behavior
-    when(ticketRepo.save(ticket))
+    when(ticketRepo.save(any(Ticket.class)))
       .thenReturn(ticketSaved);
 
     // Call the save method
@@ -132,6 +137,120 @@ public class TicketServiceImplTest {
     assertEquals(response.getId(), ticketSaved.getTicketId());
   }
 
+  /**
+   * test Save Unsuccess when TicketType is null.
+   */
+  @Test
+  public void testSaveUnSuccessNullTicketType()
+  {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	
+  	//creating ticket object for testing result.
+  	Ticket ticket = new Ticket();
+    
+    // Mock dependencies' behavior using when-thenReturn
+    when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
+      .thenReturn(null);
+    
+    assertThrows(BadRequestError.class, ()->{
+    	ticketServiceImpl.save(ticketDto);
+    });
+    verify(ticketRepo, never()).save(ticket);
+    
+  }
+  
+  /**
+   * test Save Unsuccess when ticket status is null.
+   */
+  @Test
+  public void testSaveUnSuccessNullTicketStatus()
+  {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	
+  	//creating ticket object for testing result.
+  	Ticket ticket = new Ticket();
+    
+    // Mock dependencies' behavior using when-thenReturn
+    when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
+      .thenReturn(ticketType);
+    
+    when(ticketStatusService.getByName("OPEN"))
+    .thenReturn(null);
+    
+    assertThrows(BadRequestError.class, ()->{
+    	ticketServiceImpl.save(ticketDto);
+    });
+    verify(ticketRepo, never()).save(ticket);
+    
+  }
+  
+  /**
+   * test Save Unsuccess when department is null.
+   */
+  @Test
+  public void testSaveUnSuccessNullDepartment()
+  {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	
+  	//creating ticket object for testing result.
+  	Ticket ticket = new Ticket();
+    
+    // Mock dependencies' behavior using when-thenReturn
+    when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
+      .thenReturn(ticketType);
+    
+    when(ticketStatusService.getByName("OPEN"))
+    .thenReturn(ticketStatus);
+    
+    when(departmentService.getDepartmentByName("HR"))
+    .thenReturn(null);
+    
+    assertThrows(BadRequestError.class, ()->{
+    	ticketServiceImpl.save(ticketDto);
+    });
+    verify(ticketRepo, never()).save(ticket);
+    
+  }
+  
+  /**
+   * test Save Unsuccess when user is null.
+   */
+  @Test
+  public void testSaveUnSuccessNullUser()
+  {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	
+  	//creating ticket object for testing result.
+  	Ticket ticket = new Ticket();
+    
+    // Mock dependencies' behavior using when-thenReturn
+    when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
+      .thenReturn(ticketType);
+    
+    when(ticketStatusService.getByName("OPEN"))
+    .thenReturn(ticketStatus);
+    
+    when(departmentService.getDepartmentByName("HR"))
+    .thenReturn(dept);
+    
+    when(userService.getById(1))
+    .thenReturn(null);
+    
+    assertThrows(BadRequestError.class, ()->{
+    	ticketServiceImpl.save(ticketDto);
+    });
+    verify(ticketRepo, never()).save(ticket);
+    
+  }
+  
 //  @Test
 //  public void testUpdate() {
 //    // Create a mock TicketDto

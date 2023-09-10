@@ -1,6 +1,5 @@
 package nucleusteq.com.grievance.dto;
 
-import java.sql.Date;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,146 +16,203 @@ import nucleusteq.com.grievance.entity.TicketType;
  */
 
 public class TicketDto {
-  private Integer ticketId;
-
-  @NotEmpty
-  private String title;
-
-  @NotEmpty
-  private String description;
-
-  @NotNull
-  private Department department;
-
-  @NotNull
-  private TicketType ticketType;
-
-  private TicketStatus ticketStatus;
-
-  @NotNull
-  private Integer userId;
+  /**
+   * Unique identifier for the ticket.
+   */
+  private Integer ticketId;  // Unique identifier for the ticket
 
   /**
-   * @param ticketId
-   * @param title
-   * @param description
-   * @param department
-   * @param ticketType
-   * @param ticketStatus
-   */public TicketDto(
-    Integer ticketId,
-    String title,
-    String description,
-    Department department,
-    TicketType ticketType,
-    TicketStatus ticketStatus,
-    Integer userId
+   * Title  of the ticket.
+   */
+  @NotEmpty
+  private  String title;      // Title  of the ticket
+
+  /**
+   * Description or details of the ticket.
+   */
+  @NotEmpty
+  private  String description;  // Description or details of the ticket
+
+  /**
+   * Department associated with the ticket.
+   */
+  @NotNull
+  private  Department department;  // Department associated with the ticket
+
+  /**
+   * Type of the ticket.
+   */
+  @NotNull
+  private  TicketType ticketType;  // Type of the ticket
+
+  /**
+   * Status of the ticket.
+   */
+  private TicketStatus ticketStatus;  // Status of the ticket
+
+  /**
+   * User identifier associated with the ticket.
+   */
+  @NotNull
+  private  Integer userId;  // User identifier associated with the ticket
+
+  /**
+   * no args Constructor.
+   */
+  public TicketDto() {
+  }
+  /**
+   * Constructor to initialize a TicketDto object.
+   *
+   * @param ticketIdParam    The unique identifier for the ticket.
+   * @param titleParam       The title or name of the ticket.
+   * @param descriptionParam The description or details of the ticket.
+   * @param departmentParam  The department associated with the ticket.
+   * @param ticketTypeParam  The type of the ticket. Must not be null.
+   * @param ticketStatusParam The status of the ticket.
+   * @param userIdParam      The user identifier associated with the ticket.
+   */
+  public TicketDto(
+          final Integer ticketIdParam,
+          final String titleParam,
+          final String descriptionParam,
+          final Department departmentParam,
+          final TicketType ticketTypeParam,
+          final TicketStatus ticketStatusParam,
+          final Integer userIdParam
   ) {
-    super();
-    this.ticketId = ticketId;
-    this.title = title;
-    this.description = description;
-    this.department = department;
-    this.ticketType = ticketType;
-    this.ticketStatus = ticketStatus;
-    this.userId = userId;
+      this.ticketId = ticketIdParam;
+      this.title = titleParam;
+      this.description = descriptionParam;
+      this.department = departmentParam;
+      this.ticketType = ticketTypeParam;
+      this.ticketStatus = ticketStatusParam;
+      this.userId = userIdParam;
   }
 
   /**
-   * @return the ticketId
+   * Get the unique identifier for the ticket.
+   *
+   * @return The ticketId.
    */
   public Integer getTicketId() {
-    return ticketId;
+      return ticketId;
   }
 
   /**
-   * @param ticketId the ticketId to set
+   * Set the unique identifier for the ticket.
+   *
+   * @param ticketIdParam The ticketId to set.
    */
-  public void setTicketId(Integer ticketId) {
-    this.ticketId = ticketId;
+  public void setTicketId(final Integer ticketIdParam) {
+      this.ticketId = ticketIdParam;
   }
 
   /**
-   * @return the title
+   * Get the title of the ticket.
+   *
+   * @return The title.
    */
   public String getTitle() {
-    return title;
+      return title;
   }
 
   /**
-   * @param title the title to set
+   * Set the title of the ticket.
+   *
+   * @param titleParam The title to set.
    */
-  public void setTitle(String title) {
-    this.title = title;
+  public void setTitle(final String titleParam) {
+      this.title = titleParam;
   }
 
   /**
-   * @return the description
+   * Get the description of the ticket.
+   *
+   * @return The description.
    */
   public String getDescription() {
-    return description;
+      return description;
   }
 
   /**
-   * @param description the description to set
+   * Set the description of the ticket.
+   *
+   * @param descriptionParam The description to set.
    */
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(final String descriptionParam) {
+    this.description = descriptionParam;
   }
 
   /**
-   * @return the department
+   * Get the department associated with the ticket.
+   *
+   * @return The department.
    */
   public Department getDepartment() {
-    return department;
+      return department;
   }
 
   /**
-   * @param department the department to set
+   * Set the department associated with the ticket.
+   *
+   * @param departmentParam The department to set.
    */
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setDepartment(final Department departmentParam) {
+      this.department = departmentParam;
   }
 
   /**
-   * @return the ticketType
+   * Get the type of the ticket.
+   *
+   * @return The ticketType.
    */
   public TicketType getTicketType() {
-    return ticketType;
+      return ticketType;
   }
 
   /**
-   * @param ticketType the ticketType to set
+   * Set the type of the ticket.
+   *
+   * @param ticketTypeParam The ticketType to set.
    */
-  public void setTicketType(TicketType ticketType) {
-    this.ticketType = ticketType;
+  public void setTicketType(final TicketType ticketTypeParam) {
+      this.ticketType = ticketTypeParam;
   }
 
   /**
-   * @return the ticketStatus
+   * Get the status of the ticket.
+   *
+   * @return The ticketStatus.
    */
   public TicketStatus getTicketStatus() {
-    return ticketStatus;
+      return ticketStatus;
   }
 
   /**
-   * @param ticketStatus the ticketStatus to set
+   * Set the status of the ticket.
+   *
+   * @param ticketStatusParam The ticketStatus to set.
    */
-  public void setTicketStatus(TicketStatus ticketStatus) {
-    this.ticketStatus = ticketStatus;
+  public void setTicketStatus(final TicketStatus ticketStatusParam) {
+      this.ticketStatus = ticketStatusParam;
   }
 
   /**
-   * @return the userId
+   * Get the user identifier associated with the ticket.
+   *
+   * @return The userId.
    */
   public Integer getUserId() {
-    return userId;
+      return userId;
   }
 
   /**
-   * @param userId the userId to set
+   * Set the user identifier associated with the ticket.
+   *
+   * @param userIdParam The userId to set.
    */
-  public void setUserId(Integer userId) {
-    this.userId = userId;
+  public void setUserId(final Integer userIdParam) {
+      this.userId = userIdParam;
   }
 }

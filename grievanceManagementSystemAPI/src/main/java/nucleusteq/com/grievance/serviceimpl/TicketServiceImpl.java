@@ -25,116 +25,137 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TicketServiceImpl implements TicketService {
-  @Autowired
-  private TicketRepo ticketRepo;
-  private DepartmentService departmentService;
-  private TicketTypeService ticketTypeService;
-  private TicketStatusService ticketStatusService;
-  private UserService userService;
 
-   /**
-    * constructor.
-    *
-   * @param ticketRepo
-   * @param departmentService
-   * @param ticketType
-   * @param ticketStatusService
-   */
-    public TicketServiceImpl(
-    TicketRepo ticketRepo,
-    DepartmentService departmentService,
-    TicketTypeService ticketTypeService,
-    TicketStatusService ticketStatusService,
-    UserService userService
-  ) {
-    super();
-    this.ticketRepo = ticketRepo;
-    this.departmentService = departmentService;
-    this.ticketTypeService = ticketTypeService;
-    this.ticketStatusService = ticketStatusService;
-    this.userService = userService;
-  }
+ /**
+* Variables.
+*/
+ @Autowired
+ private TicketRepo ticketRepo;
 
-    /**
-     * save ticket.
-     */
-  @Override
-  public ResponseDto save(TicketDto ticketDto) {
-    Ticket ticket = new Ticket();
-    LocalDateTime currentDateTime  = LocalDateTime.now();
-    //System.out.println(" currentDateTime : "+currentDateTime);
-    TicketType tType = ticketTypeService.getTicketTypeByName(ticketDto.getTicketType().getTicketName());
-    if(tType!=null) {
-    ticket.setTicketType(tType);
-    }
-    else {
-      throw new BadRequestError("Not found Ticket Type : "+ ticketDto.getTicketType().getTicketName());
-    }
-    ticket.setTicketId(ticketDto.getTicketId());
-    ticket.setTitle(ticketDto.getTitle());
-    ticket.setDescription(ticketDto.getDescription());
-    //Date date = Date.valueOf(LocalDate.now());
-    //System.out.println("Creation Time" + date);
-    //if(ticketDto.getTicketId()==null) {
-     ticket.setCreationTime(currentDateTime);
-    //}
-    TicketStatus TStatus = ticketStatusService.getByName("OPEN");
-    if(TStatus!=null)
-    {
-      ticket.setTicketStatus(TStatus);
-    }
-    else
-    {
-    	throw new BadRequestError("Not found Ticket Staus : OPEN" );
-    }
-    Department dept = departmentService.getDepartmentByName(ticketDto.getDepartment().getDeptName());
-    if(dept!=null) {
-    ticket.setDepartment(dept);
-    }
-    else 
-    {
-    	throw new BadRequestError("Not found Department : "+ ticketDto.getDepartment().getDeptName());
-    }
-    
-    Users user = userService.getById(ticketDto.getUserId());
-    if(user!=null)
-    {
-    	ticket.setUser(user);
-    }
-    else
-    {
-    	throw new BadRequestError("Not found User ");
-    }
-    ticket = ticketRepo.save(ticket);
-//    ticketDto.setTicketId(ticket.getTicketId());
-//    ticketDto.setTicketType(ticket.getTicketType());
-//    ticketDto.setDepartment(ticket.getDepartment());
-    ResponseDto response = new ResponseDto(ticket.getTicketId(),"New Ticket Created","SAVE");
-    
-    return response;
-  }
+ /**
+* Department Service.
+*/
+ private DepartmentService departmentService;
 
-  /**
-   * update ticket.
-   */
-  @Override
-  public ResponseDto update(TicketDto ticketDto) {
-  	Optional<Ticket> ticket = ticketRepo.findById(ticketDto.getTicketId());
-  	
-  	if(ticket.isPresent())
-  	{
-  		Ticket ticketData;
-  		ticketData = ticket.get();
-  		LocalDateTime lastUpdateTime = LocalDateTime.now();
-  		ticketData.setLastUpdateTime(lastUpdateTime);
-  		ticketRepo.save(ticketData);
-  		ResponseDto response = new ResponseDto(ticketDto.getTicketId(),"Ticket Update","UPDATE");
-      return response;
-  	}
-  	else
-  	{
-  		ResponseDto response = new ResponseDto(ticketDto.getTicketId(),"Ticket not found","NOT UPDATE");
-      return response;
-  	}
-  }
+ /**
+* Ticket Type Service.
+*/
+ private TicketTypeService ticketTypeService;
+
+ /**
+* Ticket Status Service.
+*/
+ private TicketStatusService ticketStatusService;
+
+ /**
+* User Service.
+*/
+ private UserService userService;
+
+ /**
+* Constructor for TicketServiceImpl.
+*
+* @param ticketRepoParam         The repository for tickets.
+* @param departmentServiceParam  The service for departments.
+* @param ticketTypeServiceParam  The service for ticket types.
+* @param ticketStatusServiceParam The service for ticket statuses.
+* @param userServiceParam        The service for users.
+*/
+ public TicketServiceImpl(
+         final TicketRepo ticketRepoParam,
+         final DepartmentService departmentServiceParam,
+         final TicketTypeService ticketTypeServiceParam,
+         final TicketStatusService ticketStatusServiceParam,
+         final UserService userServiceParam
+ ) {
+     super();
+     this.ticketRepo = ticketRepoParam;
+     this.departmentService = departmentServiceParam;
+     this.ticketTypeService = ticketTypeServiceParam;
+     this.ticketStatusService = ticketStatusServiceParam;
+     this.userService = userServiceParam;
+ }
+
+ /**
+* Save a ticket.
+*
+* @param ticketDto The ticket data transfer object.
+* @return A ResponseDto indicating the result of the save operation.
+*/
+ @Override
+ public ResponseDto save(final TicketDto ticketDto) {
+     Ticket ticket = new Ticket();
+     LocalDateTime currentDateTime = LocalDateTime.now();
+     TicketType tType = ticketTypeService.getTicketTypeByName(
+                        ticketDto.getTicketType().getTicketName());
+
+     if (tType != null) {
+         ticket.setTicketType(tType);
+     } else {
+         throw new BadRequestError("Not found Ticket Type: "
+                  + ticketDto.getTicketType().getTicketName());
+   }
+
+   ticket.setTicketId(ticketDto.getTicketId());
+   ticket.setTitle(ticketDto.getTitle());
+   ticket.setDescription(ticketDto.getDescription());
+   ticket.setCreationTime(currentDateTime);
+   TicketStatus tStatus = ticketStatusService.getByName("OPEN");
+
+   if (tStatus != null) {
+       ticket.setTicketStatus(tStatus);
+   } else {
+       throw new BadRequestError("Not found Ticket Status: OPEN");
+   }
+
+   Department dept = departmentService.getDepartmentByName(
+                       ticketDto.getDepartment().getDeptName());
+
+   if (dept != null) {
+       ticket.setDepartment(dept);
+   } else {
+       throw new BadRequestError("Not found Department: "
+                        + ticketDto.getDepartment().getDeptName());
+   }
+
+   Users user = userService.getById(ticketDto.getUserId());
+
+   if (user != null) {
+       ticket.setUser(user);
+   } else {
+       throw new BadRequestError("Not found User");
+   }
+
+   ticket = ticketRepo.save(ticket);
+   ResponseDto response = new ResponseDto(ticket.getTicketId(),
+                                         "New Ticket Created", "SAVE");
+     return response;
+ }
+
+ /**
+* Update a ticket.
+*
+* @param ticketDto The ticket data transfer object.
+* @return A ResponseDto indicating the result of the update operation.
+*/
+ @Override
+ public ResponseDto update(final TicketDto ticketDto) {
+     Optional<Ticket> ticket = ticketRepo
+                               .findById(ticketDto.getTicketId());
+
+     if (ticket.isPresent()) {
+         Ticket ticketData = ticket.get();
+         LocalDateTime lastUpdateTime = LocalDateTime.now();
+         ticketData.setLastUpdateTime(lastUpdateTime);
+         ticketRepo.save(ticketData);
+         ResponseDto response = new ResponseDto(
+         ticketDto.getTicketId(),
+         "Ticket Update", "UPDATE");
+       return response;
+   } else {
+       ResponseDto response = new ResponseDto(ticketDto.getTicketId(),
+         "Ticket not found", "NOT UPDATE");
+         return response;
+     }
+ }
 }

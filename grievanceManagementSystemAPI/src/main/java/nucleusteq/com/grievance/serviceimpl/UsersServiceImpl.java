@@ -15,7 +15,6 @@ import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.RoleService;
 import nucleusteq.com.grievance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.OpPlus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +29,10 @@ public class UsersServiceImpl implements UserService {
    */
   @Autowired
   private UserRepo userRepo;
+  
+  /**
+   * Department Service.
+   */
   private DepartmentService departmentService;
 
   /**
@@ -72,8 +75,8 @@ public class UsersServiceImpl implements UserService {
    */
   @Override
   public UserDto save(final UserDto userDto) {
-    System.out.println(userDto.toString());
-    System.out.println(userDto.getRole().toString() +" "+ userDto.getDepartment());
+    //System.out.println(userDto.toString());
+    //System.out.println(userDto.getRole().toString() + " " + userDto.getDepartment());
     Users tempUser = new Users();
     UserDto userSend = new UserDto();
     //try {
@@ -83,28 +86,25 @@ public class UsersServiceImpl implements UserService {
       tempUser.setPassword(userDto.getPassword());
       tempUser.setInitialPassword(1);
       Role role = roleService.getRoleByName(userDto.getRole().getName());
-      if(role!=null) {
-      tempUser.setRole(role);
+      if(role != null) {
+        tempUser.setRole(role);
       }
-      else
-      {
-      	throw new BadRequestError("Role is not found");
+      else {
+        throw new BadRequestError("Role is not found");
       }
       Department dept = departmentService.getDepartmentByName(
           userDto.getDepartment().getDeptName());
-      if(dept!=null) {
+      if (dept != null) {
       tempUser.setDepartment(dept);
       }
-      else
-      {
-      	throw new BadRequestError("Department is not found");
+      else {
+        throw new BadRequestError("Department is not found");
       }
       
-      if(userRepo.getByUserName(userDto.getUsername()) != null)
-      {
-      	throw new InternalServerError("Username is already exist.");
+      if(userRepo.getByUserName(userDto.getUsername()) != null) {
+        throw new InternalServerError("Username is already exist.");
       }
-      
+
       Users savedUser = userRepo.save(tempUser);
 
       userSend.setUserId(savedUser.getUserId());
@@ -174,14 +174,12 @@ public class UsersServiceImpl implements UserService {
    * @param username as string.
    */
   @Override
-  public UserDto getByUsername(String username) {
+  public UserDto getByUsername(final String username) {
     UserDto userSend = new UserDto();
-    Users user ;
-    
+    Users user;
        user = userRepo.getByUserName(username);
-       if(user==null)
-       {
-         throw new UserNotFoundException("User not found : "+username);
+       if (user == null) {
+         throw new UserNotFoundException("User not found : " + username);
        }
        userSend.setUserId(user.getUserId());
        userSend.setUsername(user.getUsername());
@@ -192,15 +190,16 @@ public class UsersServiceImpl implements UserService {
        userSend.setRole(user.getRole());
        userSend.setDepartment(user.getDepartment());
        return userSend;
-   
 
   }
 
+ /**
+ * get by id.
+ */
 @Override
-public Users getById(Integer userId) {
+public Users getById(final Integer userId) {
 	Optional<Users> user = userRepo.findById(userId);
-	if(user.isPresent())
-	{
+	if (user.isPresent()) {
 		return user.get();
 	}
   return null;

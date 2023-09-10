@@ -26,24 +26,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/ticket")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TicketController {
+
+  /**
+   * Ticket service object.
+   */
   @Autowired
   private TicketService ticketService;
 
+  /**
+   * save ticket.
+   *
+   * @param ticket ticket.
+   * @param errors BindingResult errors.
+   * @return respone of save ticket.
+   */
   @PostMapping("/save")
   public ResponseEntity<?> saveTicket(
-    @RequestBody @Valid TicketDto ticket,
+    @RequestBody @Valid final TicketDto ticket,
     final BindingResult errors
   ) {
     if (errors.hasErrors()) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getAllErrors());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(errors.getAllErrors());
     }
     //System.out.println(errors.getAllErrors());
     return ResponseEntity.ok(ticketService.save(ticket));
     //return ticketService.save(ticket);
   }
 
+  /**
+   * update ticket.
+   *
+   * @param ticket ticket.
+   * @return response of update.
+   */
   @PutMapping("/update")
-  public ResponseDto updateTicket(@RequestBody TicketDto ticket) {
+  public ResponseDto updateTicket(
+     @RequestBody final TicketDto ticket) {
     return ticketService.update(ticket);
   }
 }

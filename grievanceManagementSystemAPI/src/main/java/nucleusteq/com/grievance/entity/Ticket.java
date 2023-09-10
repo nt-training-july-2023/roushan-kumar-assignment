@@ -352,39 +352,46 @@ public class Ticket {
         + "]";
   }
 
-@Override public int hashCode() {
-	return Objects.hash(
-			comments,
-			creationTime,
-			department,
-			description,
-			lastUpdateTime,
-			ticketId,
-			ticketStatus,
-			ticketType,
-			title,
-			user);
-	}
-
-@Override public boolean equals(Object obj){
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	
-	Ticket other=(Ticket)obj;
-	return Objects.equals(comments,other.comments) 
-			&& Objects.equals(creationTime,other.creationTime) 
-			&& Objects.equals(department,other.department) 
-			&& Objects.equals(description,other.description) 
-			&& Objects.equals(lastUpdateTime,other.lastUpdateTime) 
-			&& Objects.equals(ticketId,other.ticketId) 
-			&& Objects.equals(ticketStatus,other.ticketStatus) 
-			&& Objects.equals(ticketType,other.ticketType) 
-			&& Objects.equals(title,other.title) 
-			&& Objects.equals(user,other.user);}
-  
+//  /**
+//   * hashcode.
+//   */
+// @Override
+// public int hashCode() {
+// return Objects.hash(
+//			comments,
+//			creationTime,
+//			department,
+//			description,
+//			lastUpdateTime,
+//			ticketId,
+//			ticketStatus,
+//			ticketType,
+//			title,
+//			user);
+//	}
+//
+//  @Override public boolean equals(Object obj){
+//	if (this == obj) {
+//		return true;
+//	}
+//	if (obj == null) {
+//		return false;
+//	}
+//	if (getClass() != obj.getClass()) {
+//		return false;
+//	}
+//
+//	Ticket other = (Ticket)obj;
+//	return Objects.equals(comments, other.comments)
+//			&& Objects.equals(creationTime, other.creationTime)
+//			&& Objects.equals(department, other.department)
+//			&& Objects.equals(description, other.description)
+//			&& Objects.equals(lastUpdateTime, other.lastUpdateTime)
+//			&& Objects.equals(ticketId, other.ticketId)
+//			&& Objects.equals(ticketStatus, other.ticketStatus)
+//			&& Objects.equals(ticketType, other.ticketType)
+//			&& Objects.equals(title, other.title)
+//			&& Objects.equals(user, other.user);
+//	}
 }
 

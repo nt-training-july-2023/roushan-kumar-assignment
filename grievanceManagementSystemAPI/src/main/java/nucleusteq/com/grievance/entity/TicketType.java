@@ -9,50 +9,71 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tickets_type")
 public class TicketType {
+  /**
+   * The unique identifier for the ticket type.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer ticketTypeId;
 
+  /**
+   * The name of the ticket type.
+   */
   private String ticketName;
 
-  
-  
- /**
- * 
- */
+  /**
+   * Default constructor for TicketType.
+   */
   public TicketType() {
-	 }
+  }
 
-/**
- * @param ticketTypeId
- * @param ticketName
- */public TicketType(Integer ticketTypeId,String ticketName){super();this.ticketTypeId=ticketTypeId;this.ticketName=ticketName;}
+  /**
+   * Parameterized constructor for TicketType.
+   *
+   * @param ticketTypeIdParam The unique identifier for the ticket type.
+   * @param ticketNameParam   The name of the ticket type.
+   */
+  public TicketType(
+      final Integer ticketTypeIdParam,
+  		final String ticketNameParam) {
+      super();
+      this.ticketTypeId = ticketTypeIdParam;
+      this.ticketName = ticketNameParam;
+  }
 
-/**
-   * @return the ticketTypeId
+  /**
+   * Get the ticket type's unique identifier.
+   *
+   * @return The ticket type's unique identifier.
    */
   public Integer getTicketTypeId() {
-    return ticketTypeId;
+      return ticketTypeId;
   }
 
   /**
-   * @param ticketTypeId the ticketTypeId to set
+   * Set the ticket type's unique identifier.
+   *
+   * @param ticketTypeIdParam The ticket type's unique identifier (final).
    */
-  public void setTicketTypeId(Integer ticketTypeId) {
-    this.ticketTypeId = ticketTypeId;
+  public void setTicketTypeId(final Integer ticketTypeIdParam) {
+      this.ticketTypeId = ticketTypeIdParam;
   }
 
   /**
-   * @return the ticketName
+   * Get the name of the ticket type.
+   *
+   * @return The name of the ticket type.
    */
   public String getTicketName() {
-    return ticketName;
+      return ticketName;
   }
 
   /**
-   * @param ticketName the ticketName to set
+   * Set the name of the ticket type.
+   *
+   * @param ticketNameParam The name of the ticket type (final).
    */
-  public void setTicketName(String ticketName) {
-    this.ticketName = ticketName;
+  public void setTicketName(final String ticketNameParam) {
+      this.ticketName = ticketNameParam;
   }
 }

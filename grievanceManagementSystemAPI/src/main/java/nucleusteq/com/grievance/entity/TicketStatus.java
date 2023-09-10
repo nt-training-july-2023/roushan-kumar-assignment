@@ -9,44 +9,69 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ticket_status")
 public class TicketStatus {
-  @Id
+	/**
+   * The unique identifier for the ticket status.
+   */
+	@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer ticketStatusId;
+  private  Integer ticketStatusId;
 
-  private String ticketStatusName;
+  /**
+   * The name of the ticket status.
+   */
+  private  String ticketStatusName;
 
+  /**
+   * Constructs a new TicketStatus instance.
+   */
   public TicketStatus() {
   }
   /**
- * @param ticketStatusId
- * @param ticketStatusName
- */public TicketStatus(Integer ticketStatusId,String ticketStatusName){super();this.ticketStatusId=ticketStatusId;this.ticketStatusName=ticketStatusName;}
+   * Constructs a new TicketStatus instance.
+   *
+   * @param ticketStatusIdParam   The unique identifier for the ticket status.
+   * @param ticketStatusNameParam The name of the ticket status.
+   */
+  public TicketStatus(final Integer ticketStatusIdParam,
+     final String ticketStatusNameParam) {
+      super();
+      this.ticketStatusId = ticketStatusIdParam;
+      this.ticketStatusName = ticketStatusNameParam;
+  }
 
-/**
-   * @return the ticketStatusId
+  /**
+   * Retrieves the unique identifier for the ticket status.
+   *
+   * @return The ticket status ID.
    */
   public Integer getTicketStatusId() {
-    return ticketStatusId;
+      return ticketStatusId;
   }
 
   /**
-   * @param ticketStatusId the ticketStatusId to set
-   */
-  public void setTicketStatusId(Integer ticketStatusId) {
-    this.ticketStatusId = ticketStatusId;
-  }
-
-  /**
-   * @return the ticketStatusName
+   * Retrieves the name of the ticket status.
+   *
+   * @return The ticket status name.
    */
   public String getTicketStatusName() {
-    return ticketStatusName;
+      return ticketStatusName;
   }
 
   /**
-   * @param ticketStatusName the ticketStatusName to set
+   * Sets the unique identifier for the ticket status.
+   *
+   * @param ticketStatusIdParam The ticket status ID to set.
    */
-  public void setTicketStatusName(String ticketStatusName) {
-    this.ticketStatusName = ticketStatusName;
+  public void setTicketStatusId(final Integer ticketStatusIdParam) {
+      this.ticketStatusId = ticketStatusIdParam;
+  }
+
+  /**
+   * Sets the name of the ticket status.
+   *
+   * @param ticketStatusNameParam The ticket status name to set.
+   */
+  public void setTicketStatusName(final String ticketStatusNameParam) {
+      this.ticketStatusName = ticketStatusNameParam;
   }
 }

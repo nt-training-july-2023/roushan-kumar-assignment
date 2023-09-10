@@ -87,7 +87,11 @@ public class Role {
     this.name = nameParam;
   }
 
-@Override public String toString(){return "Role [roleId=" + roleId + ", name=" + name + "]";}
- 
-  
+  /**
+   * Role.
+   */
+  @Override
+  public String toString() {
+    return "Role [roleId=" + roleId + ", name=" + name + "]";
+  }
 }

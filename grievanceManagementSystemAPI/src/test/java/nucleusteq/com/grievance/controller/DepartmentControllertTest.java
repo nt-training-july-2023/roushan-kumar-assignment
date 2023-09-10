@@ -68,7 +68,7 @@ public class DepartmentControllertTest {
     Department department = new Department(1, "Department 1");
 
     // Mock the behavior of the departmentService to return the saved department
-    when(departmentService.save(any(Integer.class),any(Department.class))).thenReturn(department);
+    when(departmentService.save(any(Integer.class),any(String.class),any(Department.class))).thenReturn(department);
 
     // Perform a POST request to the "/api/department/save" endpoint with JSON data
     mockMvc
@@ -76,6 +76,7 @@ public class DepartmentControllertTest {
         post("/api/department/save/1")
           .contentType(MediaType.APPLICATION_JSON)
           .content("{\"deptId\": 1, \"deptName\": \"Department 1\"}")
+          .header("password","password")
       )
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -83,7 +84,7 @@ public class DepartmentControllertTest {
       .andExpect(jsonPath("$.deptName").value("Department 1"));
 
     // Verify that the departmentService's save method was called with the department object
-    verify(departmentService, times(1)).save(any(Integer.class),any(Department.class));
+    verify(departmentService, times(1)).save(any(Integer.class),any(String.class),any(Department.class));
     verifyNoMoreInteractions(departmentService);
   }
 
@@ -91,11 +92,13 @@ public class DepartmentControllertTest {
   public void testDeleteDepartment() throws Exception {
     // Perform a DELETE request to the "/api/department/delete/{deptId}" endpoint
     mockMvc
-      .perform(delete("/api/department/delete/{deptId}/{userId}",1,1))
+      .perform(
+      		delete("/api/department/delete/{deptId}/{userId}",1,1)
+      		.header("password","password"))
       .andExpect(status().isOk());
 
     // Verify that the departmentService's delete method was called with the specified department ID
-    verify(departmentService, times(1)).delete(1,1);
+    verify(departmentService, times(1)).delete(1,"password",1);
     verifyNoMoreInteractions(departmentService);
   }
 }

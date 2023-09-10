@@ -49,9 +49,9 @@ public class DepartmentSeviceImplTest {
     dept.setDeptId(1);
     dept.setDeptName("HR");
     when(departmentRepo.save(dept)).thenReturn(dept);
-    when(departmentRepo.isAdmin(1)).thenReturn(1);
+    when(departmentRepo.isAdmin(1,"password")).thenReturn(1);
 
-    Department DeptReceived = departmentServiceImpl.save(1, dept);
+    Department DeptReceived = departmentServiceImpl.save(1,"password", dept);
     System.out.print(DeptReceived.getDeptName());
     assertEquals(dept.getDeptId().toString(), DeptReceived.getDeptId().toString());
     assertEquals(dept.getDeptName().toString(), DeptReceived.getDeptName().toString());
@@ -77,12 +77,12 @@ public class DepartmentSeviceImplTest {
   	 Integer userId = 2;
      Department department = new Department(1,"HR");
   	String exception = "You are not authorized to add department.";
-  	when(departmentRepo.isAdmin(userId)).thenReturn(-1);
+  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(-1);
 
 
      // Act and Assert
      assertThrows(BadRequestError.class, () -> {
-         departmentServiceImpl.save(userId, department);
+         departmentServiceImpl.save(userId,"password", department);
      });
      verify(departmentRepo, never()).save(department);
   }
@@ -93,11 +93,11 @@ public class DepartmentSeviceImplTest {
   {
   	 Integer userId = 2;
      Department department = new Department(1,"HR");
-  	when(departmentRepo.isAdmin(userId)).thenReturn(1);
+  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(1);
     when(departmentRepo.getDepartmentByName("HR")).thenReturn(department);
      // Act and Assert
      assertThrows(BadRequestError.class, () -> {
-         departmentServiceImpl.save(userId, department);
+         departmentServiceImpl.save(userId,"password", department);
      });
      verify(departmentRepo, never()).save(department);
   }
@@ -107,10 +107,10 @@ public class DepartmentSeviceImplTest {
   {
   	Integer deptId = 1;
   	Integer userId = 2;
-  	when(departmentRepo.isAdmin(userId)).thenReturn(-1);
+  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(-1);
     // Act and Assert
     assertThrows(BadRequestError.class, () -> {
-        departmentServiceImpl.delete(userId, deptId);
+        departmentServiceImpl.delete(userId,"password", deptId);
     });
     verify(departmentRepo, never()).deleteById(deptId);
   }
@@ -120,8 +120,8 @@ public class DepartmentSeviceImplTest {
   {
   	Integer deptId = 1;
   	Integer userId = 2;
-  	when(departmentRepo.isAdmin(userId)).thenReturn(1);
-  	departmentServiceImpl.delete(userId, deptId);
+  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(1);
+  	departmentServiceImpl.delete(userId,"password", deptId);
     verify(departmentRepo,times(1)).deleteById(deptId);
   }
   

@@ -16,6 +16,11 @@ public class Comments {
   private String comments;
 
   /**
+   * No args constructor.
+   */
+  public Comments() {
+  }
+  /**
    * @param commentsId
    * @param comments
    */public Comments(Integer commentsId, String comments) {

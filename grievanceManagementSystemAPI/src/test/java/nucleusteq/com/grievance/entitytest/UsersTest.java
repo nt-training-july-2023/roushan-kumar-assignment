@@ -18,7 +18,6 @@ public class UsersTest {
   public void setUp() {
       // Initialize a Users object for testing
       user = new Users(
-      		
           "testuser",
           "Test User",
           "testuser@example.com",
