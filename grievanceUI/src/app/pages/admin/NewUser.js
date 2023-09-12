@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../../../assets/css/forms.css'
 import { Link } from 'react-router-dom';
 import api from '../../../assets/axios';
-import MessageSucess from '../../component/MessageSucess';
+import ErrorMessage from '../../component/ErrorMessage';
 import NewUserValid from '../validations/NewUserValid';
 function NewUser() {
 
@@ -122,7 +122,7 @@ function NewUser() {
     }
     return (
         <>
-            <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
+            <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
             <div className='wrapper '>
                 <Link to="/admin" value="back">back</Link>
                 <div className='title'>

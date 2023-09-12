@@ -10,6 +10,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Department from "../pages/admin/Department";
 import Member from "../pages/member/Member";
 import SessionExpire from "../pages/SessionExpire";
+import Ticket from "../pages/admin/Ticket";
 export default createBrowserRouter([
     {
         path: "/app",
@@ -48,6 +49,10 @@ export default createBrowserRouter([
             {
                 path: "newticket",
                 element: <NewTicket/>,
+            },
+            {
+                path: "ticket",
+                element: <Ticket/>,
             },
             {
                 path: "Department",

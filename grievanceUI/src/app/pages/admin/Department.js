@@ -3,11 +3,14 @@ import '../../../assets/css/table.css'
 import api from '../../../assets/axios';
 import AddDepartment from '../../component/AddDepartment';
 import ConfirmBox from '../../component/ConfirmBox';
+import OkMessage from '../../component/OkMessage';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);
     const [showDept, setShowDept] = useState(false);
     const [confirmShow,setConfirmShow] = useState(false);
+    
+    const [okBox,setOkBox] = useState(false);
     const getAllDepartment = async () => {
         try {
             const res = await api.get('api/department/all');
@@ -21,7 +24,7 @@ function Department() {
     }
     useEffect(() => {
         getAllDepartment();
-    }, [])
+    }, [showDept])
 
     const closeDeptHandler = () => {
         setShowDept(false);
@@ -56,14 +59,22 @@ function Department() {
 
     const confirmDelete = ()=>{
         setConfirmShow(false);
+        setOkBox(true)
     }
-
+    const closeOkBoxHandler = ()=>{
+        setOkBox(false)
+    }
 
 
     return (
         <>
             {showDept && <AddDepartment onClick={closeDeptHandler} />}
-            {confirmShow && <ConfirmBox onClickCancel={confirmCancel} onClickDelete = {confirmDelete}  />}
+            {okBox && <OkMessage onClick={closeOkBoxHandler}/>}
+            {confirmShow && <ConfirmBox 
+                            onClickCancel={confirmCancel} 
+                            onClickDelete = {confirmDelete}  
+                            head={"delete department"}
+                            />}
             <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>
@@ -76,7 +87,7 @@ function Department() {
                     <table>
                         <thead>
                             <tr>
-                                <th className="">id</th>
+                                <th className="">S.No</th>
                                 <th className="">Depatment Name</th>
                                 <th className="">Action</th>
 
@@ -85,10 +96,10 @@ function Department() {
                         <tbody>
 
                             {
-                                deptData.map((dept) => {
+                                deptData.map((dept,id) => {
                                     return <>
                                         <tr key={dept.deptId}>
-                                            <td>{dept.deptId}</td>
+                                            <td>{id+1}</td>
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>

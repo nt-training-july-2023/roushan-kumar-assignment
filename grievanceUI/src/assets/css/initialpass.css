@@ -24,7 +24,7 @@
 .wrapper_pass{
     width: 30%;
     padding: 0 10px;
-    background-color: rgb(77, 196, 255);
+    background-color: rgb(191, 209, 219);
     /* margin: 20px 20px auto; */
     padding: 30px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
@@ -77,6 +77,20 @@
     background-color: #6495ED;
     border-radius: 3px;
     cursor: pointer;
-    margin-right: 1px;
+    margin-right: 10px;
+    color: white;
 }
 
+.wrapper_pass .form .input_field .btnNewCancle{
+
+    background: #999999;
+    
+    border:  1px solid #808080;
+}
+
+.wrapper_pass .form .input_field .btnNewOk{
+
+    background: #ff3333;
+    border: 1px solid #cc0000;
+ 
+}

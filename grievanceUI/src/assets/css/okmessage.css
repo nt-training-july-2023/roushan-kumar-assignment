@@ -1,0 +1,59 @@
+.ok-message{
+    width: 350px;
+    background: #fff;
+    border-radius: 6px;
+    top: 10%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    z-index: 5;
+    animation: oksucess .2s ease-in-out forwards;
+    
+}
+
+@keyframes oksucess {
+    0%{
+        transform: translateX(-50%) scale(0.1);
+    }
+    20%{
+        transform: translateX(-50%) scale(0.2);
+    }
+    40%{
+        transform: translateX(-50%) scale(0.4);
+    }
+    70%{
+        transform: translateX(-50%) scale(0.7);
+    }
+    100%{
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.ok-message img{
+    background-color: #6EED64;
+    width: 80px;
+    margin-top: -40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.ok-message h2{
+    font-size: 38px;
+    font-weight: 500px;
+    margin: 25px 0 10px;
+}
+
+.ok-message button{
+    width: 100%;
+    margin-top: 30px;
+    padding: 10px 0;
+    background-color: #6fd649;
+    border: 0;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow:  0 5px 5x rgba(0,0,0,0.2);
+}

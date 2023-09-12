@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../assets/axios.js';
 import { useNavigate } from 'react-router-dom';
-import MessageSucess from './MessageSucess.js';
+import MessageSucess from './ErrorMessage.js';
 function Login() {
     const initailLogin = {
         isSubmiting: false,
@@ -43,7 +43,8 @@ function Login() {
             console.log(userData.data);
             sessionStorage.setItem("userId",userData.data.userId);
             sessionStorage.setItem("username",userData.data.username);
-            sessionStorage.setItem("userType",userData.data.role.name)
+            sessionStorage.setItem("userType",userData.data.role.name);
+            sessionStorage.setItem("password",userData.data.password);
             
             if(userData.data.role.name==="Admin"){
               navigate("/admin")

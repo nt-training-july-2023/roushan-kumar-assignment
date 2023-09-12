@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../../assets/css/forms.css';
 import api from '../../../assets/axios';
-import MessageSucess from '../../component/MessageSucess';
+import ErrorMessage from '../../component/ErrorMessage';
 import NewTicketValid from '../validations/NewTicketValid';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
@@ -135,7 +135,7 @@ function NewTicket() {
 
     return (
         <>
-            <MessageSucess message={notificationMessage} show={show} onClick={handleClose} />
+            <ErrorMessage message={notificationMessage} show={show} onClick={handleClose} />
             <div className='wrapper'>
                 <div className='title'>
                     Add New Ticket

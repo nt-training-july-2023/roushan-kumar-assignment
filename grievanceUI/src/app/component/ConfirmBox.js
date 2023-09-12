@@ -12,7 +12,7 @@ function ConfirmBox(props) {
           </svg>
         </i>
         <h1>
-            user accout will be deleted permanentyl!
+          {props.head}
         </h1>
         <label>
             Are you sure to proceed?
