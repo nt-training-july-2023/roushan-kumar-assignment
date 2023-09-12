@@ -58,18 +58,20 @@ public class DepartmentController {
     @RequestBody final Department department,
     final HttpServletRequest httpHeaders
   ) {
-    String password;
-    if (
-      httpHeaders.getHeader("password") == null
-      || httpHeaders.getHeader("password").equals("")
-    ) {
-      throw new BadRequestError("Header is not found.");
-    }
-    password = httpHeaders.getHeader("password");
+//    String password,username;
+//    if (
+//      httpHeaders.getHeader("password") == null
+//      || httpHeaders.getHeader("password").equals("")
+//    ) {
+//      throw new BadRequestError("Header is not found.");
+//    }
+//    password = httpHeaders.getHeader("password");
+//    username = httpHeaders.getHeader("username");
+//
+//     System.out.println("Header Password: " + password +" "+ username);
+//     
 
-     //System.out.println("Header Password: " + password);
-
-    return departmentService.save(userId, password, department);
+    return departmentService.save(department);
   }
 
   /**

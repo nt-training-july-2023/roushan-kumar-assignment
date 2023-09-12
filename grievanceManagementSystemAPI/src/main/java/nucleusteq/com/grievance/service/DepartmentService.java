@@ -12,7 +12,7 @@ public interface DepartmentService {
   /*
    * save department.
    */
-  Department save(Integer userId,String password, Department department );
+  Department save(Department department );
 
   /*
    * get department by department name.

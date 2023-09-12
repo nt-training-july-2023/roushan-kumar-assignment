@@ -10,22 +10,16 @@ import org.springframework.boot.SpringApplication;
 
 class GrievanceManagementSystemApplicationTest {
 
-//	@InjectMocks
-//	private GrievanceManagementSystemApplication application;
-	
 	@Test
   public void contextLoads() {
-		
-    
-      // This test checks if the Spring application context loads successfully.
-// assertNotNull(application);
+
 	}
 	
-  @Test
-  void testGrievanceManagementSystemApplication() {
-    assertTrue(true);
-  }
-
+	@Test
+	public void main()
+	{
+		GrievanceManagementSystemApplication.main(new String[]{});
+	}
  
 }
 

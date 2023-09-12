@@ -14,6 +14,11 @@ import nucleusteq.com.grievance.repository.UserRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.RoleService;
 import nucleusteq.com.grievance.service.UserService;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Base64.Encoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +34,7 @@ public class UsersServiceImpl implements UserService {
    */
   @Autowired
   private UserRepo userRepo;
-  
+
   /**
    * Department Service.
    */
@@ -76,32 +81,36 @@ public class UsersServiceImpl implements UserService {
   @Override
   public UserDto save(final UserDto userDto) {
     //System.out.println(userDto.toString());
-    //System.out.println(userDto.getRole().toString() + " " + userDto.getDepartment());
+    //System.out.println(userDto.getRole().toString()
+    //+ " " + userDto.getDepartment());
     Users tempUser = new Users();
     UserDto userSend = new UserDto();
     //try {
       tempUser.setUsername(userDto.getUsername());
       tempUser.setFullName(userDto.getFullName());
       tempUser.setEmail(userDto.getEmail());
-      tempUser.setPassword(userDto.getPassword());
+      //save encrypted password
+      //String encryptPass = Base64.getEncoder().encodeToString(userDto.getPassword().getBytes());
+      byte[] encrypPassByte = Base64.getEncoder().encode(userDto.getPassword().getBytes(StandardCharsets.UTF_8));
+      String encryptPass = new String(encrypPassByte,StandardCharsets.UTF_8);
+      //System.out.println("EncryptePassword "+encryptPass);
+      tempUser.setPassword(encryptPass);
       tempUser.setInitialPassword(1);
       Role role = roleService.getRoleByName(userDto.getRole().getName());
       if(role != null) {
         tempUser.setRole(role);
-      }
-      else {
+      } else {
         throw new BadRequestError("Role is not found");
       }
       Department dept = departmentService.getDepartmentByName(
           userDto.getDepartment().getDeptName());
       if (dept != null) {
       tempUser.setDepartment(dept);
-      }
-      else {
+      } else {
         throw new BadRequestError("Department is not found");
       }
-      
-      if(userRepo.getByUserName(userDto.getUsername()) != null) {
+
+      if (userRepo.getByUserName(userDto.getUsername()) != null) {
         throw new InternalServerError("Username is already exist.");
       }
 
@@ -111,7 +120,7 @@ public class UsersServiceImpl implements UserService {
       userSend.setUsername(savedUser.getUsername());
       userSend.setEmail(savedUser.getEmail());
       userSend.setFullName(savedUser.getFullName());
-      //userSend.setPassword(savedUser.getPassword());
+      userSend.setPassword(savedUser.getPassword());
       //userSend.setInitalPassword(savedUser.getInitialPassword());
       userSend.setRole(savedUser.getRole());
       userSend.setDepartment(savedUser.getDepartment());
@@ -125,16 +134,49 @@ public class UsersServiceImpl implements UserService {
   /**
    * Authenticate user.
    */
-  @Override
+	@Override
   public boolean authenticate(final UserDto userDto) {
 
+  	
     try {
       Users tempUser;
       tempUser =  userRepo.getByUserName(userDto.getUsername());
+      //System.out.println("pass "+tempUser.getPassword());
+      byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
+      String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
+      //System.out.println("passMatch "+decodedString);
       if (
           tempUser.getUserId() != null
           &&
-          tempUser.getPassword().equals(userDto.getPassword())
+          decodedString.equals(userDto.getPassword())
+      ) {
+        return true;
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return false;
+  }
+	
+  /**
+   * Authenticate user is Admin.
+   */
+	public boolean authenticateIsAdmin(final UserDto userDto) {
+
+  	
+    try {
+      Users tempUser;
+      tempUser =  userRepo.getByUserName(userDto.getUsername());
+      System.out.println("pass "+tempUser.getRole().getName());
+      byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
+      String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
+      //System.out.println("passMatch "+decodedString);
+      if (
+          tempUser.getUserId() != null
+          &&
+          decodedString.equals(userDto.getPassword())
+          &&
+          tempUser.getRole().getName().equals("Admin")
       ) {
         return true;
       }
@@ -154,7 +196,12 @@ public class UsersServiceImpl implements UserService {
     try {
       if (key == keyVal) {
         powerUser.setUsername("root");
-        powerUser.setPassword("root");
+      //save encrypted password
+       // String encryptPass = Base64.getEncoder().encodeToString("root".getBytes());
+        byte[] encryptPassByte = Base64.getEncoder().encode("root".getBytes(StandardCharsets.UTF_8));
+        String encryptPass = new String(encryptPassByte,StandardCharsets.UTF_8);
+        
+        powerUser.setPassword(encryptPass);
         powerUser.setEmail("root.root@nucleus.com");
         powerUser.setFullName("Power");
         powerUser.setInitialPassword(1);
@@ -198,10 +245,10 @@ public class UsersServiceImpl implements UserService {
  */
 @Override
 public Users getById(final Integer userId) {
-	Optional<Users> user = userRepo.findById(userId);
-	if (user.isPresent()) {
-		return user.get();
-	}
+  Optional<Users> user = userRepo.findById(userId);
+  if (user.isPresent()) {
+   return user.get();
+  }
   return null;
  }
 }

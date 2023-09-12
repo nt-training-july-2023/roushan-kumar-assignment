@@ -51,7 +51,7 @@ public class DepartmentSeviceImplTest {
     when(departmentRepo.save(dept)).thenReturn(dept);
     when(departmentRepo.isAdmin(1,"password")).thenReturn(1);
 
-    Department DeptReceived = departmentServiceImpl.save(1,"password", dept);
+    Department DeptReceived = departmentServiceImpl.save(dept);
     System.out.print(DeptReceived.getDeptName());
     assertEquals(dept.getDeptId().toString(), DeptReceived.getDeptId().toString());
     assertEquals(dept.getDeptName().toString(), DeptReceived.getDeptName().toString());
@@ -71,21 +71,7 @@ public class DepartmentSeviceImplTest {
     assertNull(resultDepartment);
   }
 
-  @Test
-  public void saveByNonAdmin()
-  {
-  	 Integer userId = 2;
-     Department department = new Department(1,"HR");
-  	String exception = "You are not authorized to add department.";
-  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(-1);
-
-
-     // Act and Assert
-     assertThrows(BadRequestError.class, () -> {
-         departmentServiceImpl.save(userId,"password", department);
-     });
-     verify(departmentRepo, never()).save(department);
-  }
+ 
   
   //department already exist
   @Test
@@ -97,7 +83,7 @@ public class DepartmentSeviceImplTest {
     when(departmentRepo.getDepartmentByName("HR")).thenReturn(department);
      // Act and Assert
      assertThrows(BadRequestError.class, () -> {
-         departmentServiceImpl.save(userId,"password", department);
+         departmentServiceImpl.save( department);
      });
      verify(departmentRepo, never()).save(department);
   }

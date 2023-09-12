@@ -1,6 +1,8 @@
 package nucleusteq.com.grievance.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -15,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * Ticket Entity.
@@ -337,6 +341,19 @@ public class Ticket {
    */
   public void setUser(final Users userParam) {
     this.user = userParam;
+  }
+  
+  
+  public void addComments(final Comments commentsParam)
+  {
+  	if(comments==null)
+  	{
+  		this.comments = new ArrayList<>();
+  	}
+  	else 
+  	{
+  		this.comments.add(commentsParam);
+  	}
   }
 
   /**

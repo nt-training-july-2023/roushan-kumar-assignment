@@ -1,14 +1,19 @@
 package nucleusteq.com.grievance.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
+import nucleusteq.com.grievance.entity.Comments;
 import nucleusteq.com.grievance.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,4 +70,22 @@ public class TicketController {
      @RequestBody final TicketDto ticket) {
     return ticketService.update(ticket);
   }
+  
+
+  @PutMapping("/updates/ticketcomments/{ticketId}")
+  public ResponseDto updateTicketComments(
+     @RequestBody final  Comments comments,
+     @PathVariable("ticketId") final Integer ticketId) {
+  	System.out.println("comments "+comments.getComments());
+    return ticketService.updateTicketComments(comments,ticketId);
+  }
+
+  @GetMapping("/all")
+  public List<TicketDto> getAllTickets()
+  {
+  	return ticketService.getAll();
+  }
+  
+  
+  
 }

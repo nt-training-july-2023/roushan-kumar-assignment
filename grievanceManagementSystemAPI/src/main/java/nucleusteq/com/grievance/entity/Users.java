@@ -41,7 +41,7 @@ public class Users {
   /**
   * emai in string.
   */
-  @Column
+  @Column(nullable = false,unique = true)
   private String email;
 
   /**

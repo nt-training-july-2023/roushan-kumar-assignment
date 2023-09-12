@@ -56,4 +56,6 @@ public interface UserService {
    * 
    */
   Users getById(Integer userId);
+
+	boolean authenticateIsAdmin(UserDto user);
 }

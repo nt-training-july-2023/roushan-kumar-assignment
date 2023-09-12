@@ -1,9 +1,12 @@
 package nucleusteq.com.grievance.dto;
 
 
+import java.util.Collection;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import nucleusteq.com.grievance.entity.Comments;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
@@ -56,6 +59,7 @@ public class TicketDto {
   @NotNull
   private  Integer userId;  // User identifier associated with the ticket
 
+  private Collection<Comments> comments; 
   /**
    * no args Constructor.
    */
@@ -215,4 +219,18 @@ public class TicketDto {
   public void setUserId(final Integer userIdParam) {
       this.userId = userIdParam;
   }
+	/**
+	 * @return the comments
+	 */
+	public Collection<Comments> getComments() {
+		return comments;
+	}
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(Collection<Comments> comments) {
+		this.comments = comments;
+	}
+
+  
 }

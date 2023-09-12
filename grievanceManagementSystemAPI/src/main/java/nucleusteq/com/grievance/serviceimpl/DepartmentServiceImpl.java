@@ -36,18 +36,13 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   @Override
   public Department save(
-      final Integer userId,
-      final String password,
       final Department department) {
     Department tempDepartment;
     //try {
     Locale locale = Locale.ENGLISH;
     String deptName = department.getDeptName().toUpperCase(locale);
     department.setDeptName(deptName);
-    if (departmentRepo.isAdmin(userId, password) != 1) {
-      throw new BadRequestError("You are not authorized to add department.");
-    }
-
+  
     tempDepartment = departmentRepo
                      .getDepartmentByName(department.getDeptName());
     if (tempDepartment == null) {
@@ -55,10 +50,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     } else {
       throw new BadRequestError("Department Already Exists");
     }
-    //} catch (Exception e) {
-    //  System.out.println(e.getMessage());
-    //}
-    //return null;
   }
 
   /**

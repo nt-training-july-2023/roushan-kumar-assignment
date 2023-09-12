@@ -1,10 +1,17 @@
 package nucleusteq.com.grievance.serviceimpl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
+import nucleusteq.com.grievance.entity.Comments;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Ticket;
 import nucleusteq.com.grievance.entity.TicketStatus;
@@ -158,4 +165,54 @@ public class TicketServiceImpl implements TicketService {
          return response;
      }
  }
+
+  @Override
+  public ResponseDto updateTicketComments(Comments comments,final Integer  ticketId) {
+  	Optional<Ticket> ticket = ticketRepo.findById(ticketId);
+  	if (ticket.isPresent()) {
+      Ticket ticketData = ticket.get();
+      //LocalDateTime lastUpdateTime = LocalDateTime.now();
+      //ticketData.setLastUpdateTime(lastUpdateTime);
+      ticketData.addComments(comments);
+      ticketRepo.save(ticketData);
+      ResponseDto response = new ResponseDto(ticketId, "Ticket Comments Added", "UPDATE");
+      return response;
+    } else {
+    	ResponseDto response = new ResponseDto(ticketId, "Ticket not found", "NOT UPDATE");
+    	return response;
+    }
+  }
+
+	@SuppressWarnings("null")
+	@Override
+	public List<TicketDto> getAll() {
+		
+		List<Ticket> allTickets =  ticketRepo.findAll();
+		Collections.sort(allTickets,new SortById());
+//		List<Ticket> allTickets =  ticketRepo.findAllByOrderByIdAsc();
+		List<TicketDto> allTicketsDto = new ArrayList<TicketDto>();
+		
+		for(Ticket t:allTickets)
+		{
+			System.out.println("ticket 1: "+t.toString());
+			TicketDto ticketDto = new TicketDto();
+			if(t.getComments()!=null) {
+			  ticketDto.setComments(t.getComments());
+			}
+			else {
+				continue ;
+			}
+			ticketDto.setTicketId(t.getTicketId());
+			ticketDto.setTitle(t.getTitle());
+			ticketDto.setDescription(t.getDescription());
+			ticketDto.setDepartment(t.getDepartment());
+			ticketDto.setTicketType(t.getTicketType());
+			ticketDto.setTicketStatus(t.getTicketStatus());
+			ticketDto.setUserId(t.getUser().getUserId());
+			allTicketsDto.add(ticketDto);
+			
+		}
+		
+	  return allTicketsDto;	
+	}
 }
