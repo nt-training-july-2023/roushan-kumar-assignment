@@ -1,12 +1,15 @@
 package nucleusteq.com.grievance.serviceimpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
+import nucleusteq.com.grievance.entity.Comments;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Ticket;
 import nucleusteq.com.grievance.entity.TicketStatus;
@@ -68,19 +72,7 @@ public class TicketServiceImplTest {
     		new Department(1,"HR"), 
     		new TicketType(2,"FEEDBACK"), 
     		new TicketStatus(1,"OPEN"),
-    		1);//userId
-//    {
-//      
-//      "title":"Feedback of sessions",
-//      "description":"description 45",
-//      "department":{
-//         "deptName":"HR"
-//       },
-//     "ticketType":{
-//         "ticketName":"FEEDBACK"
-//     },
-//     "userId":"33"
-//    }
+    		1);
   }
 
   @Test
@@ -250,18 +242,70 @@ public class TicketServiceImplTest {
     verify(ticketRepo, never()).save(ticket);
     
   }
+    
+    @Test
+    public void testGetAllTicket()
+    {
+    	
+    	List<Comments> comments = Arrays.asList(
+    			new Comments(1,"comment 1"),
+    			new Comments(2,"comment 2"));
+    	
+    	Ticket ticket1 = new Ticket();
+    	ticket1.setTicketId(1);
+    	ticket1.setTitle("title 1");
+    	ticket1.setComments(comments);
+    	ticket1.setTicketType(new TicketType(1,"Feeback"));
+    	ticket1.setDepartment(new Department(1,"HR"));
+    	ticket1.setUser(new Users());
+    	
+    	Ticket ticket2 = new Ticket();
+    	ticket2.setTicketId(2);
+    	ticket2.setTitle("title 2");
+    	ticket2.setComments(comments);
+    	ticket2.setTicketType(new TicketType(1,"Feeback"));
+    	ticket2.setDepartment(new Department(1,"HR"));
+    	ticket2.setUser(new Users());
+    	
+    	TicketDto ticketDto1 = new TicketDto();
+    	ticketDto1.setTicketId(1);
+    	ticketDto1.setTitle("title 1");
+    	ticketDto1.setComments(comments);
+    	ticketDto1.setTicketType(new TicketType(1,"Feeback"));
+    	ticketDto1.setDepartment(new Department(1,"HR"));
+    	ticketDto1.setUserId(1);
+    	
+    	TicketDto ticketDto2 = new TicketDto();
+    	ticketDto2.setTicketId(2);
+    	ticketDto2.setTitle("title 2");
+    	ticketDto2.setComments(comments);
+    	ticketDto2.setTicketType(new TicketType(1,"Feeback"));
+    	ticketDto2.setDepartment(new Department(1,"HR"));
+    	ticketDto2.setUserId(1);
+    	
+    	
+    	
+    	List<Ticket> allTickets  = Arrays.asList(
+    			ticket1,
+    			ticket2
+    			);
+    	
+    	List<TicketDto> allTicketsDto = Arrays.asList(
+    			ticketDto1,
+    			ticketDto2
+    			);
+    	
+    	
+    	when(ticketRepo.findAll()).thenReturn(allTickets);
+    	//when(ticketServiceImpl.getAll()).thenReturn(allTicketsDto);
+    	
+//    	assertNotNull(ticketServiceImpl.getAll());
+    	//assertEquals(allTickets.get(0).getComments(), allTicketsDto.get(1).getComments());
+    	List<TicketDto> allTicketsDto2 = ticketServiceImpl.getAll();
+
+      // Assert that the result is not null and has the expected size
+      assertNotNull(allTicketsDto2);
+      assertEquals(2, allTicketsDto2.size());
+    }
   
-//  @Test
-//  public void testUpdate() {
-//    // Create a mock TicketDto
-//    TicketDto ticketDto = new TicketDto(/* initialize with necessary data */);
-//
-//    // Mock ticketRepo.findById() behavior
-//    when(ticketRepo.findById(anyLong()))
-//      .thenReturn(Optional.of(new Ticket(/* initialize with necessary data */)));
-//
-//    // Call the update method
-//    ResponseDto response = ticketService.update(ticketDto);
-//    // Perform assertions on the response or verify interactions as needed
-//  }
 }

@@ -183,7 +183,7 @@ public class TicketServiceImpl implements TicketService {
     }
   }
 
-	@SuppressWarnings("null")
+	
 	@Override
 	public List<TicketDto> getAll() {
 		

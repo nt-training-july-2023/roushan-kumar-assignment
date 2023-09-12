@@ -231,6 +231,14 @@ public class TicketDto {
 	public void setComments(Collection<Comments> comments) {
 		this.comments = comments;
 	}
+	@Override
+	public String toString() {
+		return "TicketDto [ticketId=" + ticketId + ", title=" + title + ", description=" + description + ", department="
+				+ department + ", ticketType=" + ticketType + ", ticketStatus=" + ticketStatus + ", userId=" + userId
+				+ ", comments=" + comments + "]";
+	}
+	
+	
 
   
 }
