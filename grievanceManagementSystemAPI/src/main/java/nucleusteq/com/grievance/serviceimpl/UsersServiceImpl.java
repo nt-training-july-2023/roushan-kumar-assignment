@@ -3,6 +3,8 @@ package nucleusteq.com.grievance.serviceimpl;
 import java.util.List;
 import java.util.Optional;
 
+import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
@@ -162,15 +164,13 @@ public class UsersServiceImpl implements UserService {
    * Authenticate user is Admin.
    */
 	public boolean authenticateIsAdmin(final UserDto userDto) {
-
-  	
     try {
       Users tempUser;
       tempUser =  userRepo.getByUserName(userDto.getUsername());
       System.out.println("pass "+tempUser.getRole().getName());
       byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
       String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
-      //System.out.println("passMatch "+decodedString);
+      System.out.println("decodedString  "+decodedString);
       if (
           tempUser.getUserId() != null
           &&
@@ -251,4 +251,37 @@ public Users getById(final Integer userId) {
   }
   return null;
  }
+
+@Override
+public ResponseDto changePassword(ChangePassword changePassword) {
+	
+	Optional<Users> user = userRepo.findById(changePassword.getUserId());
+	Users users;
+  if (user.isPresent()) {
+     users = user.get();
+     byte[] encodeNewPassword = Base64.getEncoder()
+    		 .encode(changePassword.getNewPassword().getBytes(StandardCharsets.UTF_8));
+     String newPassword = new String(encodeNewPassword,StandardCharsets.UTF_8);
+     
+     byte[] decodeOldPassword = Base64.getDecoder()
+    		 .decode(users.getPassword());
+     String oldPassword = new String(decodeOldPassword,StandardCharsets.UTF_8);
+     
+//     System.out.println(changePassword.getOldPassword()+" in dto < | >  in database " + oldPassword );
+     
+     if(oldPassword.equals(changePassword.getOldPassword()))
+     {
+    	 users.setPassword(newPassword);
+    	 users.setInitialPassword(0);
+    	 
+    	 userRepo.save(users);
+    	 
+    	 return new ResponseDto(changePassword.getUserId(), "New Password updated ","UPDATE");
+     }
+     else
+    	 return new ResponseDto(null, "Old Password Not Match","NOT_UPDATE");
+  }
+	
+ return new ResponseDto(null, "New Password not updated ","NOT_UPDATE");
+}
 }

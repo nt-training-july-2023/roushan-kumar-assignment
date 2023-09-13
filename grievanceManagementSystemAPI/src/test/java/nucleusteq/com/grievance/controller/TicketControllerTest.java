@@ -16,7 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
+import nucleusteq.com.grievance.entity.Comments;
 import nucleusteq.com.grievance.entity.Department;
+import nucleusteq.com.grievance.entity.Ticket;
 import nucleusteq.com.grievance.entity.TicketType;
 import nucleusteq.com.grievance.service.TicketService;
 
@@ -25,6 +27,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class TicketControllerTest {
 
@@ -112,5 +117,46 @@ public class TicketControllerTest {
       // verify(ticketService, times(1)).update(validTicket);
        assertEquals("Updated", response.getStatus());
    }
+   
+   @Test
+   public void testGetAllTickets() throws Exception
+   {
+  	 List<Comments> comments = Arrays.asList(
+   			new Comments(1,"comment 1"),
+   			new Comments(2,"comment 2"));
+  	 
+  		TicketDto ticketDto1 = new TicketDto();
+    	ticketDto1.setTicketId(1);
+    	ticketDto1.setTitle("title 1");
+    	ticketDto1.setComments(comments);
+    	ticketDto1.setTicketType(new TicketType(1,"Feeback"));
+    	ticketDto1.setDepartment(new Department(1,"HR"));
+    	ticketDto1.setUserId(1);
+    	
+    	TicketDto ticketDto2 = new TicketDto();
+    	ticketDto2.setTicketId(2);
+    	ticketDto2.setTitle("title 2");
+    	ticketDto2.setComments(comments);
+    	ticketDto2.setTicketType(new TicketType(1,"Feeback"));
+    	ticketDto2.setDepartment(new Department(1,"HR"));
+    	ticketDto2.setUserId(1);
+    	  	
+    	List<TicketDto> allTicketsDto = Arrays.asList(
+    			ticketDto1,
+    			ticketDto2
+    			);
+    	
+    	when(ticketService.getAll()).thenReturn(allTicketsDto);
+    	
+    	mockMvc
+    		.perform(get("/api/ticket/all"))
+    		.andExpect(status().isOk())
+    		.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+
+    	
+    	verify(ticketService,times(1)).getAll();
+    	
+   }
+   
 }
 

@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author roush
  * @version 1.0.0
  */
-
 @RestController
 @RequestMapping("/api/ticket")
 @CrossOrigin(origins = "http://localhost:3000")

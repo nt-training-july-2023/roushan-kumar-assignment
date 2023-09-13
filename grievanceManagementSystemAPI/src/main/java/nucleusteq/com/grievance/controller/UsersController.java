@@ -2,6 +2,9 @@ package nucleusteq.com.grievance.controller;
 
 import java.util.List;
 import javax.validation.Valid;
+
+import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Users;
 import nucleusteq.com.grievance.service.UserService;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -87,4 +91,11 @@ public class UsersController {
   {
     return userService.getByUsername(username);
   }
+
+  @PutMapping("/changepassword")
+  public ResponseDto changePassword(@RequestBody ChangePassword changePassword)
+  {
+  		return userService.changePassword(changePassword);
+  }
+  
 }

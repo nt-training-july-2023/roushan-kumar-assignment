@@ -154,6 +154,17 @@ public class TicketServiceImpl implements TicketService {
          Ticket ticketData = ticket.get();
          LocalDateTime lastUpdateTime = LocalDateTime.now();
          ticketData.setLastUpdateTime(lastUpdateTime);
+         ticketData.setTitle(ticketDto.getTitle());
+         ticketData.setDescription(ticketDto.getDescription());
+         
+         ticketData.setDepartment(
+        		 departmentService.getDepartmentByName(
+                 ticketDto.getDepartment().getDeptName()));
+         
+         ticketData
+         			.setTicketStatus(ticketStatusService
+         					.getByName(ticketDto.getTicketStatus().getTicketStatusName()));
+         
          ticketRepo.save(ticketData);
          ResponseDto response = new ResponseDto(
          ticketDto.getTicketId(),
@@ -167,7 +178,9 @@ public class TicketServiceImpl implements TicketService {
  }
 
   @Override
-  public ResponseDto updateTicketComments(Comments comments,final Integer  ticketId) {
+  public ResponseDto updateTicketComments(
+  		final Comments comments,
+  		final Integer  ticketId) {
   	Optional<Ticket> ticket = ticketRepo.findById(ticketId);
   	if (ticket.isPresent()) {
       Ticket ticketData = ticket.get();

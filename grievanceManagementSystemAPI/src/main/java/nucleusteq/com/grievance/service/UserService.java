@@ -1,6 +1,9 @@
 package nucleusteq.com.grievance.service;
 
 import java.util.List;
+
+import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Users;
 
@@ -58,4 +61,6 @@ public interface UserService {
   Users getById(Integer userId);
 
 	boolean authenticateIsAdmin(UserDto user);
+
+	ResponseDto changePassword(ChangePassword changePassword);
 }

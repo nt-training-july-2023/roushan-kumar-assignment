@@ -11,6 +11,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Optional;
+
+import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
@@ -302,5 +308,84 @@ public class UserServiceImplTest {
 
     userDto = userServiceImpl.getByUsername("Roushan");
     assertEquals("Roushan", userDto.getUsername());
+  }
+
+  @Test
+  public void testChangePasswordWithValidData() {
+      // Create a sample ChangePassword object
+      ChangePassword changePassword = new ChangePassword();
+      changePassword.setUserId(1); 
+      changePassword.setOldPassword("oldPassword"); 
+      changePassword.setNewPassword("newPassword"); 
+
+      // Mock the behavior of the userRepo.findById() method
+      Users mockUser = new Users();
+      
+      mockUser.setPassword(Base64.getEncoder().encodeToString("oldPassword".getBytes(StandardCharsets.UTF_8)));
+      Mockito.when(userRepo.findById(changePassword.getUserId())).thenReturn(Optional.of(mockUser));
+
+      // Call the changePassword method
+      ResponseDto response = userServiceImpl.changePassword(changePassword);
+
+      // Assert that the password change was successful
+      assertNotNull(response);
+      assertEquals("UPDATE", response.getStatus());
+
+      // You can add more assertions based on your requirements
+  }
+
+  @Test
+  public void testChangePasswordWithInvalidOldPassword() {
+      // Create a sample ChangePassword object
+      ChangePassword changePassword = new ChangePassword();
+      changePassword.setUserId(1);
+      changePassword.setOldPassword("wrongPassword"); 
+      changePassword.setNewPassword("newPassword"); 
+
+      // Mock the behavior of the userRepo.findById() method
+      Users mockUser = new Users();
+      mockUser.setPassword(Base64.getEncoder().encodeToString("oldPassword".getBytes(StandardCharsets.UTF_8)));
+      Mockito.when(userRepo.findById(changePassword.getUserId())).thenReturn(Optional.of(mockUser));
+
+      // Call the changePassword method
+      ResponseDto response = userServiceImpl.changePassword(changePassword);
+
+      // Assert that the password change failed
+      assertNotNull(response);
+      assertEquals("NOT_UPDATE", response.getStatus());
+
+      // You can add more assertions based on your requirements
+  }
+
+  @Test
+  public void testIsAdmin()
+  {
+  	Role role = new Role(); 
+  	role.setName("Admin");
+  	Department dept = new Department();
+  	dept.setDeptName("HR");
+  	
+  	UserDto userDto = new UserDto();
+  	userDto.setUsername("Roushan20");
+  	userDto.setPassword("123");
+  	
+  	Users tempUser1 = new Users();
+  	tempUser1.setUserId(1);
+    tempUser1.setUsername("Roushan20");
+    tempUser1.setFullName("Roushan Kumar");
+    tempUser1.setEmail("roushan@gmail.com");
+    tempUser1.setRole(role);
+    tempUser1.setDepartment(dept);
+    
+    String validPassword="123";
+    byte[] encodedPassword = Base64.getEncoder().encode(validPassword.getBytes(StandardCharsets.UTF_8));
+    validPassword = new String(encodedPassword,StandardCharsets.UTF_8);
+    tempUser1.setPassword(validPassword);
+    tempUser1.setRole(role);
+    tempUser1.setDepartment(dept);
+    
+    when(userRepo.getByUserName(userDto.getUsername())).thenReturn(tempUser1);
+    //System.out.println(">>>" +userServiceImpl.authenticateIsAdmin(userDto));
+    assertTrue(userServiceImpl.authenticateIsAdmin(userDto));
   }
 }

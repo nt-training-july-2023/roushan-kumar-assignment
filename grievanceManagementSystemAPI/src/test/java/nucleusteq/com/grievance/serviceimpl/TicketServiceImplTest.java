@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -243,9 +244,9 @@ public class TicketServiceImplTest {
     
   }
     
-    @Test
-    public void testGetAllTicket()
-    {
+  @Test
+  public void testGetAllTicket()
+  {
     	
     	List<Comments> comments = Arrays.asList(
     			new Comments(1,"comment 1"),
@@ -308,4 +309,72 @@ public class TicketServiceImplTest {
       assertEquals(2, allTicketsDto2.size());
     }
   
+  @Test
+  public void testUdpateTicket()
+  {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	
+  	Ticket ticketSaved = new Ticket();
+    ticketSaved.setTicketId(1);
+    ticketSaved.setTicketType(ticketType);
+    ticketSaved.setTicketId(ticketDto.getTicketId());
+    ticketSaved.setTitle(ticketDto.getTitle());
+    ticketSaved.setDescription(ticketDto.getDescription());
+  //ticketSaved.setCreationTime(LocalDateTime.now());
+  //ticketSaved.setLastUpdateTime(LocalDateTime.now());
+    ticketSaved.setTicketStatus(ticketStatus);
+    ticketSaved.setDepartment(dept);
+    ticketSaved.setUser(new Users());
+    
+    when(ticketStatusService.getByName("OPEN"))
+    .thenReturn(ticketStatus);
+    
+    when(departmentService.getDepartmentByName("HR"))
+    .thenReturn(dept);
+    
+  	when(ticketRepo.findById(1)).thenReturn(Optional.of(ticketSaved));
+  	
+  	when(ticketRepo.save(any(Ticket.class))).thenReturn(ticketSaved);
+  	
+  	ResponseDto response = ticketServiceImpl.update(ticketDto);
+     System.out.println(response.toString());
+    // Perform assertions on the response or verify interactions as needed
+    assertEquals(response.getId(), ticketSaved.getTicketId());
+  }
+
+  @Test
+  public void testUpdateTicketComments()
+  {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	List<Comments> comments = Arrays.asList(
+  			new Comments(1,"comment 1"),
+  			new Comments(2,"comment 2"));
+  	
+  	Ticket ticketSaved = new Ticket();
+    ticketSaved.setTicketId(1);
+    ticketSaved.setTicketType(ticketType);
+    ticketSaved.setTicketId(ticketDto.getTicketId());
+    ticketSaved.setTitle(ticketDto.getTitle());
+    ticketSaved.setDescription(ticketDto.getDescription());
+  //ticketSaved.setCreationTime(LocalDateTime.now());
+  //ticketSaved.setLastUpdateTime(LocalDateTime.now());
+    ticketSaved.setTicketStatus(ticketStatus);
+    ticketSaved.setDepartment(dept);
+    ticketSaved.setUser(new Users());
+    ticketSaved.addComments(new Comments(1,"comment 1"));
+    
+  
+  	when(ticketRepo.findById(1)).thenReturn(Optional.of(ticketSaved));
+  	
+  	when(ticketRepo.save(any(Ticket.class))).thenReturn(ticketSaved);
+  	
+  	ResponseDto response = ticketServiceImpl.updateTicketComments(new Comments(1,"comment 1"),1);
+     System.out.println(response.toString());
+    // Perform assertions on the response or verify interactions as needed
+    assertEquals(response.getId(), ticketSaved.getTicketId());
+  }
 }
