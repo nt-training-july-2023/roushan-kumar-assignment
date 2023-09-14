@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/error.css'
+import '../assets/css/error.css'
 import { useNavigate } from 'react-router-dom';
 function ErrorPage() {
 

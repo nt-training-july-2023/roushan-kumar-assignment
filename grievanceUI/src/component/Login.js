@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../assets/axios.js';
+import api from '../assets/axios.js';
 import { useNavigate } from 'react-router-dom';
 import MessageSucess from './ErrorMessage.js';
 function Login() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import '../../../assets/css/table.css'
-import api from '../../../assets/axios';
+import '../../assets/css/table.css'
+import api from '../../assets/axios';
 import AddDepartment from '../../component/AddDepartment';
 import ConfirmBox from '../../component/ConfirmBox';
 import OkMessage from '../../component/OkMessage';

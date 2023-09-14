@@ -2,7 +2,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from "../pages/Home";
 import Login from "../component/Login";
-import App from "../../App"
+import App from "../App.js"
 import Admin from "../pages/admin/Admin";
 import NewUser from "../pages/admin/NewUser";
 import NewTicket from "../pages/admin/NewTicket";

@@ -1,6 +1,6 @@
 import React from 'react'
-import ckeckCircle from '../../assets/svg/check-lg.svg'
-import '../../assets/css/okmessage.css'
+import ckeckCircle from '../assets/svg/check-lg.svg'
+import '../assets/css/okmessage.css'
 function OkMessage(props) {
   return (
     <div>

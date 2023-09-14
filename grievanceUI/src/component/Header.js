@@ -1,10 +1,10 @@
 import React from 'react'
-import '../../assets/css/header.css'
-import user from '../../assets/svg/person-circle.svg'
-import logout from '../../assets/svg/box-arrow-in-right.svg'
-import edit from '../../assets/svg/pencil-square.svg'
-import person from '../../assets/svg/person.svg'
-import logo from '../../assets/svg/last-1.svg'
+import '../assets/css/header.css'
+import user from '../assets/svg/person-circle.svg'
+import logout from '../assets/svg/box-arrow-in-right.svg'
+import edit from '../assets/svg/pencil-square.svg'
+import person from '../assets/svg/person.svg'
+import logo from '../assets/svg/last-1.svg'
 function Header(props) {
     function toggleMenu(){
         console.log("clicked user");

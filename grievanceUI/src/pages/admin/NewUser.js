@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import '../../../assets/css/forms.css'
+import '../../assets/css/forms.css'
 import { Link } from 'react-router-dom';
-import api from '../../../assets/axios';
+import api from '../../assets/axios';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewUserValid from '../validations/NewUserValid';
 function NewUser() {

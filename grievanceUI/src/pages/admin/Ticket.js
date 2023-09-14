@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../../assets/axios';
+import api from '../../assets/axios';
 import TicketUpdateView from '../TicketUpdateView';
 
 function Ticket() {

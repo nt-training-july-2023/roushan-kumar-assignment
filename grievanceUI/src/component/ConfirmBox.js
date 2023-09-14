@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/confirmBox.css'
+import '../assets/css/confirmBox.css'
 
 
 function ConfirmBox(props) {

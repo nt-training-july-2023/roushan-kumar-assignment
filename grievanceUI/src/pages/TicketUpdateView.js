@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../assets/axios';
-import '../../assets/css/ticketUpdateView.css';
+import api from '../assets/axios';
+import '../assets/css/ticketUpdateView.css';
 function TicketUpdateView(props) {
     console.log(props.ticketData)
     const UID = sessionStorage.getItem("userId");

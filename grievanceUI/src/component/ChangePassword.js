@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/initialpass.css'
+import '../assets/css/initialpass.css'
 function ChangePassword() {
 
   const submitHandler = (e)=>{

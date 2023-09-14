@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/sidebar.css'
+import '../assets/css/sidebar.css'
 import { SidebarData as adminSidebar } from '../data/SidebarData'
 import { MSidebarData as  memberSidebar} from '../data/MSidebarData'
 import { NavLink, useNavigate } from 'react-router-dom'

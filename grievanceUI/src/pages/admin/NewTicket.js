@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../../../assets/css/forms.css';
-import api from '../../../assets/axios';
+import '../../assets/css/forms.css';
+import api from '../../assets/axios';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewTicketValid from '../validations/NewTicketValid';
 function NewTicket() {
