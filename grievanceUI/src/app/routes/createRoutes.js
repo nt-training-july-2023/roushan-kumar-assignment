@@ -11,6 +11,7 @@ import Department from "../pages/admin/Department";
 import Member from "../pages/member/Member";
 import SessionExpire from "../pages/SessionExpire";
 import Ticket from "../pages/admin/Ticket";
+import TicketUpdateView from "../pages/TicketUpdateView";
 export default createBrowserRouter([
     {
         path: "/app",
@@ -34,6 +35,7 @@ export default createBrowserRouter([
         path: "/session-expired",
         element:  <SessionExpire />
     },
+    
     {
         path:"/admin",
         element:<Admin/>,
@@ -57,6 +59,10 @@ export default createBrowserRouter([
             {
                 path: "Department",
                 element: <Department/>,
+            },
+            {
+                path: "ticket-update-view",
+                element:  <TicketUpdateView />
             },
         ]
     },

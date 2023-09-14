@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Sidebar from '../../component/Sidebar'
 import Home from '../Home'
-import InitialPassword from '../../component/InitialPassword'
+import ChangePassword from '../../component/ChangePassword'
 import Header from '../../component/Header'
 
 function Admin() {
@@ -25,7 +25,7 @@ function Admin() {
   return (
     <div>
       <div >
-      {initalPass && <InitialPassword onclick = {initalPAsswordHandler}/>}
+      {initalPass && <ChangePassword onclick = {initalPAsswordHandler}/>}
       
       <Header/>
       <Sidebar >

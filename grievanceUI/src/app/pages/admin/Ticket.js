@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../assets/axios';
+import TicketUpdateView from '../TicketUpdateView';
 
 function Ticket() {
 
   const [allTickets,setAllTickets] = useState([]);
+  const [ticket,setTicket] = useState([]);
+  const [showTicketUpdate,SetShowTicketUpdate] = useState(false)
 
   const getAllTickets = async ()=>{
     try {
-        const res = await api.get("/api/ticket/all")
+        const res = await api.get("api/ticket/all/10?departId=0&createdByMe=false")
       //  console.log("tickets "+res);
         setAllTickets(res.data)
     } catch (error) {
@@ -19,8 +22,17 @@ function Ticket() {
     getAllTickets();
   },[])
 
+  const viewUpdateTicketPage = (ticket)=>{
+   // console.log(ticket)
+    setTicket(ticket);
+    SetShowTicketUpdate(true)
+  }
+  const closeTicketUpdateView = () =>{
+    SetShowTicketUpdate(false)
+  }
   return (
-    <div>
+    <>
+        { showTicketUpdate &&  <TicketUpdateView onClick={closeTicketUpdateView} ticketData={ticket}/>}
         <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Tickets</h1>
@@ -47,7 +59,7 @@ function Ticket() {
                                             <td>{ticket.title}</td>
                                             <td>
                                                 <div>
-                                                    <button id="buttonEdit" className='btn button_edit' ></button>
+                                                    <button id="buttonEdit" className='btn button_edit' onClick={()=>{viewUpdateTicketPage(ticket)}} ></button>
                                                     <button id="buttonDet" className='btn button_delete' ></button>
                                                 </div>
                                             </td>
@@ -60,7 +72,7 @@ function Ticket() {
                     </table>
                 </section>
             </main>
-    </div>
+    </>
   )
 }
 

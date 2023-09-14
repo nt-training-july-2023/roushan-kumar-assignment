@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../assets/css/initialpass.css'
-function InitialPassword() {
+function ChangePassword() {
 
   const submitHandler = (e)=>{
     e.preventDefault();
@@ -16,26 +16,37 @@ function InitialPassword() {
                     Change Password
         </div>
         <form className='form'  >
-                <div className='input_field'>
-                    <label>Password</label>
-                    <input type="text" 
+        <div className='input_field'>
+                    <label>Old Password</label>
+                    <input type="password" 
                            className='input' 
-                           id="password" 
-                           name="password" 
+                           id="oldPassword" 
+                           name="oldPassword" 
                            
-                           placeholder='Password'
+                           placeholder='New Password'
+                           >
+                           
+                    </input>
+                </div>
+                <div className='input_field'>
+                    <label>New Password</label>
+                    <input type="password" 
+                           className='input' 
+                           id="newPassword" 
+                           name="newPassword" 
+                           
+                           placeholder='Old Password'
                            >
                            
                     </input>
                 </div>
                 <div className='input_field'>
                     <label>Confirm Password</label>
-                    <input type="text" 
+                    <input type="password" 
                            className='input' 
                            id="conPassword" 
-                           name="conPassword" 
-                           
-                           placeholder='Confirm password'
+                           name="conPassword"   
+                           placeholder='Confirm Password'
                            >
                            
                     </input>
@@ -51,4 +62,4 @@ function InitialPassword() {
   )
 }
 
-export default InitialPassword
+export default ChangePassword
