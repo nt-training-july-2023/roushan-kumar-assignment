@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import '../assets/css/notification.css';
-import '../assets/js/myJs'
 function ErrorMessage(props) {
     // console.log("props show" + props.show)
     // const closeNotify = ()=>

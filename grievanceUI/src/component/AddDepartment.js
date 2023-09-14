@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import '../assets/addDepartmen.js'
 import api from '../assets/axios.js';
  function AddDepartment({onClick}) {
 
