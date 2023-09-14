@@ -221,7 +221,13 @@ public class TicketServiceImpl implements TicketService {
 			ticketDto.setTicketType(t.getTicketType());
 			ticketDto.setTicketStatus(t.getTicketStatus());
 			ticketDto.setUserId(t.getUser().getUserId());
+			ticketDto.setFullName(t.getUser().getFullName());
+			ticketDto.setDate(t.getLastUpdateTime().toLocalDate().toString());
+			Integer hour = t.getLastUpdateTime().getHour();
+			Integer minute = t.getLastUpdateTime().getMinute();
+			ticketDto.setTime(hour +":"+minute);
 			allTicketsDto.add(ticketDto);
+			
 			
 		}
 		

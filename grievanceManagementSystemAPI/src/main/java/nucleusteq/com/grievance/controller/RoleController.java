@@ -19,7 +19,7 @@ import nucleusteq.com.grievance.service.RoleService;
  */
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/role")
 @CrossOrigin(origins = "http://localhost:3000")
 public class RoleController {
 

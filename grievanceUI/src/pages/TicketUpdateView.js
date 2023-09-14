@@ -4,8 +4,6 @@ import '../assets/css/ticketUpdateView.css';
 function TicketUpdateView(props) {
     console.log(props.ticketData)
     const UID = sessionStorage.getItem("userId");
-    
-
     const [deptData, setDeptData] = useState([]);
     const [ticketTypeData, setTicketTypeData] = useState([]);
     const [ticketStatus, setTicketStatus] = useState([]);
@@ -13,55 +11,32 @@ function TicketUpdateView(props) {
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
 
-    const getAllDepartment = async () => {
-        try {
-            const res = await api.get('api/department/all');
-            if (res.data) {
-                setDeptData(res.data);
-            }
-            console.log(res.data);
-        } catch (error) {
-            console.log(error.response.data);
-        }
-    }
-    const getAllTicketType = async () => {
-        try {
-            const res = await api.get('api/ticketType/all');
-            if (res.data) {
-                setTicketTypeData(res.data);
-            }
-            console.log(res.data);
-        } catch (error) {
-            console.log(error.response.data);
-        }
-    }
     const getAllTicketStatus = async () => {
         try {
             const res = await api.get('ticketStatus/all');
             if (res.data) {
                 setTicketStatus(res.data);
-            }
-            console.log(res.data);
+            } 
         } catch (error) {
             console.log(error.response.data);
         }
     }
+
+
     useEffect(() => {
-        getAllTicketType();
-        getAllDepartment();
         getAllTicketStatus();
     }, [])
 
 
     const inputHandler = (e) => {
-      
+
     }
 
 
 
 
     const clearNewTicketForm = () => {
-       
+
         const $selectDept = document.querySelector('#department');
         $selectDept.querySelectorAll('option')[0].selected = '--select Department--'
 
@@ -83,7 +58,7 @@ function TicketUpdateView(props) {
         // console.log("before hit api" + ticket);
         try {
             const result = await api.post();
-            
+
         }
         catch (error) {
             console.log(error.response.data)
@@ -99,8 +74,12 @@ function TicketUpdateView(props) {
             <div className='ticket-update-view'>
 
                 <div className='wrapper-TUV'>
-                    <div className='title'>
-                        Ticket
+                    <div>
+                        <div className='title'>
+                            Ticket
+
+                        </div>
+
                     </div>
                     <div className='form'>
 
@@ -108,24 +87,16 @@ function TicketUpdateView(props) {
                         <div className='input_field'>
                             <label>Ticket Type </label>
 
-                            <div
-                                className='custom_select'
+                            <input
+                                type="text"
+                                className='input'
                                 id='ticketType'
                                 name='ticketType'
-                                
+                                value={props.ticketData.ticketType.ticketName}
+                                disabled={true}
                             >
-                                <select disabled={true}>
-                                    <option value="0">--select Ticket Type--</option>
-                                    {
-                                        ticketTypeData.map((tickType) => (
-                                            <option key={tickType.ticketTypeId}
-                                                value={tickType.ticketName}
-                                            >{tickType.ticketName}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
+                            </input>
+
                         </div>
 
                         <div className='input_field'>
@@ -135,9 +106,9 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='titleInput'
                                 name='title'
-                                
+                                value={props.ticketData.title}
                                 disabled={true}
-                                placeholder='Title of ticket'></input>
+                            ></input>
                         </div>
 
                         <div className='input_field'>
@@ -147,32 +118,24 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='description'
                                 name='description'
-                               
+                                value={props.ticketData.description}
                                 disabled={true}
-                                placeholder='Description of ticket...'>
+                            >
 
                             </textarea>
                         </div>
 
                         <div className='input_field'>
                             <label>Assign To </label>
-                            <div
-                                className='custom_select'
-                                id='department'
-                                name='department'
-                                >
-                                <select disabled={true}>
-                                    <option value="0">--select Department--</option>
-                                    {
-                                        deptData.map((dept) => (
-                                            <option key={dept.deptId}
-                                                value={dept.deptName}
-                                            >{dept.deptName}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
+                            <input
+                                type="text"
+                                className='input'
+                                id='assignTo'
+                                name='assignTo'
+                                value={props.ticketData.fullName}
+                                disabled={true}
+                            >
+                            </input>
                         </div>
 
                         <div className='input_field'>
@@ -222,9 +185,9 @@ function TicketUpdateView(props) {
                             <input
                                 type="submit"
                                 value={"back"}
-                                className='btnNew' 
+                                className='btnNew'
                                 onClick={props.onClick}
-                                >
+                            >
 
                             </input>
                         </div>
@@ -236,19 +199,16 @@ function TicketUpdateView(props) {
                     <div className='title'>
                         Comments
                     </div>
+
                     <div className='comment-container'>
-                        <p>
-                            I'm sorry, but I need more specific information about the grievance you'd like a comment on. Grievances can vary widely, from workplace issues to personal concerns or complaints about various matters. Please provide more details or context, and I'll be happy to help you craft a comment or response accordingly.
-                        </p>
-                        <p>
-                            I'm sorry.
-                        </p>
-                        <p>
-                            I'm sorry, but I need more specific information about the grievance you'd like a comment on. Grievances can vary widely, from workplace issues to personal concerns or complaints about various matters. Please provide more details or context, and I'll be happy to help you craft a comment or response accordingly.
-                        </p>
                        
-                        
-                        
+                        {
+                            props.ticketData.comments?.map((comments, id) => {
+
+                                return <><p>{comments.comments}</p></>
+                            })
+                        }
+
                     </div>
                 </div>
                 {/* comments div end */}

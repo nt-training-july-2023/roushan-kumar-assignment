@@ -7,14 +7,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 function Sidebar({ children }) {
 
   const navigate = useNavigate();
-//   const history = ();
-
-//   if(sessionStorage.getItem("userId") === null || sessionStorage.getItem("userId") === "")
-//   {
-//     console.log("sidebar");
-//     navigate("/");
-//   }
-
     let SidebarData;
     if(sessionStorage.getItem('userType') === 'Admin')
     {
@@ -25,7 +17,6 @@ function Sidebar({ children }) {
         SidebarData = memberSidebar;
     }
     else{
-       // navigate("/");
        window.location.href = "http://localhost:3000/session-expired";
     }
 

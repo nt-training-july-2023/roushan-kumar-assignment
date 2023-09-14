@@ -7,7 +7,7 @@ import person from '../assets/svg/person.svg'
 import logo from '../assets/svg/last-1.svg'
 function Header(props) {
     function toggleMenu(){
-        console.log("clicked user");
+        
        let subMenu = document.getElementById("subMenu")
        subMenu.classList.toggle("open-menu")
    }
@@ -51,13 +51,7 @@ function Header(props) {
         </nav>
     </div>
 
-    {/* <script>
-        
-        function toggleMenu(){
-             subMenu = document.getElementById("subMenu")
-            subMenu.classList.toggle("open-menu")
-        }
-    </script> */}
+
     </>
   )
 }

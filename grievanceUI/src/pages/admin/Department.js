@@ -8,12 +8,13 @@ function Department() {
 
     const [deptData, setDeptData] = useState([]);
     const [showDept, setShowDept] = useState(false);
-    const [confirmShow,setConfirmShow] = useState(false);
-    
-    const [okBox,setOkBox] = useState(false);
+    const [confirmShow, setConfirmShow] = useState(false);
+
+    const [okBox, setOkBox] = useState(false);
     const getAllDepartment = async () => {
         try {
-            const res = await api.get('api/department/all');
+            const url = '/department/all';
+            const res = await api.get(url);
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -31,8 +32,7 @@ function Department() {
         document.getElementById('dep').style.cursor = 'default';
         let buttons = document.getElementsByClassName('btn')
 
-        for(var i=0, len=buttons.length; i<len; i++)
-        {
+        for (var i = 0, len = buttons.length; i < len; i++) {
             buttons[i].style["pointer-events"] = 'auto';
         }
     }
@@ -41,27 +41,26 @@ function Department() {
         setShowDept(true);
         document.getElementById('dep').style.cursor = 'no-drop';
         let buttons = document.getElementsByClassName('btn')
-        for(var i=0, len=buttons.length; i<len; i++)
-        {
+        for (var i = 0, len = buttons.length; i < len; i++) {
             buttons[i].style["pointer-events"] = 'none';
         }
     }
 
-    const deptDeleteHandle = ()=>{
+    const deptDeleteHandle = () => {
         console.log("clicked");
         setConfirmShow(true);
 
     }
 
-    const confirmCancel = ()=>{
+    const confirmCancel = () => {
         setConfirmShow(false);
     }
 
-    const confirmDelete = ()=>{
+    const confirmDelete = () => {
         setConfirmShow(false);
         setOkBox(true)
     }
-    const closeOkBoxHandler = ()=>{
+    const closeOkBoxHandler = () => {
         setOkBox(false)
     }
 
@@ -69,19 +68,19 @@ function Department() {
     return (
         <>
             {showDept && <AddDepartment onClick={closeDeptHandler} />}
-            {okBox && <OkMessage onClick={closeOkBoxHandler}/>}
-            {confirmShow && <ConfirmBox 
-                            onClickCancel={confirmCancel} 
-                            onClickDelete = {confirmDelete}  
-                            head={"delete department"}
-                            />}
+            {okBox && <OkMessage onClick={closeOkBoxHandler} />}
+            {confirmShow && <ConfirmBox
+                onClickCancel={confirmCancel}
+                onClickDelete={confirmDelete}
+                head={"delete department"}
+            />}
             <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>
                     <button className='add_department' onClick={openDeptHandler}>
-                     <span class="tooltiptext">click here to add department</span>
+                        <span class="tooltiptext">click here to add department</span>
                     </button>
-                    
+
                 </section>
                 <section className="table__body">
                     <table>
@@ -96,10 +95,10 @@ function Department() {
                         <tbody>
 
                             {
-                                deptData.map((dept,id) => {
+                                deptData.map((dept, id) => {
                                     return <>
                                         <tr key={dept.deptId}>
-                                            <td>{id+1}</td>
+                                            <td>{id + 1}</td>
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>

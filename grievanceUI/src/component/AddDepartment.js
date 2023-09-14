@@ -10,7 +10,8 @@ import api from '../assets/axios.js';
         e.preventDefault();
 
         try {
-          const res = await api.post("/api/department/save/"+sessionStorage.getItem("userId"),{
+          const url = "/department/save/"+sessionStorage.getItem("userId");
+          const res = await api.post(url,{
             "deptName": department,
           },
           {
@@ -19,7 +20,6 @@ import api from '../assets/axios.js';
                       username:sessionStorage.getItem("username"),
                     },
           }
-          
          )
 
         } catch (error) {

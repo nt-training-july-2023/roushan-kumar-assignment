@@ -30,11 +30,11 @@ function NewUser() {
 
     const getAllRole = async () => {
         try {
-            const res = await api.get('api/role/all');
+            const url = '/role/all';
+            const res = await api.get(url);
             if (res.data) {
                 setRoleData(res.data);
             }
-            console.log(res.data);
         } catch (error) {
             console.log(error.response.data);
         }
@@ -43,11 +43,11 @@ function NewUser() {
     }
     const getAllDepartment = async () => {
         try {
-            const res = await api.get('api/department/all');
+            const url = '/department/all';
+            const res = await api.get(url);
             if (res.data) {
                 setDeptData(res.data);
             }
-            console.log(res.data);
         } catch (error) {
             console.log(error.response.data);
         }
@@ -68,7 +68,6 @@ function NewUser() {
     }
 
     const inputRoleHandler = (e) => {
-        console.log("role inputRoleHandler : ", role);
         setUser({
             ...user,
             role: {
@@ -79,7 +78,6 @@ function NewUser() {
     }
 
     const inputDeptHandler = (e) => {
-        console.log("department inputDeptHandler : ", department);
         setUser({
             ...user,
             department: {
@@ -97,25 +95,21 @@ function NewUser() {
         var val = NewUserValid(user)
 
         if (val) {
-            console.log("val " + val)
             setErrorMessage(val)
             setShow("show")
             return;
         }
 
         try {
-            console.log("role : ", role);
-            const result = await api.post('/api/user/save', user);
+            const url = '/user/save';
+            const result = await api.post(url, user);
             setErrorMessage("New User Added")
             setShow("show")
-            console.log(result.data);
         } catch (error) {
-            console.log(error.response.data)
             setErrorMessage(error.response.data)
             setShow("show")
         }
 
-        //alert("true");
     }
     const handleClose = () => {
         setShow("");

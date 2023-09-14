@@ -59,6 +59,12 @@ public class TicketDto {
   @NotNull
   private  Integer userId;  // User identifier associated with the ticket
 
+  private String fullName;
+  
+  private String date;
+  
+  private String time;
+  
   private Collection<Comments> comments; 
   /**
    * no args Constructor.
@@ -230,6 +236,45 @@ public class TicketDto {
 	 */
 	public void setComments(Collection<Comments> comments) {
 		this.comments = comments;
+	}
+	
+	
+	
+	/**
+	 * @return the fullName
+	 */
+	public String getFullName() {
+		return fullName;
+	}
+	/**
+	 * @param fullName the fullName to set
+	 */
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+	/**
+	 * @return the time
+	 */
+	public String getTime() {
+		return time;
+	}
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(String time) {
+		this.time = time;
 	}
 	@Override
 	public String toString() {

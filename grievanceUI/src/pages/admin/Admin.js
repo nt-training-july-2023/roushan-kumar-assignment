@@ -7,17 +7,7 @@ import Header from '../../component/Header'
 
 function Admin() {
   const navigate = useNavigate();
-
-  // if(sessionStorage.getItem("userId")===null || sessionStorage.getItem("userId")==="")
-  // {
-  //   console.log("admin");
-  //   navigate("/");
-  // }
-
- 
-
   const [initalPass,setInitalPass] = useState(false)
-
   const initalPAsswordHandler =  (e)=>{
     setInitalPass(true)
   }
@@ -29,9 +19,7 @@ function Admin() {
       
       <Header/>
       <Sidebar >
-          <Outlet>
-            
-          </Outlet>
+          <Outlet/>
        </Sidebar>
       
        </div>

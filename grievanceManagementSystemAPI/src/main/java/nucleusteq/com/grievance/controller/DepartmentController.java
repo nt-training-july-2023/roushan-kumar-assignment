@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/api/department")
+@RequestMapping("/department")
 @CrossOrigin(origins = "http://localhost:3000")
 public class DepartmentController {
 
@@ -58,19 +58,6 @@ public class DepartmentController {
     @RequestBody final Department department,
     final HttpServletRequest httpHeaders
   ) {
-//    String password,username;
-//    if (
-//      httpHeaders.getHeader("password") == null
-//      || httpHeaders.getHeader("password").equals("")
-//    ) {
-//      throw new BadRequestError("Header is not found.");
-//    }
-//    password = httpHeaders.getHeader("password");
-//    username = httpHeaders.getHeader("username");
-//
-//     System.out.println("Header Password: " + password +" "+ username);
-//     
-
     return departmentService.save(department);
   }
 

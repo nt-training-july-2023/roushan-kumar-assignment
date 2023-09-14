@@ -10,47 +10,45 @@ function Login() {
     }
 
     const navigate = useNavigate();
-
     const [userLogin, setUserLogin] = useState(initailLogin);
     const [formError, setFormError] = useState(null);
     const [show, setShow] = useState("");
-    const [errorMessage,setErrorMessage] = useState("");
-
+    const [errorMessage, setErrorMessage] = useState("");
     const { isSubmiting, username, password } = userLogin;
 
     function inputHandler(e) {
         setUserLogin({ ...userLogin, [e.target.name]: e.target.value })
     }
-    
+
     const checkAuthentication = async (e) => {
         e.preventDefault();
-        if(userLogin.username==='')
-        {
-           
+        if (userLogin.username === '') {
+
             setErrorMessage("username is requied")
             setShow("show")
-            return 
+            return
         }
-        if(password==='')
-        {
+        if (password === '') {
             setErrorMessage("password is requied")
             setShow("show")
-            return 
+            return
         }
-        const res = await api.post('/api/login/authorization', userLogin)
+        const url = '/login/authorization';
+        const res = await api.post(url, userLogin)
         if (res.data !== "Invalid credantial") {
-            const userData = await api.get('api/user/byUsername/'+username)
+            const urlVal = '/user/byUsername/' + username;
+            const userData = await api.get(urlVal)
             console.log(userData.data);
-            sessionStorage.setItem("userId",userData.data.userId);
-            sessionStorage.setItem("username",userData.data.username);
-            sessionStorage.setItem("userType",userData.data.role.name);
-            sessionStorage.setItem("password",userData.data.password);
-            
-            if(userData.data.role.name==="Admin"){
-              navigate("/admin")
+            sessionStorage.setItem("userId", userData.data.userId);
+            sessionStorage.setItem("username", userData.data.username);
+            sessionStorage.setItem("userType", userData.data.role.name);
+            sessionStorage.setItem("password", userData.data.password);
+
+            if (userData.data.role.name === "Admin") {
+                navigate("/admin")
             }
-            else if(userData.data.role.name === "Member"){
-            navigate("/member")
+            else if (userData.data.role.name === "Member") {
+                navigate("/member")
             }
         }
         else {
@@ -59,47 +57,47 @@ function Login() {
             setShow("show")
         }
     }
-    const handleClose = ()=>{
+    const handleClose = () => {
         setShow("");
     }
     return (
         <>
-           <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
-           <div className='Login-body'>
-            <div className='container-left'>
-
-            </div>
-            <div className='container form-box' >
-            
-                <div className='' >
-                    <div className='headline'>
-                        <p className="form-group ">Welcome to</p>
-                        <p className="form-group ">Grievance/Feedback</p>
-                        <p className="form-group ">Management System</p>
-
-                    </div>
-                    <div>
-                        <label className="form-group formName">Sign in</label>
-
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="username" className="labelbox">Username</label>
-                        <input type="text" className="inputBox" id="username" name="username" value={username} disabled={isSubmiting} onChange={(e) => { inputHandler(e) }} />
-                        <div id="usernameHelp" className=""></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password" className="labelbox" >Password</label>
-                        <input type="password" className="inputBox" id="password" name="password" value={password} disabled={isSubmiting} onChange={(e) => { inputHandler(e) }} />
-                        <div id="passwordHelp" className=""></div>
-                    </div>
-                    <div className='form-group'>
-                        <button type="submit" className="myBtn" onClick={checkAuthentication}>Submit</button>
-                    </div>
-
-
+            <MessageSucess message={errorMessage} show={show} onClick={handleClose} />
+            <div className='Login-body'>
+                <div className='container-left'>
 
                 </div>
-            </div>
+                <div className='container form-box' >
+
+                    <div className='' >
+                        <div className='headline'>
+                            <p className="form-group ">Welcome to</p>
+                            <p className="form-group ">Grievance/Feedback</p>
+                            <p className="form-group ">Management System</p>
+
+                        </div>
+                        <div>
+                            <label className="form-group formName">Sign in</label>
+
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="username" className="labelbox">Username</label>
+                            <input type="text" className="inputBox" id="username" name="username" value={username} disabled={isSubmiting} onChange={(e) => { inputHandler(e) }} />
+                            <div id="usernameHelp" className=""></div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password" className="labelbox" >Password</label>
+                            <input type="password" className="inputBox" id="password" name="password" value={password} disabled={isSubmiting} onChange={(e) => { inputHandler(e) }} />
+                            <div id="passwordHelp" className=""></div>
+                        </div>
+                        <div className='form-group'>
+                            <button type="submit" className="myBtn" onClick={checkAuthentication}>Submit</button>
+                        </div>
+
+
+
+                    </div>
+                </div>
             </div>
         </>
     )

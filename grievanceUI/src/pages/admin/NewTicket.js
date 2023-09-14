@@ -29,7 +29,8 @@ function NewTicket() {
 
     const getAllDepartment = async () => {
         try {
-            const res = await api.get('api/department/all');
+            const url = '/department/all';
+            const res = await api.get(url);
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -46,7 +47,8 @@ function NewTicket() {
 
     const getAllTicketType = async () => {
         try {
-            const res = await api.get('api/ticketType/all');
+            const url = '/ticketType/all';
+            const res = await api.get(url);
             if (res.data) {
                 setTicketTypeData(res.data);
             }
@@ -115,7 +117,8 @@ function NewTicket() {
         console.log("result val"+val)
         console.log("before hit api" + ticket);
         try {
-            const result = await api.post("/api/ticket/save", ticket);
+            const url = "/ticket/save" ;
+            const result = await api.post(url,ticket);
             if (result.data.id != null) {
                 setNotificationMessage("New Ticket created.")
                 setShow("show")

@@ -5,8 +5,7 @@ function ErrorPage() {
 
     const navigate = useNavigate();
     const handleButtonClick = () => {
-        // Use history.push to redirect to a specific route
-        navigate(-1); // Replace '/destination' with your desired route or URL
+        navigate(-1); 
     };
   return (
     <>

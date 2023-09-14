@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UsersController {
 
@@ -73,17 +73,12 @@ public class UsersController {
   public ResponseEntity<?> saveUser(
       @RequestBody @Valid final UserDto userDto,
       final BindingResult errors) {
-    // return ResponseEntity.ok(userService.save(userDto));
     if (errors.hasErrors()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
       .body(errors.getAllErrors());
     }
-    //try {
-      return ResponseEntity.ok(userService.save(userDto));
-   // } catch (Exception e) {
-   //   System.out.println(e.getMessage());
-   // }
-   // return null;
+    return ResponseEntity.ok(userService.save(userDto));
+
   }
   
   @GetMapping("/byUsername/{username}")
