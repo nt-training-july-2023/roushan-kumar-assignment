@@ -29,7 +29,7 @@ public class Users {
   /**
   * user name in string and uique.
   */
-  @Column(name = "username", unique = true)
+  @Column(name = "username")
   private String username;
 
   /**
@@ -39,7 +39,7 @@ public class Users {
   private String fullName;
 
   /**
-  * emai in string.
+  * email in string.
   */
   @Column(nullable = false,unique = true)
   private String email;
@@ -51,7 +51,7 @@ public class Users {
   private String password;
 
   /**
-  * intialPassworn in Integer.
+  * intialPassword in Integer.
   */
   @Column
   private Integer initialPassword;

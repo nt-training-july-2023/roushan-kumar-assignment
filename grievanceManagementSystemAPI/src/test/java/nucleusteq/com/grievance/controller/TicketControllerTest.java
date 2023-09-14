@@ -95,28 +95,7 @@ public class TicketControllerTest {
        verify(ticketService, never()).save(any(TicketDto.class));
    }
 
-   @Test
-   public void testUpdateTicket() throws Exception {
 
-       validTicket.setTicketId(1);
-       when(ticketService.update(any(TicketDto.class)))
-           .thenReturn(new ResponseDto(1,"message","Updated"));
-
-       ObjectMapper objectMapper = new ObjectMapper();
-       String jsonRequest = objectMapper.writeValueAsString(validTicket);
-
-       mockMvc.perform(put("/api/ticket/update")
-               .contentType(MediaType.APPLICATION_JSON)
-               .content(jsonRequest))
-               .andExpect(status().isOk())
-               .andReturn();
-
-       ResponseDto response = ticketController.updateTicket(validTicket);
-
-       System.out.println(response.getMessage());
-      // verify(ticketService, times(1)).update(validTicket);
-       assertEquals("Updated", response.getStatus());
-   }
    
    @Test
    public void testGetAllTickets() throws Exception
@@ -146,15 +125,7 @@ public class TicketControllerTest {
     			ticketDto2
     			);
     	
-    	when(ticketService.getAll()).thenReturn(allTicketsDto);
-    	
-    	mockMvc
-    		.perform(get("/api/ticket/all"))
-    		.andExpect(status().isOk())
-    		.andExpect(content().contentType(MediaType.APPLICATION_JSON));
-
-    	
-    	verify(ticketService,times(1)).getAll();
+    	//to do
     	
    }
    

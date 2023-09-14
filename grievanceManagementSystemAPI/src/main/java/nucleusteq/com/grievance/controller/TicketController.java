@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * UserController.
  *
- * @author roush
+ * @author roushan
  * @version 1.0.0
  */
 @RestController
@@ -38,7 +39,7 @@ public class TicketController {
   private TicketService ticketService;
 
   /**
-   * save ticket.
+   * save ticket .
    *
    * @param ticket ticket.
    * @param errors BindingResult errors.
@@ -53,38 +54,39 @@ public class TicketController {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(errors.getAllErrors());
     }
-    //System.out.println(errors.getAllErrors());
     return ResponseEntity.ok(ticketService.save(ticket));
-    //return ticketService.save(ticket);
   }
 
   /**
-   * update ticket.
+   * For add comments and view tickets.
    *
-   * @param ticket ticket.
-   * @return response of update.
+   * @param statusId changed ticket status id.
+   * @param comments comment for tickets
+   * @param ticketId id of ticket.
+   * @return response of method.
    */
-  @PutMapping("/update")
-  public ResponseDto updateTicket(
-     @RequestBody final TicketDto ticket) {
-    return ticketService.update(ticket);
-  }
-  
-
   @PutMapping("/updates/ticketcomments/{ticketId}")
   public ResponseDto updateTicketComments(
+     @RequestParam(name = "statusId") final Integer statusId,
      @RequestBody final  Comments comments,
      @PathVariable("ticketId") final Integer ticketId) {
-  	System.out.println("comments "+comments.getComments());
-    return ticketService.updateTicketComments(comments,ticketId);
+    return ticketService.updateTicketComments(comments, ticketId, statusId);
   }
 
-  @GetMapping("/all")
-  public List<TicketDto> getAllTickets()
-  {
-  	return ticketService.getAll();
+  //localhost:8080/api/ticket/all/10?departId=1&createdByMe=false
+  /**
+   * Get all ticket according to conditions.
+   *
+   * @param userId user id.
+   * @param departId department id.
+   * @param createdByMe boolean value if user wants own tickets.
+   * @return return all tickets according to condition.
+   */
+  @GetMapping("/all/{userId}")
+  public List<TicketDto> getAllTickets(
+      @PathVariable("userId") final Integer userId,
+      @RequestParam(name = "departId", required = false) final Integer departId,
+      @RequestParam(name = "createdByMe") final Boolean createdByMe) {
+    return ticketService.getAllByCondition(userId, departId, createdByMe);
   }
-  
-  
-  
 }

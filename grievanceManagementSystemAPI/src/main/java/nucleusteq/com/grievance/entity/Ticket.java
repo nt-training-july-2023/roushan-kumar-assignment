@@ -104,7 +104,7 @@ public class Ticket {
           CascadeType.PERSIST,
           CascadeType.REFRESH
       })
-  @JoinColumn(name = "comments_id")
+  @JoinColumn(name = "comments_id")//need to change to ticket tid.
   private Collection<Comments> comments;
 
   /**

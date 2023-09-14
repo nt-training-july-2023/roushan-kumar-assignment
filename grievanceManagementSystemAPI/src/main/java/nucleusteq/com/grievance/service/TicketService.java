@@ -10,10 +10,12 @@ public interface TicketService {
 	
 	ResponseDto save(TicketDto ticketDto);
 
-  ResponseDto update(TicketDto ticketDto);
+//  ResponseDto update(TicketDto ticketDto);
 
-  ResponseDto updateTicketComments(Comments comments,Integer  ticketId);
+  ResponseDto updateTicketComments(Comments comments,Integer  ticketId, Integer statusId);
 
-	List<TicketDto> getAll();
+//	List<TicketDto> getAll();
+
+	List<TicketDto> getAllByCondition(Integer userId, Integer departId, boolean createdByMe);
 }
 

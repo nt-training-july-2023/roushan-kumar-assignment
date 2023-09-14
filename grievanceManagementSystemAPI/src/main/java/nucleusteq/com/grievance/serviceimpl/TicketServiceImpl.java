@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TicketServiceImpl implements TicketService {
 
- /**
+/**
 * Variables.
 */
  @Autowired
@@ -139,53 +139,25 @@ public class TicketServiceImpl implements TicketService {
      return response;
  }
 
- /**
-* Update a ticket.
-*
-* @param ticketDto The ticket data transfer object.
-* @return A ResponseDto indicating the result of the update operation.
-*/
- @Override
- public ResponseDto update(final TicketDto ticketDto) {
-     Optional<Ticket> ticket = ticketRepo
-                               .findById(ticketDto.getTicketId());
-
-     if (ticket.isPresent()) {
-         Ticket ticketData = ticket.get();
-         LocalDateTime lastUpdateTime = LocalDateTime.now();
-         ticketData.setLastUpdateTime(lastUpdateTime);
-         ticketData.setTitle(ticketDto.getTitle());
-         ticketData.setDescription(ticketDto.getDescription());
-         
-         ticketData.setDepartment(
-        		 departmentService.getDepartmentByName(
-                 ticketDto.getDepartment().getDeptName()));
-         
-         ticketData
-         			.setTicketStatus(ticketStatusService
-         					.getByName(ticketDto.getTicketStatus().getTicketStatusName()));
-         
-         ticketRepo.save(ticketData);
-         ResponseDto response = new ResponseDto(
-         ticketDto.getTicketId(),
-         "Ticket Update", "UPDATE");
-       return response;
-   } else {
-       ResponseDto response = new ResponseDto(ticketDto.getTicketId(),
-         "Ticket not found", "NOT UPDATE");
-         return response;
-     }
- }
 
   @Override
   public ResponseDto updateTicketComments(
   		final Comments comments,
-  		final Integer  ticketId) {
+  		final Integer  ticketId,
+  		final Integer statusId) {
   	Optional<Ticket> ticket = ticketRepo.findById(ticketId);
   	if (ticket.isPresent()) {
       Ticket ticketData = ticket.get();
-      //LocalDateTime lastUpdateTime = LocalDateTime.now();
-      //ticketData.setLastUpdateTime(lastUpdateTime);
+      LocalDateTime lastUpdateTime = LocalDateTime.now();
+      ticketData.setLastUpdateTime(lastUpdateTime);
+      
+      TicketStatus ticketStatus = ticketStatusService.getById(statusId);
+      if (ticketStatus!=null) {
+      ticketData.setTicketStatus(ticketStatus);
+      } else {
+      	throw new BadRequestError("Status Not Found.");
+      }
+      
       ticketData.addComments(comments);
       ticketRepo.save(ticketData);
       ResponseDto response = new ResponseDto(ticketId, "Ticket Comments Added", "UPDATE");
@@ -196,14 +168,41 @@ public class TicketServiceImpl implements TicketService {
     }
   }
 
-	
+
+
 	@Override
-	public List<TicketDto> getAll() {
+	public List<TicketDto> getAllByCondition(Integer userId, Integer departId, boolean createdByUser) {
 		
-		List<Ticket> allTickets =  ticketRepo.findAll();
-		Collections.sort(allTickets,new SortById());
-//		List<Ticket> allTickets =  ticketRepo.findAllByOrderByIdAsc();
-		List<TicketDto> allTicketsDto = new ArrayList<TicketDto>();
+		List<Ticket> allTickets = new ArrayList<Ticket>() ;
+		Users user = userService.getById(userId);
+		if (user.getRole().getName().equals("Admin") && departId != 0) {
+			//return all ticket if user is admin and filter by department
+			System.out.println("admin and department");
+			allTickets = ticketRepo.findByDepartment(departId);
+			
+		} else if (!user.getRole().getName().equals("Admin") && createdByUser == false) {
+			// retuern all ticket if user is non admin and assign to its department
+			System.out.println("non admin");
+			departId = user.getDepartment().getDeptId();
+			allTickets = ticketRepo.findByDepartment(departId);
+			
+			
+		} else if (createdByUser == true) {
+			// all ticket if user is not admin and filter by created by user
+			System.out.println("created by me ticket");
+			allTickets = ticketRepo.findByCreateByUser(userId);
+			
+			
+		} else if (user.getRole().getName().equals("Admin")) {
+			// all ticket.
+			System.out.println("all ticket");
+			 allTickets =  ticketRepo.findAll();
+		}
+		if (allTickets.size() <= 0) {
+			System.out.println("in null all ticket");
+			return null;
+		}
+    List<TicketDto> allTicketsDto = new ArrayList<TicketDto>();
 		
 		for(Ticket t:allTickets)
 		{
@@ -227,5 +226,6 @@ public class TicketServiceImpl implements TicketService {
 		}
 		
 	  return allTicketsDto;	
+			
 	}
 }

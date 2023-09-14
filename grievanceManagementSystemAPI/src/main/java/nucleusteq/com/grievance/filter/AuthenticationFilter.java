@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import nucleusteq.com.grievance.dto.UserDto;
+import nucleusteq.com.grievance.exception.UserNotFoundException;
 import nucleusteq.com.grievance.service.UserService;
 
 @Component
@@ -27,7 +28,7 @@ public class AuthenticationFilter implements Filter {
     public AuthenticationFilter(UserService authenticationService) {
       this.authenticationService = authenticationService;
     }
-    
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -36,6 +37,9 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String username = httpServletRequest.getHeader("username");
         String password = httpServletRequest.getHeader("password");
+        if(username==null || password==null) {
+        	throw new UserNotFoundException("Header not found !!");
+        }
         System.out.println("In filter "+username +" "+ password);
         UserDto user = new UserDto();
         user.setUsername(username);
@@ -43,14 +47,12 @@ public class AuthenticationFilter implements Filter {
         
         UserDto userWithPasswordEncrypted = new UserDto();
         userWithPasswordEncrypted.setUsername(username);
-        
-        
+
         byte[] decodedBytes = Base64.getDecoder().decode(password);
         String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
         System.out.println("Decode pass " + decodedString);
         userWithPasswordEncrypted.setPassword(decodedString);
-        
-        
+
         if (authenticationService.authenticateIsAdmin(user)) {
             chain.doFilter(request, response);
         } else if (authenticationService.authenticateIsAdmin(userWithPasswordEncrypted)) {

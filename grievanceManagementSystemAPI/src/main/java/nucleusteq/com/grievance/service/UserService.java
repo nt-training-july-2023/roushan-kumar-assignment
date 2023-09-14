@@ -56,7 +56,7 @@ public interface UserService {
   UserDto getByUsername(String username);
 
   /*
-   * 
+   * Return user by user id. 
    */
   Users getById(Integer userId);
 
