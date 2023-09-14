@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
-import routes from './app/routes/createRoutes';
-import "bootstrap-icons/font/bootstrap-icons.css";
-// import 'bootstrap/dist/css/bootstrap.css';
+import routes from './routes/createRoutes';
 import "./assets/css/style.css"
 import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
