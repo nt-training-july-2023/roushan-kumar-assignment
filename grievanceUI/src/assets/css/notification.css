@@ -1,0 +1,75 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.sucessNotification{
+    background-color: rgb(35, 226, 194);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: .5rem;
+    z-index: 999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.sucessNotification p{
+    width: 16rem;
+    height: 4rem ;
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.close{
+    background-color: rgb(253, 119, 67);
+    text-align: end;
+    position: relative;
+    left: 0;
+    cursor: pointer;
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.close svg{
+    width: 1rem;
+}
+
+.show{
+    display: flex;
+    animation:sucess 400ms ease-in-out forwards;
+}
+
+.closeNotification{
+    display: none;
+}
+
+.btn{
+    background-color: rgb(253, 119, 67);
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes sucess {
+    0%{
+        opacity: 0;
+        top: 0;
+    }
+    20%{
+        opacity: .2;
+        top: 0;
+    }
+    100%{
+        opacity: 1;
+        top: 3rem;
+    }
+}
