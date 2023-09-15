@@ -3,14 +3,15 @@ import api from '../../assets/axios';
 import TicketUpdateView from '../TicketUpdateView';
 
 function Ticket() {
-
+  const UID = sessionStorage.getItem("userId");
   const [allTickets,setAllTickets] = useState([]);
   const [ticket,setTicket] = useState([]);
   const [showTicketUpdate,SetShowTicketUpdate] = useState(false)
-
+  const [createdByMe,setCreatedByMe] = useState(false);
+  const [departmentId,SetDepartmentId] = useState(0);
   const getAllTickets = async ()=>{
     try {
-        const url = "/ticket/all/10?departId=0&createdByMe=false";
+        const url = "/ticket/all/"+UID+"?departId="+departmentId+"&createdByMe="+createdByMe;
         const res = await api.get(url)
         setAllTickets(res.data)
     } catch (error) {

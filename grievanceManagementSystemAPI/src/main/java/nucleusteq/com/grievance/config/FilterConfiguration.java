@@ -11,20 +11,17 @@ import nucleusteq.com.grievance.service.UserService;
 @Configuration
 public class FilterConfiguration {
 
-	
+	 @Autowired
 	 private UserService userService;
-
-   @Autowired
    public FilterConfiguration(UserService userService) {
        this.userService = userService;
    }
-	
   @Bean
   public FilterRegistrationBean<AuthenticationFilter> registrationBean() {
   	FilterRegistrationBean<AuthenticationFilter> regBean 
   			= new FilterRegistrationBean<AuthenticationFilter>();
   	regBean.setFilter(new AuthenticationFilter(userService));
-  	regBean.addUrlPatterns("/api/department/save/*");
+  	regBean.addUrlPatterns("/department/save/*");
   	System.out.println("in config filter.");
   	return regBean;
   }

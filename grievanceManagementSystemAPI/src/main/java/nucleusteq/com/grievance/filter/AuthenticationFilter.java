@@ -19,47 +19,71 @@ import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.exception.UserNotFoundException;
 import nucleusteq.com.grievance.service.UserService;
 
+/**
+ * Authentication filter class.
+ * For save department.
+ * Only admin can add department.
+ *
+ * @author roushan Kumar
+ */
 @Component
 public class AuthenticationFilter implements Filter {
-    
-    @Autowired
-    private UserService authenticationService;
-    
-    public AuthenticationFilter(UserService authenticationService) {
-      this.authenticationService = authenticationService;
+
+  /**
+   * userservice variable.
+   */
+  @Autowired
+  private UserService authenticationService;
+
+  /**
+   * Constructor to initialize a UserService object.
+   *
+   * @param authenticationServiceParam
+   */
+  public AuthenticationFilter(
+      final UserService authenticationServiceParam) {
+    this.authenticationService = authenticationServiceParam;
+  }
+
+  /**
+   * doFilet.
+   */
+  @Override
+  public void doFilter(
+      final ServletRequest request,
+      final ServletResponse response,
+      final FilterChain chain)
+      throws IOException, ServletException {
+
+    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    String username = httpServletRequest.getHeader("username");
+    String password = httpServletRequest.getHeader("password");
+    if (username == null || password == null) {
+      throw new UserNotFoundException("Header not found !!");
     }
+    System.out.println("In filter " + username + " " + password);
+    UserDto user = new UserDto();
+    user.setUsername(username);
+    user.setPassword(password);
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        ////System.out.println(request.toString());
-        
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String username = httpServletRequest.getHeader("username");
-        String password = httpServletRequest.getHeader("password");
-        if(username==null || password==null) {
-        	throw new UserNotFoundException("Header not found !!");
-        }
-        System.out.println("In filter "+username +" "+ password);
-        UserDto user = new UserDto();
-        user.setUsername(username);
-        user.setPassword(password);
-        
-        UserDto userWithPasswordEncrypted = new UserDto();
-        userWithPasswordEncrypted.setUsername(username);
+    UserDto userWithPasswordEncrypted = new UserDto();
+    userWithPasswordEncrypted.setUsername(username);
 
-        byte[] decodedBytes = Base64.getDecoder().decode(password);
-        String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
-        System.out.println("Decode pass " + decodedString);
-        userWithPasswordEncrypted.setPassword(decodedString);
+    byte[] decodedBytes = Base64.getDecoder().decode(password);
+    String decodedString = new String(decodedBytes,
+        StandardCharsets.UTF_8);
+    System.out.println("Decode pass " + decodedString);
+    userWithPasswordEncrypted.setPassword(decodedString);
 
-        if (authenticationService.authenticateIsAdmin(user)) {
-            chain.doFilter(request, response);
-        } else if (authenticationService.authenticateIsAdmin(userWithPasswordEncrypted)) {
-        	chain.doFilter(request, response);
-        }  else {
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid credentials Form filter");
-        }
+    if (authenticationService.authenticateIsAdmin(user)) {
+      chain.doFilter(request, response);
+    } else if (authenticationService.
+        authenticateIsAdmin(userWithPasswordEncrypted)) {
+      chain.doFilter(request, response);
+    } else {
+      HttpServletResponse httpResponse = (HttpServletResponse) response;
+      httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+          "Invalid credentials Form filter");
     }
+  }
 }

@@ -1,6 +1,5 @@
 package nucleusteq.com.grievance.dto;
 
-
 import java.util.Collection;
 
 import javax.validation.constraints.NotEmpty;
@@ -22,82 +21,104 @@ public class TicketDto {
   /**
    * Unique identifier for the ticket.
    */
-  private Integer ticketId;  // Unique identifier for the ticket
+  private Integer ticketId; // Unique identifier for the ticket
 
   /**
-   * Title  of the ticket.
+   * Title of the ticket.
    */
   @NotEmpty
-  private  String title;      // Title  of the ticket
+  private String title; // Title of the ticket
 
   /**
    * Description or details of the ticket.
    */
   @NotEmpty
-  private  String description;  // Description or details of the ticket
+  private String description; // Description or details of the ticket
 
   /**
    * Department associated with the ticket.
    */
   @NotNull
-  private  Department department;  // Department associated with the ticket
+  private Department department; // Department associated with the ticket
 
   /**
    * Type of the ticket.
    */
   @NotNull
-  private  TicketType ticketType;  // Type of the ticket
+  private TicketType ticketType; // Type of the ticket
 
   /**
    * Status of the ticket.
    */
-  private TicketStatus ticketStatus;  // Status of the ticket
+  private TicketStatus ticketStatus; // Status of the ticket
 
   /**
    * User identifier associated with the ticket.
    */
   @NotNull
-  private  Integer userId;  // User identifier associated with the ticket
+  private Integer userId; // User identifier associated with the ticket
 
-  private String fullName;
-  
-  private String date;
-  
-  private String time;
-  
-  private Collection<Comments> comments; 
   /**
-   * no args Constructor.
+   * Fullname of user.
+   */
+  private String fullName;
+
+  /**
+   * last updated date.
+   */
+  private String date;
+
+  /**
+   * last updated time.
+   */
+  private String time;
+
+  /**
+   * Creation date.
+   */
+  private String creationDate;
+
+  /**
+   * Creation time.
+   */
+  private String creationTime;
+
+  /**
+   * List of Comments.
+   */
+  private Collection<Comments> comments;
+
+  /**
+   * No args Constructor.
    */
   public TicketDto() {
   }
+
   /**
    * Constructor to initialize a TicketDto object.
    *
-   * @param ticketIdParam    The unique identifier for the ticket.
-   * @param titleParam       The title or name of the ticket.
-   * @param descriptionParam The description or details of the ticket.
-   * @param departmentParam  The department associated with the ticket.
-   * @param ticketTypeParam  The type of the ticket. Must not be null.
+   * @param ticketIdParam     The unique identifier for the ticket.
+   * @param titleParam        The title or name of the ticket.
+   * @param descriptionParam  The description or details of the ticket.
+   * @param departmentParam   The department associated with the ticket.
+   * @param ticketTypeParam   The type of the ticket. Must not be null.
    * @param ticketStatusParam The status of the ticket.
-   * @param userIdParam      The user identifier associated with the ticket.
+   * @param userIdParam       The user identifier associated with the ticket.
    */
-  public TicketDto(
-          final Integer ticketIdParam,
-          final String titleParam,
-          final String descriptionParam,
-          final Department departmentParam,
-          final TicketType ticketTypeParam,
-          final TicketStatus ticketStatusParam,
-          final Integer userIdParam
-  ) {
-      this.ticketId = ticketIdParam;
-      this.title = titleParam;
-      this.description = descriptionParam;
-      this.department = departmentParam;
-      this.ticketType = ticketTypeParam;
-      this.ticketStatus = ticketStatusParam;
-      this.userId = userIdParam;
+  public TicketDto(final Integer ticketIdParam,
+      final String titleParam,
+      final String descriptionParam,
+      final Department departmentParam,
+      final TicketType ticketTypeParam,
+      final TicketStatus ticketStatusParam,
+      final Integer userIdParam) {
+    this.ticketId = ticketIdParam;
+    this.title = titleParam;
+    this.description = descriptionParam;
+    this.department = departmentParam;
+    this.ticketType = ticketTypeParam;
+    this.ticketStatus = ticketStatusParam;
+    this.userId = userIdParam;
   }
 
   /**
@@ -106,7 +127,7 @@ public class TicketDto {
    * @return The ticketId.
    */
   public Integer getTicketId() {
-      return ticketId;
+    return ticketId;
   }
 
   /**
@@ -115,7 +136,7 @@ public class TicketDto {
    * @param ticketIdParam The ticketId to set.
    */
   public void setTicketId(final Integer ticketIdParam) {
-      this.ticketId = ticketIdParam;
+    this.ticketId = ticketIdParam;
   }
 
   /**
@@ -124,7 +145,7 @@ public class TicketDto {
    * @return The title.
    */
   public String getTitle() {
-      return title;
+    return title;
   }
 
   /**
@@ -133,7 +154,7 @@ public class TicketDto {
    * @param titleParam The title to set.
    */
   public void setTitle(final String titleParam) {
-      this.title = titleParam;
+    this.title = titleParam;
   }
 
   /**
@@ -142,7 +163,7 @@ public class TicketDto {
    * @return The description.
    */
   public String getDescription() {
-      return description;
+    return description;
   }
 
   /**
@@ -160,7 +181,7 @@ public class TicketDto {
    * @return The department.
    */
   public Department getDepartment() {
-      return department;
+    return department;
   }
 
   /**
@@ -169,7 +190,7 @@ public class TicketDto {
    * @param departmentParam The department to set.
    */
   public void setDepartment(final Department departmentParam) {
-      this.department = departmentParam;
+    this.department = departmentParam;
   }
 
   /**
@@ -178,7 +199,7 @@ public class TicketDto {
    * @return The ticketType.
    */
   public TicketType getTicketType() {
-      return ticketType;
+    return ticketType;
   }
 
   /**
@@ -187,7 +208,7 @@ public class TicketDto {
    * @param ticketTypeParam The ticketType to set.
    */
   public void setTicketType(final TicketType ticketTypeParam) {
-      this.ticketType = ticketTypeParam;
+    this.ticketType = ticketTypeParam;
   }
 
   /**
@@ -196,7 +217,7 @@ public class TicketDto {
    * @return The ticketStatus.
    */
   public TicketStatus getTicketStatus() {
-      return ticketStatus;
+    return ticketStatus;
   }
 
   /**
@@ -205,7 +226,7 @@ public class TicketDto {
    * @param ticketStatusParam The ticketStatus to set.
    */
   public void setTicketStatus(final TicketStatus ticketStatusParam) {
-      this.ticketStatus = ticketStatusParam;
+    this.ticketStatus = ticketStatusParam;
   }
 
   /**
@@ -214,7 +235,7 @@ public class TicketDto {
    * @return The userId.
    */
   public Integer getUserId() {
-      return userId;
+    return userId;
   }
 
   /**
@@ -223,67 +244,133 @@ public class TicketDto {
    * @param userIdParam The userId to set.
    */
   public void setUserId(final Integer userIdParam) {
-      this.userId = userIdParam;
+    this.userId = userIdParam;
   }
-	/**
-	 * @return the comments
-	 */
-	public Collection<Comments> getComments() {
-		return comments;
-	}
-	/**
-	 * @param comments the comments to set
-	 */
-	public void setComments(Collection<Comments> comments) {
-		this.comments = comments;
-	}
-	
-	
-	
-	/**
-	 * @return the fullName
-	 */
-	public String getFullName() {
-		return fullName;
-	}
-	/**
-	 * @param fullName the fullName to set
-	 */
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-	/**
-	 * @return the date
-	 */
-	public String getDate() {
-		return date;
-	}
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
-	/**
-	 * @return the time
-	 */
-	public String getTime() {
-		return time;
-	}
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
-	}
-	@Override
-	public String toString() {
-		return "TicketDto [ticketId=" + ticketId + ", title=" + title + ", description=" + description + ", department="
-				+ department + ", ticketType=" + ticketType + ", ticketStatus=" + ticketStatus + ", userId=" + userId
-				+ ", comments=" + comments + "]";
-	}
-	
-	
 
-  
+  /**
+   * Get comments.
+   *
+   * @return the comments
+   */
+  public Collection<Comments> getComments() {
+    return comments;
+  }
+
+  /**
+   * Set comments.
+   *
+   * @param commentsParam the comments to set
+   */
+  public void setComments(
+      final Collection<Comments> commentsParam) {
+    this.comments = commentsParam;
+  }
+
+  /**
+   * Get fulname.
+   *
+   * @return the fullName
+   */
+  public String getFullName() {
+    return fullName;
+  }
+
+  /**
+   * Set fulname.
+   *
+   * @param fullNameParam the fullName to set
+   */
+  public void setFullName(
+      final String fullNameParam) {
+    this.fullName = fullNameParam;
+  }
+
+  /**
+   * Get last updated date.
+   *
+   * @return the date
+   */
+  public String getDate() {
+    return date;
+  }
+
+  /**
+   * Set last updated date.
+   *
+   * @param dateParam the date to set.
+   */
+  public void setDate(
+      final String dateParam) {
+    this.date = dateParam;
+  }
+
+  /**
+   * Get last updated time.
+   *
+   * @return the time
+   */
+  public String getTime() {
+    return time;
+  }
+
+  /**
+   * Set last updated time.
+   *
+   * @param timeParam the time to set
+   */
+  public void setTime(
+      final String timeParam) {
+    this.time = timeParam;
+  }
+
+  /**
+   * Get creation time.
+   *
+   * @return the createrTime
+   */
+  public String getCreationTime() {
+    return creationTime;
+  }
+
+  /**
+   * Set creation time.
+   *
+   * @param timeParam the creationTime to set
+   */
+  public void setCreationTime(
+      final String timeParam) {
+    this.creationTime = timeParam;
+  }
+
+  /**
+   * Get creation date.
+   *
+   * @return the creationDate
+   */
+  public String getCreationDate() {
+    return creationDate;
+  }
+
+  /**
+   * Set creation date.
+   *
+   * @param creationDateParam the creationDate to set
+   */
+  public void setCreationDate(
+      final String creationDateParam) {
+    this.creationDate = creationDateParam;
+  }
+
+  /**
+   * Ticket details.
+   */
+  @Override
+  public String toString() {
+    return "TicketDto [ticketId=" + ticketId + ", title="
+        + title + ", description=" + description + ", department="
+        + department + ", ticketType=" + ticketType + ", ticketStatus="
+        + ticketStatus + ", userId=" + userId
+        + ", comments=" + comments + "]";
+  }
+
 }

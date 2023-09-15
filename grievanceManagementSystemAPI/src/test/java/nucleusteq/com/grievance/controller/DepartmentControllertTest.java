@@ -49,7 +49,7 @@ public class DepartmentControllertTest {
 
     // Perform a GET request to the "/api/department/all" endpoint
     mockMvc
-      .perform(get("/api/department/all"))
+      .perform(get("/department/all"))
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
       .andExpect(jsonPath("$[0].deptId").value(1))
@@ -73,7 +73,7 @@ public class DepartmentControllertTest {
     // Perform a POST request to the "/api/department/save" endpoint with JSON data
     mockMvc
       .perform(
-        post("/api/department/save/1")
+        post("/department/save/1")
           .contentType(MediaType.APPLICATION_JSON)
           .content("{\"deptId\": 1, \"deptName\": \"Department 1\"}")
           .header("password","password")
@@ -93,7 +93,7 @@ public class DepartmentControllertTest {
     // Perform a DELETE request to the "/api/department/delete/{deptId}" endpoint
     mockMvc
       .perform(
-      		delete("/api/department/delete/{deptId}/{userId}",1,1)
+      		delete("/department/delete/{deptId}/{userId}",1,1)
       		.header("password","password"))
       .andExpect(status().isOk());
 

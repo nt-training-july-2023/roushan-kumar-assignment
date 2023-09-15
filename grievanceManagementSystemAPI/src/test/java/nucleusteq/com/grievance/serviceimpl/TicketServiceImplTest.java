@@ -247,61 +247,8 @@ public class TicketServiceImplTest {
     
   }
     
-//  @Test
-//  public void testGetAllTicket()
-//  {
-//    	
-//    	List<Comments> comments = Arrays.asList(
-//    			new Comments(1,"comment 1"),
-//    			new Comments(2,"comment 2"));
-//    	
-//    	Ticket ticket1 = new Ticket();
-//    	ticket1.setTicketId(1);
-//    	ticket1.setTitle("title 1");
-//    	ticket1.setComments(comments);
-//    	ticket1.setTicketType(new TicketType(1,"Feeback"));
-//    	ticket1.setDepartment(new Department(1,"HR"));
-//    	ticket1.setUser(new Users());
-//    	
-//    	Ticket ticket2 = new Ticket();
-//    	ticket2.setTicketId(2);
-//    	ticket2.setTitle("title 2");
-//    	ticket2.setComments(comments);
-//    	ticket2.setTicketType(new TicketType(1,"Feeback"));
-//    	ticket2.setDepartment(new Department(1,"HR"));
-//    	ticket2.setUser(new Users());
-//    	
-//    	TicketDto ticketDto1 = new TicketDto();
-//    	ticketDto1.setTicketId(1);
-//    	ticketDto1.setTitle("title 1");
-//    	ticketDto1.setComments(comments);
-//    	ticketDto1.setTicketType(new TicketType(1,"Feeback"));
-//    	ticketDto1.setDepartment(new Department(1,"HR"));
-//    	ticketDto1.setUserId(1);
-//    	
-//    	TicketDto ticketDto2 = new TicketDto();
-//    	ticketDto2.setTicketId(2);
-//    	ticketDto2.setTitle("title 2");
-//    	ticketDto2.setComments(comments);
-//    	ticketDto2.setTicketType(new TicketType(1,"Feeback"));
-//    	ticketDto2.setDepartment(new Department(1,"HR"));
-//    	ticketDto2.setUserId(1);
-//  
-//    	List<Ticket> allTickets  = Arrays.asList(
-//    			ticket1,
-//    			ticket2
-//    			);
-//    	
-//    	List<TicketDto> allTicketsDto = Arrays.asList(
-//    			ticketDto1,
-//    			ticketDto2
-//    			);
-//    	
-//    
-//    }
-  
   @Test
-  public void testGetAllByCondition() {
+  public void testGetAllByConditionForAdmin() {
   	Department dept = new Department(1,"HR");
 		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
   	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
@@ -328,6 +275,61 @@ public class TicketServiceImplTest {
       assertNull(result);
       
      // assertEquals(0, result.size()); 
+      
+      verify(userService, times(1)).getById(1);
+      verify(ticketRepo, times(1)).findByDepartment(1);
+     
+  }
+  
+  
+  //retuern all ticket if user is non admin and assign to its department
+  @Test
+  public void testGetAllByConditionForOtherUser() {
+  	Department dept = new Department(1,"HR");
+		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
+  	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
+  	List<Comments> comments = Arrays.asList(
+  			new Comments(1,"comment 1"),
+  			new Comments(2,"comment 2"));
+      // Create a sample user
+      Users user = new Users();
+      user.setUserId(1);
+      user.setRole(new Role(1,"Member"));
+      user.setDepartment(dept);
+      user.setFullName("Roushan kumar");
+
+      
+      //creating ticket object for testing result.
+    	Ticket ticket = new Ticket();
+    	ticket.setTicketId(1);
+    	ticket.setTicketType(ticketType);
+    	ticket.setTicketId(ticketDto.getTicketId());
+      ticket.setTitle(ticketDto.getTitle());
+      ticket.setDescription(ticketDto.getDescription());
+      ticket.setCreationTime(LocalDateTime.now());
+      ticket.setTicketStatus(ticketStatus);
+      ticket.setDepartment(dept);
+      ticket.setUser(user);
+      ticket.setComments(comments);
+      ticket.setCreationTime(LocalDateTime.now());
+      ticket.setLastUpdateTime(LocalDateTime.now());
+
+      // Create some sample tickets
+      List<Ticket> allTickets = new ArrayList<Ticket>();
+      allTickets.add(ticket);
+
+
+      // Define the behavior of the mocked userService and ticketRepo
+      when(userService.getById(1)).thenReturn(user);
+      when(ticketRepo.findByDepartment(1)).thenReturn(allTickets);
+      // Add more mock behaviors as needed for your specific test cases
+
+      // Call the method to be tested
+      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 0, false);
+
+      assertNotNull(result);
+      
+      assertEquals(1, result.size()); 
       
       verify(userService, times(1)).getById(1);
       verify(ticketRepo, times(1)).findByDepartment(1);

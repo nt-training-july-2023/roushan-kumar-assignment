@@ -37,20 +37,21 @@ public class UserDto {
   /**
    * email in string.
    */
-  @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$", message = "Email address invalid")
+  @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$",
+      message = "Email address invalid")
   @NotNull(message = "email is required")
   private String email;
 
   /**
    * Password in string.
    */
-  @NotNull(message = "password is required")
+  @NotNull(message = "Password is required")
   private String password;
 
   /**
-  * intailPassword is integer.
+  * initialPassword is integer.
   */
-  private Integer initalPassword;
+  private Integer initialPassword;
 
   /**
    * Role is Class.
@@ -69,43 +70,6 @@ public class UserDto {
   public UserDto() {
 
   }
-
-//  /**
-//   * All arg constructor.
-//   *
-//   * @param userIdParam unique id for user
-//   * @param usernameParam unique email for user
-//   * @param fullNameParam first name
-//   * @param emailParam email
-//   * @param passwordParam password
-//   * @param initalPasswordParam initalPassword
-//   * @param roleParam userType
-//   */
-//  public UserDto(
-//      final Integer userIdParam,
-//      @NotEmpty(message = "username is required") @Size(min = 2)
-//      final String usernameParam,
-//      @NotEmpty(message = "full name is required")
-//      final String fullNameParam,
-//      @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$", message = "Email address invalid")
-//      @NotNull(message = "email is required")
-//      final String emailParam,
-//      @NotNull(message = "password is required")
-//      final String passwordParam,
-//      final Integer initalPasswordParam,
-//      final Role roleParam,
-//      final Department departmentParam
-//  ) {
-//    super();
-//    this.userId = userIdParam;
-//    this.username = usernameParam;
-//    this.fullName = fullNameParam;
-//    this.email = emailParam;
-//    this.password = passwordParam;
-//    this.initalPassword = initalPasswordParam;
-//    this.role = roleParam;
-//    this.department = departmentParam;
-//  }
 
   /**
    * get user id.
@@ -202,17 +166,17 @@ public class UserDto {
    *
    * @return the initalPassword
    */
-  public Integer getInitalPassword() {
-    return initalPassword;
+  public Integer getInitialPassword() {
+    return initialPassword;
   }
 
   /**
    * setInitalPassword.
    *
-   * @param initalPasswordParam the initalPassword to set
+   * @param initialPasswordParam the initalPassword to set
    */
-  public void setInitalPassword(final Integer initalPasswordParam) {
-    this.initalPassword = initalPasswordParam;
+  public void setInitalPassword(final Integer initialPasswordParam) {
+    this.initialPassword = initialPasswordParam;
   }
 
   /**
@@ -245,10 +209,11 @@ public class UserDto {
   /**
   * set department.
   *
-  * @param department the department to set
+  * @param departmentParam the department to set
   */
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setDepartment(
+      final Department departmentParam) {
+    this.department = departmentParam;
   }
 
   /**
@@ -259,7 +224,7 @@ public class UserDto {
     return "UserDto [userId=" + userId + ", username="
       + username + ", fullName=" + fullName + ", email="
       + email + ", password=" + password + ", initalPassword="
-      + initalPassword + ", role=" + role + ", department="
+      + initialPassword + ", role=" + role + ", department="
       + department + "]";
   }
 

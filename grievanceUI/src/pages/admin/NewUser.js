@@ -87,7 +87,19 @@ function NewUser() {
         });
     }
    
-    
+    const resetForm = () => {
+        setUser(newUser);
+        document.getElementById("fullname").value = null;
+        document.getElementById("username").value=null;
+        document.getElementById("email").value=null;
+        document.getElementById("password").value=null;
+
+        const $selectDept = document.querySelector('#department');
+        $selectDept.querySelectorAll('option')[0].selected = '--select Department--'
+
+        const $selectUserType = document.querySelector('#role');
+        $selectUserType.querySelectorAll('option')[0].selected = '--select user type--'
+    }
 
     const newUserHandler = async (e) => {
         e.preventDefault();
@@ -105,6 +117,7 @@ function NewUser() {
             const result = await api.post(url, user);
             setErrorMessage("New User Added")
             setShow("show")
+            resetForm();
         } catch (error) {
             setErrorMessage(error.response.data)
             setShow("show")
@@ -156,12 +169,11 @@ function NewUser() {
 
                         <input type="text"
                             className='input'
-                            // style={{ paddingRight: "8rem", width: "94%" }}
                             id="email"
                             name="email"
                             value={email}
                             onChange={inputHandler}
-                            placeholder='example'
+                            placeholder='firstname.lastname.@nucleusteq.com'
                             required
                         >
                         </input>

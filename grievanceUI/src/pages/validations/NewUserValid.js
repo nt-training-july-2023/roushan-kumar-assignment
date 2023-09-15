@@ -11,14 +11,18 @@ function NewUserValid(user) {
   }
 
   if (user.fullName.trim() === "") {
-    return "fullName is required";
-  }
+    return "FullName is required";
+  } 
 
-  if(user.password.trim() === "")
+  if(user.password.trim() === "") {
     return "Password is required."
 
+  } else if (user.password.length < 8) {
+    return "Password should be min 8 charactor";
+  } 
+
   if(user.email.trim() === "")
-    return "email is required.";
+    return "Email is required.";
   else if(!reg.test(userEmail)) 
   {
     return "Invalid Email Id."

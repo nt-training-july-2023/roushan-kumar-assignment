@@ -80,17 +80,28 @@ public class UsersController {
     return ResponseEntity.ok(userService.save(userDto));
 
   }
-  
+
+  /**
+   * find by username.
+   *
+   * @param username username to find.
+   * @return return user.
+   */
   @GetMapping("/byUsername/{username}")
-  public UserDto getUserByUsername(@PathVariable("username") String username)
-  {
+  public UserDto getUserByUsername(
+      @PathVariable("username") final String username) {
     return userService.getByUsername(username);
   }
 
+  /**
+   * Change password.
+   *
+   * @param changePassword object.
+   * @return response.
+   */
   @PutMapping("/changepassword")
-  public ResponseDto changePassword(@RequestBody ChangePassword changePassword)
-  {
-  		return userService.changePassword(changePassword);
+  public ResponseDto changePassword(
+      @RequestBody final ChangePassword changePassword) {
+      return userService.changePassword(changePassword);
   }
-  
 }

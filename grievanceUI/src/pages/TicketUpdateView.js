@@ -4,10 +4,10 @@ import '../assets/css/ticketUpdateView.css';
 function TicketUpdateView(props) {
     console.log(props.ticketData)
     const UID = sessionStorage.getItem("userId");
-    const [deptData, setDeptData] = useState([]);
-    const [ticketTypeData, setTicketTypeData] = useState([]);
-    const [ticketStatus, setTicketStatus] = useState([]);
 
+    
+
+    const [ticketStatus, setTicketStatus] = useState([]);
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
 
@@ -22,26 +22,23 @@ function TicketUpdateView(props) {
         }
     }
 
-
+    const [filterChoice, setFilterChoice] = useState();
+    setTimeout(() => {
+        document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
+    }, 1);
     useEffect(() => {
+        
+        //document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
         getAllTicketStatus();
+        setFilterChoice(props.ticketData.ticketStatus.ticketStatusId)
+       
     }, [])
 
-
     const inputHandler = (e) => {
-
+       
     }
 
-
-
-
     const clearNewTicketForm = () => {
-
-        const $selectDept = document.querySelector('#department');
-        $selectDept.querySelectorAll('option')[0].selected = '--select Department--'
-
-        const $selectTicketType = document.querySelector('#ticketType');
-        $selectTicketType.querySelectorAll('option')[0].selected = '--select Ticket Type--'
 
     }
 
@@ -54,16 +51,12 @@ function TicketUpdateView(props) {
         //     setShow("show")
         //     return ;
         // }
-        // console.log("result val"+val)
-        // console.log("before hit api" + ticket);
         try {
             const result = await api.post();
-
         }
         catch (error) {
             console.log(error.response.data)
         }
-
     }
 
     const handleClose = () => {
@@ -72,14 +65,17 @@ function TicketUpdateView(props) {
     return (
         <>
             <div className='ticket-update-view'>
-
+                
                 <div className='wrapper-TUV'>
+                
                     <div>
                         <div className='title'>
-                            Ticket
-
+                            Ticket{props.ticketData.ticketStatus.ticketStatusId +"  "+ props.ticketData.ticketStatus.ticketStatusName }
                         </div>
-
+                        <div className='label'><strong>Created Date :</strong> {props.ticketData.creationDate}</div>
+                        <div className='label'><strong>Created time :</strong>{props.ticketData.creationTime}</div>
+                        <div className='label'><strong>Assign By    :</strong> {props.ticketData.fullName}</div>
+                        
                     </div>
                     <div className='form'>
 
@@ -132,7 +128,7 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='assignTo'
                                 name='assignTo'
-                                value={props.ticketData.fullName}
+                                value={props.ticketData.department.deptName}
                                 disabled={true}
                             >
                             </input>
@@ -141,7 +137,7 @@ function TicketUpdateView(props) {
                         <div className='input_field'>
                             <label>Status <span className='error'>*</span></label>
                             <div className='custom_select' >
-                                <select >
+                                <select id='statusId' defaultValue={filterChoice}>
                                     <option value="0">--Select Ticket Status--</option>
                                     {
                                         ticketStatus.map((status) => (
@@ -159,10 +155,11 @@ function TicketUpdateView(props) {
                             <textarea
                                 type="text"
                                 className='input'
-                                id='description'
-                                name='description'
+                                id='comment'
+                                name='comment'
+                                
                                 onChange={inputHandler}
-                                placeholder='Description of ticket...'>
+                                placeholder='comment of ticket...'>
                             </textarea>
                         </div>
 

@@ -37,7 +37,7 @@ public class UserDtoTest {
     assertEquals("password123", userDto.getPassword());
 
     userDto.setInitalPassword(123456);
-    assertEquals(new Integer(123456), userDto.getInitalPassword());
+    assertEquals(new Integer(123456), userDto.getInitialPassword());
 
     Role role = new Role(); // Create a Role instance for testing
     userDto.setRole(role);
@@ -61,7 +61,7 @@ public class UserDtoTest {
     assertNull(userDto.getFullName());
     assertNull(userDto.getEmail());
     assertNull(userDto.getPassword());
-    assertNull(userDto.getInitalPassword());
+    assertNull(userDto.getInitialPassword());
     assertNull(userDto.getRole());
     assertNull(userDto.getDepartment());
   }

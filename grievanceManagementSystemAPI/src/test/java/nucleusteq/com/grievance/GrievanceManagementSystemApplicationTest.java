@@ -10,16 +10,14 @@ import org.springframework.boot.SpringApplication;
 
 class GrievanceManagementSystemApplicationTest {
 
-	@Test
+  @Test
   public void contextLoads() {
 
-	}
-	
-	@Test
-	public void main()
-	{
-		GrievanceManagementSystemApplication.main(new String[]{});
-	}
- 
-}
+  }
 
+  @Test
+  public void main() {
+    GrievanceManagementSystemApplication.main(new String[] {});
+  }
+
+}

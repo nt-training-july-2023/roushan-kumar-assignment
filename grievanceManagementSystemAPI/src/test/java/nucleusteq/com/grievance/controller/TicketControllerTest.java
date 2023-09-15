@@ -65,7 +65,7 @@ public class TicketControllerTest {
        ObjectMapper objectMapper = new ObjectMapper();
        String jsonRequest = objectMapper.writeValueAsString(validTicket);
 
-        mockMvc.perform(post("/api/ticket/save")
+        mockMvc.perform(post("/ticket/save")
                .contentType(MediaType.APPLICATION_JSON)
                .content(jsonRequest))
                .andExpect(status().isOk())
@@ -86,7 +86,7 @@ public class TicketControllerTest {
        ObjectMapper objectMapper = new ObjectMapper();
        String jsonRequest = objectMapper.writeValueAsString(invalidTicket);
 
-       MvcResult result = mockMvc.perform(post("/api/ticket/save")
+       MvcResult result = mockMvc.perform(post("/ticket/save")
                .contentType(MediaType.APPLICATION_JSON)
                .content(jsonRequest))
                .andExpect(status().isBadRequest())

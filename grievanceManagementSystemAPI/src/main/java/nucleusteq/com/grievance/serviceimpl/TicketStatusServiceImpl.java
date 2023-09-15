@@ -9,33 +9,53 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Ticket status.
+ */
 @Service
 public class TicketStatusServiceImpl implements TicketStatusService {
+
+  /**
+   * Variable.
+   */
   @Autowired
   private TicketStatusRepo ticketStatusRepo;
 
   /**
-   * @param ticketStatusRepo
+   * Constructor to initialize TicketStatusRepo object.
+   * @param ticketStatusRepoParam
    */
-  public TicketStatusServiceImpl(TicketStatusRepo ticketStatusRepo) {
+  public TicketStatusServiceImpl(
+      final TicketStatusRepo ticketStatusRepoParam) {
     super();
-    this.ticketStatusRepo = ticketStatusRepo;
+    this.ticketStatusRepo = ticketStatusRepoParam;
   }
 
+  /**
+   * Get ticket status by name.
+   */
   @Override
-  public TicketStatus getByName(String name) {
+  public TicketStatus getByName(
+      final String name) {
     return ticketStatusRepo.getTicketStatsByName(name);
   }
 
-	@Override
-	public TicketStatus getById(Integer statusId) {
-		
-		return ticketStatusRepo.findById(statusId).get();
-	}
+  /**
+   * Get ticket status by id.
+   */
+  @Override
+  public TicketStatus getById(
+      final Integer statusId) {
 
-	@Override
-	public List<TicketStatus> getAll() {
-		
-		return ticketStatusRepo.findAll();
-	}
+    return ticketStatusRepo.findById(statusId).get();
+  }
+
+  /**
+   * All ticket status.
+   */
+  @Override
+  public List<TicketStatus> getAll() {
+    return ticketStatusRepo.findAll();
+  }
 }
+

@@ -2,9 +2,7 @@ package nucleusteq.com.grievance.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * Ticket Entity.
@@ -125,43 +121,6 @@ public class Ticket {
    */
   public Ticket() {
   }
-
-//  /**
-//   * @param ticketId
-//   * @param title
-//   * @param description
-//   * @param creationTime
-//   * @param lastUpdateTime
-//   * @param department
-//   * @param ticketType
-//   * @param ticketStatus
-//   * @param comments
-//   */
-//    public Ticket(
-//    Integer ticketId,
-//    String title,
-//    String description,
-//    LocalDateTime creationTime,
-//    LocalDateTime lastUpdateTime,
-//    Department department,
-//    TicketType ticketType,
-//    TicketStatus ticketStatus,
-//    Collection<Comments> comments,
-//    Users user
-//  )
-//   {
-//    super();
-//    this.ticketId = ticketId;
-//    this.title = title;
-//    this.description = description;
-//    this.creationTime = creationTime; // Defensive copy
-//    this.lastUpdateTime = lastUpdateTime;// Defensive copy
-//    this.department = department;
-//    this.ticketType = ticketType;
-//    this.ticketStatus = ticketStatus;
-//    this.comments = comments;
-//    this.user = user;
-//}
 
   /**
    * Get ticket Id.
@@ -342,18 +301,18 @@ public class Ticket {
   public void setUser(final Users userParam) {
     this.user = userParam;
   }
-  
-  
-  public void addComments(final Comments commentsParam)
-  {
-  	if(comments==null)
-  	{
-  		this.comments = new ArrayList<>();
-  	}
-  	else 
-  	{
-  		this.comments.add(commentsParam);
-  	}
+
+  /**
+   * Add comment.
+   *
+   * @param commentsParam
+   */
+  public void addComments(final Comments commentsParam) {
+    if (comments == null) {
+      this.comments = new ArrayList<>();
+    } else {
+      this.comments.add(commentsParam);
+    }
   }
 
   /**
@@ -375,40 +334,40 @@ public class Ticket {
 // @Override
 // public int hashCode() {
 // return Objects.hash(
-//			comments,
-//			creationTime,
-//			department,
-//			description,
-//			lastUpdateTime,
-//			ticketId,
-//			ticketStatus,
-//			ticketType,
-//			title,
-//			user);
-//	}
+//      comments,
+//      creationTime,
+//      department,
+//      description,
+//      lastUpdateTime,
+//      ticketId,
+//      ticketStatus,
+//      ticketType,
+//      title,
+//      user);
+//  }
 //
 //  @Override public boolean equals(Object obj){
-//	if (this == obj) {
-//		return true;
-//	}
-//	if (obj == null) {
-//		return false;
-//	}
-//	if (getClass() != obj.getClass()) {
-//		return false;
-//	}
+//  if (this == obj) {
+//    return true;
+//  }
+//  if (obj == null) {
+//    return false;
+//  }
+//  if (getClass() != obj.getClass()) {
+//    return false;
+//  }
 //
-//	Ticket other = (Ticket)obj;
-//	return Objects.equals(comments, other.comments)
-//			&& Objects.equals(creationTime, other.creationTime)
-//			&& Objects.equals(department, other.department)
-//			&& Objects.equals(description, other.description)
-//			&& Objects.equals(lastUpdateTime, other.lastUpdateTime)
-//			&& Objects.equals(ticketId, other.ticketId)
-//			&& Objects.equals(ticketStatus, other.ticketStatus)
-//			&& Objects.equals(ticketType, other.ticketType)
-//			&& Objects.equals(title, other.title)
-//			&& Objects.equals(user, other.user);
-//	}
+//  Ticket other = (Ticket)obj;
+//  return Objects.equals(comments, other.comments)
+//      && Objects.equals(creationTime, other.creationTime)
+//      && Objects.equals(department, other.department)
+//      && Objects.equals(description, other.description)
+//      && Objects.equals(lastUpdateTime, other.lastUpdateTime)
+//      && Objects.equals(ticketId, other.ticketId)
+//      && Objects.equals(ticketStatus, other.ticketStatus)
+//      && Objects.equals(ticketType, other.ticketType)
+//      && Objects.equals(title, other.title)
+//      && Objects.equals(user, other.user);
+//  }
 }
 

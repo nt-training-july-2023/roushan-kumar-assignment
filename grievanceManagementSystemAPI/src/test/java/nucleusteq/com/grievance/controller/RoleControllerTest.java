@@ -44,7 +44,7 @@ public class RoleControllerTest {
     when(roleService.getAllRole()).thenReturn(roles);
 
     mockMvc
-      .perform(get("/api/role/all"))
+      .perform(get("/role/all"))
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
       .andExpect(jsonPath("$[0].roleId").value(1))

@@ -75,6 +75,10 @@ export default createBrowserRouter([
                 path: "home",
                 element: <Home/>,
             },
+            {
+                path: "ticket",
+                element: <Ticket/>,
+            },
             
         ]
     }

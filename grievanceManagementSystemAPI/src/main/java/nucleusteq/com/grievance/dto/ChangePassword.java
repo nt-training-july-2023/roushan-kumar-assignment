@@ -2,7 +2,7 @@ package nucleusteq.com.grievance.dto;
 
 public class ChangePassword {
 
-	/**
+   /**
    * UserId is integer.
    */
   private Integer userId;
@@ -17,47 +17,48 @@ public class ChangePassword {
    */
   private String newPassword;
 
-	/**
-	 * @return the userId
-	 */
-	public Integer getUserId() {
-		return userId;
-	}
+  /**
+  * @return the userId
+  */
+  public Integer getUserId() {
+    return userId;
+  }
 
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+  /**
+   * @param userIdParam the userId to set
+   */
+  public void setUserId(
+      final Integer userIdParam) {
+    this.userId = userIdParam;
+  }
 
-	/**
-	 * @return the oldPassword
-	 */
-	public String getOldPassword() {
-		return oldPassword;
-	}
+  /**
+   * @return the oldPassword
+   */
+  public String getOldPassword() {
+    return oldPassword;
+  }
 
-	/**
-	 * @param oldPassword the oldPassword to set
-	 */
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
+  /**
+   * @param oldPasswordParam the oldPassword to set
+   */
+  public void setOldPassword(
+      final String oldPasswordParam) {
+    this.oldPassword = oldPasswordParam;
+  }
 
-	/**
-	 * @return the newPassword
-	 */
-	public String getNewPassword() {
-		return newPassword;
-	}
+  /**
+   * @return the newPassword
+   */
+  public String getNewPassword() {
+    return newPassword;
+  }
 
-	/**
-	 * @param newPassword the newPassword to set
-	 */
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-  
-  
+  /**
+   * @param newPasswordParam the newPassword to set
+   */
+  public void setNewPassword(
+      final String newPasswordParam) {
+    this.newPassword = newPasswordParam;
+  }
 }
