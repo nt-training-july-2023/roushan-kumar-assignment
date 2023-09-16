@@ -1,6 +1,7 @@
 package nucleusteq.com.grievance.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -48,4 +49,9 @@ public class ExceptionHandler {
   public String internalServerError(final BadRequestError ex) {
     return ex.getMessage();
   }
+//  
+//  @org.springframework.web.bind.annotation.ExceptionHandler(UserNotFoundException.class)
+//  public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
+//      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+//  }
 }

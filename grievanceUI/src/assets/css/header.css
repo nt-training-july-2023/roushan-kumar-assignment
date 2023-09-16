@@ -6,13 +6,16 @@
 }
 
 nav{
-    background: #6c9bff;
+    background: #3d77f4;
     width: 100%;
     padding: 10px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    background-image: url('../img/nav1.png');
+    background-position: center;
+    background-size: cover;
 }
 
 .logo{
@@ -63,7 +66,7 @@ nav ul li a{
 }
 
 .sub-menu{
-    background: #b3d6e8;
+    background: #273143;
     padding: 20px;
     margin: 10px;
     border-radius: 5px;
@@ -102,6 +105,7 @@ nav ul li a{
 .sub-menu-link p{
 
      width: 100%;
+     color: rgb(147, 147, 147);
 }
 
 .sub-menu-link img{
@@ -110,12 +114,14 @@ nav ul li a{
     border-radius: 50%;
     padding: 8px;
     margin-right: 15px;
+    color: rgb(147, 147, 147);
      
 }
 
 .sub-menu-link span{
  font-size: 22px;
  transition: transform 0.5s;
+ color: rgb(147, 147, 147);
 }
 
 .sub-menu-link:hover span{
@@ -124,4 +130,5 @@ nav ul li a{
 
 .sub-menu-link:hover p{
     font-weight: 900;
+    color: white;
 }

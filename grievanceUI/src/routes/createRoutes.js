@@ -12,6 +12,7 @@ import Member from "../pages/member/Member";
 import SessionExpire from "../pages/SessionExpire";
 import Ticket from "../pages/admin/Ticket";
 import TicketUpdateView from "../pages/TicketUpdateView";
+import ChangePassword from "../component/ChangePassword";
 export default createBrowserRouter([
     {
         path: "/app",
@@ -81,5 +82,9 @@ export default createBrowserRouter([
             },
             
         ]
+    },
+    {
+        path:"/user/changepassword",
+        element:<ChangePassword/>,
     }
 ]);

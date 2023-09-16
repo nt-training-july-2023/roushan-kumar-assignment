@@ -43,8 +43,10 @@ function Login() {
             sessionStorage.setItem("username", userData.data.username);
             sessionStorage.setItem("userType", userData.data.role.name);
             sessionStorage.setItem("password", userData.data.password);
-
-            if (userData.data.role.name === "Admin") {
+            if(userData.data.initialPassword === 1){
+                navigate("/user/changepassword")
+            }
+            else if (userData.data.role.name === "Admin") {
                 navigate("/admin")
             }
             else if (userData.data.role.name === "Member") {

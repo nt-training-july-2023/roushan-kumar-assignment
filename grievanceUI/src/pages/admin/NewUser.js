@@ -234,7 +234,7 @@ function NewUser() {
 
                     <div className='input_field'>
                         {/* <input type="submit" value={"clear"} className='btnNew'></input> */}
-                        <input type="submit" value={"save"} className='btnNew'></input>
+                        <input type="submit" value={"save"} className='btnNew btnSave'></input>
                         {/* <input type="submit" value={"back"} className='btnNew'></input> */}
                     </div>
 

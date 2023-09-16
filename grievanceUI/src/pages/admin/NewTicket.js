@@ -232,20 +232,21 @@ function NewTicket() {
                         <input
                             type="submit"
                             value={"clear"}
-                            className='btnNew' >
+                            className='btnNew btnClear'
+                            onClick={clearNewTicketForm} >
 
                         </input>
                         <input
                             type="submit"
                             value={"save"}
-                            className='btnNew'
+                            className='btnNew btnSave'
                             onClick={newTicketHandler}>
 
                         </input>
                         <input
                             type="submit"
                             value={"back"}
-                            className='btnNew' >
+                            className='btnNew btnBack' >
 
                         </input>
                     </div>

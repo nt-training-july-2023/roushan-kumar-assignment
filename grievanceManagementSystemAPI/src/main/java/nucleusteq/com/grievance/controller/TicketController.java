@@ -89,4 +89,16 @@ public class TicketController {
       @RequestParam(name = "createdByMe") final Boolean createdByMe) {
     return ticketService.getAllByCondition(userId, departId, createdByMe);
   }
+
+  /**
+   * Get ticket by ticket id.
+   * @param ticketId ticket id for search.
+   * @return ticket.
+   */
+  @GetMapping("/{ticketId}")
+  public TicketDto getTicket(
+      @PathVariable("ticketId") final Integer ticketId )
+  {
+    return ticketService.getByTicketId(ticketId);
+  }
 }

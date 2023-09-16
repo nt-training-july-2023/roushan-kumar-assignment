@@ -13,7 +13,7 @@ public interface TicketRepo extends JpaRepository<Ticket,Integer> {
    * find By Admin Department.
    */
   String FIND_BY_DEPARTMENT = "select * from ticket "
-  		+ "where department_id=:departId";
+  		+ "where department_id=:departId order by ticket_status_id ASC";
 
   /**
    * find By Admin Department.
@@ -28,7 +28,7 @@ public interface TicketRepo extends JpaRepository<Ticket,Integer> {
    * created by user.
    */
   String CREATED_BY_USER = "select * from ticket "
-  		+ "where user_id =:userId";
+  		+ "where user_id =:userId order by ticket_status_id ASC";
 
   /**
    * created by user.
@@ -37,6 +37,20 @@ public interface TicketRepo extends JpaRepository<Ticket,Integer> {
    */
   @Query(value = CREATED_BY_USER, nativeQuery = true)
 	List<Ticket> findByCreateByUser(Integer userId);
+
+  /**
+   * created by user.
+   */
+  String FIND_ALL = "select * from ticket "
+      + " order by ticket_status_id ASC";
+
+  /**
+   * created by user.
+   * 
+   * @param userId for find by user.
+   */
+  @Query(value = FIND_ALL, nativeQuery = true)
+  List<Ticket> findAllSortByStatus();
 
 }
 

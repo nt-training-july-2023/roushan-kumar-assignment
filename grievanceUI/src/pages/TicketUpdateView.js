@@ -1,19 +1,61 @@
 import React, { useEffect, useState } from 'react'
 import api from '../assets/axios';
 import '../assets/css/ticketUpdateView.css';
+import ErrorMessage from '../component/ErrorMessage';
 function TicketUpdateView(props) {
-    console.log(props.ticketData)
+   // console.log(props.ticketData)
+   const initialVal = {
+    "ticketId": 0,
+    "title": "",
+    "description": "",
+    "department": {
+        "deptId": 0,
+        "deptName": ""
+    },
+    "ticketType": {
+        "ticketTypeId": 0,
+        "ticketName": ""
+    },
+    "ticketStatus": {
+        "ticketStatusId": 0,
+        "ticketStatusName": ""
+    },
+    "userId": 0,
+    "fullName": "",
+    "date": "",
+    "time": "",
+    "creationDate": "",
+    "creationTime": "",
+    "comments": []
+    }
+
     const UID = sessionStorage.getItem("userId");
-
-    
-
     const [ticketStatus, setTicketStatus] = useState([]);
+    const [ticket, setTicket] = useState(initialVal);
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
+    const [comment,setComment] = useState({
+        "comments":""
+    });
+    const [statusId,setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
+    const getTicket = async () => {
+        try {
+            const url = "ticket/"+props.ticketData.ticketId;
+            const res = await api.get(url)
+            console.log(res.data);
+            if(res.data)
+            {
+                setTicket(res.data)
+            }
+        } catch (error) {
+            
+        }
+    }
 
     const getAllTicketStatus = async () => {
         try {
             const res = await api.get('ticketStatus/all');
+            
             if (res.data) {
                 setTicketStatus(res.data);
             } 
@@ -22,37 +64,48 @@ function TicketUpdateView(props) {
         }
     }
 
-    const [filterChoice, setFilterChoice] = useState();
-    setTimeout(() => {
-        document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
-    }, 1);
+    // setTimeout(() => {
+    //     document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
+    // }, 1);
+
     useEffect(() => {
-        
+        getTicket();
         //document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
         getAllTicketStatus();
-        setFilterChoice(props.ticketData.ticketStatus.ticketStatusId)
+       
        
     }, [])
 
     const inputHandler = (e) => {
-       
+        setComment({...comment,comments:e.target.value})
+    }
+
+    const inputStatus = (e)=>{
+        setStatusId(e.target.value)
     }
 
     const clearNewTicketForm = () => {
-
+        setComment({...comment,comments:""})
     }
 
     const updateTicketHandler = async (e) => {
         e.preventDefault();
-        // var val = NewTicketValid(ticket);
-        // if(val)
-        // {
-        //     setNotificationMessage(val)
-        //     setShow("show")
-        //     return ;
-        // }
+       
+        if(comment.comments.trim() === "")
+        {
+            console.log()
+            setNotificationMessage("Add comment before update.")
+            setShow("show")
+            return ;
+        }
         try {
-            const result = await api.post();
+            const url = "ticket/updates/ticketcomments/"+ticket.ticketId+"?statusId="+statusId;
+            const result = await api.put(url,comment);
+            if(result.data.id)
+            {
+                getTicket();
+                clearNewTicketForm();
+            }
         }
         catch (error) {
             console.log(error.response.data)
@@ -64,17 +117,18 @@ function TicketUpdateView(props) {
     }
     return (
         <>
+          <ErrorMessage message={notificationMessage} show={show} onClick={handleClose} />
             <div className='ticket-update-view'>
                 
                 <div className='wrapper-TUV'>
                 
                     <div>
                         <div className='title'>
-                            Ticket{props.ticketData.ticketStatus.ticketStatusId +"  "+ props.ticketData.ticketStatus.ticketStatusName }
+                            Ticket
                         </div>
-                        <div className='label'><strong>Created Date :</strong> {props.ticketData.creationDate}</div>
-                        <div className='label'><strong>Created time :</strong>{props.ticketData.creationTime}</div>
-                        <div className='label'><strong>Assign By    :</strong> {props.ticketData.fullName}</div>
+                        <div className='label'><strong>Created Date :</strong> {ticket.creationDate}</div>
+                        <div className='label'><strong>Created time :</strong>{ticket.creationTime}</div>
+                        {/* <div className='label'><strong>Assign By    :</strong> {ticket.fullName}</div> */}
                         
                     </div>
                     <div className='form'>
@@ -88,7 +142,7 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='ticketType'
                                 name='ticketType'
-                                value={props.ticketData.ticketType.ticketName}
+                                value={ticket.ticketType.ticketName}
                                 disabled={true}
                             >
                             </input>
@@ -102,7 +156,7 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='titleInput'
                                 name='title'
-                                value={props.ticketData.title}
+                                value={ticket.title}
                                 disabled={true}
                             ></input>
                         </div>
@@ -114,7 +168,7 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='description'
                                 name='description'
-                                value={props.ticketData.description}
+                                value={ticket.description}
                                 disabled={true}
                             >
 
@@ -128,7 +182,7 @@ function TicketUpdateView(props) {
                                 className='input'
                                 id='assignTo'
                                 name='assignTo'
-                                value={props.ticketData.department.deptName}
+                                value={ticket.department.deptName}
                                 disabled={true}
                             >
                             </input>
@@ -137,7 +191,7 @@ function TicketUpdateView(props) {
                         <div className='input_field'>
                             <label>Status <span className='error'>*</span></label>
                             <div className='custom_select' >
-                                <select id='statusId' defaultValue={filterChoice}>
+                                <select id='statusId' onChange={inputStatus}>
                                     <option value="0">--Select Ticket Status--</option>
                                     {
                                         ticketStatus.map((status) => (
@@ -156,8 +210,8 @@ function TicketUpdateView(props) {
                                 type="text"
                                 className='input'
                                 id='comment'
-                                name='comment'
-                                
+                                name='comments'
+                                value={comment.comments}
                                 onChange={inputHandler}
                                 placeholder='comment of ticket...'>
                             </textarea>
@@ -168,21 +222,21 @@ function TicketUpdateView(props) {
                             <input
                                 type="submit"
                                 value={"clear"}
-                                className='btnNew' >
+                                className='btnNew btnClear' >
 
                             </input>
                             <input
                                 type="submit"
-                                value={"update"}
-                                className='btnNew'
-                            // onClick={newTicketHandler}
+                                value={"update "}
+                                className='btnNew btnSave'
+                                onClick={updateTicketHandler}
                             >
 
                             </input>
                             <input
                                 type="submit"
                                 value={"back"}
-                                className='btnNew'
+                                className='btnNew btnBack'
                                 onClick={props.onClick}
                             >
 
@@ -200,7 +254,7 @@ function TicketUpdateView(props) {
                     <div className='comment-container'>
                        
                         {
-                            props.ticketData.comments?.map((comments, id) => {
+                            ticket.comments?.map((comments, id) => {
 
                                 return <><p>{comments.comments}</p></>
                             })

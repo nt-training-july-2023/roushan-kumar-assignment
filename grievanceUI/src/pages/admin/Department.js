@@ -64,6 +64,16 @@ function Department() {
         setOkBox(false)
     }
 
+    
+    //pagination
+    const [currentPage,setCurrentPage] = useState(1);
+    const recordPerPage = 2;
+    const lastIndex = currentPage * recordPerPage;
+    const firstIndex = lastIndex - recordPerPage;
+    const record = deptData.slice(firstIndex,lastIndex);
+    const nPage = Math.ceil(deptData.length / recordPerPage)
+    const numbers = [...Array(nPage+1).keys()].slice(1);
+    //end
 
     return (
         <>
@@ -95,10 +105,10 @@ function Department() {
                         <tbody>
 
                             {
-                                deptData.map((dept, id) => {
+                                record.map((dept, id) => {
                                     return <>
                                         <tr key={dept.deptId}>
-                                            <td>{id + 1}</td>
+                                            <td>{id+firstIndex+1}</td>
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>
@@ -113,10 +123,42 @@ function Department() {
 
                         </tbody>
                     </table>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href='#' onClick={prevPage}>Prev</a>
+                            </li>
+                            {
+                                numbers.map((n,i)=>(
+                                    <li key={i}>
+                                          <a href='#' onClick={()=>{changeCurrentPage(n)}}>{n}</a>  
+                                    </li>
+                                ))
+                            }
+                            <li>
+                                <a href='#' onClick={nextPage}>Next</a>
+                            </li>
+
+                        </ul>
+
+                    </nav>
                 </section>
             </main>
         </>
     )
+    function prevPage(){
+        if(currentPage !== 1 )
+         setCurrentPage(currentPage-1);
+    }
+
+    function changeCurrentPage(n){
+        setCurrentPage(n)
+    }
+
+    function nextPage(){
+        if(currentPage !== nPage)
+         setCurrentPage(currentPage+1)
+    }
 }
 
 export default Department

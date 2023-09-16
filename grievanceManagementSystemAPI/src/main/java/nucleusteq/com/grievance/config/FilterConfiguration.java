@@ -22,7 +22,8 @@ public class FilterConfiguration {
   			= new FilterRegistrationBean<AuthenticationFilter>();
   	regBean.setFilter(new AuthenticationFilter(userService));
   	regBean.addUrlPatterns("/department/save/*");
-  	System.out.println("in config filter.");
+  
+//  	System.out.println("in config filter.");
   	return regBean;
   }
 }

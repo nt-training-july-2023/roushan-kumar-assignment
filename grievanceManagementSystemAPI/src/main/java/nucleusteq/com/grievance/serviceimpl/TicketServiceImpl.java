@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.apache.logging.log4j.LogManager;
 
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
@@ -28,7 +29,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TicketServiceImpl implements TicketService {
-
+ 
+  private static final org.apache.logging.log4j.Logger  logger = LogManager.getLogger(TicketServiceImpl.class);
+ 
   /**
    * Variables.
    */
@@ -95,6 +98,7 @@ public class TicketServiceImpl implements TicketService {
     if (tType != null) {
       ticket.setTicketType(tType);
     } else {
+      
       throw new BadRequestError("Not found Ticket Type: "
                  + ticketDto.getTicketType().getTicketName());
     }
@@ -128,7 +132,7 @@ public class TicketServiceImpl implements TicketService {
     } else {
       throw new BadRequestError("Not found User");
     }
-
+    logger.info("saving new ticket");
     ticket = ticketRepo.save(ticket);
     ResponseDto response = new ResponseDto(ticket.getTicketId(),
         "New Ticket Created", "SAVE");
@@ -205,7 +209,7 @@ public class TicketServiceImpl implements TicketService {
     } else if (user.getRole().getName().equals("Admin")) {
       // all ticket.
       System.out.println("all ticket");
-      allTickets = ticketRepo.findAll();
+      allTickets = ticketRepo.findAllSortByStatus();
     }
     if (allTickets.size() <= 0) {
       System.out.println("in null all ticket");
@@ -239,5 +243,43 @@ public class TicketServiceImpl implements TicketService {
     }
 
     return allTicketsDto;
+  }
+
+  /**
+   * Return single ticket details.
+   *
+   * @param ticketId id of ticket to search.
+   * @return single ticket.
+   */
+  @Override
+  public TicketDto getByTicketId(Integer ticketId){
+
+     Optional<Ticket> ticket = ticketRepo.findById(ticketId);
+     if(ticket.isPresent()) {
+       TicketDto ticketDto = new TicketDto();
+       Ticket singleTicket = ticket.get();
+       if (singleTicket.getComments() != null) {
+         ticketDto.setComments(singleTicket.getComments());
+       } 
+       ticketDto.setTicketId(singleTicket.getTicketId());
+       ticketDto.setTitle(singleTicket.getTitle());
+       ticketDto.setDescription(singleTicket.getDescription());
+       ticketDto.setDepartment(singleTicket.getDepartment());
+       ticketDto.setTicketType(singleTicket.getTicketType());
+       ticketDto.setTicketStatus(singleTicket.getTicketStatus());
+       ticketDto.setUserId(singleTicket.getUser().getUserId());
+       ticketDto.setFullName(singleTicket.getUser().getFullName());
+       ticketDto.setDate(singleTicket.getLastUpdateTime().toLocalDate().toString());
+       Integer hour = singleTicket.getLastUpdateTime().getHour();
+       Integer minute = singleTicket.getLastUpdateTime().getMinute();
+       ticketDto.setTime(hour + ":" + minute);
+       ticketDto.setCreationTime(singleTicket.getCreationTime().getHour()
+           + ":" + singleTicket.getCreationTime().getMinute());
+       ticketDto.setCreationDate(singleTicket
+           .getCreationTime().toLocalDate().toString());
+       return ticketDto;
+     } else {
+       throw new BadRequestError("Ticket not found");
+     }
   }
 }

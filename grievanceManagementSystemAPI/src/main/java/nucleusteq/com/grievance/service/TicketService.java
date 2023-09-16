@@ -17,5 +17,7 @@ public interface TicketService {
 //	List<TicketDto> getAll();
 
 	List<TicketDto> getAllByCondition(Integer userId, Integer departId, boolean createdByMe);
+
+  TicketDto getByTicketId(Integer ticketId);
 }
 

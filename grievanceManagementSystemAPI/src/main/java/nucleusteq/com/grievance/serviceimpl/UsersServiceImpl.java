@@ -18,6 +18,8 @@ import nucleusteq.com.grievance.service.RoleService;
 import nucleusteq.com.grievance.service.UserService;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsersServiceImpl implements UserService {
 
+  private static final Logger  LOGGER =Logger.getLogger(UsersServiceImpl.class);
   /**
    * Autowire.
    */
@@ -67,6 +70,7 @@ public class UsersServiceImpl implements UserService {
   @Override
   public List<Users> getAllUser() {
     try {
+      LOGGER.info("fetching all users.");
       return userRepo.findAll();
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -245,6 +249,11 @@ public class UsersServiceImpl implements UserService {
   public ResponseDto changePassword(
       final ChangePassword changePassword) {
 
+    if(changePassword.getUserId()==null) {
+      throw new BadRequestError("User id is emppty");
+    }
+      
+    
     Optional<Users> user = userRepo.findById(changePassword.getUserId());
     Users users;
     if (user.isPresent()) {
@@ -259,8 +268,14 @@ public class UsersServiceImpl implements UserService {
           .decode(users.getPassword());
       String oldPassword = new String(decodeOldPassword,
           StandardCharsets.UTF_8);
+      
+      
 
       if (oldPassword.equals(changePassword.getOldPassword())) {
+        if(oldPassword.equals(changePassword.getNewPassword()))
+        {
+          return new ResponseDto(null, "New password should not same as old password.", "NOT_UPDATE");
+        }
         users.setPassword(newPassword);
         users.setInitialPassword(0);
         userRepo.save(users);
