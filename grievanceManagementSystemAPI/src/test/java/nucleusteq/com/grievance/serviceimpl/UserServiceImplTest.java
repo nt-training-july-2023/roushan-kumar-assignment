@@ -1,6 +1,5 @@
 package nucleusteq.com.grievance.serviceimpl;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -20,15 +19,10 @@ import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
-import nucleusteq.com.grievance.entity.Ticket;
-import nucleusteq.com.grievance.entity.TicketStatus;
-import nucleusteq.com.grievance.entity.TicketType;
 import nucleusteq.com.grievance.entity.Users;
 import nucleusteq.com.grievance.exception.BadRequestError;
 import nucleusteq.com.grievance.exception.InternalServerError;
 import nucleusteq.com.grievance.exception.UserNotFoundException;
-import nucleusteq.com.grievance.repository.DepartmentRepo;
-import nucleusteq.com.grievance.repository.RoleRepo;
 import nucleusteq.com.grievance.repository.UserRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.RoleService;
@@ -78,10 +72,6 @@ public class UserServiceImplTest {
     Users tempUser = new Users();
     tempUser.setUsername("roushan11");
     tempUser.setUserId(5);
-    //tempUser.setEmail("roushan559@gmail.com");
-    //tempUser.setFirstName("Roushan");
-    //tempUser.setInitalPassword(1);
-    //tempUser.setLastName("kumar");
     tempUser.setPassword("123");
 
     userDto.setUsername("roushan11");
@@ -153,9 +143,7 @@ public class UserServiceImplTest {
     when(userRepo.save(Mockito.any(Users.class))).thenReturn(tempUser2);
     
     UserDto userDtoGet = userServiceImpl.save(userDto);
-    System.out.println("user dto get "+userDtoGet.toString());
-    //if(tempUser2.getUserId()==userDtoGet.getUserId())
-    //	assertTrue(true);
+    
     try {
      assertNotNull(userDtoGet);
      assertEquals(tempUser2.getUserId().toString(),userDtoGet.getUserId().toString());
@@ -312,26 +300,26 @@ public class UserServiceImplTest {
 
   @Test
   public void testChangePasswordWithValidData() {
-      // Create a sample ChangePassword object
+      
       ChangePassword changePassword = new ChangePassword();
       changePassword.setUserId(1); 
       changePassword.setOldPassword("oldPassword"); 
       changePassword.setNewPassword("newPassword"); 
 
-      // Mock the behavior of the userRepo.findById() method
+      
       Users mockUser = new Users();
       
       mockUser.setPassword(Base64.getEncoder().encodeToString("oldPassword".getBytes(StandardCharsets.UTF_8)));
       Mockito.when(userRepo.findById(changePassword.getUserId())).thenReturn(Optional.of(mockUser));
 
-      // Call the changePassword method
+      
       ResponseDto response = userServiceImpl.changePassword(changePassword);
 
-      // Assert that the password change was successful
+      
       assertNotNull(response);
       assertEquals("UPDATE", response.getStatus());
 
-      // You can add more assertions based on your requirements
+      
   }
 
   @Test
@@ -342,19 +330,19 @@ public class UserServiceImplTest {
       changePassword.setOldPassword("wrongPassword"); 
       changePassword.setNewPassword("newPassword"); 
 
-      // Mock the behavior of the userRepo.findById() method
+      
       Users mockUser = new Users();
       mockUser.setPassword(Base64.getEncoder().encodeToString("oldPassword".getBytes(StandardCharsets.UTF_8)));
       Mockito.when(userRepo.findById(changePassword.getUserId())).thenReturn(Optional.of(mockUser));
 
-      // Call the changePassword method
+     
       ResponseDto response = userServiceImpl.changePassword(changePassword);
 
-      // Assert that the password change failed
+      
       assertNotNull(response);
       assertEquals("NOT_UPDATE", response.getStatus());
 
-      // You can add more assertions based on your requirements
+      
   }
 
   @Test

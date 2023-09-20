@@ -35,7 +35,7 @@ public class TicketType {
    */
   public TicketType(
       final Integer ticketTypeIdParam,
-  		final String ticketNameParam) {
+      final String ticketNameParam) {
       super();
       this.ticketTypeId = ticketTypeIdParam;
       this.ticketName = ticketNameParam;

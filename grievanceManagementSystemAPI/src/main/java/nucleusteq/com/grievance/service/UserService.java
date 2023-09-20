@@ -51,16 +51,31 @@ public interface UserService {
    * get user by username.
    *
    * @param username as string
-   * @return
+   * @return user.
    */
   UserDto getByUsername(String username);
 
-  /*
-   * Return user by user id. 
+  /**
+   * Return user by user id.
+   *
+   * @param userId id of user.
+   * @return user.
    */
   Users getById(Integer userId);
 
-	boolean authenticateIsAdmin(UserDto user);
+  /**
+   * Authenticate user is admin or not.
+   *
+   * @param user username and password.
+   * @return true if admin else return false.
+   */
+  boolean authenticateIsAdmin(UserDto user);
 
-	ResponseDto changePassword(ChangePassword changePassword);
+  /**
+   * To change password.
+   *
+   * @param changePassword it contains old and new password.
+   * @return response.
+   */
+  ResponseDto changePassword(ChangePassword changePassword);
 }

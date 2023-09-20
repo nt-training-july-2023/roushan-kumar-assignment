@@ -40,7 +40,7 @@ public class LoginController {
     if (userService.authenticate(userDto)) {
       return new ResponseEntity<>("User login successfully!.", HttpStatus.OK);
     } else {
-      return new ResponseEntity<>("Invalid credantial", HttpStatus.OK);
+      return new ResponseEntity<>("Invalid credential", HttpStatus.OK);
     }
   }
 }

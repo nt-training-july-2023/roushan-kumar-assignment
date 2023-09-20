@@ -3,8 +3,6 @@ package nucleusteq.com.grievance.filter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.Enumeration;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -57,8 +55,19 @@ public class AuthenticationFilter implements Filter {
       throws IOException, ServletException {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
     String username = httpServletRequest.getHeader("username");
     String password = httpServletRequest.getHeader("password");
+    if (httpServletRequest.getMethod().equals("OPTIONS")) {
+      httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+      httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+      httpServletResponse.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, username, password");
+      httpServletResponse.setContentType("application/json");
+      httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+    }
+    else {
+      
+    
     if (username == null || password == null) {
       throw new UserNotFoundException("Header not found !!");
     }
@@ -85,6 +94,7 @@ public class AuthenticationFilter implements Filter {
       HttpServletResponse httpResponse = (HttpServletResponse) response;
       httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
           "Invalid credentials Form filter");
+    }
     }
   }
 }

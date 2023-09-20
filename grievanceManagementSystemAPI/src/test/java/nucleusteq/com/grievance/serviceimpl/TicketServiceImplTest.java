@@ -59,10 +59,7 @@ public class TicketServiceImplTest {
 
   @Mock
   private UserService userService;
-  
-//  @Mock
-//  private ResponseDto response;
-//  
+   
   private TicketDto ticketDto;
   
   
@@ -109,10 +106,7 @@ public class TicketServiceImplTest {
     ticketSaved.setTicketStatus(ticketStatus);
     ticketSaved.setDepartment(dept);
     ticketSaved.setUser(new Users());
-    
-   // assertTrue(true);
-    
-    // Mock dependencies' behavior using when-thenReturn
+
     when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
       .thenReturn(ticketType);
     when(ticketStatusService.getByName("OPEN"))
@@ -122,14 +116,12 @@ public class TicketServiceImplTest {
     when(userService.getById(1))
       .thenReturn(new Users());
 
-    // Mock ticketRepo.save() behavior
     when(ticketRepo.save(any(Ticket.class)))
       .thenReturn(ticketSaved);
 
-    // Call the save method
     ResponseDto response = ticketServiceImpl.save(ticketDto);
      System.out.println(response.toString());
-    // Perform assertions on the response or verify interactions as needed
+
     assertEquals(response.getId(), ticketSaved.getTicketId());
   }
 
@@ -143,10 +135,9 @@ public class TicketServiceImplTest {
 		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
   	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
   	
-  	//creating ticket object for testing result.
   	Ticket ticket = new Ticket();
     
-    // Mock dependencies' behavior using when-thenReturn
+
     when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
       .thenReturn(null);
     
@@ -167,10 +158,10 @@ public class TicketServiceImplTest {
 		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
   	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
   	
-  	//creating ticket object for testing result.
+  	
   	Ticket ticket = new Ticket();
     
-    // Mock dependencies' behavior using when-thenReturn
+    
     when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
       .thenReturn(ticketType);
     
@@ -194,10 +185,10 @@ public class TicketServiceImplTest {
 		TicketType ticketType = new TicketType(2,"FEEDBACK"); 
   	TicketStatus ticketStatus = new TicketStatus(1,"OPEN");
   	
-  	//creating ticket object for testing result.
+  	
   	Ticket ticket = new Ticket();
     
-    // Mock dependencies' behavior using when-thenReturn
+    
     when(ticketTypeService.getTicketTypeByName("FEEDBACK"))
       .thenReturn(ticketType);
     
@@ -264,20 +255,15 @@ public class TicketServiceImplTest {
 
 
 
-      // Define the behavior of the mocked userService and ticketRepo
+      when(ticketStatusService.getByName("OPEN")).thenReturn(ticketStatus);
       when(userService.getById(1)).thenReturn(user);
-      when(ticketRepo.findByDepartment(1)).thenReturn(sampleTickets);
-      // Add more mock behaviors as needed for your specific test cases
+      when(ticketRepo.findByDepartmentNew(1,0,1,1)).thenReturn(sampleTickets);
 
-      // Call the method to be tested
-      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 1, false);
+      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 1, false,0,1,"OPEN");
 
       assertNull(result);
-      
-     // assertEquals(0, result.size()); 
-      
       verify(userService, times(1)).getById(1);
-      verify(ticketRepo, times(1)).findByDepartment(1);
+      verify(ticketRepo, times(1)).findByDepartmentNew(1,0,1,1);
      
   }
   
@@ -314,25 +300,22 @@ public class TicketServiceImplTest {
       ticket.setCreationTime(LocalDateTime.now());
       ticket.setLastUpdateTime(LocalDateTime.now());
 
-      // Create some sample tickets
+      
       List<Ticket> allTickets = new ArrayList<Ticket>();
       allTickets.add(ticket);
 
 
-      // Define the behavior of the mocked userService and ticketRepo
+      when(ticketStatusService.getByName("OPEN")).thenReturn(ticketStatus);
       when(userService.getById(1)).thenReturn(user);
-      when(ticketRepo.findByDepartment(1)).thenReturn(allTickets);
-      // Add more mock behaviors as needed for your specific test cases
-
-      // Call the method to be tested
-      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 0, false);
+      when(ticketRepo.findByDepartmentNew(1,0,1,1)).thenReturn(allTickets);
+      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 0, false,0,1,"OPEN");
 
       assertNotNull(result);
       
       assertEquals(1, result.size()); 
       
       verify(userService, times(1)).getById(1);
-      verify(ticketRepo, times(1)).findByDepartment(1);
+      verify(ticketRepo, times(1)).findByDepartmentNew(1,0,1,1);
      
   }
   
@@ -354,8 +337,6 @@ public class TicketServiceImplTest {
     ticketSaved.setTicketId(ticketDto.getTicketId());
     ticketSaved.setTitle(ticketDto.getTitle());
     ticketSaved.setDescription(ticketDto.getDescription());
-  //ticketSaved.setCreationTime(LocalDateTime.now());
-  //ticketSaved.setLastUpdateTime(LocalDateTime.now());
     ticketSaved.setTicketStatus(ticketStatus);
     ticketSaved.setDepartment(dept);
     ticketSaved.setUser(new Users());
@@ -367,8 +348,52 @@ public class TicketServiceImplTest {
   	
   	ResponseDto response = ticketServiceImpl.updateTicketComments(new Comments(1,"comment 1"),1,1);
      System.out.println(response.toString());
-    // Perform assertions on the response or verify interactions as needed
     assertEquals(response.getId(), ticketSaved.getTicketId());
   
   }
+  
+  @Test
+  void testGetByTicketIdWhenTicketExists() {
+    
+    Users user = new Users();
+    user.setUserId(1);
+    user.setRole(new Role(1,"Member"));
+    //user.setDepartment(dept);
+    user.setFullName("Roushan kumar");
+      // Create a sample Ticket entity
+      Ticket sampleTicket = new Ticket();
+      sampleTicket.setTicketId(1);
+      sampleTicket.setTitle("Sample Ticket");
+      sampleTicket.setDescription("Sample Description");
+      sampleTicket.setUser(user);
+      sampleTicket.setCreationTime(LocalDateTime.now());
+      sampleTicket.setLastUpdateTime(LocalDateTime.now());
+      // Set other properties as needed
+
+      // Mock the behavior of ticketRepo.findById
+      when(ticketRepo.findById(1)).thenReturn(Optional.of(sampleTicket));
+
+      // Call the method to be tested
+      TicketDto ticketDto = ticketServiceImpl.getByTicketId(1);
+
+      // Assert that the returned TicketDto matches the sampleTicket
+      assertNotNull(ticketDto);
+      assertEquals(sampleTicket.getTicketId(), ticketDto.getTicketId());
+      assertEquals(sampleTicket.getTitle(), ticketDto.getTitle());
+      assertEquals(sampleTicket.getDescription(), ticketDto.getDescription());
+      // Assert other properties as needed
+  }
+
+  @Test
+  void testGetByTicketIdWhenTicketNotExists() {
+      // Mock the behavior of ticketRepo.findById when the ticket is not found
+      when(ticketRepo.findById(1)).thenReturn(Optional.empty());
+
+      // Call the method to be tested and expect a BadRequestError to be thrown
+      assertThrows(BadRequestError.class, () -> {
+        ticketServiceImpl.getByTicketId(1);
+      });
+  }
+  
+  
 }

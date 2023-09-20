@@ -26,7 +26,7 @@ public class TicketTypeServiceImplTest {
   
   @BeforeEach
   void setUp() {
-      MockitoAnnotations.openMocks(this); // Initialize mocks
+      MockitoAnnotations.openMocks(this);
 //      ticketType = new TicketType();
       
       

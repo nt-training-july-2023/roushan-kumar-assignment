@@ -60,11 +60,8 @@ public class UserControllerTest {
     userDto.setUsername("Roushan559");
     userDto.setPassword("123");
     userDto.setFullName("Roushan Kumar");
-//    userDto.setEmail("roushan@gmail.com");
     userDto.setDepartment(new Department(1,"HR"));
     userDto.setRole(new Role(1,"Admin"));
-   // when(errors.hasErrors()).thenReturn(true);
-   // when(userService.save(userDto)).thenReturn(userDto);
 
     ResponseEntity<?> res = usersController.saveUser(userDto,errors );
     

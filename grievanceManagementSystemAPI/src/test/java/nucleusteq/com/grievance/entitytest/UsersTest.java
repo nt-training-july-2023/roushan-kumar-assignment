@@ -1,8 +1,10 @@
 package nucleusteq.com.grievance.entitytest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
@@ -10,9 +12,13 @@ import nucleusteq.com.grievance.entity.Users;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UsersTest {
-	private Users user;
+  private Users user;
+  private Users user1;
+  private Users user2;
+  private Users user3;
 
   @BeforeEach
   public void setUp() {
@@ -27,7 +33,11 @@ public class UsersTest {
           new Department(1,"HR")
       );
       user.setUserId(1);
-      System.out.println(user.toString());
+
+      // Create three user objects with the same attributes
+      user1 = new Users("user1", "User One", "user1@example.com", "password1", 123, null, null);
+      user2 = new Users("user1", "User One", "user1@example.com", "password1", 123, null, null);
+      user3 = new Users("user2", "User Two", "user2@example.com", "password2", 456, null, null);
   }
 
   @Test
@@ -104,8 +114,32 @@ public class UsersTest {
           new Role(1,"Admin"),
           new Department(1,"HR")
       );
+      // As the ID is not specified in the constructor.
+      assertNull(newUserWithoutId.getUserId());
+  }
 
-      assertNull(newUserWithoutId.getUserId()); // As the ID is not specified in the constructor
+  @Test
+  public void testHashCode() {
+      // Hash code of user1 and user2 should be the same
+      assertEquals(user1.hashCode(), user2.hashCode());
+
+      // Hash code of user1 and user3 should be different
+      assertNotEquals(user1.hashCode(), user3.hashCode());
+  }
+
+  @Test
+  public void testEquals() {
+      // user1 should be equal to user2 (same attributes)
+      assertTrue(user1.equals(user2));
+
+      // user1 should not be equal to user3 (different username and email)
+      assertFalse(user1.equals(user3));
+
+      // user1 should not be equal to a null object
+      assertFalse(user1.equals(null));
+
+      // user1 should not be equal to an object of a different class
+      assertFalse(user1.equals(user));
   }
 
 }

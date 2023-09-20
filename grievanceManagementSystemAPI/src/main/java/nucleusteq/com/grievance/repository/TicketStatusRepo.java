@@ -8,10 +8,18 @@ import nucleusteq.com.grievance.entity.TicketStatus;
 
 public interface TicketStatusRepo extends JpaRepository<TicketStatus, Integer> {
 
-	String GET_TICKET_STATUS_BY_NAME = "SELECT * from ticket_status where ticket_status_name=:name";
-	
-	@Query(value = GET_TICKET_STATUS_BY_NAME , nativeQuery = true)
+  /**
+   * Get ticket status by name.
+   */
+  String GET_TICKET_STATUS_BY_NAME = "SELECT * from ticket_status where "
+  + " ticket_status_name=:name";
+
+  /**
+   * Get ticket status by name.
+   * @param name Name of ticket status.
+   * @return Ticket status by name.
+   */
+  @Query(value = GET_TICKET_STATUS_BY_NAME, nativeQuery = true)
   TicketStatus getTicketStatsByName(@Param("name") String name);
-	
 }
 

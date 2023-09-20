@@ -39,12 +39,12 @@ public class LoginControllerTest {
 
   @org.junit.jupiter.api.Test
   public void testAuthenticateUser() throws Exception {
-    //prepare a userDto for the request body.
+    
     UserDto userDto2 = new UserDto();
     userDto2.setUsername("root");
     userDto2.setPassword("root");
     userDto2.setUserId(1);
-    //mock the behavior of service.
+    
     when(userService.authenticate(userDto2)).thenReturn(true);
 
 
@@ -71,7 +71,7 @@ public class LoginControllerTest {
     ResponseEntity<?> res = loginController.authenticateUser(userDto);
     System.err.println(res.getBody());
     boolean result = false;
-    if(res.getBody().equals("Invalid credantial"))
+    if(res.getBody().equals("Invalid credential"))
     {
       result=true;
     }

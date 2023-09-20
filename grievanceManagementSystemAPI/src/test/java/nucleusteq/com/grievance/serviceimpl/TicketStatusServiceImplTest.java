@@ -24,29 +24,29 @@ public class TicketStatusServiceImplTest {
 
   @BeforeEach
   void setUp() {
-      MockitoAnnotations.openMocks(this); // Initialize mocks
+      MockitoAnnotations.openMocks(this);
   }
 
   @Test
   void testGetByName() {
-      // Define a sample name and a mock TicketStatus object
+     
       String sampleName = "open";
       TicketStatus ticketStatus = new TicketStatus();
       ticketStatus.setTicketStatusName(sampleName);
 
-      // Define the behavior of the mocked repository
+     
       when(ticketStatusRepo.getTicketStatsByName(sampleName)).thenReturn(ticketStatus);
 
-      // Call the method to be tested
+      
       TicketStatus result = ticketStatusService.getByName(sampleName);
 
-      // Verify that the method behaved as expected
+      
       assertEquals(sampleName, result.getTicketStatusName());
 
-      // Verify that the repository method was called with the correct parameter
+     
       verify(ticketStatusRepo).getTicketStatsByName(sampleName);
 
-      // Verify that there were no other interactions with the mocked repository
+     
       verifyNoMoreInteractions(ticketStatusRepo);
   }
 }

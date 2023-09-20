@@ -12,9 +12,9 @@ import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.service.TicketStatusService;
 
 /**
- * TicketStatusController.
+ * Ticket Status Controller.
  *
- * @author roush
+ * @author roushan
  * @version 1.0.0
  */
 
@@ -22,14 +22,21 @@ import nucleusteq.com.grievance.service.TicketStatusService;
 @RequestMapping("/ticketStatus")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TicketStatusController {
-	
-	@Autowired
-	private TicketStatusService statusService;
-	
-	@GetMapping("/all")
-	public List<TicketStatus> getAllStatus()
-	{
-		return statusService.getAll();
-	}
 
+  /**
+   * Ticket status serivec variable.
+   */
+  @Autowired
+  private TicketStatusService statusService;
+
+  /**
+   * Get list of all status.
+   *
+   * @return list of all status.
+   */
+  @GetMapping("/all")
+  public List<TicketStatus> getAllStatus() {
+    return statusService.getAll();
+  }
 }
+

@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
 import java.util.List;
@@ -79,7 +78,7 @@ public class TicketControllerTest {
    }
 
    @Test
-   public void testSaveTicket_InvalidTicket() throws Exception {
+   public void testSaveTicketInvalidTicket() throws Exception {
 
        // This ticket is intentionally left invalid
        TicketDto invalidTicket = new TicketDto(); 
@@ -124,8 +123,18 @@ public class TicketControllerTest {
     			ticketDto1,
     			ticketDto2
     			);
+    	when(ticketService.getAllByCondition(10, 0, false,0,1,"OPEN"))
+    	    .thenReturn(allTicketsDto);
     	
-    	//to do
+       mockMvc.perform(get("/ticket/all/new/10?departId=0&createdByMe=false&offset=0&pageSize=1&status=OPEN"))
+              .andExpect(status().isOk())
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+              .andExpect(jsonPath("$[0].ticketId").value(1))
+              .andExpect(jsonPath("$[0].title").value("title 1"));
+              //.andExpect(jsonPath("$[1].deptId").value(2))
+              //.andExpect(jsonPath("$[1].deptName").value("Department 2"));
+       verify(ticketService, times(1)).getAllByCondition(10, 0, false,0,1,"OPEN");
+       verifyNoMoreInteractions(ticketService);
     	
    }
    

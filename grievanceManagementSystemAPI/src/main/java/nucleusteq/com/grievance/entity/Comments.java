@@ -30,12 +30,16 @@ public class Comments {
    */
   public Comments() {
   }
+
   /**
-   * @param commentsIdParam
-   * @param commentsParam
-   */public Comments(
-  		 final Integer commentsIdParam,
-  		 final String commentsParam) {
+   * All arg constructor.
+   *
+   * @param commentsIdParam id.
+   * @param commentsParam comments.
+   */
+   public Comments(
+     final Integer commentsIdParam,
+     final String commentsParam) {
     super();
     this.commentId = commentsIdParam;
     this.comments = commentsParam;
@@ -76,10 +80,14 @@ public class Comments {
   public void setComments(final String commentsParam) {
     this.comments = commentsParam;
   }
-	@Override
-	public String toString() {
-		return "Comments [commentId=" + commentId + ", comments=" + comments + "]";
-	}
-  
-  
+
+  /**
+   * Detail of single comment.
+   */
+  @Override
+  public String toString() {
+    return "Comments [commentId="
+          + commentId + ", comments=" + comments + "]";
+  }
 }
+

@@ -30,7 +30,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsersServiceImpl implements UserService {
 
-  private static final Logger  LOGGER =Logger.getLogger(UsersServiceImpl.class);
+  /**
+   * Logger.
+   */
+  private static final Logger LOGGER = Logger.getLogger(UsersServiceImpl.class);
   /**
    * Autowire.
    */
@@ -111,6 +114,11 @@ public class UsersServiceImpl implements UserService {
     if (userRepo.getByUserName(userDto.getUsername()) != null) {
       throw new InternalServerError("Username is already exist.");
     }
+    
+    if (userRepo.getByEmail(userDto.getEmail()) != null ) {
+      throw new InternalServerError("Email is already exist.");
+    }
+      
 
     Users savedUser = userRepo.save(tempUser);
 
@@ -134,11 +142,16 @@ public class UsersServiceImpl implements UserService {
     try {
       Users tempUser;
       tempUser = userRepo.getByUserName(userDto.getUsername());
-      byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
-      String decodedString = new String(decodedBytes,
-          StandardCharsets.UTF_8);
+     // System.err.println("encoded password "+userDto.getPassword());
+     // byte[] userDtoPasswordDecoded = Base64.getDecoder().decode(userDto.getPassword());
+     // String userDtoPassword = new String(userDtoPasswordDecoded,
+     //     StandardCharsets.UTF_8);
+     // System.err.println("userDtoPassword "+userDtoPassword);
+     // byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
+     // String decodedString = new String(decodedBytes,
+     //     StandardCharsets.UTF_8);
       if (tempUser.getUserId() != null
-          && decodedString.equals(userDto.getPassword())) {
+          && tempUser.getPassword().equals(userDto.getPassword())) {
         return true;
       }
     } catch (Exception e) {
@@ -249,11 +262,10 @@ public class UsersServiceImpl implements UserService {
   public ResponseDto changePassword(
       final ChangePassword changePassword) {
 
-    if(changePassword.getUserId()==null) {
+    if (changePassword.getUserId() == null) {
       throw new BadRequestError("User id is emppty");
     }
-      
-    
+
     Optional<Users> user = userRepo.findById(changePassword.getUserId());
     Users users;
     if (user.isPresent()) {
@@ -268,13 +280,11 @@ public class UsersServiceImpl implements UserService {
           .decode(users.getPassword());
       String oldPassword = new String(decodeOldPassword,
           StandardCharsets.UTF_8);
-      
-      
 
       if (oldPassword.equals(changePassword.getOldPassword())) {
-        if(oldPassword.equals(changePassword.getNewPassword()))
-        {
-          return new ResponseDto(null, "New password should not same as old password.", "NOT_UPDATE");
+        if (oldPassword.equals(changePassword.getNewPassword())) {
+          return new ResponseDto(null,
+              "New password should not same as old password.", "NOT_UPDATE");
         }
         users.setPassword(newPassword);
         users.setInitialPassword(0);

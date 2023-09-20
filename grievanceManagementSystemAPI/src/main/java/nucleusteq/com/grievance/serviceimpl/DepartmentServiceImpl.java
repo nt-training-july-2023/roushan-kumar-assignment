@@ -38,11 +38,9 @@ public class DepartmentServiceImpl implements DepartmentService {
   public Department save(
       final Department department) {
     Department tempDepartment;
-    //try {
     Locale locale = Locale.ENGLISH;
     String deptName = department.getDeptName().toUpperCase(locale);
     department.setDeptName(deptName);
-  
     tempDepartment = departmentRepo
                      .getDepartmentByName(department.getDeptName());
     if (tempDepartment == null) {

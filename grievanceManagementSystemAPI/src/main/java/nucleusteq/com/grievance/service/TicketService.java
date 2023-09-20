@@ -7,17 +7,55 @@ import nucleusteq.com.grievance.dto.TicketDto;
 import nucleusteq.com.grievance.entity.Comments;
 
 public interface TicketService {
-	
-	ResponseDto save(TicketDto ticketDto);
 
-//  ResponseDto update(TicketDto ticketDto);
+  /**
+   * Saves a ticket with the provided TicketDto.
+   *
+   * @param ticketDto The TicketDto representing the ticket to be saved.
+   * @return A ResponseDto indicating the result of the save operation.
+   */
+  ResponseDto save(TicketDto ticketDto);
 
-  ResponseDto updateTicketComments(Comments comments,Integer  ticketId, Integer statusId);
+  /**
+   * Updates the comments and status of a ticket.
+   *
+   * @param comments The Comments object containing the new comments.
+   * @param ticketId The ID of the ticket to be updated.
+   * @param statusId The ID of the new status for the ticket.
+   * @return A ResponseDto indicating the result of the update operation.
+   */
+  ResponseDto updateTicketComments(
+      Comments comments,
+      Integer  ticketId,
+      Integer statusId);
 
-//	List<TicketDto> getAll();
+//  /**
+//   * Retrieves a list of tickets based on specified conditions.
+//   *
+//   * @param userId      The ID of the user for whom tickets are to be retrieved.
+//   * @param departId    The ID of the department for filtering tickets.
+//   * @param createdByMe Boolean flag indicating whether
+//   * to filter by tickets created by the user.
+//   * @return A list of TicketDto objects that meet the specified conditions.
+//   */
+//  List<TicketDto> getAllByCondition(
+//      Integer userId,
+//      Integer departId,
+//      boolean createdByMe);
 
-	List<TicketDto> getAllByCondition(Integer userId, Integer departId, boolean createdByMe);
-
+  /**
+   * Retrieves a specific ticket by its ticket ID.
+   *
+   * @param ticketId  The ID of the ticket to retrieve.
+   * @return          The TicketDto representing the retrieved ticket.
+   */
   TicketDto getByTicketId(Integer ticketId);
+
+  List<TicketDto> getAllByCondition(Integer userId,
+      Integer departId,
+      Boolean createdByMe,
+      int offset,
+      int pageSize,
+      String status);
 }
 

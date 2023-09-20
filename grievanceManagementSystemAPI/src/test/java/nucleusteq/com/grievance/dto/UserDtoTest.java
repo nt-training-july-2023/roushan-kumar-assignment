@@ -11,11 +11,10 @@ import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
 
 public class UserDtoTest {
-	private UserDto userDto;
+  private UserDto userDto;
 
   @BeforeEach
   public void setUp() {
-  	System.out.print("UserDto setUP");
     userDto = new UserDto();
   }
 
@@ -39,11 +38,13 @@ public class UserDtoTest {
     userDto.setInitalPassword(123456);
     assertEquals(new Integer(123456), userDto.getInitialPassword());
 
-    Role role = new Role(); // Create a Role instance for testing
+    // Create a Role instance for testing
+    Role role = new Role();
     userDto.setRole(role);
     assertEquals(role, userDto.getRole());
 
-    Department department = new Department(); // Create a Department instance for testing
+    // Create a Department instance for testing
+    Department department = new Department();
     userDto.setDepartment(department);
     assertEquals(department, userDto.getDepartment());
   }
@@ -55,7 +56,6 @@ public class UserDtoTest {
     // Verify that the userDto object is not null
     assertNotNull(userDto);
 
-    // Verify that all fields of the userDto object are initialized to default values (null or 0)
     assertNull(userDto.getUserId());
     assertNull(userDto.getUsername());
     assertNull(userDto.getFullName());
@@ -65,35 +65,5 @@ public class UserDtoTest {
     assertNull(userDto.getRole());
     assertNull(userDto.getDepartment());
   }
-
-//  @Test
-//  public void testParameterizedConstructor() {
-//    Role role = new Role(); // Create a Role instance for testing
-//    Department department = new Department(); // Create a Department instance for testing
-//
-//    UserDto userDto = new UserDto(
-//      1,
-//      "testUser",
-//      "Roushan kumar",
-//      "roushan.kumar@example.com",
-//      "password123",
-//      123456,
-//      role,
-//      department
-//    );
-//
-//    // Verify that the userDto object is not null
-//    assertNotNull(userDto);
-//
-//    // Verify that the fields of the userDto object are correctly initialized with the provided values
-//    assertEquals(new Integer(1), userDto.getUserId());
-//    assertEquals("testUser", userDto.getUsername());
-//    assertEquals("Roushan kumar", userDto.getFullName());
-//    assertEquals("roushan.kumar@example.com", userDto.getEmail());
-//    assertEquals("password123", userDto.getPassword());
-//    assertEquals(new Integer(123456), userDto.getInitalPassword());
-//    assertEquals(role, userDto.getRole());
-//    assertEquals(department, userDto.getDepartment());
-//  }
 }
 

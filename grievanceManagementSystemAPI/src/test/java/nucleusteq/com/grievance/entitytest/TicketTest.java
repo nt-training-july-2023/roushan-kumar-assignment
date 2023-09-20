@@ -20,8 +20,13 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TicketTest {
 	private Ticket ticket;
+	private Ticket ticket1;
+  private Ticket ticket2;
+  private Ticket ticket3;
 	List<Comments> comments = Arrays.asList(
 			new Comments(null,null));
   @BeforeEach
@@ -38,53 +43,31 @@ public class TicketTest {
       ticket.setUser(new Users());
       ticket.setCreationTime(null);
       ticket.setLastUpdateTime(null);
+      
+   // Create three different ticket instances
+      ticket1 = new Ticket();
+      ticket1.setTicketId(1);
+
+      ticket2 = new Ticket();
+      ticket2.setTicketId(2);
+
+      ticket3 = new Ticket();
+      ticket3.setTicketId(1); 
   }
-  
-//  @Test
-//  public void testConstructor() {
-//      // Create a Ticket object using the constructor
-//      Ticket ticket = new Ticket(
-//          1,
-//          "Test Ticket",
-//          "Test Description",
-//          new Date(System.currentTimeMillis()),
-//          new Date(System.currentTimeMillis()),
-//          new Department(),
-//          new TicketType(),
-//          new TicketStatus(),
-//          comments,
-//          new Users()
-//      );
-//
-//      // Verify that the object is not null
-//      assertNotNull(ticket);
-//
-//      // Verify that the fields have been initialized correctly
-//      assertEquals(1, ticket.getTicketId().intValue());
-//      assertEquals("Test Ticket", ticket.getTitle());
-//      assertEquals("Test Description", ticket.getDescription());
-//      assertNotNull(ticket.getCreationTime());
-//      assertNotNull(ticket.getLastUpdateTime());
-//      assertNotNull(ticket.getDepartment());
-//      assertNotNull(ticket.getTicketType());
-//      assertNotNull(ticket.getTicketStatus());
-//      assertNotNull(ticket.getComments());
-//  }
 
   @Test
   public void testGettersAndSetters() {
-      // Test getters
+      
       assertEquals(1, ticket.getTicketId().intValue());
       assertEquals("Test Ticket", ticket.getTitle());
       assertEquals("Test Description", ticket.getDescription());
-      //assertNotNull(ticket.getCreationTime());
-      //assertNotNull(ticket.getLastUpdateTime());
+      
       assertNotNull(ticket.getDepartment());
       assertNotNull(ticket.getTicketType());
       assertNotNull(ticket.getTicketStatus());
       assertNotNull(ticket.getComments());
       assertNotNull(ticket.getUser());
-      // Test setters
+      
       ticket.setTicketId(2);
       assertEquals(2, ticket.getTicketId().intValue());
 
@@ -126,6 +109,32 @@ public class TicketTest {
               ", department=" + ticket.getDepartment() + ", ticketType=" + ticket.getTicketType() +
               ", ticketStatus=" + ticket.getTicketStatus() + ", comments=" + ticket.getComments() + "]";
       assertEquals(expectedToString, ticket.toString());
+  }
+  
+  @Test
+  public void testHashCode() {
+      
+      assertEquals(ticket1.hashCode(), ticket3.hashCode());
+
+      
+      assertNotEquals(ticket1.hashCode(), ticket2.hashCode());
+  }
+
+  @Test
+  public void testEquals() {
+      assertEquals(ticket1, ticket1);
+
+      assertEquals(ticket1, ticket3);
+
+      assertNotEquals(ticket1, ticket2);
+
+      assertNotEquals(ticket1, null);
+
+      assertNotEquals(ticket1, "SomeString");
+
+      ticket1.setTicketId(null);
+      ticket3.setTicketId(1);
+      assertNotEquals(ticket1, ticket3);
   }
 }
 

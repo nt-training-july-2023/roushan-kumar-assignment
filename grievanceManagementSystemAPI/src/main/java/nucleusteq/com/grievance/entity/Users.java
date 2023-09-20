@@ -1,5 +1,7 @@
 package nucleusteq.com.grievance.entity;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +43,7 @@ public class Users {
   /**
   * email in string.
   */
-  @Column(nullable = false,unique = true)
+  @Column(nullable = false, unique = true)
   private String email;
 
   /**
@@ -81,37 +83,6 @@ public class Users {
    */
   public Users() {
   }
-
-//  /**
-//  * Constructor with userId (used for creating new users).
-//  *
-//  * @param userIdParam as Integer.
-//  * @param userNameParam as string.
-//  * @param fullNameParam as string.
-//  * @param emailParam as string.
-//  * @param passwordParam as string.
-//  * @param initialPasswordParam as Integer.
-//  * @param roleParam as Collection.
-//  * @param departmentParam as class.
-//  */
-//  public Users(
-//      final Integer userIdParam,
-//      final String userNameParam,
-//      final String fullNameParam,
-//      final String emailParam,
-//      final String passwordParam,
-//      final Integer initialPasswordParam,
-//      final Role roleParam,
-//      final Department departmentParam) {
-//    this.userId = userIdParam;
-//    this.username = userNameParam;
-//    this.fullName = fullNameParam;
-//    this.email = emailParam;
-//    this.password = passwordParam;
-//    this.initialPassword = initialPasswordParam;
-//    this.role = roleParam;
-//    this.department = departmentParam;
-//  }
 
   /**
    * Constructor without userId (used for creating new users).
@@ -267,7 +238,6 @@ public class Users {
     this.role = roleParam;
   }
 
-  
   /**
   * get department.
   *
@@ -282,7 +252,7 @@ public class Users {
   *
   * @param departmentParam the department to set
   */
-  public void setDepartment(Department departmentParam) {
+  public void setDepartment(final Department departmentParam) {
     this.department = departmentParam;
   }
 
@@ -298,4 +268,71 @@ public class Users {
       + department + "]";
   }
 
+  /**
+   * Returns a hash code value for the object.
+   *
+   * The hash code is calculated based on the following fields:
+   *  -department
+   *  -email
+   *  -fullname
+   *  -initialPassword
+   *  -password
+   *  -role
+   *  -userId
+   *  -username
+   *
+   * @return A hash code value for this object.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        department,
+        email,
+        fullName,
+        initialPassword,
+        password,
+        role,
+        userId,
+        username);
+  }
+
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * The comparison is based on the
+   * following fields:
+   *  -department
+   *  -email
+   *  -fullname
+   *  -initialPassword
+   *  -password
+   *  -role
+   *  -userId
+   *  -username
+   *
+   * @param obj The reference object with which to compare.
+   * @return {@code true} if this object is the same as the obj argument;
+   *         {@code false} otherwise.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Users other = (Users) obj;
+    return Objects.equals(department, other.department)
+        && Objects.equals(email, other.email)
+        && Objects.equals(fullName, other.fullName)
+        && Objects.equals(initialPassword, other.initialPassword)
+        && Objects.equals(password, other.password)
+        && Objects.equals(role, other.role)
+        && Objects.equals(userId, other.userId)
+        && Objects.equals(username, other.username);
+  }
 }
+

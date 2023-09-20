@@ -41,20 +41,20 @@ public class TicketController {
   /**
    * save ticket .
    *
-   * @param ticket ticket.
+   * @param ticketDto ticket.
    * @param errors BindingResult errors.
    * @return respone of save ticket.
    */
   @PostMapping("/save")
   public ResponseEntity<?> saveTicket(
-    @RequestBody @Valid final TicketDto ticket,
+    @RequestBody @Valid final TicketDto ticketDto,
     final BindingResult errors
   ) {
     if (errors.hasErrors()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(errors.getAllErrors());
     }
-    return ResponseEntity.ok(ticketService.save(ticket));
+    return ResponseEntity.ok(ticketService.save(ticketDto));
   }
 
   /**
@@ -73,21 +73,52 @@ public class TicketController {
     return ticketService.updateTicketComments(comments, ticketId, statusId);
   }
 
-  //localhost:8080/api/ticket/all/10?departId=1&createdByMe=false
+
+//  /**
+//   * Get all ticket according to conditions.
+//   * url example.
+//   * localhost:8080/api/ticket/all/10?departId=1&createdByMe=false.
+//   *
+//   * @param userId user id.
+//   * @param departId department id.
+//   * @param createdByMe boolean value if user wants own tickets.
+//   * @return return all tickets according to condition.
+//   */
+//  @GetMapping("/all/{userId}")
+//  public List<TicketDto> getAllTickets(
+//      @PathVariable("userId") final Integer userId,
+//      @RequestParam(name = "departId", required = false) final Integer departId,
+//      @RequestParam(name = "createdByMe") final Boolean createdByMe) {
+//    return ticketService.getAllByCondition(userId, departId, createdByMe);
+//  }
+
   /**
-   * Get all ticket according to conditions.
+   * Get all ticket according to conditions new.
+   * url example.
+   * localhost:8080/api/ticket/all/10?departId=1&createdByMe=false.
    *
    * @param userId user id.
    * @param departId department id.
    * @param createdByMe boolean value if user wants own tickets.
    * @return return all tickets according to condition.
    */
-  @GetMapping("/all/{userId}")
-  public List<TicketDto> getAllTickets(
+  @GetMapping("/all/new/{userId}")
+  public List<TicketDto> getAllTicketsNew(
       @PathVariable("userId") final Integer userId,
       @RequestParam(name = "departId", required = false) final Integer departId,
-      @RequestParam(name = "createdByMe") final Boolean createdByMe) {
-    return ticketService.getAllByCondition(userId, departId, createdByMe);
+      @RequestParam(name = "createdByMe") final Boolean createdByMe,
+      @RequestParam(name = "offset") final int offset,
+      @RequestParam(name = "pageSize") final int pageSize,
+      @RequestParam(name = "status") final String status
+      ) {
+    //return ticketService.getAllByCondition(userId, departId, createdByMe);
+    return ticketService.getAllByCondition(
+        userId,
+        departId,
+        createdByMe,
+        offset,
+        pageSize,
+        status);
   }
 
   /**
@@ -97,8 +128,7 @@ public class TicketController {
    */
   @GetMapping("/{ticketId}")
   public TicketDto getTicket(
-      @PathVariable("ticketId") final Integer ticketId )
-  {
+      @PathVariable("ticketId") final Integer ticketId) {
     return ticketService.getByTicketId(ticketId);
   }
 }

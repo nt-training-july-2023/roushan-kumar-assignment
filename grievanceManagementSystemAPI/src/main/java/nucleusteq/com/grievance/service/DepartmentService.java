@@ -9,12 +9,14 @@ import nucleusteq.com.grievance.entity.Department;
  */
 public interface DepartmentService {
 
-  /*
+  /**
    * save department.
+   *
+   * @return response of saved details.
    */
-  Department save(Department department );
+  Department save(Department department);
 
-  /*
+  /**
    * get department by department name.
    */
   Department getDepartmentByName(String name);
@@ -30,9 +32,8 @@ public interface DepartmentService {
    * delete Department.
    *
    * @param deptId as integer
-   * @param deptId2 
-   * @return department
+   * @param deptId2 departId
    */
-  void delete(Integer deptId,String password, Integer deptId2);
+  void delete(Integer deptId, String password, Integer deptId2);
 }
 

@@ -76,8 +76,15 @@ public class UsersController {
     if (errors.hasErrors()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
       .body(errors.getAllErrors());
+    } 
+    
+    if(userService.save(userDto) != null) {
+    ResponseDto response = new ResponseDto(1,"New user created", "SAVE");
+    return ResponseEntity.ok(response);
+    } else {
+      ResponseDto response = new ResponseDto(1,"User not created", "NOT_SAVE");
+      return ResponseEntity.ok(response); 
     }
-    return ResponseEntity.ok(userService.save(userDto));
 
   }
 

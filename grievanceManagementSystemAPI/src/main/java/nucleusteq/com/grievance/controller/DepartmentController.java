@@ -58,7 +58,7 @@ public class DepartmentController {
     @RequestBody final Department department,
     final HttpServletRequest httpHeaders
   ) {
-    
+
     return departmentService.save(department);
   }
 

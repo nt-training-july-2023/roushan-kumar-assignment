@@ -1,9 +1,14 @@
 package nucleusteq.com.grievance.exception;
 
 public class BadRequestError extends RuntimeException {
-	public BadRequestError(String message)
-	{
-		super(message);
-	}
+
+  /**
+   * BadRequestError handler.
+   *
+   * @param message Message given by function.
+   */
+  public BadRequestError(final String message) {
+    super(message);
+  }
 }
 

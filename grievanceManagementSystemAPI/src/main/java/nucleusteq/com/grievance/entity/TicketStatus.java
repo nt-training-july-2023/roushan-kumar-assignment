@@ -9,10 +9,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ticket_status")
 public class TicketStatus {
-	/**
+  /**
    * The unique identifier for the ticket status.
    */
-	@Id
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private  Integer ticketStatusId;
 

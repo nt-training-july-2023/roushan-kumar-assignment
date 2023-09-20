@@ -21,42 +21,42 @@ public class TicketDto {
   /**
    * Unique identifier for the ticket.
    */
-  private Integer ticketId; // Unique identifier for the ticket
+  private Integer ticketId;
 
   /**
    * Title of the ticket.
    */
   @NotEmpty
-  private String title; // Title of the ticket
+  private String title;
 
   /**
    * Description or details of the ticket.
    */
   @NotEmpty
-  private String description; // Description or details of the ticket
+  private String description;
 
   /**
    * Department associated with the ticket.
    */
   @NotNull
-  private Department department; // Department associated with the ticket
+  private Department department;
 
   /**
    * Type of the ticket.
    */
   @NotNull
-  private TicketType ticketType; // Type of the ticket
+  private TicketType ticketType;
 
   /**
    * Status of the ticket.
    */
-  private TicketStatus ticketStatus; // Status of the ticket
+  private TicketStatus ticketStatus;
 
   /**
    * User identifier associated with the ticket.
    */
   @NotNull
-  private Integer userId; // User identifier associated with the ticket
+  private Integer userId;
 
   /**
    * Fullname of user.

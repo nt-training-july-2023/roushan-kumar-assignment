@@ -3,6 +3,7 @@ package nucleusteq.com.grievance.entity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.UpdateTimestamp;
 
 /**
- * Ticket Entity.
+ * Represents a Ticket entity for the grievance management system.
  */
 @Entity
 @Table(name = "ticket")
@@ -100,7 +101,7 @@ public class Ticket {
           CascadeType.PERSIST,
           CascadeType.REFRESH
       })
-  @JoinColumn(name = "comments_id")//need to change to ticket tid.
+  @JoinColumn(name = "ticket_id")
   private Collection<Comments> comments;
 
   /**
@@ -328,46 +329,80 @@ public class Ticket {
         + "]";
   }
 
-//  /**
-//   * hashcode.
-//   */
-// @Override
-// public int hashCode() {
-// return Objects.hash(
-//      comments,
-//      creationTime,
-//      department,
-//      description,
-//      lastUpdateTime,
-//      ticketId,
-//      ticketStatus,
-//      ticketType,
-//      title,
-//      user);
-//  }
-//
-//  @Override public boolean equals(Object obj){
-//  if (this == obj) {
-//    return true;
-//  }
-//  if (obj == null) {
-//    return false;
-//  }
-//  if (getClass() != obj.getClass()) {
-//    return false;
-//  }
-//
-//  Ticket other = (Ticket)obj;
-//  return Objects.equals(comments, other.comments)
-//      && Objects.equals(creationTime, other.creationTime)
-//      && Objects.equals(department, other.department)
-//      && Objects.equals(description, other.description)
-//      && Objects.equals(lastUpdateTime, other.lastUpdateTime)
-//      && Objects.equals(ticketId, other.ticketId)
-//      && Objects.equals(ticketStatus, other.ticketStatus)
-//      && Objects.equals(ticketType, other.ticketType)
-//      && Objects.equals(title, other.title)
-//      && Objects.equals(user, other.user);
-//  }
+  /**
+   * Returns a hash code value for the object.
+   *
+   * The hash code is calculated based on the following fields:
+   * - ticketId
+   * - title
+   * - description
+   * - creationTime
+   * - lastUpdateTime
+   * - department
+   * - ticketType
+   * - ticketStatus
+   * - comments
+   * - user
+   *
+   * @return A hash code value for this object.
+   */
+ @Override
+  public int hashCode() {
+   return Objects.hash(
+      comments,
+      creationTime,
+      department,
+      description,
+      lastUpdateTime,
+      ticketId,
+      ticketStatus,
+      ticketType,
+      title,
+      user);
+  }
+
+  /**
+  * Indicates whether some other object is "equal to" this one.
+  * The comparison is based on the
+  * following fields:
+  * - ticketId
+  * - title
+  * - description
+  * - creationTime
+  * - lastUpdateTime
+  * - department
+  * - ticketType
+  * - ticketStatus
+  * - comments
+  * - user
+  *
+  * @param obj The reference object with which to compare.
+  * @return {@code true} if this object is the same as the obj argument;
+  *         {@code false} otherwise.
+  */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+    return false;
+    }
+
+    Ticket other = (Ticket) obj;
+    return Objects.equals(comments, other.comments)
+        && Objects.equals(creationTime, other.creationTime)
+        && Objects.equals(department, other.department)
+        && Objects.equals(description, other.description)
+        && Objects.equals(lastUpdateTime, other.lastUpdateTime)
+        && Objects.equals(ticketId, other.ticketId)
+        && Objects.equals(ticketStatus, other.ticketStatus)
+        && Objects.equals(ticketType, other.ticketType)
+        && Objects.equals(title, other.title)
+        && Objects.equals(user, other.user);
+  }
 }
 
