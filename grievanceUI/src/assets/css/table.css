@@ -8,7 +8,7 @@ td img{
 }
 
 table, th , td{
-    padding: 1rem;
+    padding: 0.6rem;
     border-collapse: collapse;
     text-align: left;
 }
@@ -153,3 +153,46 @@ tbody tr:nth-child(even)
     position: absolute;
     z-index: 1;
   }
+
+  tablefooter {
+    background: #8e939c;
+    width: 100%;
+    padding: 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+ 
+    background-position: center;
+    background-size: cover;
+  }
+
+  tablefooter ul{
+    width: 100%;
+    text-align: right;
+
+}
+
+tablefooter ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 5px 5px;
+}
+
+tablefooter button{
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+tablefooter .prev {
+    background-color: rgba(29, 65, 125, 0.797);
+}
+
+tablefooter .next {
+    color: #dee9ff;
+    background-color: rgb(48, 171, 0);
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Sidebar from '../../component/Sidebar'
-import Header from '../../component/Header'
+import Sidebar from '../../component/sidebar/Sidebar'
+import Header from '../../component/header/Header'
 
 function Member() {
   return (

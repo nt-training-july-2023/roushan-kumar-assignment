@@ -13,9 +13,15 @@ nav{
     align-items: center;
     justify-content: center;
     position: relative;
-    background-image: url('../img/nav1.png');
+    background-image: url('../../assets/img/nav1.png');
     background-position: center;
     background-size: cover;
+}
+
+nav h1{
+    color: white;
+    width: auto;
+    position: absolute;
 }
 
 .logo{
@@ -77,8 +83,9 @@ nav ul li a{
     display: flex;
     align-items: center;
 }
-.user-info h3{
+.user-info h2{
     font-weight: 500;
+    color: white;
 }
 
 .user-info img{

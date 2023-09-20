@@ -10,15 +10,19 @@ function Ticket() {
   const [showTicketUpdate,SetShowTicketUpdate] = useState(false)
   const [createdByMe,setCreatedByMe] = useState(false);
   const [departmentId,SetDepartmentId] = useState(0);
-  const [statusName,setStatusName] = useState("");
-
+  const [statusName,setStatusName] = useState("0");
+  const [offset, setOffset] = useState(0)
+  
+//   let offset=0;
   let record;
   let allRecord = allTickets;
   const [alltic,setAlltic] = useState([]);
 
   const getAllTickets = async ()=>{
     try {
-        const url = "/ticket/all/"+UID+"?departId="+departmentId+"&createdByMe="+createdByMe;
+        console.log("offset " + offset )
+        const url = "/ticket/all/new/"+UID+"?departId="+departmentId+"&createdByMe="+createdByMe+"&offset="+offset+"&pageSize=5&status="+statusName
+        // const url = "/ticket/all/"+UID+"?departId="+departmentId+"&createdByMe="+createdByMe;
         const res = await api.get(url)
         if(res.data){
         setAllTickets(res.data)
@@ -47,12 +51,15 @@ function Ticket() {
     }
   }
 
+  useEffect(() => {
+    getAllTickets();
+  }, [offset,departmentId,statusName,createdByMe]);
  
   useEffect(()=>{
     getAllTicketStatus();
     getAllTickets();
     
-  },[departmentId])
+  },[])
 
   const viewUpdateTicketPage = (ticket)=>{
     setTicket(ticket);
@@ -63,50 +70,78 @@ function Ticket() {
   }
 
 
-  //pagination
-  const [currentPage,setCurrentPage] = useState(1);
-  const recordPerPage = 5;
-  const lastIndex = currentPage * recordPerPage;
-  const firstIndex = lastIndex - recordPerPage;
-  const recordOfTicket = alltic.slice(firstIndex,lastIndex);
+//   //pagination
+//   const [currentPage,setCurrentPage] = useState(1);
+//   const recordPerPage = 4;
+//   const lastIndex = currentPage * recordPerPage;
+//   const firstIndex = lastIndex - recordPerPage;
+//   const recordOfTicket = alltic.slice(firstIndex,lastIndex);
   
-  const nPage = Math.ceil(alltic.length / recordPerPage)
-  const numbers = [...Array(nPage+1).keys()].slice(1);
-  //end
+//   const nPage = Math.ceil(alltic.length / recordPerPage)
+//   const numbers = [...Array(nPage+1).keys()].slice(1);
+//   //end
 
   //filter on status
   
  
+//   const filterByStatus = (e) =>{
+
+//       if(e.target.value === "0")
+//       {
+//         setAlltic(allTickets)
+//         return;
+//       }
+//       setCurrentPage(1);
+//         e.preventDefault();
+//         // console.log(allRecord)
+//         // setStatusName(e.target.value)
+//         //getAllTickets();
+        
+//         record = allRecord.filter(checkStatus);
+//         console.log(record);
+        
+//         function checkStatus(allRecord)
+//         {
+//             return allRecord.ticketStatus.ticketStatusName == e.target.value
+//         }
+//         setAlltic(record)
+//         //setAllTickets(record);
+//   }
+
   const filterByStatus = (e) =>{
-
-      if(e.target.value === "0")
-      {
-        setAlltic(allTickets)
-        return;
-      }
-      setCurrentPage(1);
-        e.preventDefault();
-        // console.log(allRecord)
-        // setStatusName(e.target.value)
-        //getAllTickets();
-        
-        record = allRecord.filter(checkStatus);
-        console.log(record);
-        
-        function checkStatus(allRecord)
-        {
-            return allRecord.ticketStatus.ticketStatusName == e.target.value
-        }
-        setAlltic(record)
-        //setAllTickets(record);
-  }
-
-
-  const setDepartmentIdHandler = (e)=>{
-    console.log(e.target.value);
-    SetDepartmentId(e.target.value)
+    setStatusName(e.target.value);
   }
   
+
+
+  const setOffsetHadlerPrev = ()=>{
+   
+    if(offset>0){
+    setOffset(offset-5)
+    // offset=offset-5;
+    console.log("prev offset " +offset);
+    // getAllTickets();
+    }
+  }
+  const setOffsetHadlerNext = async ()=>{
+    const nPage = Math.ceil(alltic.length)
+    if(offset<=nPage){
+     setOffset(offset+5)
+    // offset=offset+5
+    console.log("next offset "+offset);
+    // getAllTickets();
+    }
+  }
+
+  const setDepartmentIdHandler = (e)=>{
+    SetDepartmentId(e.target.value)
+    setOffset(0);
+    
+  }
+  
+  const ticketByUser = () =>{
+    setCreatedByMe(!createdByMe);
+  }
 
   return (
     <>
@@ -115,6 +150,7 @@ function Ticket() {
                 <section className="table__header">
                     <h1>Tickets</h1>
                     <div className='head-ticket-search'>
+                        <label>Me</label><input type="checkbox" value={false} name="me" onClick={ticketByUser}></input>
                         { sessionStorage.getItem("userType") === "Admin" &&
                         <DepartmentDropdown className={'custom_select_ticket'} onChange={setDepartmentIdHandler}/>
                         }
@@ -125,6 +161,7 @@ function Ticket() {
                                         ticketStatus.map((status) => (
                                             <option key={status.ticketStatusId}
                                                 value={status.ticketStatusName}
+                                               
                                             >{status.ticketStatusName}
                                             </option>
                                         ))
@@ -154,10 +191,11 @@ function Ticket() {
                         <tbody>
 
                             {
-                                recordOfTicket?.map((ticket,id) => {
+                                // recordOfTicket?.map((ticket,id) => {
+                                    allTickets?.map((ticket,id) => {
                                     return <>
                                         <tr key={ticket.ticketId}>
-                                            <td>{id+1+firstIndex}</td>
+                                            <td>{ticket.ticketId}</td>
                                             <td>{ticket.title}</td>
                                             <td>{ticket.department.deptName}</td>
                                             <td>{ticket.ticketStatus.ticketStatusName}</td>
@@ -176,43 +214,23 @@ function Ticket() {
 
                         </tbody>
                     </table>
-                    <nav>
+                    <tablefooter>
                         <ul>
                             <li>
-                                <a href='#' onClick={prevPage}>Prev</a>
+                                <button className='prev' onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-                            {
-                                numbers.map((n,i)=>(
-                                    <li key={i}>
-                                          <a href='#' onClick={()=>{changeCurrentPage(n)}}>{n}</a>  
-                                    </li>
-                                ))
-                            }
+                
                             <li>
-                                <a href='#' onClick={nextPage}>Next</a>
+                                <button className='next' onClick={setOffsetHadlerNext}>Next</button>
                             </li>
 
                         </ul>
 
-                    </nav>
+                    </tablefooter>
                 </section>
             </main>
     </>
   )
-
-  function prevPage(){
-    if(currentPage !== 1 )
-     setCurrentPage(currentPage-1);
-}
-
-function changeCurrentPage(n){
-    setCurrentPage(n)
-}
-
-function nextPage(){
-    if(currentPage !== nPage)
-     setCurrentPage(currentPage+1)
-}
 }
 
 export default Ticket

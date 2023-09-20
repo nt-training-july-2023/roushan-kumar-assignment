@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import Sidebar from '../../component/Sidebar'
+import Sidebar from '../../component/sidebar/Sidebar'
 import Home from '../Home'
 import ChangePassword from '../../component/ChangePassword'
-import Header from '../../component/Header'
+import Header from '../../component/header/Header'
 
 function Admin() {
   const navigate = useNavigate();

@@ -17,6 +17,7 @@ function Login() {
     const { isSubmiting, username, password } = userLogin;
 
     function inputHandler(e) {
+
         setUserLogin({ ...userLogin, [e.target.name]: e.target.value })
     }
 
@@ -34,8 +35,8 @@ function Login() {
             return
         }
         const url = '/login/authorization';
-        const res = await api.post(url, userLogin)
-        if (res.data !== "Invalid credantial") {
+        const res = await api.post(url,{username:userLogin.username,password:btoa(userLogin.password)})
+        if (res.data !== "Invalid credential") {
             const urlVal = '/user/byUsername/' + username;
             const userData = await api.get(urlVal)
             console.log(userData.data);

@@ -8,7 +8,7 @@ function AddDepartment({ onClick }) {
   }
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("password:", sessionStorage.getItem("password"), sessionStorage.getItem("username"));
+    console.log("password:", sessionStorage.getItem("password")+"1", sessionStorage.getItem("username"));
     try {
       const url = "/department/save/" + sessionStorage.getItem("userId");
 

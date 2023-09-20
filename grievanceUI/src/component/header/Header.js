@@ -1,10 +1,9 @@
 import React from 'react'
-import '../assets/css/header.css'
-import user from '../assets/svg/person-circle.svg'
-import logout from '../assets/svg/box-arrow-in-right.svg'
-import edit from '../assets/svg/pencil-square.svg'
-import person from '../assets/svg/person.svg'
-import logo from '../assets/svg/last-1.svg'
+import '../../component/header/header.css'
+import user from '../../assets/svg/person-circle.svg'
+import logout from '../../assets/svg/box-arrow-in-right.svg'
+import edit from '../../assets/svg/pencil-square.svg'
+import person from '../../assets/svg/person.svg'
 function Header(props) {
     function toggleMenu(){
         
@@ -15,7 +14,8 @@ function Header(props) {
     <>
         <div className="navbar">
         <nav>
-        <img src = {logo} className="logo"/>
+        {/* <img src = {logo} className="logo"/> */}
+        <h1>Grievance Management System</h1>
         <ul>
             {/* <li ><a href="#">Home</a></li>
             <li><a href="#">Home</a></li>
