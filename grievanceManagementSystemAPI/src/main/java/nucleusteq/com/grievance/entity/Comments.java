@@ -24,6 +24,10 @@ public class Comments {
    * comments.
    */
   private String comments;
+  /**
+   * Commented by.
+   */
+  private String commentedBy;
 
   /**
    * No args constructor.
@@ -79,6 +83,20 @@ public class Comments {
    */
   public void setComments(final String commentsParam) {
     this.comments = commentsParam;
+  }
+
+  /**
+  * @return the commentedBy
+  */
+  public String getCommentedBy() {
+   return commentedBy;
+  }
+
+  /**
+   * @param commentedByParam the commentedBy to set
+   */
+  public void setCommentedBy(final String commentedByParam) {
+   this.commentedBy = commentedByParam;
   }
 
   /**

@@ -15,6 +15,7 @@ import java.util.Base64;
 import java.util.Optional;
 
 import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
@@ -54,31 +55,31 @@ public class UserServiceImplTest {
 
   @Test
   void authenticateWhenPasswordOrUsernameWorng() {
-    UserDto userDto = new UserDto();
+    LoginDto loginDto = new LoginDto();
     Users tempUser = new Users();
     tempUser.setUsername("roushan11");
 
-    userDto.setUsername("roushan11");
-    userDto.setPassword("1234");
-    when(userRepo.getByUserName(userDto.getUsername())).thenReturn(null);
-    boolean res = userServiceImpl.authenticate(userDto);
+    loginDto.setUsername("roushan11");
+    loginDto.setPassword("1234");
+    when(userRepo.getByUserName(loginDto.getUsername())).thenReturn(null);
+    boolean res = userServiceImpl.authenticate(loginDto);
     assertFalse(res);
   }
 
   @Test
   void authenticateWhenPasswordOrUsernameCorrect() {
 
-    UserDto userDto = new UserDto();
+    LoginDto loginDto = new LoginDto();
     Users tempUser = new Users();
     tempUser.setUsername("roushan11");
     tempUser.setUserId(5);
     tempUser.setPassword("123");
 
-    userDto.setUsername("roushan11");
-    userDto.setPassword("123");
-    when(userRepo.getByUserName(userDto.getUsername())).thenReturn(tempUser);
+    loginDto.setUsername("roushan11");
+    loginDto.setPassword("123");
+    when(userRepo.getByUserName(loginDto.getUsername())).thenReturn(tempUser);
 
-    boolean res = userServiceImpl.authenticate(userDto);
+    boolean res = userServiceImpl.authenticate(loginDto);
     
     assertTrue(true);
   }

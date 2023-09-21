@@ -12,26 +12,26 @@ import nucleusteq.com.grievance.service.UserService;
 public class FilterConfiguration {
 
    /**
-    * 
+    *
     */
    @Autowired
    private UserService userService;
 
    /**
-    * 
-    * @param userService
+    *
+    * @param userServiceParam
     */
-   public FilterConfiguration(UserService userService) {
-       this.userService = userService;
+   public FilterConfiguration(final UserService userServiceParam) {
+       this.userService = userServiceParam;
    }
 
    /**
-    * 
-    * @return
+    *
+    * @return FilterRegistrationBean.
     */
   @Bean
   public FilterRegistrationBean<AuthenticationFilter> registrationBean() {
-    FilterRegistrationBean<AuthenticationFilter> regBean 
+    FilterRegistrationBean<AuthenticationFilter> regBean
         = new FilterRegistrationBean<AuthenticationFilter>();
     regBean.setFilter(new AuthenticationFilter(userService));
     regBean.addUrlPatterns("/department/save/*");

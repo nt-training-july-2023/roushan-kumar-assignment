@@ -15,6 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.service.UserService;
 import org.junit.Before;
@@ -40,15 +42,17 @@ public class LoginControllerTest {
   @org.junit.jupiter.api.Test
   public void testAuthenticateUser() throws Exception {
     
+    LoginDto loginDto = new LoginDto("root", "root");
+    
     UserDto userDto2 = new UserDto();
     userDto2.setUsername("root");
     userDto2.setPassword("root");
     userDto2.setUserId(1);
     
-    when(userService.authenticate(userDto2)).thenReturn(true);
+    when(userService.authenticate(loginDto)).thenReturn(true);
 
 
-    ResponseEntity<?> res = loginController.authenticateUser(userDto2);
+    ResponseEntity<?> res = loginController.authenticateUser(loginDto);
     System.err.println(res.getBody());
     boolean result = false;
     if(res.getBody().equals("User login successfully!."))
@@ -60,15 +64,15 @@ public class LoginControllerTest {
 
   @org.junit.jupiter.api.Test
   public void testAuthenticateWorngUser() throws Exception {
-    //prepare a userDto for the request body.
+
+    LoginDto loginDto = new LoginDto("root", "root");
     UserDto userDto = new UserDto();
     userDto.setUsername("roott");
     userDto.setPassword("roott");
     //mock the behavior of service.
-    when(userService.authenticate(userDto)).thenReturn(false);
+    when(userService.authenticate(loginDto)).thenReturn(false);
 
-
-    ResponseEntity<?> res = loginController.authenticateUser(userDto);
+    ResponseEntity<?> res = loginController.authenticateUser(loginDto);
     System.err.println(res.getBody());
     boolean result = false;
     if(res.getBody().equals("Invalid credential"))

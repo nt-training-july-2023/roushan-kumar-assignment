@@ -2,6 +2,7 @@ package nucleusteq.com.grievance.service;
 
 import java.util.List;
 
+import nucleusteq.com.grievance.dto.AllTicketsDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
 import nucleusteq.com.grievance.entity.Comments;
@@ -29,20 +30,6 @@ public interface TicketService {
       Integer  ticketId,
       Integer statusId);
 
-//  /**
-//   * Retrieves a list of tickets based on specified conditions.
-//   *
-//   * @param userId      The ID of the user for whom tickets are to be retrieved.
-//   * @param departId    The ID of the department for filtering tickets.
-//   * @param createdByMe Boolean flag indicating whether
-//   * to filter by tickets created by the user.
-//   * @return A list of TicketDto objects that meet the specified conditions.
-//   */
-//  List<TicketDto> getAllByCondition(
-//      Integer userId,
-//      Integer departId,
-//      boolean createdByMe);
-
   /**
    * Retrieves a specific ticket by its ticket ID.
    *
@@ -51,7 +38,19 @@ public interface TicketService {
    */
   TicketDto getByTicketId(Integer ticketId);
 
-  List<TicketDto> getAllByCondition(Integer userId,
+  /**
+  * Retrieves a list of tickets based on specified conditions.
+  *
+  * @param userId      The ID of the user for whom tickets are to be retrieved.
+  * @param departId    The ID of the department for filtering tickets.
+  * @param createdByMe Boolean flag indicating whether
+  * to filter by tickets created by the user.
+  * @param offset
+  * @param pageSize
+  * @param status
+  * @return A list of TicketDto objects that meet the specified conditions.
+  */
+  List<AllTicketsDto> getAllByCondition(Integer userId,
       Integer departId,
       Boolean createdByMe,
       int offset,

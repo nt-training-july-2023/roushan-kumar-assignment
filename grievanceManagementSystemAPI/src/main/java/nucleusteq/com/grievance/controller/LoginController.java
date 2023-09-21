@@ -1,6 +1,6 @@
 package nucleusteq.com.grievance.controller;
 
-import nucleusteq.com.grievance.dto.UserDto;
+import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +31,13 @@ public class LoginController {
   /**
    * authenticalUser.
    *
-   * @param userDto Requestbody
+   * @param loginDto Requestbody
    * @return response
    */
   @PostMapping("login/authorization")
   public ResponseEntity<?> authenticateUser(@RequestBody
-      final UserDto userDto) {
-    if (userService.authenticate(userDto)) {
+      final LoginDto loginDto) {
+    if (userService.authenticate(loginDto)) {
       return new ResponseEntity<>("User login successfully!.", HttpStatus.OK);
     } else {
       return new ResponseEntity<>("Invalid credential", HttpStatus.OK);

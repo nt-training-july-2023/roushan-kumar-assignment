@@ -23,6 +23,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import nucleusteq.com.grievance.dto.AllTicketsDto;
+import nucleusteq.com.grievance.dto.AllTicketsDtoTest;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
 import nucleusteq.com.grievance.entity.Comments;
@@ -259,7 +261,7 @@ public class TicketServiceImplTest {
       when(userService.getById(1)).thenReturn(user);
       when(ticketRepo.findByDepartmentNew(1,0,1,1)).thenReturn(sampleTickets);
 
-      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 1, false,0,1,"OPEN");
+      List<AllTicketsDto> result = ticketServiceImpl.getAllByCondition(1, 1, false,0,1,"OPEN");
 
       assertNull(result);
       verify(userService, times(1)).getById(1);
@@ -308,7 +310,7 @@ public class TicketServiceImplTest {
       when(ticketStatusService.getByName("OPEN")).thenReturn(ticketStatus);
       when(userService.getById(1)).thenReturn(user);
       when(ticketRepo.findByDepartmentNew(1,0,1,1)).thenReturn(allTickets);
-      List<TicketDto> result = ticketServiceImpl.getAllByCondition(1, 0, false,0,1,"OPEN");
+      List<AllTicketsDto> result = ticketServiceImpl.getAllByCondition(1, 0, false,0,1,"OPEN");
 
       assertNotNull(result);
       

@@ -3,6 +3,7 @@ package nucleusteq.com.grievance.service;
 import java.util.List;
 
 import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Users;
@@ -42,10 +43,10 @@ public interface UserService {
   /**
    * Authenticate user.
    *
-   * @param userDto is class
+   * @param loginDto is class
    * @return boolean
    */
-  boolean authenticate(UserDto userDto);
+  boolean authenticate(LoginDto loginDto);
 
   /**
    * get user by username.

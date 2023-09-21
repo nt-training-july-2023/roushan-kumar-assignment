@@ -60,14 +60,13 @@ public class AuthenticationFilter implements Filter {
     String password = httpServletRequest.getHeader("password");
     if (httpServletRequest.getMethod().equals("OPTIONS")) {
       httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
-      httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-      httpServletResponse.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, username, password");
+      httpServletResponse.setHeader("Access-Control-Allow-Methods",
+          "GET, POST, PUT, DELETE");
+      httpServletResponse.setHeader("Access-Control-Allow-Headers",
+          "Authorization, Content-Type, username, password");
       httpServletResponse.setContentType("application/json");
       httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-    }
-    else {
-      
-    
+    } else {
     if (username == null || password == null) {
       throw new UserNotFoundException("Header not found !!");
     }
@@ -95,6 +94,6 @@ public class AuthenticationFilter implements Filter {
       httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
           "Invalid credentials Form filter");
     }
-    }
+   }
   }
 }

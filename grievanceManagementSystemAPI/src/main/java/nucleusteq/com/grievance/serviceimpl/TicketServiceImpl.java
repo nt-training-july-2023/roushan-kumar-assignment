@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
+import nucleusteq.com.grievance.dto.AllTicketsDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
 import nucleusteq.com.grievance.entity.Comments;
@@ -183,80 +184,6 @@ public class TicketServiceImpl implements TicketService {
     }
   }
 
-//  /**
-//   * Get all tickets with given condition user id, department id.
-//   * And a boolean value for ticket is created by user.
-//   */
-//  @Override
-//  public List<TicketDto> getAllByCondition(
-//      final Integer userId,
-//      final Integer departId,
-//      final boolean createdByUser) {
-//
-//    List<Ticket> allTickets = new ArrayList<Ticket>();
-//    Users user = userService.getById(userId);
-//    if (user.getRole().getName().equals("Admin") && departId != 0) {
-//      // return all ticket if user is admin and filter by department
-//      System.out.println("admin and department");
-//      allTickets = ticketRepo.findByDepartment(departId);
-//
-//    } else if (!user.getRole().getName().equals("Admin")
-//        && !createdByUser) {
-//      //all ticket if user is non admin and assign to its department
-//      System.out.println("non admin");
-//      Integer deptId = user.getDepartment().getDeptId();
-//      allTickets = ticketRepo.findByDepartment(deptId);
-//
-//    } else if (createdByUser) {
-//      // all ticket if user is not admin and filter by created by user
-//      System.out.println("created by me ticket");
-//      allTickets = ticketRepo.findByCreateByUser(userId);
-//
-//    } else if (user.getRole().getName().equals("Admin")) {
-//      // all ticket.
-//      System.out.println("all ticket");
-//      allTickets = ticketRepo.findAllSortByStatus();
-//    }
-//    if (allTickets.size() <= 0) {
-//      System.out.println("in null all ticket");
-//      return null;
-//    }
-//    List<TicketDto> allTicketsDto = new ArrayList<TicketDto>();
-//    for (Ticket t : allTickets) {
-//      System.out.println("ticket 1: " + t.toString());
-//      TicketDto ticketDto = new TicketDto();
-//      if (t.getComments() != null) {
-//        ticketDto.setComments(t.getComments());
-//      } else {
-//        continue;
-//      }
-//      ticketDto.setTicketId(t.getTicketId());
-//      ticketDto.setTitle(t.getTitle());
-//      ticketDto.setDescription(t.getDescription());
-//      ticketDto.setDepartment(t.getDepartment());
-//      ticketDto.setTicketType(t.getTicketType());
-//      ticketDto.setTicketStatus(t.getTicketStatus());
-//      ticketDto.setUserId(t.getUser().getUserId());
-//      ticketDto.setFullName(t.getUser().getFullName());
-//
-//      ticketDto.setDate(DateTimeFormatter.ofPattern("dd/MM/yyyy")
-//          .format(t.getLastUpdateTime()));
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("KK:mm:ss a",
-//            Locale.ENGLISH);
-//        String lastUpdateTime = t.getLastUpdateTime().format(formatter);
-//
-//        ticketDto.setTime(lastUpdateTime);
-//
-//        ticketDto.setCreationTime(t.getCreationTime().format(formatter));
-//        ticketDto.setCreationDate(DateTimeFormatter.ofPattern("dd/MM/yyyy")
-//            .format(t.getCreationTime()));
-//      allTicketsDto.add(ticketDto);
-//    }
-//
-//    return allTicketsDto;
-//  }
-
   /**
    * Return single ticket details.
    *
@@ -287,11 +214,13 @@ public class TicketServiceImpl implements TicketService {
 
        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("KK:mm:ss a",
            Locale.ENGLISH);
-       String lastUpdateTime = singleTicket.getLastUpdateTime().format(formatter);
+       String lastUpdateTime = singleTicket
+           .getLastUpdateTime().format(formatter);
 
        ticketDto.setTime(lastUpdateTime);
 
-       ticketDto.setCreationTime(singleTicket.getCreationTime().format(formatter));
+       ticketDto.setCreationTime(singleTicket
+           .getCreationTime().format(formatter));
        ticketDto.setCreationDate(DateTimeFormatter.ofPattern("dd/MM/yyyy")
            .format(singleTicket.getCreationTime()));
 
@@ -301,8 +230,18 @@ public class TicketServiceImpl implements TicketService {
      }
   }
 
+  /**
+   * Return list of all tickets according to condition.
+   *
+   *@param userId
+   *@param departId
+   *@param createdByUser
+   *@param offSet
+   *@param pageSize
+   *@param status
+   */
   @Override
-  public List<TicketDto> getAllByCondition(
+  public List<AllTicketsDto> getAllByCondition(
       final Integer userId,
       final Integer departId,
       final Boolean createdByUser,
@@ -311,6 +250,7 @@ public class TicketServiceImpl implements TicketService {
       final String status) {
 
     Integer statusId = 0;
+    Integer serialNumber = 1;
     System.err.println(status);
     if (!status.equals("0")) {
        statusId = ticketStatusService.getByName(status).getTicketStatusId();
@@ -318,18 +258,20 @@ public class TicketServiceImpl implements TicketService {
     }
     List<Ticket> allTickets = new ArrayList<Ticket>();
     Users user = userService.getById(userId);
-    
+
     if (createdByUser && statusId == 0) {
       // all ticket if user is not admin and filter by created by user
 
       allTickets = ticketRepo.findByCreateByUserNew(userId, offSet, pageSize);
 
     } else if (createdByUser && statusId != 0) {
-      allTickets = ticketRepo.findByCreateByUserByStatus(userId, offSet, pageSize ,statusId);
-      
-    } else if (user.getRole().getName().equals("Admin") && departId != 0 && statusId==0) {
+      allTickets = ticketRepo.findByCreateByUserByStatus(userId, offSet,
+          pageSize, statusId);
+
+    } else if (user.getRole().getName().equals("Admin") && departId != 0
+        && statusId == 0) {
       // return all ticket if user is admin and filter by department
- 
+
       allTickets = ticketRepo.findByDepartmentNew(departId, offSet, pageSize);
 
     } else if (!user.getRole().getName().equals("Admin")
@@ -339,36 +281,33 @@ public class TicketServiceImpl implements TicketService {
       Integer deptId = user.getDepartment().getDeptId();
       allTickets = ticketRepo.findByDepartmentNew(deptId, offSet, pageSize);
 
-    }  else if (user.getRole().getName().equals("Admin") && statusId==0) {
+    }  else if (user.getRole().getName().equals("Admin") && statusId == 0) {
       // all ticket.
 
       allTickets = ticketRepo.findAllSortByStatusNew(offSet, pageSize);
-    } else if ( user.getRole().getName().equals("Admin") && departId != 0 && statusId != 0) {
+    } else if (user.getRole().getName().equals("Admin")
+        && departId != 0 && statusId != 0) {
 
-       allTickets = ticketRepo.findByDepartmentNew(departId, offSet, pageSize, statusId);
+       allTickets = ticketRepo.findByDepartmentNew(departId, offSet,
+           pageSize, statusId);
     } else if (!user.getRole().getName().equals("Admin")
         && !createdByUser && statusId != 0) {
-      
+
       Integer deptId = user.getDepartment().getDeptId();
-      allTickets = ticketRepo.findByDepartmentNew(deptId, offSet, pageSize , statusId);
-    } else if (user.getRole().getName().equals("Admin") && statusId!=0) {
-      allTickets = ticketRepo.findAllFilterSortedByStatusNew(offSet, pageSize , statusId);
+      allTickets = ticketRepo.findByDepartmentNew(deptId, offSet,
+          pageSize, statusId);
+    } else if (user.getRole().getName().equals("Admin") && statusId != 0) {
+      allTickets = ticketRepo.findAllFilterSortedByStatusNew(offSet,
+          pageSize, statusId);
     }
-      
-    
+
     if (allTickets.size() <= 0) {
-      System.out.println("in null all ticket");
       return null;
     }
-    List<TicketDto> allTicketsDto = new ArrayList<TicketDto>();
+    List<AllTicketsDto> allTicketsDto = new ArrayList<AllTicketsDto>();
     for (Ticket t : allTickets) {
-      System.out.println("ticket 1: " + t.toString());
-      TicketDto ticketDto = new TicketDto();
-      if (t.getComments() != null) {
-        ticketDto.setComments(t.getComments());
-      } else {
-        continue;
-      }
+      AllTicketsDto ticketDto = new AllTicketsDto();
+      ticketDto.setSerialNumber(offSet + serialNumber);
       ticketDto.setTicketId(t.getTicketId());
       ticketDto.setTitle(t.getTitle());
       ticketDto.setDescription(t.getDescription());
@@ -391,8 +330,10 @@ public class TicketServiceImpl implements TicketService {
         ticketDto.setCreationDate(DateTimeFormatter.ofPattern("dd/MM/yyyy")
             .format(t.getCreationTime()));
       allTicketsDto.add(ticketDto);
+      serialNumber += 1;
     }
 
     return allTicketsDto;
   }
 }
+

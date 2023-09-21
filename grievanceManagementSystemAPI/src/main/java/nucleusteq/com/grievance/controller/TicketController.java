@@ -3,6 +3,8 @@ package nucleusteq.com.grievance.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+
+import nucleusteq.com.grievance.dto.AllTicketsDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
 import nucleusteq.com.grievance.entity.Comments;
@@ -73,37 +75,19 @@ public class TicketController {
     return ticketService.updateTicketComments(comments, ticketId, statusId);
   }
 
-
-//  /**
-//   * Get all ticket according to conditions.
-//   * url example.
-//   * localhost:8080/api/ticket/all/10?departId=1&createdByMe=false.
-//   *
-//   * @param userId user id.
-//   * @param departId department id.
-//   * @param createdByMe boolean value if user wants own tickets.
-//   * @return return all tickets according to condition.
-//   */
-//  @GetMapping("/all/{userId}")
-//  public List<TicketDto> getAllTickets(
-//      @PathVariable("userId") final Integer userId,
-//      @RequestParam(name = "departId", required = false) final Integer departId,
-//      @RequestParam(name = "createdByMe") final Boolean createdByMe) {
-//    return ticketService.getAllByCondition(userId, departId, createdByMe);
-//  }
-
   /**
    * Get all ticket according to conditions new.
-   * url example.
-   * localhost:8080/api/ticket/all/10?departId=1&createdByMe=false.
    *
    * @param userId user id.
    * @param departId department id.
    * @param createdByMe boolean value if user wants own tickets.
+   * @param offset
+   * @param pageSize
+   * @param status Status of Ticket.
    * @return return all tickets according to condition.
    */
   @GetMapping("/all/new/{userId}")
-  public List<TicketDto> getAllTicketsNew(
+  public List<AllTicketsDto> getAllTicketsNew(
       @PathVariable("userId") final Integer userId,
       @RequestParam(name = "departId", required = false) final Integer departId,
       @RequestParam(name = "createdByMe") final Boolean createdByMe,
@@ -111,7 +95,6 @@ public class TicketController {
       @RequestParam(name = "pageSize") final int pageSize,
       @RequestParam(name = "status") final String status
       ) {
-    //return ticketService.getAllByCondition(userId, departId, createdByMe);
     return ticketService.getAllByCondition(
         userId,
         departId,

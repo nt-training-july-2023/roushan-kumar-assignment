@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import nucleusteq.com.grievance.dto.ChangePassword;
+import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.entity.Department;
@@ -114,11 +115,10 @@ public class UsersServiceImpl implements UserService {
     if (userRepo.getByUserName(userDto.getUsername()) != null) {
       throw new InternalServerError("Username is already exist.");
     }
-    
-    if (userRepo.getByEmail(userDto.getEmail()) != null ) {
+
+    if (userRepo.getByEmail(userDto.getEmail()) != null) {
       throw new InternalServerError("Email is already exist.");
     }
-      
 
     Users savedUser = userRepo.save(tempUser);
 
@@ -137,21 +137,13 @@ public class UsersServiceImpl implements UserService {
    * Authenticate user.
    */
   @Override
-  public boolean authenticate(final UserDto userDto) {
+  public boolean authenticate(final LoginDto loginDto) {
 
     try {
       Users tempUser;
-      tempUser = userRepo.getByUserName(userDto.getUsername());
-     // System.err.println("encoded password "+userDto.getPassword());
-     // byte[] userDtoPasswordDecoded = Base64.getDecoder().decode(userDto.getPassword());
-     // String userDtoPassword = new String(userDtoPasswordDecoded,
-     //     StandardCharsets.UTF_8);
-     // System.err.println("userDtoPassword "+userDtoPassword);
-     // byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
-     // String decodedString = new String(decodedBytes,
-     //     StandardCharsets.UTF_8);
+      tempUser = userRepo.getByUserName(loginDto.getUsername());
       if (tempUser.getUserId() != null
-          && tempUser.getPassword().equals(userDto.getPassword())) {
+          && tempUser.getPassword().equals(loginDto.getPassword())) {
         return true;
       }
     } catch (Exception e) {

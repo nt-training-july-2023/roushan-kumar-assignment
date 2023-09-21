@@ -38,6 +38,5 @@ public interface UserRepo extends JpaRepository<Users, Integer> {
     */
    @Query(value = GET_USER_BY_EMAIL, nativeQuery = true)
    Users getByEmail(@Param("email") String email);
-   
 
 }
