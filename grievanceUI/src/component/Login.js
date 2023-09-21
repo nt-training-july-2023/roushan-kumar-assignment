@@ -44,6 +44,7 @@ function Login() {
             sessionStorage.setItem("username", userData.data.username);
             sessionStorage.setItem("userType", userData.data.role.name);
             sessionStorage.setItem("password", userData.data.password);
+            sessionStorage.setItem("departmentId", userData.data.department.deptId);
             if(userData.data.initialPassword === 1){
                 navigate("/user/changepassword")
             }

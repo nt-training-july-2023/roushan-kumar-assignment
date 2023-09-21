@@ -40,7 +40,16 @@ function ChangePassword() {
       // })
       return true;
     }
+    
     return false;
+  }
+  function checkPasswordValid()
+  {
+    if (changePassword.conPassword.length<8 || changePassword.newPassword.length<8)
+    {
+      return false;
+    }
+    return true;
   }
   const submitHandler = async(e) => {
     e.preventDefault();
@@ -50,6 +59,13 @@ function ChangePassword() {
       setErrorMessage("Password not match.")
         setShow("show")
       return false;
+    }
+
+    if(!checkPasswordValid())
+    {
+      setErrorMessage("Password should be min 8 charactor")
+      setShow("show")
+    return false;
     }
 
     try {

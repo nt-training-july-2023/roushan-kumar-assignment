@@ -7,11 +7,23 @@ td img{
     vertical-align:middle ;
 }
 
-table, th , td{
+table, th {
     padding: 0.6rem;
     border-collapse: collapse;
     text-align: left;
 }
+
+table  td{
+    padding: 0.2rem 0.2rem 0.2rem 0.6rem;
+    border-collapse: collapse;
+    text-align: left;
+    height: 12px;
+    font-size: 15px;
+}
+
+ 
+
+
 main.table
 {
     width: 82vw;
@@ -89,28 +101,28 @@ tbody tr:nth-child(even)
 
 .button_edit{
     background-color: rgb(44, 181, 255);
-    padding: 0.5rem;
-    margin: 0.5rem;
+    padding: 0.3rem;
+    margin: 0.3rem;
     border-radius: 45px;
     border: 1px salmon #0005;
     background-image: url('../svg/pencil-square.svg');
     background-repeat: no-repeat;
     background-position: center;
-    height: 2rem;
-    width: 2rem;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .button_delete{
     background-color: rgb(190, 193, 193);
-    padding: 0.5rem;
-    margin: 0.5rem;
+    padding: 0.3rem;
+    margin: 0.3rem;
     border-radius: 45px;
     border: 1px salmon #0005;
     background-image: url('../svg/trash.svg');
     background-repeat: no-repeat;
     background-position: center;
-    height: 2rem;
-    width: 2rem;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .add_department{

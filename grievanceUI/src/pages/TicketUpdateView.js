@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import api from '../assets/axios';
 import '../assets/css/ticketUpdateView.css';
 import ErrorMessage from '../component/ErrorMessage';
+import { allTicketType } from '../service/ticketType';
+import { allTicketStatus } from '../service/ticketStatusType';
 function TicketUpdateView(props) {
    // console.log(props.ticketData)
    const initialVal = {
@@ -35,7 +37,8 @@ function TicketUpdateView(props) {
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
     const [comment,setComment] = useState({
-        "comments":""
+        "comments":"",
+        "commentedBy":sessionStorage.getItem("username")
     });
     const [statusId,setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
     const getTicket = async () => {
@@ -54,7 +57,7 @@ function TicketUpdateView(props) {
 
     const getAllTicketStatus = async () => {
         try {
-            const res = await api.get('ticketStatus/all');
+            const res = await allTicketStatus();
             
             if (res.data) {
                 setTicketStatus(res.data);
@@ -70,7 +73,6 @@ function TicketUpdateView(props) {
 
     useEffect(() => {
         getTicket();
-        //document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
         getAllTicketStatus();
        
        
@@ -230,6 +232,8 @@ function TicketUpdateView(props) {
                                 type="submit"
                                 value={"update "}
                                 className='btnNew btnSave'
+                                hidden = {!(ticket.department.deptId == sessionStorage.getItem("departmentId") 
+                                         || ticket.userId == sessionStorage.getItem("userId"))  }
                                 onClick={updateTicketHandler}
                             >
 
@@ -257,7 +261,7 @@ function TicketUpdateView(props) {
                         {
                             ticket.comments?.map((comments, id) => {
 
-                                return <><p>{comments.comments}</p></>
+                                return <><p><strong>{comments.commentedBy} </strong> : {comments.comments}</p></>
                             })
                         }
 

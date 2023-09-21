@@ -4,6 +4,7 @@ import user from '../../assets/svg/person-circle.svg'
 import logout from '../../assets/svg/box-arrow-in-right.svg'
 import edit from '../../assets/svg/pencil-square.svg'
 import person from '../../assets/svg/person.svg'
+import navlogo1 from '../../assets/img/navlogo1.png'
 function Header(props) {
     function toggleMenu(){
         
@@ -14,7 +15,7 @@ function Header(props) {
     <>
         <div className="navbar">
         <nav>
-        {/* <img src = {logo} className="logo"/> */}
+        <img src = {navlogo1} className="logo"/>
         <h1>Grievance Management System</h1>
         <ul>
             {/* <li ><a href="#">Home</a></li>
@@ -27,8 +28,7 @@ function Header(props) {
             <div className="sub-menu">
                 <div className="user-info">
                     <img src={user}/>
-                    <h2>Roushan Kumar</h2>
-
+                    <h2>{sessionStorage.getItem("username")}</h2>
                 </div>
                 <hr/>
                 <a href="#" className="sub-menu-link">

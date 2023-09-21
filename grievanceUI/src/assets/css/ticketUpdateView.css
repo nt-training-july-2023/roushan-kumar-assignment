@@ -226,7 +226,7 @@
     margin-right: 1px;
    }
 .head-ticket-search{
-    transform: translateX(80%);
+    transform: translateX(50%);
     display: flex;
     right: 0;
 }   

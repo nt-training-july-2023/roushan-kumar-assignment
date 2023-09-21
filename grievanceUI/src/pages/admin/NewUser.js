@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import api from '../../assets/axios';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewUserValid from '../validations/NewUserValid';
+import OkMessage from '../../component/OkMessage';
+import { saveUser } from '../../service/userService';
+import { allDepartment } from '../../service/departmentService';
+import { allUsersType } from '../../service/userType';
 function NewUser() {
 
     const roleData = {
@@ -27,24 +31,25 @@ function NewUser() {
     const [errorMessage, setErrorMessage] = useState("");
     const [roleAllData, setRoleData] = useState([]);
     const [deptData, setDeptData] = useState([]);
+    const [okBox, setOkBox] = useState(false);
+    const [sucessMessage, setSucessMessage] = useState({
+        "message":"",
+        "title":"",
+    })
 
     const getAllRole = async () => {
         try {
-            const url = '/role/all';
-            const res = await api.get(url);
+            const res = await allUsersType();
             if (res.data) {
                 setRoleData(res.data);
             }
         } catch (error) {
             console.log(error.response.data);
         }
-
-
     }
     const getAllDepartment = async () => {
         try {
-            const url = '/department/all';
-            const res = await api.get(url);
+            const res = await allDepartment();
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -103,20 +108,19 @@ function NewUser() {
 
     const newUserHandler = async (e) => {
         e.preventDefault();
-
         var val = NewUserValid(user)
-
         if (val) {
             setErrorMessage(val)
             setShow("show")
             return;
         }
-
         try {
-            const url = '/user/save';
-            const result = await api.post(url, user);
-            setErrorMessage("New User Added")
-            setShow("show")
+            const result = await saveUser(user);
+            setSucessMessage({
+                "message":"New User Added",
+                "title":"Saved",
+            })
+            setOkBox(true)
             resetForm();
         } catch (error) {
             setErrorMessage(error.response.data)
@@ -127,9 +131,15 @@ function NewUser() {
     const handleClose = () => {
         setShow("");
     }
+
+    const closeOkBoxHandler = () => {
+        setOkBox(false)
+    }
+
     return (
         <>
             <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
+            {okBox && <OkMessage onClick={closeOkBoxHandler} message={sucessMessage} />}
             <div className='wrapper '>
                 <Link to="/admin" value="back">back</Link>
                 <div className='title'>

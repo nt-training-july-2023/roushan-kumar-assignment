@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import api from '../assets/axios.js';
+import { saveDepartment } from '../service/departmentService.js';
 function AddDepartment({ onClick }) {
 
   const [department, setDepartment] = useState("");
@@ -10,21 +10,15 @@ function AddDepartment({ onClick }) {
     e.preventDefault();
     console.log("password:", sessionStorage.getItem("password")+"1", sessionStorage.getItem("username"));
     try {
-      const url = "/department/save/" + sessionStorage.getItem("userId");
-
-      // Create an object to hold the headers
-      const headers = {
-        "password":sessionStorage.getItem("password"),
-        "username":sessionStorage.getItem("username"),
-      };
-
-      // Define the request body (if needed)
       const requestBody = {
         "deptName": department,
       };
-
-      const res = await api.post(url, requestBody, { headers });
-
+      const res = await saveDepartment(
+        requestBody,
+        sessionStorage.getItem("userId"),
+        sessionStorage.getItem("password"),
+        sessionStorage.getItem("username"),
+        );
     } catch (error) {
       console.log(error)
     }

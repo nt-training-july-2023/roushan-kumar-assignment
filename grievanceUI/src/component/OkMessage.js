@@ -6,8 +6,8 @@ function OkMessage(props) {
     <div>
       <div className='ok-message'>
         <img src={ckeckCircle} />
-        <h2>deleted</h2>
-        <p>Department deleted succesfuly</p>
+        <h2>{props.message.title}</h2>
+        <p>{props.message.message}</p>
         <button type="button" onClick={props.onClick}>OK</button>
       </div>
     </div>

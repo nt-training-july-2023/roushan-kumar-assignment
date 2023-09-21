@@ -77,10 +77,13 @@ export default createBrowserRouter([
                 element: <Home/>,
             },
             {
+                path: "/member/riseticket",
+                element: <NewTicket/>,
+            },
+            {
                 path: "ticket",
                 element: <Ticket/>,
             },
-            
         ]
     },
     {

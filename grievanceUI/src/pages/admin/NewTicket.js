@@ -3,6 +3,7 @@ import '../../assets/css/forms.css';
 import api from '../../assets/axios';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewTicketValid from '../validations/NewTicketValid';
+import { allTicketType } from '../../service/ticketType';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
@@ -47,8 +48,7 @@ function NewTicket() {
 
     const getAllTicketType = async () => {
         try {
-            const url = '/ticketType/all';
-            const res = await api.get(url);
+            const res = await allTicketType()
             if (res.data) {
                 setTicketTypeData(res.data);
             }

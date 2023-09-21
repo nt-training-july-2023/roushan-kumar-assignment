@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import '../../assets/css/table.css'
-import api from '../../assets/axios';
 import AddDepartment from '../../component/AddDepartment';
 import ConfirmBox from '../../component/ConfirmBox';
 import OkMessage from '../../component/OkMessage';
+import { allDepartment } from '../../service/departmentService';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);
     const [showDept, setShowDept] = useState(false);
     const [confirmShow, setConfirmShow] = useState(false);
+    const [sucessMessage, setSucessMessage] = useState({
+        "message":"",
+        "title":"",
+    })
 
     const [okBox, setOkBox] = useState(false);
     const getAllDepartment = async () => {
         try {
-            const url = '/department/all';
-            const res = await api.get(url);
+            const res = await allDepartment();
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -58,6 +61,10 @@ function Department() {
 
     const confirmDelete = () => {
         setConfirmShow(false);
+        setSucessMessage({
+            "message":"Department deleted",
+            "title":"Deleted",
+        })
         setOkBox(true)
     }
     const closeOkBoxHandler = () => {
@@ -78,7 +85,7 @@ function Department() {
     return (
         <>
             {showDept && <AddDepartment onClick={closeDeptHandler} />}
-            {okBox && <OkMessage onClick={closeOkBoxHandler} />}
+            {okBox && <OkMessage message={sucessMessage} onClick={closeOkBoxHandler} />}
             {confirmShow && <ConfirmBox
                 onClickCancel={confirmCancel}
                 onClickDelete={confirmDelete}
@@ -112,8 +119,8 @@ function Department() {
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>
-                                                    <button id="buttonEdit" className='btn button_edit' ></button>
-                                                    <button id="buttonDet" className='btn button_delete' onClick={deptDeleteHandle}></button>
+                                                    <button id="buttonEdit" className=' button_edit' ></button>
+                                                    <button id="buttonDet" className=' button_delete' onClick={deptDeleteHandle}></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -123,7 +130,7 @@ function Department() {
 
                         </tbody>
                     </table>
-                    <nav>
+                    <tablefooter>
                         <ul>
                             <li>
                                 <a href='#' onClick={prevPage}>Prev</a>
@@ -141,7 +148,7 @@ function Department() {
 
                         </ul>
 
-                    </nav>
+                    </tablefooter>
                 </section>
             </main>
         </>
