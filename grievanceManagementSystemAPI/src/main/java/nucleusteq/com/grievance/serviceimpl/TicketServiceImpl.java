@@ -29,13 +29,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * TicketServiceImpl class.
+ * The TicketServiceImpl class provides methods for managing  ticket service.
+ * It allows you to create, retrieve, update, and delete ticket.
+ * This class encapsulates the business logic for ticket management.
+ *
+ * @author Roushan kumar 
  */
 @Service
 public class TicketServiceImpl implements TicketService {
 
   /**
-   * Logger.
+   * Logger instance for the TicketServiceImpl class.
    */
   private static final Logger LOGGER = Logger
       .getLogger(TicketServiceImpl.class);
@@ -212,12 +216,10 @@ public class TicketServiceImpl implements TicketService {
        ticketDto.setDate(DateTimeFormatter.ofPattern("dd/MM/yyyy")
          .format(singleTicket.getLastUpdateTime()));
 
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("KK:mm:ss a",
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a",
            Locale.ENGLISH);
-       String lastUpdateTime = singleTicket
-           .getLastUpdateTime().format(formatter);
-
-       ticketDto.setTime(lastUpdateTime);
+       ticketDto.setTime(singleTicket
+           .getLastUpdateTime().format(formatter));
 
        ticketDto.setCreationTime(singleTicket
            .getCreationTime().format(formatter));
@@ -320,7 +322,7 @@ public class TicketServiceImpl implements TicketService {
       ticketDto.setDate(DateTimeFormatter.ofPattern("dd/MM/yyyy")
           .format(t.getLastUpdateTime()));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("KK:mm:ss a",
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a",
             Locale.ENGLISH);
         String lastUpdateTime = t.getLastUpdateTime().format(formatter);
 

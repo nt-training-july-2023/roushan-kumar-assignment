@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 /**
  * RoleServiceImpl.
  *
- * @author roushan
+ * @author Roushan kumar
  */
 @Service
 public class RoleServiceImpl implements RoleService {
+
   /**
    * variables.
    */

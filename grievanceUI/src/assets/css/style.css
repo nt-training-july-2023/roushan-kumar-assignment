@@ -7,7 +7,7 @@
 }
 
 body {
-    /* background-image: linear-gradient(to right ,#71b7e6,#9b59b6); */
+    background-image: linear-gradient(to right ,#ffffff,#00000000);
     margin: 0px;
     padding: 0px;
     height: 100vh;
@@ -17,7 +17,7 @@ body {
 
 .Login-body{
     
-    background-color: #89f3ff;
+    /* background-color: #89f3ff; */
     margin: auto;
     /* padding: 0px; */
     height: 100vh;
@@ -33,9 +33,7 @@ input:focus {
     border: 2px solid #0f6197;
 }
 
-.login-wrapper{
-    /* box-shadow:  0 .1px 4px #282727;  */
-}
+
 .container {
     background-color: rgb(208,244,220);
    
@@ -71,10 +69,6 @@ input:focus {
     box-shadow: -15px 0px 10px -15px #111; 
     /* border-radius: 5px; */
    
-}
-.form-box{
-    /* box-shadow:  0 .3rem .4rem #282727; */
-    /* border-radius: 5px; */
 }
 
 .col-12 {

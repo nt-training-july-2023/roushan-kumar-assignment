@@ -34,7 +34,7 @@ function DepartmentDropdown(props) {
                 onChange={props.onChange}
                 >
                 <select className={props.className} >
-                    <option value="0">All</option>
+                    <option value="0">All Departments</option>
                     {
                         deptData.map((dept) => (
                             <option key={dept.deptId}

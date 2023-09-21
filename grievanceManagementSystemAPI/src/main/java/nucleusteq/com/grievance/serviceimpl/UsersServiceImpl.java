@@ -25,14 +25,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * userServiceImpl class.
+ * The UsersServiceImpl class provides methods for managing user accounts.
+ * It allows you to create, retrieve, update, and delete user information.
+ * This class encapsulates the business logic for user management.
  *
+ * @author Roushan kumar 
  */
 @Service
 public class UsersServiceImpl implements UserService {
 
   /**
-   * Logger.
+   * Logger instance for the UsersServiceImpl class.
    */
   private static final Logger LOGGER = Logger.getLogger(UsersServiceImpl.class);
   /**
@@ -42,17 +45,17 @@ public class UsersServiceImpl implements UserService {
   private UserRepo userRepo;
 
   /**
-   * Department Service.
+   * Department Service instance.
    */
   private DepartmentService departmentService;
 
   /**
-   * role servie is class.
+   * Role service instance.
    */
   private RoleService roleService;
 
   /**
-   * user service impl.
+   * User service implementation constructor.
    *
    * @param userRepoParam          userRepo .
    * @param roleServiceParam       roleService.
@@ -69,7 +72,7 @@ public class UsersServiceImpl implements UserService {
   }
 
   /**
-   * Get all user.
+   * Get all users.
    */
   @Override
   public List<Users> getAllUser() {
@@ -83,7 +86,7 @@ public class UsersServiceImpl implements UserService {
   }
 
   /**
-   * save user.
+   * Save a user.
    */
   @Override
   public UserDto save(final UserDto userDto) {
@@ -134,7 +137,7 @@ public class UsersServiceImpl implements UserService {
   }
 
   /**
-   * Authenticate user.
+   * Authenticate a user.
    */
   @Override
   public boolean authenticate(final LoginDto loginDto) {
@@ -155,7 +158,7 @@ public class UsersServiceImpl implements UserService {
   /**
    * Authenticate user is Admin.
    * @param userDto user.
-   * @return is admin.
+   * @return boolean is admin.
    */
   public boolean authenticateIsAdmin(
       final UserDto userDto) {
@@ -178,7 +181,7 @@ public class UsersServiceImpl implements UserService {
   }
 
   /**
-   * save power user.
+   * Save a power user.
    */
   @Override
   public String savePowerUser(final int key) {
@@ -233,7 +236,7 @@ public class UsersServiceImpl implements UserService {
   }
 
   /**
-   * get by id.
+   * Get user by user id.
    */
   @Override
   public Users getById(final Integer userId) {

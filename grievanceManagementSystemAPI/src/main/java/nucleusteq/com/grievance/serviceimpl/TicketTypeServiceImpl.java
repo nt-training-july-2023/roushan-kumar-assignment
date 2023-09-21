@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Ticket Type Service Impl.
+ * The TicketTypeServiceImpl class provides methods for managing ticket type.
+ * It allows you to create, retrieve ticket type information.
  */
 @Service
 public class TicketTypeServiceImpl implements TicketTypeService {
@@ -20,7 +21,7 @@ public class TicketTypeServiceImpl implements TicketTypeService {
   private TicketTypeRepo ticketTypeRepo;
 
   /**
-   * constructor of TicketTypeServiceImpl.
+   * Constructor of TicketTypeServiceImpl.
    *
    * @param ticketTypeRepoParam ticketTypeRepo.
    */
@@ -39,7 +40,7 @@ public class TicketTypeServiceImpl implements TicketTypeService {
   }
 
   /**
-   * save ticket type.
+   * Save ticket type.
    */
   @Override
   public TicketType save(final TicketType ticketType) {
@@ -47,7 +48,7 @@ public class TicketTypeServiceImpl implements TicketTypeService {
   }
 
   /**
-   * get ticket type by name.
+   * Get all ticket type by name.
    */
   @Override
   public TicketType getTicketTypeByName(final String name) {

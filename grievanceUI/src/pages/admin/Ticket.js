@@ -76,7 +76,7 @@ function Ticket() {
   }
   const setOffsetHadlerNext = async ()=>{
     const nPage = allTickets.length
-    if(nPage == 10){
+    if(nPage === pageSize){
      setOffset(offset+10)
     console.log("next offset "+offset);
     }
@@ -105,7 +105,7 @@ function Ticket() {
                         }
                         <div >
                             <select id='statusId' className='custom_select_ticket' onChange={filterByStatus}>
-                                    <option value="0">All</option>
+                                    <option value="0">All Status</option>
                                     {
                                         ticketStatus.map((status) => (
                                             <option key={status.ticketStatusId}

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * Department service impl class.
+ *
+ * @author Roushan kumar
  */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {

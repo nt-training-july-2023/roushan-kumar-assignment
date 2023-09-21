@@ -74,7 +74,7 @@ function Department() {
     
     //pagination
     const [currentPage,setCurrentPage] = useState(1);
-    const recordPerPage = 2;
+    const recordPerPage = 10;
     const lastIndex = currentPage * recordPerPage;
     const firstIndex = lastIndex - recordPerPage;
     const record = deptData.slice(firstIndex,lastIndex);
@@ -119,8 +119,8 @@ function Department() {
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>
-                                                    <button id="buttonEdit" className=' button_edit' ></button>
-                                                    <button id="buttonDet" className=' button_delete' onClick={deptDeleteHandle}></button>
+                                                    <button id="buttonEdit" className='btn button_edit' ></button>
+                                                    <button id="buttonDet" className='btn button_delete' onClick={deptDeleteHandle}></button>
                                                 </div>
                                             </td>
                                         </tr>
