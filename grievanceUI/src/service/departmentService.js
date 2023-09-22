@@ -1,4 +1,4 @@
-import api from "../assets/axios";
+import api from "./axios";
 
 export const allDepartment = async () => {
    

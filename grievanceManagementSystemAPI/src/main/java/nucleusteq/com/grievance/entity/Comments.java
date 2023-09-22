@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Ticket comments entity.
+ * Represents a Ticket Comments entity for the grievance management system.
  */
 @Entity
 @Table(name = "ticket_comments")

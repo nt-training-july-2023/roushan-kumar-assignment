@@ -210,3 +210,18 @@ tablefooter .next {
     color: #dee9ff;
     background-color: rgb(48, 171, 0);
 }
+
+.open{
+    color: gray;
+    font-weight: 500;
+}
+
+.inProgress{
+    color: #ff00a2ce;
+    font-weight: 500;
+}
+
+.closeTicket{
+    color: rgb(17, 108, 31);
+    font-weight: 500;
+}

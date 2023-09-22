@@ -7,11 +7,14 @@
 }
 
 body {
-    background-image: linear-gradient(to right ,#ffffff,#00000000);
+    /* background-image: linear-gradient(to right ,#ffffff,#00000000); */
+    background-image: url('../img/pxfuel1.jpg');
     margin: 0px;
     padding: 0px;
     height: 100vh;
     background-color: #4f5f81;
+    background-position: center;
+    background-size: cover;
     /* overflow: hidden; */
 }
 

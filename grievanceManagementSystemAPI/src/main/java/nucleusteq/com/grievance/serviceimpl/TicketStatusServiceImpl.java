@@ -3,7 +3,7 @@ package nucleusteq.com.grievance.serviceimpl;
 import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.repository.TicketStatusRepo;
 import nucleusteq.com.grievance.service.TicketStatusService;
-
+import org.apache.log4j.Logger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TicketStatusServiceImpl implements TicketStatusService {
+
+  /**
+   * Logger instance for the TicketServiceImpl class.
+   */
+  private static final Logger LOGGER = Logger
+      .getLogger(TicketStatusServiceImpl.class);
 
   /**
    * Variable.

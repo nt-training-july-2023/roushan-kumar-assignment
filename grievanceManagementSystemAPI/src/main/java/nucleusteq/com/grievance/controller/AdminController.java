@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * AdminController.
  *
+ * @author Roushan Kumar
+ * @version 1.0.0
  */
 @RestController
 @RequestMapping("/admin")

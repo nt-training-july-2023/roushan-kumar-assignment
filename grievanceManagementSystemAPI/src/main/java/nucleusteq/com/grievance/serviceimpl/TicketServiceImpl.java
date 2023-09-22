@@ -247,8 +247,8 @@ public class TicketServiceImpl implements TicketService {
       final Integer userId,
       final Integer departId,
       final Boolean createdByUser,
-      final int offSet,
-      final int pageSize,
+      final Integer offSet,
+      final Integer pageSize,
       final String status) {
 
     Integer statusId = 0;

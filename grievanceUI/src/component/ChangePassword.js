@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../assets/css/initialpass.css'
-import api from '../assets/axios';
+import api from '../service/axios';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from './ErrorMessage';
 function ChangePassword() {
@@ -139,8 +139,8 @@ function ChangePassword() {
             </input>
           </div>
           <div className='input_field'>
-            <input type="submit" value={"clear"} className='btnNew' onClick={clearHandler}></input>
-            <input type="submit" value={"save"} className='btnNew' onClick={submitHandler}></input>
+            <input type="submit" value={"clear"} className='btnNew btnNewCancle' onClick={clearHandler}></input>
+            <input type="submit" value={"save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
 
           </div>
         </form>

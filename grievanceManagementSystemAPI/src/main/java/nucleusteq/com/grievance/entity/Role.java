@@ -9,8 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Role class.
- *
+ * Represents a Role entity for the grievance management system.
  */
 @Entity
 @Table(name = "role",

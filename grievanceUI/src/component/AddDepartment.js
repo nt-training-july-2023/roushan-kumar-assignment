@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { saveDepartment } from '../service/departmentService.js';
+import ErrorMessage from './ErrorMessage.js';
 function AddDepartment({ onClick }) {
 
   const [department, setDepartment] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [show, setShow] = useState("");
   const inputHandler = (e) => {
     setDepartment(e.target.value);
   }
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("password:", sessionStorage.getItem("password")+"1", sessionStorage.getItem("username"));
     try {
       const requestBody = {
         "deptName": department,
@@ -19,17 +21,24 @@ function AddDepartment({ onClick }) {
         sessionStorage.getItem("password"),
         sessionStorage.getItem("username"),
         );
+        if(res.data.deptName)
+        setErrorMessage("New Departmetn Added.")
+        setShow("show")
     } catch (error) {
-      console.log(error)
+      setErrorMessage(error.response.data)
+      setShow("show")
     }
 
   }
   const clearHandler = (e) => {
     e.preventDefault();
   }
+  const handleClose = () => {
+    setShow("");
+ }
   return (
-    <div>
-
+    <>
+      <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
       <div id="add_Department_Div" className='initial_pass wrapper_pass'>
         <div className='title'>
           Add Department
@@ -57,7 +66,7 @@ function AddDepartment({ onClick }) {
         </form>
       </div>
       
-    </div>
+    </>
   )
 }
 

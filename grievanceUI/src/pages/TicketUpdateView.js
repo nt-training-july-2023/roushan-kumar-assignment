@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import api from '../assets/axios';
+import api from '../service/axios';
 import '../assets/css/ticketUpdateView.css';
 import ErrorMessage from '../component/ErrorMessage';
 import { allTicketType } from '../service/ticketType';
 import { allTicketStatus } from '../service/ticketStatusType';
+import { useRef } from 'react';
 function TicketUpdateView(props) {
    // console.log(props.ticketData)
    const initialVal = {
@@ -36,6 +37,7 @@ function TicketUpdateView(props) {
     const [ticket, setTicket] = useState(initialVal);
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
+    const elRef = useRef(null);
     const [comment,setComment] = useState({
         "comments":"",
         "commentedBy":sessionStorage.getItem("username")
@@ -53,7 +55,10 @@ function TicketUpdateView(props) {
         } catch (error) {
             
         }
+       
+       
     }
+    const executeScroll = () => elRef.current?.scrollIntoView({ behavior: 'smooth' });//{ behavior: 'smooth' }
 
     const getAllTicketStatus = async () => {
         try {
@@ -67,14 +72,15 @@ function TicketUpdateView(props) {
         }
     }
 
-    // setTimeout(() => {
-    //     document.getElementById("statusId").value = props.ticketData.ticketStatus.ticketStatusId;
-    // }, 1);
+    setTimeout(() => {
+        executeScroll();
+    }, 0);
 
     useEffect(() => {
+        
         getTicket();
         getAllTicketStatus();
-       
+        
        
     }, [])
 
@@ -107,6 +113,7 @@ function TicketUpdateView(props) {
             {
                 getTicket();
                 clearNewTicketForm();
+                 executeScroll();
             }
         }
         catch (error) {
@@ -261,11 +268,17 @@ function TicketUpdateView(props) {
                         {
                             ticket.comments?.map((comments, id) => {
 
-                                return <><p><strong>{comments.commentedBy} </strong> : {comments.comments}</p></>
+                                return <>
+                                            <p><strong>{comments.commentedBy} </strong> : {comments.comments}</p>
+                                            
+                                      </>
                             })
+                            
                         }
-
+                        <div ref={elRef}></div>
+                        
                     </div>
+                    
                 </div>
                 {/* comments div end */}
             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../assets/axios';
+import api from '../../service/axios';
 import TicketUpdateView from '../TicketUpdateView';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
 import { allTicketStatus } from '../../service/ticketStatusType';
@@ -46,7 +46,7 @@ function Ticket() {
 
   useEffect(() => {
     getAllTickets();
-  }, [offset,departmentId,statusName,createdByMe]);
+  }, [offset,departmentId,statusName,createdByMe,showTicketUpdate]);
  
   useEffect(()=>{
     getAllTicketStatus();
@@ -60,6 +60,7 @@ function Ticket() {
   }
   const closeTicketUpdateView = () =>{
     SetShowTicketUpdate(false)
+
   }
 
   const filterByStatus = (e) =>{
@@ -117,9 +118,7 @@ function Ticket() {
                                     }
                             </select>
                         </div>
-                        <div>
-                        <button className='my-button'> Find</button>
-                        </div>
+                        
                     </div>
                     
                 </section>
@@ -146,7 +145,14 @@ function Ticket() {
                                             <td>{ticket.serialNumber}</td>
                                             <td>{ticket.title}</td>
                                             <td>{ticket.department.deptName}</td>
-                                            <td>{ticket.ticketStatus.ticketStatusName}</td>
+                                            <td 
+                                            
+                                                className={ ticket.ticketStatus.ticketStatusName==="OPEN" ? 'open' : 
+                                                ticket.ticketStatus.ticketStatusName==="BEING ADDRESSED" ? 'inProgress' :
+                                                'closeTicket'
+                                            }
+
+                                            >{ticket.ticketStatus.ticketStatusName}</td>
                                             <td>{ticket.fullName}</td>
                                             <td>{ticket.date +" "+ticket.time}</td>
                                             <td>

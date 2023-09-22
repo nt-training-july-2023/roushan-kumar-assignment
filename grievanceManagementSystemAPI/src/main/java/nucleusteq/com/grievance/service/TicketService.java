@@ -53,8 +53,8 @@ public interface TicketService {
   List<AllTicketsDto> getAllByCondition(Integer userId,
       Integer departId,
       Boolean createdByMe,
-      int offset,
-      int pageSize,
+      Integer offset,
+      Integer pageSize,
       String status);
 }
 

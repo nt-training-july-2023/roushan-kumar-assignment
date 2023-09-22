@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * loginController.
  *
- * @author roush
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 @RestController

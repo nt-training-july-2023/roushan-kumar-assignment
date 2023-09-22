@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Department Class.
+ * Represents a Department entity for the grievance management system.
  */
 @Entity
 @Table(

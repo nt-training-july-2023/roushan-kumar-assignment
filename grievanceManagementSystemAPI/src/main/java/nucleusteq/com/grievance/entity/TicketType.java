@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Represents a TicketType entity for the grievance management system.
+ */
 @Entity
 @Table(name = "tickets_type")
 public class TicketType {

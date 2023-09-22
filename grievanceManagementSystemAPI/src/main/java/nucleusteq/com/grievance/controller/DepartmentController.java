@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * UserController.
  *
- * @author roush
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 

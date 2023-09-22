@@ -4,11 +4,14 @@ import AddDepartment from '../../component/AddDepartment';
 import ConfirmBox from '../../component/ConfirmBox';
 import OkMessage from '../../component/OkMessage';
 import { allDepartment } from '../../service/departmentService';
+import ErrorMessage from '../../component/ErrorMessage';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);
     const [showDept, setShowDept] = useState(false);
     const [confirmShow, setConfirmShow] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [show, setShow] = useState("");
     const [sucessMessage, setSucessMessage] = useState({
         "message":"",
         "title":"",
@@ -21,9 +24,10 @@ function Department() {
             if (res.data) {
                 setDeptData(res.data);
             }
-            console.log(res.data);
+            
         } catch (error) {
-            console.log(error.response.data);
+            setErrorMessage(error.response.data)
+            setShow("show")
         }
     }
     useEffect(() => {
@@ -81,7 +85,9 @@ function Department() {
     const nPage = Math.ceil(deptData.length / recordPerPage)
     const numbers = [...Array(nPage+1).keys()].slice(1);
     //end
-
+    const handleClose = () => {
+        setShow("");
+    }
     return (
         <>
             {showDept && <AddDepartment onClick={closeDeptHandler} />}
@@ -91,6 +97,7 @@ function Department() {
                 onClickDelete={confirmDelete}
                 head={"delete department"}
             />}
+            <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
             <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>

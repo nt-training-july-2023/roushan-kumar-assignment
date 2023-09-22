@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/css/forms.css';
-import api from '../../assets/axios';
+import api from '../../service/axios';
 import ErrorMessage from '../../component/ErrorMessage';
-import NewTicketValid from '../validations/NewTicketValid';
+import NewTicketValid from '../../validations/NewTicketValid';
 import { allTicketType } from '../../service/ticketType';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
@@ -35,7 +35,7 @@ function NewTicket() {
             if (res.data) {
                 setDeptData(res.data);
             }
-            console.log(res.data);
+            
         } catch (error) {
             console.log(error.response.data);
         }
@@ -52,7 +52,7 @@ function NewTicket() {
             if (res.data) {
                 setTicketTypeData(res.data);
             }
-            console.log(res.data);
+           
         } catch (error) {
             console.log(error.response.data);
         }

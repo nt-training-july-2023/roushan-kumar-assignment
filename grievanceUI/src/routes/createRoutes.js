@@ -1,7 +1,7 @@
 
 import { createBrowserRouter } from "react-router-dom"
 import Home from "../pages/Home";
-import Login from "../component/Login";
+import Login from "../pages/Login";
 import App from "../App.js"
 import Admin from "../pages/admin/Admin";
 import NewUser from "../pages/admin/NewUser";
@@ -13,6 +13,7 @@ import SessionExpire from "../pages/SessionExpire";
 import Ticket from "../pages/admin/Ticket";
 import TicketUpdateView from "../pages/TicketUpdateView";
 import ChangePassword from "../component/ChangePassword";
+import Users from "../pages/admin/Users";
 export default createBrowserRouter([
     {
         path: "/app",
@@ -48,6 +49,10 @@ export default createBrowserRouter([
             {
                 path: "newuser",
                 element: <NewUser/>,
+            },
+            {
+                path: "/admin/users",
+                element: <Users/>,
             },
             {
                 path: "newticket",

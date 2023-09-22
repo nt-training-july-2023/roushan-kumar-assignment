@@ -21,7 +21,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import org.apache.log4j.Logger;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 /**
@@ -75,10 +78,26 @@ public class UsersServiceImpl implements UserService {
    * Get all users.
    */
   @Override
-  public List<Users> getAllUser() {
+  public Page<UserDto> getAllUser(
+      final Integer offSet,
+      final Integer pageSize) {
     try {
       LOGGER.info("fetching all users.");
-      return userRepo.findAll();
+      Page<Users> alluser ;
+      alluser = userRepo.findAll(PageRequest.of(
+          offSet, pageSize).withSort(Sort.by("userId")));
+      Page<UserDto> allUserDto = alluser.map((user)->{
+        
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        userDto.setFullName(user.getFullName());
+        userDto.setRole(user.getRole());
+        userDto.setDepartment(user.getDepartment());
+        userDto.setUserId(user.getUserId());
+        return userDto;
+      });
+      return allUserDto;
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
@@ -184,9 +203,9 @@ public class UsersServiceImpl implements UserService {
    * Save a power user.
    */
   @Override
-  public String savePowerUser(final int key) {
+  public String savePowerUser(final Integer key) {
     Users powerUser = new Users();
-    final int keyVal = 987;
+    final Integer keyVal = 987;
     try {
       if (key == keyVal) {
         powerUser.setUsername("root");
@@ -196,7 +215,7 @@ public class UsersServiceImpl implements UserService {
             StandardCharsets.UTF_8);
 
         powerUser.setPassword(encryptPass);
-        powerUser.setEmail("root.root@nucleus.com");
+        powerUser.setEmail("root.root@nucleusteq.com");
         powerUser.setFullName("Power");
         powerUser.setInitialPassword(1);
         powerUser.setRole(roleService.getRoleByName("Admin"));
@@ -207,7 +226,7 @@ public class UsersServiceImpl implements UserService {
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-    return "unable to create power user";
+    return "Unable to create power user";
   }
 
   /**

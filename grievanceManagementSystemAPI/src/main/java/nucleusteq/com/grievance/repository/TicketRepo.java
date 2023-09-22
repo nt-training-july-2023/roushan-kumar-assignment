@@ -24,7 +24,7 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @return list of all ticket.
    */
   @Query(value = FIND_ALL_NEW, nativeQuery = true)
-  List<Ticket> findAllSortByStatusNew(int offSet, int pageSize);
+  List<Ticket> findAllSortByStatusNew(Integer offSet, Integer pageSize);
 
 
   /**
@@ -43,7 +43,7 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @return list all ticket orber by satuts.
    */
   @Query(value = FIND_BY_DEPARTMENT_NEW, nativeQuery = true)
-  List<Ticket> findByDepartmentNew(Integer departId, int offSet, int pageSize);
+  List<Ticket> findByDepartmentNew(Integer departId, Integer offSet, Integer pageSize);
 
   /**
    * created by user.
@@ -86,8 +86,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
   @Query(value = FIND_BY_DEPARTMENT_AND_STATUS_NEW, nativeQuery = true)
   List<Ticket> findByDepartmentNew(
       Integer departId,
-      int offSet,
-      int pageSize,
+      Integer offSet,
+      Integer pageSize,
       Integer statusId);
 
   /**
@@ -107,8 +107,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    */
   @Query(value = FIND_ALL_FILTER_STATUS_NEW, nativeQuery = true)
   List<Ticket> findAllFilterSortedByStatusNew(
-      int offSet,
-      int pageSize,
+      Integer offSet,
+      Integer pageSize,
       Integer statusId);
 
   /**

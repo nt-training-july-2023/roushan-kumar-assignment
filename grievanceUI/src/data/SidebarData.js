@@ -13,6 +13,11 @@ export const SidebarData = [
     icon:  <img src={arrowIcon} ></img>
   },
   {
+    title: "Users",
+    link: "/admin/users",
+    icon:  <img src={arrowIcon} ></img>
+  },
+  {
     title: "New Ticket",
     link: "/admin/newticket",
     icon: <img src={arrowIcon} ></img>

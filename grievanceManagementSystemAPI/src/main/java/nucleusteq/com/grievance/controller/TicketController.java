@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * UserController.
  *
- * @author roushan
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 @RestController
@@ -91,8 +91,8 @@ public class TicketController {
       @PathVariable("userId") final Integer userId,
       @RequestParam(name = "departId", required = false) final Integer departId,
       @RequestParam(name = "createdByMe") final Boolean createdByMe,
-      @RequestParam(name = "offset") final int offset,
-      @RequestParam(name = "pageSize") final int pageSize,
+      @RequestParam(name = "offset") final Integer offset,
+      @RequestParam(name = "pageSize") final Integer pageSize,
       @RequestParam(name = "status") final String status
       ) {
     return ticketService.getAllByCondition(

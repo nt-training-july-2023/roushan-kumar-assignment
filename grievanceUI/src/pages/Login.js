@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import api from '../assets/axios.js';
+import api from '../service/axios.js';
 import { useNavigate } from 'react-router-dom';
-import MessageSucess from './ErrorMessage.js';
+import MessageSucess from '../component/ErrorMessage.js';
 function Login() {
     const initailLogin = {
         isSubmiting: false,

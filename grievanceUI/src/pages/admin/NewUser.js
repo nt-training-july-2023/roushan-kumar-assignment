@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../../assets/css/forms.css'
 import { Link } from 'react-router-dom';
-import api from '../../assets/axios';
 import ErrorMessage from '../../component/ErrorMessage';
-import NewUserValid from '../validations/NewUserValid';
+import NewUserValid from '../../validations/NewUserValid';
 import OkMessage from '../../component/OkMessage';
 import { saveUser } from '../../service/userService';
 import { allDepartment } from '../../service/departmentService';

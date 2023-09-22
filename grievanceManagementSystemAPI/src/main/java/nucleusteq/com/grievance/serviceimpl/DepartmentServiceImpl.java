@@ -6,6 +6,8 @@ import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.exception.BadRequestError;
 import nucleusteq.com.grievance.repository.DepartmentRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
+
+  /**
+   * Logger instance for the TicketServiceImpl class.
+   */
+  private static final Logger LOGGER = Logger
+      .getLogger(DepartmentServiceImpl.class);
+  
   /**
    * class variables.
    */

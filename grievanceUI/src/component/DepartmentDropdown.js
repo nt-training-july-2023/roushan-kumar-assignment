@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import api from '../assets/axios';
+import api from '../service/axios';
 import { useEffect } from 'react';
 
 function DepartmentDropdown(props) {

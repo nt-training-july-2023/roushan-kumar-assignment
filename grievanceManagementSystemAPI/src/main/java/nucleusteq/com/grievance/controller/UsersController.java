@@ -6,9 +6,9 @@ import javax.validation.Valid;
 import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
-import nucleusteq.com.grievance.entity.Users;
 import nucleusteq.com.grievance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * UserController.
+ * User Controller.
  *
- * @author roush
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 
@@ -58,8 +59,11 @@ public class UsersController {
    * @return all users.
    */
   @GetMapping("/all")
-  public List<Users> getAllUsers() {
-    return userService.getAllUser();
+  public Page<UserDto> getAllUsers(
+      @RequestParam(name = "offSet") final int offSet,
+      @RequestParam(name = "pageSize") final int pageSize
+      ) {
+    return userService.getAllUser(offSet, pageSize);
   }
 
   /**
