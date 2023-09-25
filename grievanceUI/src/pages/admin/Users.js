@@ -18,9 +18,6 @@ function Users() {
         "message":"",
         "title":"",
     })
-
-    const [userLogedIn, setUserLogedIn] = useState(false)
-
     const getAllUsers = async () => {
         try {
             const params = {
