@@ -113,7 +113,7 @@ public class TicketServiceImplTest {
       .thenReturn(ticketType);
     when(ticketStatusService.getByName("OPEN"))
       .thenReturn(ticketStatus);
-    when(departmentService.getDepartmentByName("HR"))
+    when(departmentService.getDepartmentById(1))
       .thenReturn(dept);
     when(userService.getById(1))
       .thenReturn(new Users());
@@ -197,7 +197,7 @@ public class TicketServiceImplTest {
     when(ticketStatusService.getByName("OPEN"))
     .thenReturn(ticketStatus);
     
-    when(departmentService.getDepartmentByName("HR"))
+    when(departmentService.getDepartmentById(1))
     .thenReturn(null);
     
     assertThrows(BadRequestError.class, ()->{
@@ -227,7 +227,7 @@ public class TicketServiceImplTest {
     when(ticketStatusService.getByName("OPEN"))
     .thenReturn(ticketStatus);
     
-    when(departmentService.getDepartmentByName("HR"))
+    when(departmentService.getDepartmentById(1))
     .thenReturn(dept);
     
     when(userService.getById(1))

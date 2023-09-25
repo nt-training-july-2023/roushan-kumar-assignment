@@ -102,10 +102,13 @@ function Ticket() {
                     <div className='head-ticket-search'>
                     <input type="checkbox" value={false} name="me" onClick={ticketByUser}></input><label >My Tickets</label>
                         { sessionStorage.getItem("userType") === "Admin" &&
-                        <DepartmentDropdown className={'custom_select_ticket'} onChange={setDepartmentIdHandler}/>
+                        <DepartmentDropdown
+                         className={'custom_select_ticket'}
+                         onChange={setDepartmentIdHandler}
+                         defaultName={"All Department"}/>
                         }
-                        <div >
-                            <select id='statusId' className='custom_select_ticket' onChange={filterByStatus}>
+                        <div className='custom_select_ticket' >
+                            <select id='statusId'  onChange={filterByStatus}>
                                     <option key={0} value="0">All Status</option>
                                     {
                                         ticketStatus.map((status) => (

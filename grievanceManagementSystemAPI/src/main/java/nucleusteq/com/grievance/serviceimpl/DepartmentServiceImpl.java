@@ -3,6 +3,7 @@ package nucleusteq.com.grievance.serviceimpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import nucleusteq.com.grievance.dto.DepartmentDto;
@@ -126,5 +127,20 @@ public class DepartmentServiceImpl implements DepartmentService {
       }
       departmentRepo.deleteById(deptId);
     return;
+  }
+
+  /**
+   * Get department by department Id.
+   *
+   * @param id Department name.
+   * @return Department.
+   */
+  @Override
+  public Department getDepartmentById(Integer id) {
+  Optional<Department> department = departmentRepo.findById(id);
+  if (department.isPresent()) {
+     return department.get();
+  }
+  return null;
   }
 }

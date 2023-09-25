@@ -6,7 +6,7 @@ function NewTicketValid(ticket) {
   if (ticket.description.trim() === "") {
     return "Ticket description is required";
   }
-  if (ticket.department.deptName === "0" || ticket.department.deptName === "" )
+  if (ticket.department.deptId === "0" || ticket.department.deptId === "" )
     return "Select department."
   if (ticket.ticketType.ticketName === "0" || ticket.ticketType.ticketName === "" )
     return "Select ticket type."

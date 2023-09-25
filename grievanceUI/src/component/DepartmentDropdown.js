@@ -34,17 +34,19 @@ function DepartmentDropdown(props) {
         <>
             <div
                 
-                id='department'
-                name='department'
+                id={props.id}
+                name={props.name}
                 // onChange={inputDepartment}
+                className={props.className}
                 onChange={props.onChange}
                 >
-                <select className={props.className} >
-                    <option key={0} value="0">All Departments</option>
+                <select  >
+                    <option key={0} value="0">{props.defaultName}</option>
                     {
                         deptData.map((dept,id) => (
                             <option key={dept.deptId}
                                 value={dept.deptId}
+                                
                             >{dept.deptName}
                             </option>
                         ))

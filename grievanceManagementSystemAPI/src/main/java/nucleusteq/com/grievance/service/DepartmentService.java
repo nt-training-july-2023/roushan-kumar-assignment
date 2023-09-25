@@ -27,6 +27,14 @@ public interface DepartmentService {
   Department getDepartmentByName(String name);
 
   /**
+   * Get department by department Id.
+   *
+   * @param id Department name.
+   * @return Department.
+   */
+  Department getDepartmentById(Integer id);
+
+  /**
    * Get all department.
    *
    * @param offSet

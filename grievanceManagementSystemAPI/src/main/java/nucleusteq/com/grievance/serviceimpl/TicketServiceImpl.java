@@ -126,8 +126,8 @@ public class TicketServiceImpl implements TicketService {
       throw new BadRequestError("Ticket Status not found : OPEN");
     }
 
-    Department dept = departmentService.getDepartmentByName(
-                                ticketDto.getDepartment().getDeptName());
+    Department dept = departmentService.getDepartmentById(
+                                ticketDto.getDepartment().getDeptId());
 
     if (dept != null) {
       ticket.setDepartment(dept);

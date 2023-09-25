@@ -6,6 +6,7 @@ import NewTicketValid from '../../validations/NewTicketValid';
 import { allTicketType } from '../../service/ticketType';
 import OkMessage from '../../component/OkMessage';
 import { allDepartment } from '../../service/departmentService';
+import DepartmentDropdown from '../../component/DepartmentDropdown';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
@@ -13,7 +14,7 @@ function NewTicket() {
         "title": "",
         "description": "",
         "department": {
-            "deptName": ""
+            "deptId": ""
         },
         "ticketType": {
             "ticketName": ""
@@ -89,7 +90,7 @@ function NewTicket() {
             {
                 ...ticket,
                 department: {
-                    ...department, deptName: e.target.value
+                    ...department, deptId: e.target.value
                 }
             }
         )
@@ -216,7 +217,7 @@ function NewTicket() {
 
                     <div className='input_field'>
                         <label>Assign To  <span className='error'>*</span></label>
-                        <div
+                        {/* <div
                             className='custom_select'
                             id='department'
                             name='department'
@@ -232,7 +233,14 @@ function NewTicket() {
                                     ))
                                 }
                             </select>
-                        </div>
+                        </div> */}
+                        <DepartmentDropdown
+                         id='department'
+                         name='department'
+                         className='custom_select'
+                         onChange={inputDepartment}
+                         defaultName={"--select Department--"}/>
+                        
                     </div>
 
                     <div className='input_field'>

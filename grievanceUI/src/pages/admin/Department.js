@@ -3,11 +3,13 @@ import '../../assets/css/table.css'
 import AddDepartment from '../../component/AddDepartment';
 import ConfirmBox from '../../component/ConfirmBox';
 import OkMessage from '../../component/OkMessage';
-import { allDepartment } from '../../service/departmentService';
+import { allDepartment, deleteDepartment } from '../../service/departmentService';
 import ErrorMessage from '../../component/ErrorMessage';
+import { async } from 'q';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);
+    const [departmentId,setDepartmentId] = useState();
     const [showDept, setShowDept] = useState(false);
     const [confirmShow, setConfirmShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -45,12 +47,7 @@ function Department() {
 
     const closeDeptHandler = () => {
         setShowDept(false);
-        document.getElementById('dep').style.cursor = 'default';
-        let buttons = document.getElementsByClassName('btn')
-
-        for (var i = 0, len = buttons.length; i < len; i++) {
-            buttons[i].style["pointer-events"] = 'auto';
-        }
+        freeDeparment();
     }
 
     const openDeptHandler = () => {
@@ -62,8 +59,8 @@ function Department() {
         }
     }
 
-    const deptDeleteHandle = () => {
-        console.log("clicked");
+    const deptDeleteHandle = (departmentId) => {
+        setDepartmentId(departmentId);
         setConfirmShow(true);
 
     }
@@ -72,13 +69,33 @@ function Department() {
         setConfirmShow(false);
     }
 
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         setConfirmShow(false);
-        setSucessMessage({
-            "message":"Department deleted",
-            "title":"Deleted",
-        })
-        setOkBox(true)
+
+        
+        try {
+            const res = await deleteDepartment(
+                departmentId,
+                sessionStorage.getItem("password"),
+                sessionStorage.getItem("username"),
+                );
+            if(res.data === "Department deleted successfully.")
+            {
+                setSucessMessage({
+                    "message":"Department deleted",
+                    "title":"Deleted",
+                })
+                setOkBox(true)
+                getAllDepartment();
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+
+       
+
+
+
     }
     const closeOkBoxHandler = () => {
         setOkBox(false)
@@ -103,10 +120,20 @@ function Department() {
         }
       }
 
+      const freeDeparment =() =>{
+        document.getElementById('dep').style.cursor = 'default';
+        let buttons = document.getElementsByClassName('btn')
+
+        for (var i = 0, len = buttons.length; i < len; i++) {
+            buttons[i].style["pointer-events"] = 'auto';
+        }
+      }
+
       const closeDepartment = (sucessMessage)=>{
         setSucessMessage(sucessMessage)
         setOkBox(true)
         setShowDept(false);
+        freeDeparment();
       }
 
     return (
@@ -152,7 +179,7 @@ function Department() {
                                                     id="buttonDet" 
                                                     className='btn button_delete' 
                                                     hidden = {dept.deptId == sessionStorage.getItem("departmentId")}
-                                                    onClick={deptDeleteHandle}
+                                                    onClick={()=>{deptDeleteHandle(dept.deptId)}}
                                                     >
            
                                                     </button>

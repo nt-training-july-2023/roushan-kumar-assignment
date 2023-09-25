@@ -23,6 +23,7 @@ function Sidebar({ children }) {
 
     const logout = ()=>{
         sessionStorage.clear();
+       
         navigate("/")
     }
 
