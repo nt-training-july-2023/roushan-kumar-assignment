@@ -1,8 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom"
-import Home from "../pages/Home";
 import Login from "../pages/Login";
-import App from "../App.js"
 import Admin from "../pages/admin/Admin";
 import NewUser from "../pages/admin/NewUser";
 import NewTicket from "../pages/admin/NewTicket";
@@ -14,12 +12,9 @@ import Ticket from "../pages/admin/Ticket";
 import TicketUpdateView from "../pages/TicketUpdateView";
 import ChangePassword from "../component/ChangePassword";
 import Users from "../pages/admin/Users";
+import App from "../App";
 export default createBrowserRouter([
-    {
-        path: "/app",
-        element: <App/>
-
-    },
+   
     {
         path: "/login",
         element: <Login />
@@ -27,7 +22,7 @@ export default createBrowserRouter([
     },
     {
         path: "/",
-        element:  <Login />
+        element:  <App />
     },
     {
         path: "/*",
@@ -42,10 +37,6 @@ export default createBrowserRouter([
         path:"/admin",
         element:<Admin/>,
         children:[
-            {
-                path: "home",
-                element: <Home/>,
-            },
             {
                 path: "newuser",
                 element: <NewUser/>,
@@ -77,10 +68,6 @@ export default createBrowserRouter([
         path:"/member",
         element:<Member/>,
         children:[
-            {
-                path: "home",
-                element: <Home/>,
-            },
             {
                 path: "/member/riseticket",
                 element: <NewTicket/>,

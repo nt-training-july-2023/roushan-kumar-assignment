@@ -2,71 +2,84 @@ import React, { useEffect, useState } from 'react'
 import api from '../service/axios';
 import '../assets/css/ticketUpdateView.css';
 import ErrorMessage from '../component/ErrorMessage';
-import { allTicketType } from '../service/ticketType';
 import { allTicketStatus } from '../service/ticketStatusType';
 import { useRef } from 'react';
 function TicketUpdateView(props) {
-   // console.log(props.ticketData)
-   const initialVal = {
-    "ticketId": 0,
-    "title": "",
-    "description": "",
-    "department": {
-        "deptId": 0,
-        "deptName": ""
-    },
-    "ticketType": {
-        "ticketTypeId": 0,
-        "ticketName": ""
-    },
-    "ticketStatus": {
-        "ticketStatusId": 0,
-        "ticketStatusName": ""
-    },
-    "userId": 0,
-    "fullName": "",
-    "date": "",
-    "time": "",
-    "creationDate": "",
-    "creationTime": "",
-    "comments": []
+    // console.log(props.ticketData)
+    const initialVal = {
+        "ticketId": 0,
+        "title": "",
+        "description": "",
+        "department": {
+            "deptId": 0,
+            "deptName": ""
+        },
+        "ticketType": {
+            "ticketTypeId": 0,
+            "ticketName": ""
+        },
+        "ticketStatus": {
+            "ticketStatusId": 0,
+            "ticketStatusName": ""
+        },
+        "userId": 0,
+        "fullName": "",
+        "date": "",
+        "time": "",
+        "creationDate": "",
+        "creationTime": "",
+        "comments": []
     }
 
-    const UID = sessionStorage.getItem("userId");
+    // const UID = sessionStorage.getItem("userId");
     const [ticketStatus, setTicketStatus] = useState([]);
     const [ticket, setTicket] = useState(initialVal);
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
+    // const [onlyValidUser, setOnlyValidUser] = useState(true)
     const elRef = useRef(null);
-    const [comment,setComment] = useState({
-        "comments":"",
-        "commentedBy":sessionStorage.getItem("username")
+    const onlyValidUser = useRef(true);
+    const [comment, setComment] = useState({
+        "comments": "",
+        "commentedBy": sessionStorage.getItem("username")
     });
-    const [statusId,setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
+    const [statusId, setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
     const getTicket = async () => {
         try {
-            const url = "ticket/"+props.ticketData.ticketId;
+            const url = "ticket/" + props.ticketData.ticketId;
             const res = await api.get(url)
             console.log(res.data);
-            if(res.data)
-            {
+            if (res.data) {
                 setTicket(res.data)
+                console.log(res.data.department.deptId +" "+sessionStorage.getItem("departmentId"))
+                
+                if (res.data.userId == sessionStorage.getItem("userId")) {
+                    onlyValidUser.current  = false
+                   
+                }
+                else if (res.data.department.deptId == sessionStorage.getItem("departmentId")) {
+                    onlyValidUser.current  = false
+                   
+                }
+                else {
+                    onlyValidUser.current  = true;
+                }
             }
         } catch (error) {
             
         }
-       
-       
+
+
     }
     const executeScroll = () => elRef.current?.scrollIntoView({ behavior: 'smooth' });//{ behavior: 'smooth' }
 
     const getAllTicketStatus = async () => {
         try {
             const res = await allTicketStatus();
-            
+
             if (res.data) {
                 setTicketStatus(res.data);
-            } 
+            }
         } catch (error) {
             console.log(error.response.data);
         }
@@ -77,43 +90,41 @@ function TicketUpdateView(props) {
     }, 0);
 
     useEffect(() => {
-        
+
         getTicket();
         getAllTicketStatus();
-        
-       
+
+
     }, [])
 
     const inputHandler = (e) => {
-        setComment({...comment,comments:e.target.value})
+        setComment({ ...comment, comments: e.target.value })
     }
 
-    const inputStatus = (e)=>{
+    const inputStatus = (e) => {
         setStatusId(e.target.value)
     }
 
     const clearNewTicketForm = () => {
-        setComment({...comment,comments:""})
+        setComment({ ...comment, comments: "" })
     }
 
     const updateTicketHandler = async (e) => {
         e.preventDefault();
-       
-        if(comment.comments.trim() === "")
-        {
+
+        if (comment.comments.trim() === "") {
             console.log()
             setNotificationMessage("Add comment before update.")
             setShow("show")
-            return ;
+            return;
         }
         try {
-            const url = "ticket/updates/ticketcomments/"+ticket.ticketId+"?statusId="+statusId;
-            const result = await api.put(url,comment);
-            if(result.data.id)
-            {
+            const url = "ticket/updates/ticketcomments/" + ticket.ticketId + "?statusId=" + statusId;
+            const result = await api.put(url, comment);
+            if (result.data.id) {
                 getTicket();
                 clearNewTicketForm();
-                 executeScroll();
+                executeScroll();
             }
         }
         catch (error) {
@@ -124,13 +135,17 @@ function TicketUpdateView(props) {
     const handleClose = () => {
         setShow("");
     }
+
+
+
     return (
         <>
-          <ErrorMessage message={notificationMessage} show={show} onClick={handleClose} />
+            <ErrorMessage message={notificationMessage} show={show} onClick={handleClose} />
+            
             <div className='ticket-update-view'>
-                
+
                 <div className='wrapper-TUV'>
-                
+
                     <div>
                         <div className='title'>
                             Ticket
@@ -200,8 +215,8 @@ function TicketUpdateView(props) {
                         <div className='input_field'>
                             <label>Status <span className='error'>*</span></label>
                             <div className='custom_select' >
-                                <select id='statusId' onChange={inputStatus}>
-                                    <option value="0">--Select Ticket Status--</option>
+                                <select id='statusId' onChange={inputStatus} disabled = { onlyValidUser.current }>
+                                   
                                     {
                                         ticketStatus.map((status) => (
                                             <option key={status.ticketStatusId}
@@ -223,6 +238,7 @@ function TicketUpdateView(props) {
                                 name='comments'
                                 value={comment.comments}
                                 onChange={inputHandler}
+                                disabled = { onlyValidUser.current }
                                 placeholder='comment of ticket...'>
                             </textarea>
                         </div>
@@ -231,23 +247,22 @@ function TicketUpdateView(props) {
                         <div className='input_field'>
                             <input
                                 type="submit"
-                                value={"clear"}
+                                value={"Clear"}
                                 className='btnNew btnClear' >
 
                             </input>
                             <input
                                 type="submit"
-                                value={"update "}
+                                value={"Update "}
                                 className='btnNew btnSave'
-                                hidden = {!(ticket.department.deptId == sessionStorage.getItem("departmentId") 
-                                         || ticket.userId == sessionStorage.getItem("userId"))  }
+                                hidden={ onlyValidUser.current }
                                 onClick={updateTicketHandler}
                             >
 
                             </input>
                             <input
                                 type="submit"
-                                value={"back"}
+                                value={"Back"}
                                 className='btnNew btnBack'
                                 onClick={props.onClick}
                             >
@@ -264,21 +279,21 @@ function TicketUpdateView(props) {
                     </div>
 
                     <div className='comment-container'>
-                       
+
                         {
                             ticket.comments?.map((comments, id) => {
 
                                 return <>
-                                            <p><strong>{comments.commentedBy} </strong> : {comments.comments}</p>
-                                            
-                                      </>
+                                    <p><strong>{comments.commentedBy} </strong> : {comments.comments}</p>
+
+                                </>
                             })
-                            
+
                         }
                         <div ref={elRef}></div>
-                        
+
                     </div>
-                    
+
                 </div>
                 {/* comments div end */}
             </div>

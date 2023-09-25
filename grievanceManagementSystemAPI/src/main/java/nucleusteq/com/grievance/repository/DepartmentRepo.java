@@ -1,6 +1,9 @@
 package nucleusteq.com.grievance.repository;
 
 import nucleusteq.com.grievance.entity.Department;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,4 +44,23 @@ public interface DepartmentRepo extends JpaRepository<Department, Integer> {
   @Query(value = IS_ADMIN, nativeQuery = true)
   int isAdmin(@Param("userId") Integer userId,
               @Param("password") String password);
+
+  /**
+   * Get department with page size.
+   */
+  String GET_DEPARTMENT_WITH_PAGESIZE = "select DISTINCT * from department"
+  + " order by dept_id ASC "
+  + "OFFSET :offSet rows fetch next :pageSize rows only ";
+
+  /**
+   * List of department with page size.
+   *
+   * @param offSet
+   * @param pageSize
+   * @return List of department with page size.
+   */
+   @Query(value = GET_DEPARTMENT_WITH_PAGESIZE, nativeQuery = true)
+   List<Department> findAllWithPageSize(
+       Integer offSet,
+       Integer pageSize);
 }

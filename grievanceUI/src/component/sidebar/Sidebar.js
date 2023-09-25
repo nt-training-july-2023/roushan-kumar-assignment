@@ -8,11 +8,12 @@ function Sidebar({ children }) {
 
   const navigate = useNavigate();
     let SidebarData;
-    if(sessionStorage.getItem('userType') === 'Admin')
+    if(sessionStorage.getItem('userType') === 'Admin' && sessionStorage.getItem("isFisrt") == 0)
     {
         SidebarData = adminSidebar;
+       
     }
-    else if(sessionStorage.getItem('userType') === 'Member')
+    else if(sessionStorage.getItem('userType') === 'Member' && sessionStorage.getItem("isFisrt") == 0)
     {
         SidebarData = memberSidebar;
     }

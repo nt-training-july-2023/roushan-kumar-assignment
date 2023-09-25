@@ -9,9 +9,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
+import nucleusteq.com.grievance.dto.DepartmentDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.exception.BadRequestError;
+import nucleusteq.com.grievance.exception.InternalServerError;
 import nucleusteq.com.grievance.repository.DepartmentRepo;
 
 import org.assertj.core.util.Arrays;
@@ -92,11 +95,8 @@ public class DepartmentSeviceImplTest {
   public void deleteUnsuccess()
   {
   	Integer deptId = 1;
-  	Integer userId = 2;
-  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(-1);
-    // Act and Assert
-    assertThrows(BadRequestError.class, () -> {
-        departmentServiceImpl.delete(userId,"password", deptId);
+    assertThrows(InternalServerError.class, () -> {
+        departmentServiceImpl.delete(deptId);
     });
     verify(departmentRepo, never()).deleteById(deptId);
   }
@@ -104,10 +104,16 @@ public class DepartmentSeviceImplTest {
   @Test
   public void deleteSuccess()
   {
+    Department dept = new Department();
+    dept.setDeptId(1);
+    dept.setDeptName("HR");
+    
   	Integer deptId = 1;
-  	Integer userId = 2;
-  	when(departmentRepo.isAdmin(userId,"password")).thenReturn(1);
-  	departmentServiceImpl.delete(userId,"password", deptId);
+  	
+  	when(departmentRepo.findById(deptId)).thenReturn(Optional.of(dept));
+  	
+  	departmentServiceImpl.delete( deptId);
+  	
     verify(departmentRepo,times(1)).deleteById(deptId);
   }
   
@@ -115,13 +121,38 @@ public class DepartmentSeviceImplTest {
   public void getAllDepartmentTest()
   {
   	List<Department> departments = java.util.Arrays.asList(
-  			new Department(1,"HR"),
-  			new Department(2,"MARKETING")
+  			new Department(1, "HR"),
+  			new Department(2, "MARKETING")
   			);
+  	List<DepartmentDto> departmentsDto = java.util.Arrays.asList(
+        new DepartmentDto(1, 1, "HR"),
+        new DepartmentDto(2, 2, "MARKETING")
+      );
   	when(departmentRepo.findAll()).thenReturn(departments);
   	
-  	List<Department> tempDepatments = departmentServiceImpl.getAllDepartment();
-  	assertEquals(departments,tempDepatments);
+  	List<DepartmentDto> tempDepatments = departmentServiceImpl.getAllDepartment(0,0);
+  	assertEquals(departmentsDto.get(0).getDeptName(),tempDepatments.get(0).getDeptName());
+  	assertEquals(departmentsDto.get(0).getSerialNumber(),tempDepatments.get(0).getSerialNumber());
+  	assertEquals(departmentsDto.get(0).getDeptId(),tempDepatments.get(0).getDeptId());
+  }
+  
+  @Test
+  public void getAllDepartmentTestWithPageSize()
+  {
+    List<Department> departments = java.util.Arrays.asList(
+        new Department(1, "HR"),
+        new Department(2, "MARKETING")
+        );
+    List<DepartmentDto> departmentsDto = java.util.Arrays.asList(
+        new DepartmentDto(1, 1, "HR"),
+        new DepartmentDto(2, 2, "MARKETING")
+      );
+    when(departmentRepo.findAllWithPageSize(0,2)).thenReturn(departments);
+    
+    List<DepartmentDto> tempDepatments = departmentServiceImpl.getAllDepartment(0,2);
+    assertEquals(departmentsDto.get(0).getDeptName(),tempDepatments.get(0).getDeptName());
+    assertEquals(departmentsDto.get(0).getSerialNumber(),tempDepatments.get(0).getSerialNumber());
+    assertEquals(departmentsDto.get(0).getDeptId(),tempDepatments.get(0).getDeptId());
   }
   
   

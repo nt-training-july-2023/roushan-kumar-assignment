@@ -1,5 +1,6 @@
 package nucleusteq.com.grievance.entity;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -74,9 +76,24 @@ public class Users {
   /**
    * Department mapping.
    */
-  @ManyToOne
+  @ManyToOne(
+      cascade = {
+          CascadeType.DETACH,
+          CascadeType.MERGE,
+          CascadeType.PERSIST,
+          CascadeType.REFRESH,
+        })
   @JoinColumn(name = "department_id")
   private Department department;
+
+  /**
+   * List of tickets.
+   */
+  @OneToMany(
+      cascade = CascadeType.ALL
+      )
+  @JoinColumn(name = "user_id")
+  private List<Ticket> tickets;
 
   /**
    * No arg constructor.

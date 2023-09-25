@@ -1,5 +1,6 @@
 package nucleusteq.com.grievance.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Comments {
   /**
    * comments.
    */
+  @Column
   private String comments;
   /**
    * Commented by.

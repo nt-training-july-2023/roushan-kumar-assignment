@@ -15,9 +15,9 @@ class GrievanceManagementSystemApplicationTest {
 
   }
 
-//  @Test
-//  public void main() {
-//    GrievanceManagementSystemApplication.main(new String[] {});
-//  }
+  @Test
+  public void main() {
+    GrievanceManagementSystemApplication.main(new String[] {});
+  }
 
 }

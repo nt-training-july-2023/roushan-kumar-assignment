@@ -1,9 +1,8 @@
 package nucleusteq.com.grievance.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
+import nucleusteq.com.grievance.dto.AllUsersDto;
 import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
@@ -21,12 +20,12 @@ public interface UserService {
 
   /**
    * get all user.
-   * @param pageSize 
-   * @param offSet 
+   * @param pageSize
+   * @param offSet
    *
    * @return All user.
    */
-  Page<UserDto> getAllUser(Integer offSet, Integer pageSize);
+  Page<AllUsersDto> getAllUser(Integer offSet, Integer pageSize);
 
   /**
   * save user.
@@ -83,4 +82,12 @@ public interface UserService {
    * @return response.
    */
   ResponseDto changePassword(ChangePassword changePassword);
+
+  /**
+   * Delete a particular user.
+   *
+   * @param userId
+   * @return True if deleted else return false.
+   */
+  boolean deleteById(Integer userId);
 }

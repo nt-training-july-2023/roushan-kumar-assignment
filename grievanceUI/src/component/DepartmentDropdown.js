@@ -1,19 +1,25 @@
 import React from 'react'
 import { useState } from 'react';
-import api from '../service/axios';
 import { useEffect } from 'react';
+import { allDepartment } from '../service/departmentService';
 
 function DepartmentDropdown(props) {
 
     const [deptData, setDeptData] = useState([]);
     const getAllDepartment = async () => {
         try {
-            const url = '/department/all';
-            const res = await api.get(url);
+            const params = {
+                params: {
+                    offSet: 0,
+                    pageSize: 0
+                }
+            }
+            
+            const res = await allDepartment(params);
             if (res.data) {
                 setDeptData(res.data);
             }
-            console.log(res.data);
+            
         } catch (error) {
             console.log(error.response.data);
         }
@@ -34,9 +40,9 @@ function DepartmentDropdown(props) {
                 onChange={props.onChange}
                 >
                 <select className={props.className} >
-                    <option value="0">All Departments</option>
+                    <option key={0} value="0">All Departments</option>
                     {
-                        deptData.map((dept) => (
+                        deptData.map((dept,id) => (
                             <option key={dept.deptId}
                                 value={dept.deptId}
                             >{dept.deptName}

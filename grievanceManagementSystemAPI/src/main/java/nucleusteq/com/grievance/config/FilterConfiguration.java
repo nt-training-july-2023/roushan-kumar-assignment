@@ -34,7 +34,8 @@ public class FilterConfiguration {
     FilterRegistrationBean<AuthenticationFilter> regBean
         = new FilterRegistrationBean<AuthenticationFilter>();
     regBean.setFilter(new AuthenticationFilter(userService));
-    regBean.addUrlPatterns("/department/save/*");
+    regBean.addUrlPatterns("/department/admin/*");
+    regBean.addUrlPatterns("/user/admin/*");
     return regBean;
   }
 }

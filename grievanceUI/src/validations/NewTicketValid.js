@@ -1,5 +1,3 @@
-import React from 'react'
-
 function NewTicketValid(ticket) {
    console.log("validation on "+ticket.title);
   if (ticket.title.trim() === "") {

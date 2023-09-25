@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -55,7 +54,7 @@ public class Ticket {
   /**
    * department class.
    */
-  @OneToOne(
+  @ManyToOne(
       cascade = {
           CascadeType.DETACH,
           CascadeType.MERGE,

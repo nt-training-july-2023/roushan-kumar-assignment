@@ -88,7 +88,7 @@ public class AuthenticationFilterTest {
       authenticationFilter.doFilter(request, response, filterChain);
 
       // Verify that the filter chain was invoked
-     // verify(filterChain, times(1)).doFilter(request, response);
+      //verify(filterChain, times(1)).doFilter(request, response);
   }
 
   @Test

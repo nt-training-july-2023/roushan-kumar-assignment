@@ -58,6 +58,7 @@ public class AuthenticationFilter implements Filter {
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
     String username = httpServletRequest.getHeader("username");
     String password = httpServletRequest.getHeader("password");
+
     if (httpServletRequest.getMethod().equals("OPTIONS")) {
       httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
       httpServletResponse.setHeader("Access-Control-Allow-Methods",
@@ -90,6 +91,7 @@ public class AuthenticationFilter implements Filter {
         authenticateIsAdmin(userWithPasswordEncrypted)) {
       chain.doFilter(request, response);
     } else {
+      System.err.println("in fffff");
       HttpServletResponse httpResponse = (HttpServletResponse) response;
       httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
           "Invalid credentials Form filter");

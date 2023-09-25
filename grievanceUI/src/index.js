@@ -7,8 +7,11 @@ import routes from './routes/createRoutes';
 import "./assets/css/style.css"
 import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
   <RouterProvider  router={routes} ></RouterProvider>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

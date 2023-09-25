@@ -2,6 +2,7 @@ package nucleusteq.com.grievance.service;
 
 import java.util.List;
 
+import nucleusteq.com.grievance.dto.DepartmentDto;
 import nucleusteq.com.grievance.entity.Department;
 
 /**
@@ -10,30 +11,35 @@ import nucleusteq.com.grievance.entity.Department;
 public interface DepartmentService {
 
   /**
-   * save department.
+   * Save department.
    *
+   * @param department
    * @return response of saved details.
    */
   Department save(Department department);
 
   /**
-   * get department by department name.
+   * Get department by department name.
+   *
+   * @param name Department name.
+   * @return Department.
    */
   Department getDepartmentByName(String name);
 
   /**
-   * get all department.
+   * Get all department.
    *
+   * @param offSet
+   * @param pageSize
    * @return all department.
    */
-  List<Department> getAllDepartment();
+  List<DepartmentDto> getAllDepartment(Integer offSet, Integer pageSize);
 
   /**
-   * delete Department.
+   * Delete a Department.
    *
-   * @param deptId as integer
-   * @param deptId2 departId
+   * @param deptId as integer.
    */
-  void delete(Integer deptId, String password, Integer deptId2);
+  void delete(Integer deptId);
 }
 

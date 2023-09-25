@@ -5,7 +5,7 @@
    height: 88vh;
    width: 80%;
    /* background-color: rgb(255 255 255); */
-   background-color: #C3D6FF;
+   background-color: rgb(220,223,229);
    border-radius: 5px;
    
 }
@@ -200,7 +200,7 @@
     margin: 5px;
     padding: 10px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
-
+    word-break: break-all;
     border-radius: 5px;
 }
 

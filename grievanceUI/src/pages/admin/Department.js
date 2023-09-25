@@ -12,15 +12,24 @@ function Department() {
     const [confirmShow, setConfirmShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [show, setShow] = useState("");
+    const [okBox, setOkBox] = useState(false);
+    const [offset, setOffset] = useState(0)
+    const pageSize = 10;
     const [sucessMessage, setSucessMessage] = useState({
         "message":"",
         "title":"",
     })
 
-    const [okBox, setOkBox] = useState(false);
+   
     const getAllDepartment = async () => {
         try {
-            const res = await allDepartment();
+            const params = {
+                params: {
+                    offSet: offset,
+                    pageSize: pageSize
+                }
+            }
+            const res = await allDepartment(params);
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -32,7 +41,7 @@ function Department() {
     }
     useEffect(() => {
         getAllDepartment();
-    }, [showDept])
+    }, [showDept, offset])
 
     const closeDeptHandler = () => {
         setShowDept(false);
@@ -75,34 +84,46 @@ function Department() {
         setOkBox(false)
     }
 
-    
-    //pagination
-    const [currentPage,setCurrentPage] = useState(1);
-    const recordPerPage = 10;
-    const lastIndex = currentPage * recordPerPage;
-    const firstIndex = lastIndex - recordPerPage;
-    const record = deptData.slice(firstIndex,lastIndex);
-    const nPage = Math.ceil(deptData.length / recordPerPage)
-    const numbers = [...Array(nPage+1).keys()].slice(1);
-    //end
     const handleClose = () => {
         setShow("");
     }
+
+
+    const setOffsetHadlerPrev = ()=>{
+   
+        if(offset>0){
+        setOffset(offset-10)
+        }
+      }
+      const setOffsetHadlerNext = async ()=>{
+        const nPage = deptData.length
+        if(nPage === pageSize){
+         setOffset(offset+10)
+       
+        }
+      }
+
+      const closeDepartment = (sucessMessage)=>{
+        setSucessMessage(sucessMessage)
+        setOkBox(true)
+        setShowDept(false);
+      }
+
     return (
         <>
-            {showDept && <AddDepartment onClick={closeDeptHandler} />}
+            {showDept && <AddDepartment onClick={closeDeptHandler} closeDepartment={closeDepartment}/>}
             {okBox && <OkMessage message={sucessMessage} onClick={closeOkBoxHandler} />}
             {confirmShow && <ConfirmBox
                 onClickCancel={confirmCancel}
                 onClickDelete={confirmDelete}
-                head={"delete department"}
+                head={"Delete department"}
             />}
             <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
             <main id="dep" className="table">
                 <section className="table__header">
                     <h1>Departments</h1>
                     <button className='add_department' onClick={openDeptHandler}>
-                        <span class="tooltiptext">click here to add department</span>
+                        <span className="tooltiptext">click here to add department</span>
                     </button>
 
                 </section>
@@ -119,15 +140,22 @@ function Department() {
                         <tbody>
 
                             {
-                                record.map((dept, id) => {
+                                deptData.map((dept, id) => {
                                     return <>
-                                        <tr key={dept.deptId}>
-                                            <td>{id+firstIndex+1}</td>
+                                        <tr key={id}>
+                                            <td>{dept.serialNumber}</td>
                                             <td>{dept.deptName}</td>
                                             <td>
                                                 <div>
-                                                    <button id="buttonEdit" className='btn button_edit' ></button>
-                                                    <button id="buttonDet" className='btn button_delete' onClick={deptDeleteHandle}></button>
+                                                    {/* <button id="buttonEdit" className='btn button_edit' ></button> */}
+                                                    <button 
+                                                    id="buttonDet" 
+                                                    className='btn button_delete' 
+                                                    hidden = {dept.deptId == sessionStorage.getItem("departmentId")}
+                                                    onClick={deptDeleteHandle}
+                                                    >
+           
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -137,42 +165,23 @@ function Department() {
 
                         </tbody>
                     </table>
-                    <tablefooter>
+                    <div className='tablefooter'>
                         <ul>
                             <li>
-                                <a href='#' onClick={prevPage}>Prev</a>
+                                <button className='prev' onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-                            {
-                                numbers.map((n,i)=>(
-                                    <li key={i}>
-                                          <a href='#' onClick={()=>{changeCurrentPage(n)}}>{n}</a>  
-                                    </li>
-                                ))
-                            }
+                
                             <li>
-                                <a href='#' onClick={nextPage}>Next</a>
+                                <button className='next' onClick={setOffsetHadlerNext}>Next</button>
                             </li>
 
                         </ul>
 
-                    </tablefooter>
+                    </div>
                 </section>
             </main>
         </>
     )
-    function prevPage(){
-        if(currentPage !== 1 )
-         setCurrentPage(currentPage-1);
-    }
-
-    function changeCurrentPage(n){
-        setCurrentPage(n)
-    }
-
-    function nextPage(){
-        if(currentPage !== nPage)
-         setCurrentPage(currentPage+1)
-    }
 }
 
 export default Department

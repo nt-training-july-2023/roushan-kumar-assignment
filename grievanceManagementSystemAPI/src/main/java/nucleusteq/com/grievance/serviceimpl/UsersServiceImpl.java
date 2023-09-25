@@ -1,8 +1,9 @@
 package nucleusteq.com.grievance.serviceimpl;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import nucleusteq.com.grievance.dto.AllUsersDto;
 import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
@@ -32,7 +33,7 @@ import org.springframework.stereotype.Service;
  * It allows you to create, retrieve, update, and delete user information.
  * This class encapsulates the business logic for user management.
  *
- * @author Roushan kumar 
+ * @author Roushan kumar
  */
 @Service
 public class UsersServiceImpl implements UserService {
@@ -78,17 +79,18 @@ public class UsersServiceImpl implements UserService {
    * Get all users.
    */
   @Override
-  public Page<UserDto> getAllUser(
+  public Page<AllUsersDto> getAllUser(
       final Integer offSet,
       final Integer pageSize) {
     try {
+      AtomicInteger serialNumber = new AtomicInteger(pageSize * offSet + 1);
       LOGGER.info("fetching all users.");
-      Page<Users> alluser ;
+      Page<Users> alluser;
       alluser = userRepo.findAll(PageRequest.of(
           offSet, pageSize).withSort(Sort.by("userId")));
-      Page<UserDto> allUserDto = alluser.map((user)->{
-        
-        UserDto userDto = new UserDto();
+      Page<AllUsersDto> allUsersDto = alluser.map((user) -> {
+        AllUsersDto userDto = new AllUsersDto();
+        userDto.setSerialNumber(serialNumber.getAndIncrement());
         userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
         userDto.setFullName(user.getFullName());
@@ -97,7 +99,7 @@ public class UsersServiceImpl implements UserService {
         userDto.setUserId(user.getUserId());
         return userDto;
       });
-      return allUserDto;
+      return allUsersDto;
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
@@ -207,8 +209,8 @@ public class UsersServiceImpl implements UserService {
     Users powerUser = new Users();
     final Integer keyVal = 987;
     try {
-      if (key == keyVal) {
-        powerUser.setUsername("root");
+      if (key.equals(keyVal)) {
+        powerUser.setUsername("root_user");
         byte[] encryptPassByte = Base64.getEncoder()
             .encode("root".getBytes(StandardCharsets.UTF_8));
         String encryptPass = new String(encryptPassByte,
@@ -219,7 +221,7 @@ public class UsersServiceImpl implements UserService {
         powerUser.setFullName("Power");
         powerUser.setInitialPassword(1);
         powerUser.setRole(roleService.getRoleByName("Admin"));
-        powerUser.setDepartment(null);
+        powerUser.setDepartment(departmentService.getDepartmentByName("HR"));
         userRepo.save(powerUser);
         return "Power User Added";
       }
@@ -247,7 +249,7 @@ public class UsersServiceImpl implements UserService {
     userSend.setEmail(user.getEmail());
     userSend.setFullName(user.getFullName());
     userSend.setPassword(user.getPassword());
-    userSend.setInitalPassword(user.getInitialPassword());
+    userSend.setInitialPassword(user.getInitialPassword());
     userSend.setRole(user.getRole());
     userSend.setDepartment(user.getDepartment());
     return userSend;
@@ -311,6 +313,22 @@ public class UsersServiceImpl implements UserService {
     }
 
     return new ResponseDto(null, "New Password not updated ", "NOT_UPDATE");
+  }
+
+  /**
+   * Delete user by user id.
+   *
+   * @param userId
+   */
+  @Override
+  public boolean deleteById(final Integer userId) {
+
+    if (!userRepo.findById(userId).isPresent()) {
+      throw new InternalServerError("User not found to perform delete.");
+    } else {
+      userRepo.deleteById(userId);
+      return true;
+    }
   }
 }
 

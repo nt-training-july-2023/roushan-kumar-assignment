@@ -8,15 +8,15 @@ import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
 
 /**
- * AllTicketsDto class without commets.
+ * AllTicketsDto class without comments.
  *
- * @author roushan Kumar
+ * @author Roushan Kumar
  *
  */
 
 public class AllTicketsDto {
   /**
-   * serial number for the ticket.
+   * Serial number for the ticket.
    */
   private Integer serialNumber;
   /**

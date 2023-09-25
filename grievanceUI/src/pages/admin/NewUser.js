@@ -48,7 +48,13 @@ function NewUser() {
     }
     const getAllDepartment = async () => {
         try {
-            const res = await allDepartment();
+            const params = {
+                params: {
+                    offSet: 0,
+                    pageSize: 0
+                }
+            }
+            const res = await allDepartment(params);
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -114,16 +120,22 @@ function NewUser() {
             return;
         }
         try {
-            const result = await saveUser(user);
+            const result = await saveUser(
+                user,
+                sessionStorage.getItem("password"),
+                sessionStorage.getItem("username"),
+
+                );
+            if(result.data){
             setSucessMessage({
                 "message":"New User Added",
                 "title":"Saved",
             })
             setOkBox(true)
             resetForm();
+          }
         } catch (error) {
-            setErrorMessage(error.response.data)
-            setShow("show")
+           alert(error)
         }
 
     }
@@ -135,12 +147,13 @@ function NewUser() {
         setOkBox(false)
     }
 
+
     return (
         <>
             <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
             {okBox && <OkMessage onClick={closeOkBoxHandler} message={sucessMessage} />}
             <div className='wrapper '>
-                <Link to="/admin" value="back">back</Link>
+                
                 <div className='title'>
                     Add New User
                 </div>
@@ -243,7 +256,7 @@ function NewUser() {
 
                     <div className='input_field'>
                         {/* <input type="submit" value={"clear"} className='btnNew'></input> */}
-                        <input type="submit" value={"save"} className='btnNew btnSave'></input>
+                        <input type="submit" value={"Save"} className='btnNew btnSave'></input>
                         {/* <input type="submit" value={"back"} className='btnNew'></input> */}
                     </div>
 

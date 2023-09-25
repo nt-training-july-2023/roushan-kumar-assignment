@@ -16,7 +16,7 @@ function Ticket() {
   const pageSize = 10;
   const getAllTickets = async ()=>{
     try {
-        console.log("offset " + offset )
+
         const url = "/ticket/all/new/"+UID+"?departId="+departmentId+"&createdByMe="+createdByMe+"&offset="+offset+"&pageSize=10&status="+statusName;
 
         const res = await api.get(url)
@@ -100,13 +100,13 @@ function Ticket() {
                 <section className="table__header">
                     <h1>Tickets</h1>
                     <div className='head-ticket-search'>
-                        <label>My Tickets</label><input type="checkbox" value={false} name="me" onClick={ticketByUser}></input>
+                    <input type="checkbox" value={false} name="me" onClick={ticketByUser}></input><label >My Tickets</label>
                         { sessionStorage.getItem("userType") === "Admin" &&
                         <DepartmentDropdown className={'custom_select_ticket'} onChange={setDepartmentIdHandler}/>
                         }
                         <div >
                             <select id='statusId' className='custom_select_ticket' onChange={filterByStatus}>
-                                    <option value="0">All Status</option>
+                                    <option key={0} value="0">All Status</option>
                                     {
                                         ticketStatus.map((status) => (
                                             <option key={status.ticketStatusId}
@@ -147,8 +147,8 @@ function Ticket() {
                                             <td>{ticket.department.deptName}</td>
                                             <td 
                                             
-                                                className={ ticket.ticketStatus.ticketStatusName==="OPEN" ? 'open' : 
-                                                ticket.ticketStatus.ticketStatusName==="BEING ADDRESSED" ? 'inProgress' :
+                                                className={ ticket.ticketStatus.ticketStatusName === "OPEN" ? 'open' : 
+                                                ticket.ticketStatus.ticketStatusName === "BEING ADDRESSED" ? 'inProgress' :
                                                 'closeTicket'
                                             }
 
@@ -158,7 +158,7 @@ function Ticket() {
                                             <td>
                                                 <div>
                                                     <button id="buttonEdit" className='btn button_edit' onClick={()=>{viewUpdateTicketPage(ticket)}} ></button>
-                                                    <button id="buttonDet" className='btn button_delete' ></button>
+                                                    {/* <button id="buttonDet" className='btn button_delete' ></button> */}
                                                 </div>
                                             </td>
                                         </tr>
@@ -172,7 +172,7 @@ function Ticket() {
 
                         </tbody>
                     </table>
-                    <tablefooter>
+                    <div className='tablefooter'>
                         <ul>
                             <li>
                                 <button className='prev' onClick={setOffsetHadlerPrev}>Prev</button>
@@ -184,7 +184,7 @@ function Ticket() {
 
                         </ul>
 
-                    </tablefooter>
+                    </div>
                 </section>
             </main>
     </>

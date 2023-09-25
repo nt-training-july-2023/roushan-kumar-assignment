@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 import java.util.List;
+
+import nucleusteq.com.grievance.dto.DepartmentDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.service.DepartmentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,18 +40,18 @@ public class DepartmentControllertTest {
 
   @Test
   public void testGetAllDepartment() throws Exception {
-    // Create a list of departments for testing
-    List<Department> departments = Arrays.asList(
-      new Department(1, "Department 1"),
-      new Department(2, "Department 2")
-    );
-
     
-    when(departmentService.getAllDepartment()).thenReturn(departments);
+    List<DepartmentDto> departmentsDto = Arrays.asList(
+        new DepartmentDto(1,1, "Department 1"),
+        new DepartmentDto(2,2, "Department 2")
+      );
 
-    // Perform a GET request to the "/api/department/all" endpoint
+    when(departmentService.getAllDepartment(0,2)).thenReturn(departmentsDto);
+
+    // Perform a GET request to the "/department/all" endpoint
     mockMvc
-      .perform(get("/department/all"))
+      .perform(get("/department/all?offSet=0&pageSize=2"))
+      
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
       .andExpect(jsonPath("$[0].deptId").value(1))
@@ -58,7 +60,7 @@ public class DepartmentControllertTest {
       .andExpect(jsonPath("$[1].deptName").value("Department 2"));
 
     
-    verify(departmentService, times(1)).getAllDepartment();
+    verify(departmentService, times(1)).getAllDepartment(0,2);
     verifyNoMoreInteractions(departmentService);
   }
 
@@ -73,7 +75,7 @@ public class DepartmentControllertTest {
    
     mockMvc
       .perform(
-        post("/department/save/1")
+        post("/department/admin/save/1")
           .contentType(MediaType.APPLICATION_JSON)
           .content("{\"deptId\": 1, \"deptName\": \"Department 1\"}")
           .header("password","password")
@@ -93,12 +95,12 @@ public class DepartmentControllertTest {
     
     mockMvc
       .perform(
-      		delete("/department/delete/{deptId}/{userId}",1,1)
+      		delete("/department/admin/delete/{deptId}",1)
       		.header("password","password"))
       .andExpect(status().isOk());
 
     
-    verify(departmentService, times(1)).delete(1,"password",1);
+    verify(departmentService, times(1)).delete(1);
     verifyNoMoreInteractions(departmentService);
   }
 }

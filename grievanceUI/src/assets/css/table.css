@@ -44,6 +44,14 @@ main.table
     justify-content: center;
     align-items: center;
 }
+
+.table__header label{
+    padding-right: 10px;
+    padding-left: 3px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
 .table__body{
     width: 95%;
     max-height: calc(89% - .8rem);
@@ -168,32 +176,32 @@ tbody tr:nth-child(even)
     z-index: 1;
   }
 
-  tablefooter {
-    background: #8e939c;
+  .tablefooter {
+    background: #414f68e3;
     width: 100%;
     padding: 5px 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
- 
+  
     background-position: center;
     background-size: cover;
-  }
+}
 
-  tablefooter ul{
+.tablefooter ul{
     width: 100%;
     text-align: right;
 
 }
 
-tablefooter ul li{
+.tablefooter ul li{
     display: inline-block;
     list-style: none;
     margin: 5px 5px;
 }
 
-tablefooter button{
+.tablefooter button{
     color: white;
     padding: 5px;
     border-radius: 5px;
@@ -202,11 +210,11 @@ tablefooter button{
     font-weight: 500;
 }
 
-tablefooter .prev {
+.tablefooter .prev {
     background-color: rgba(29, 65, 125, 0.797);
 }
 
-tablefooter .next {
+.tablefooter .next {
     color: #dee9ff;
     background-color: rgb(48, 171, 0);
 }

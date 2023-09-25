@@ -101,7 +101,7 @@
 					
 					<encoding>UTF-8</encoding>
 					<consoleOutput>true</consoleOutput>
-					<configLocation>/src/checkstyle-checker.xml</configLocation>
+					
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
 				</configuration>

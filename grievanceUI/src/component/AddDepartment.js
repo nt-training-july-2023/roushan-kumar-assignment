@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { saveDepartment } from '../service/departmentService.js';
 import ErrorMessage from './ErrorMessage.js';
-function AddDepartment({ onClick }) {
+function AddDepartment({ onClick , closeDepartment}) {
 
   const [department, setDepartment] = useState("");
+ 
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState("");
   const inputHandler = (e) => {
@@ -20,10 +21,17 @@ function AddDepartment({ onClick }) {
         sessionStorage.getItem("userId"),
         sessionStorage.getItem("password"),
         sessionStorage.getItem("username"),
-        );
-        if(res.data.deptName)
-        setErrorMessage("New Departmetn Added.")
-        setShow("show")
+      );
+      if (res.data.deptName) {
+        
+        closeDepartment({
+          "message": "New Departmetn Added.",
+          "title": "Saved",
+        });
+        
+        
+        
+      }
     } catch (error) {
       setErrorMessage(error.response.data)
       setShow("show")
@@ -35,7 +43,7 @@ function AddDepartment({ onClick }) {
   }
   const handleClose = () => {
     setShow("");
- }
+  }
   return (
     <>
       <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
@@ -59,13 +67,13 @@ function AddDepartment({ onClick }) {
           </div>
 
           <div className='input_field'>
-            <input type="submit" value={"close"} className='btnNew btnNewCancle ' onClick={onClick}></input>
-            <input type="submit" value={"save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
+            <input type="submit" value={"Close"} className='btnNew btnNewCancle ' onClick={onClick}></input>
+            <input type="submit" value={"Save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
 
           </div>
         </form>
       </div>
-      
+
     </>
   )
 }

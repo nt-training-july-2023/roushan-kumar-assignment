@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
  * It allows you to create, retrieve, update, and delete ticket.
  * This class encapsulates the business logic for ticket management.
  *
- * @author Roushan kumar 
+ * @author Roushan kumar
  */
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -123,7 +123,7 @@ public class TicketServiceImpl implements TicketService {
     if (tStatus != null) {
       ticket.setTicketStatus(tStatus);
     } else {
-      throw new BadRequestError("Not found Ticket Status: OPEN");
+      throw new BadRequestError("Ticket Status not found : OPEN");
     }
 
     Department dept = departmentService.getDepartmentByName(
@@ -132,7 +132,7 @@ public class TicketServiceImpl implements TicketService {
     if (dept != null) {
       ticket.setDepartment(dept);
     } else {
-      throw new BadRequestError("Not found Department: "
+      throw new BadRequestError("Department not found.: "
                               + ticketDto.getDepartment().getDeptName());
     }
 
@@ -141,7 +141,7 @@ public class TicketServiceImpl implements TicketService {
     if (user != null) {
       ticket.setUser(user);
     } else {
-      throw new BadRequestError("Not found User");
+      throw new BadRequestError("User not found.");
     }
     LOGGER.info("saving new ticket");
     ticket = ticketRepo.save(ticket);
@@ -253,7 +253,6 @@ public class TicketServiceImpl implements TicketService {
 
     Integer statusId = 0;
     Integer serialNumber = 1;
-    System.err.println(status);
     if (!status.equals("0")) {
        statusId = ticketStatusService.getByName(status).getTicketStatusId();
        System.err.println(statusId);

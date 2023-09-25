@@ -1,5 +1,3 @@
-import React from 'react'
-
 function NewUserValid(user) {
  console.log("validation on user "+user.email);
  const userEmail = user.email.trim();

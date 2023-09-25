@@ -1,9 +1,14 @@
 package nucleusteq.com.grievance.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import nucleusteq.com.grievance.dto.DepartmentDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.exception.BadRequestError;
+import nucleusteq.com.grievance.exception.InternalServerError;
 import nucleusteq.com.grievance.repository.DepartmentRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 
@@ -24,7 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   private static final Logger LOGGER = Logger
       .getLogger(DepartmentServiceImpl.class);
-  
+
   /**
    * class variables.
    */
@@ -80,8 +85,34 @@ public class DepartmentServiceImpl implements DepartmentService {
    * List of Department.
    */
   @Override
-  public List<Department> getAllDepartment() {
-    return departmentRepo.findAll();
+  public List<DepartmentDto> getAllDepartment(
+      final Integer offSet,
+      final Integer pageSize) {
+    AtomicInteger serialNumber = new AtomicInteger(offSet + 1);
+    List<Department> allDepartment;
+    List<DepartmentDto> allDepartmentDto = new ArrayList<DepartmentDto>();
+    if (pageSize == 0) {
+     allDepartment = departmentRepo.findAll();
+     for (Department department : allDepartment) {
+       DepartmentDto departmentDto = new DepartmentDto();
+       departmentDto.setSerialNumber(serialNumber.getAndIncrement());
+       departmentDto.setDeptId(department.getDeptId());
+       departmentDto.setDeptName(department.getDeptName());
+       allDepartmentDto.add(departmentDto);
+     }
+     return allDepartmentDto;
+    } else {
+
+      allDepartment = departmentRepo.findAllWithPageSize(offSet, pageSize);
+      for (Department department : allDepartment) {
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setSerialNumber(serialNumber.getAndIncrement());
+        departmentDto.setDeptId(department.getDeptId());
+        departmentDto.setDeptName(department.getDeptName());
+        allDepartmentDto.add(departmentDto);
+      }
+      return allDepartmentDto;
+    }
   }
 
   /**
@@ -89,14 +120,11 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   @Override
   public void delete(
-      final Integer userId,
-      final String password,
       final Integer deptId) {
-    if (departmentRepo.isAdmin(userId, password) != 1) {
-      throw new BadRequestError("You are not authorized to delete department.");
-    }
-
-    departmentRepo.deleteById(deptId);
+      if (!departmentRepo.findById(deptId).isPresent()) {
+        throw new InternalServerError("Department not found!");
+      }
+      departmentRepo.deleteById(deptId);
     return;
   }
 }

@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 .sucessNotification{
-    background-color: rgb(35, 226, 194);
+    background-color: rgb(249, 220, 222);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -15,8 +15,6 @@
     display: none;
     justify-content: center;
     align-items: center;
-    
-
 }
 .sucessNotification p{
     width: 16rem;
@@ -25,6 +23,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    word-wrap: break-word;
+    color: #e14242;
+    padding: 10px;
 }
 .close{
     background-color: rgb(253, 119, 67);

@@ -1,57 +1,32 @@
 package nucleusteq.com.grievance.dto;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
 
-/**
- * userDto class.
- *
- * @author roushan Kumar
- *
- */
-
-public class UserDto {
+public class AllUsersDto {
   /**
-   *class variable.
+   * Serial Number.
+   */
+  private Integer serialNumber;
+
+  /**
+   * User Id.
    */
   private Integer userId;
 
   /**
    * username.
    */
-  @NotEmpty(message = "username is required size > 2")
-  @Size(min = 2)
   private String username;
 
   /**
    * full name.
    */
-  @NotEmpty(message = "full name is required")
   private String fullName;
 
   /**
    * email in string.
    */
-  @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$",
-      message = "Email address invalid")
-  @NotNull(message = "email is required")
   private String email;
-
-  /**
-   * Password in string.
-   */
-  @NotNull(message = "Password is required")
-  private String password;
-
-  /**
-  * initialPassword is integer.
-  */
-  private Integer initialPassword;
 
   /**
    * Role is Class.
@@ -67,7 +42,7 @@ public class UserDto {
    * no argument constructor.
    * Users data transfer object
    */
-  public UserDto() {
+  public AllUsersDto() {
 
   }
 
@@ -144,42 +119,6 @@ public class UserDto {
   }
 
   /**
-   * getPassword.
-   *
-   * @return the password
-   */
-  public String getPassword() {
-    return password;
-  }
-
-  /**
-   * setPassword.
-   *
-   * @param passwordParam the password to set
-   */
-  public void setPassword(final String passwordParam) {
-    this.password = passwordParam;
-  }
-
-  /**
-   * getInitalPassword.
-   *
-   * @return the initalPassword
-   */
-  public Integer getInitialPassword() {
-    return initialPassword;
-  }
-
-  /**
-   * setInitalPassword.
-   *
-   * @param initialPasswordParam the initalPassword to set
-   */
-  public void setInitialPassword(final Integer initialPasswordParam) {
-    this.initialPassword = initialPasswordParam;
-  }
-
-  /**
    * getRole.
    *
    * @return the role
@@ -217,15 +156,17 @@ public class UserDto {
   }
 
   /**
-   * To string method.
+   * @return the serialNumber
    */
-  @Override
-  public String toString() {
-    return "UserDto [userId=" + userId + ", username="
-      + username + ", fullName=" + fullName + ", email="
-      + email + ", password=" + password + ", initalPassword="
-      + initialPassword + ", role=" + role + ", department="
-      + department + "]";
+  public Integer getSerialNumber() {
+    return serialNumber;
   }
 
+  /**
+   * @param serialNumberParam the serialNumber to set
+   */
+  public void setSerialNumber(final Integer serialNumberParam) {
+    this.serialNumber = serialNumberParam;
+  }
 }
+

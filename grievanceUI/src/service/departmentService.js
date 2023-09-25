@@ -1,15 +1,15 @@
 import api from "./axios";
 
-export const allDepartment = async () => {
+export const allDepartment = async (params) => {
    
         const url = '/department/all';
-        const res = await api.get(url);
+        const res = await api.get(url, params);
         return res;
 
 }
 
 export const saveDepartment = async (requestBody, userId, password, username) => {
-        const url = "/department/save/" + userId;
+        const url = "/department/admin/save/" + userId;
         const headers = {
             "password":password,
             "username":username,

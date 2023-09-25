@@ -1,8 +1,8 @@
 package nucleusteq.com.grievance.controller;
 
-import java.util.List;
 import javax.validation.Valid;
 
+import nucleusteq.com.grievance.dto.AllUsersDto;
 import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,10 +57,12 @@ public class UsersController {
   /**
    * Get all users.
    *
+   * @param offSet
+   * @param pageSize
    * @return all users.
    */
   @GetMapping("/all")
-  public Page<UserDto> getAllUsers(
+  public Page<AllUsersDto> getAllUsers(
       @RequestParam(name = "offSet") final int offSet,
       @RequestParam(name = "pageSize") final int pageSize
       ) {
@@ -73,7 +76,7 @@ public class UsersController {
    * @param errors BindingResult error.
    * @return response.
    */
-  @PostMapping("/save")
+  @PostMapping("/admin/save")
   public ResponseEntity<?> saveUser(
       @RequestBody @Valid final UserDto userDto,
       final BindingResult errors) {
@@ -114,5 +117,23 @@ public class UsersController {
   public ResponseDto changePassword(
       @RequestBody final ChangePassword changePassword) {
       return userService.changePassword(changePassword);
+  }
+
+  /**
+   * Delete a particular user.
+   *
+   * @param userId
+   * @return Response
+   */
+  @DeleteMapping("/admin/delete/{userId}")
+  public ResponseEntity<?> deteleUser(
+      @PathVariable("userId") final Integer userId) {
+    boolean result = userService.deleteById(userId);
+    if (result) {
+      return ResponseEntity.ok(new ResponseDto(1,
+          "User deleted successfully.", "DELETE"));
+    }
+    return ResponseEntity.ok(new ResponseDto(0,
+        "Unable to delete user.", "NOT_DELETE"));
   }
 }

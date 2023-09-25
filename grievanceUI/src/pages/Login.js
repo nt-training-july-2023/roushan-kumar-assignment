@@ -3,15 +3,20 @@ import api from '../service/axios.js';
 import { useNavigate } from 'react-router-dom';
 import MessageSucess from '../component/ErrorMessage.js';
 function Login() {
+
+
+    
+
+
+    const navigate = useNavigate();
     const initailLogin = {
         isSubmiting: false,
         username: "",
         password: "",
     }
 
-    const navigate = useNavigate();
+    
     const [userLogin, setUserLogin] = useState(initailLogin);
-    const [formError, setFormError] = useState(null);
     const [show, setShow] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const { isSubmiting, username, password } = userLogin;
@@ -45,14 +50,15 @@ function Login() {
             sessionStorage.setItem("userType", userData.data.role.name);
             sessionStorage.setItem("password", userData.data.password);
             sessionStorage.setItem("departmentId", userData.data.department.deptId);
+            sessionStorage.setItem("isFisrt", userData.data.initialPassword);
             if(userData.data.initialPassword === 1){
                 navigate("/user/changepassword")
             }
             else if (userData.data.role.name === "Admin") {
-                navigate("/admin")
+                navigate("/admin/ticket")
             }
             else if (userData.data.role.name === "Member") {
-                navigate("/member")
+                navigate("/member/ticket")
             }
         }
         else {
@@ -95,7 +101,7 @@ function Login() {
                             <div id="passwordHelp" className=""></div>
                         </div>
                         <div className='form-group'>
-                            <button type="submit" className="myBtn" onClick={checkAuthentication}>Submit</button>
+                            <button type="submit" className="myBtn" onClick={checkAuthentication}>Login</button>
                         </div>
 
 

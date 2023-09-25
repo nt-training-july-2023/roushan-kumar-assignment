@@ -43,7 +43,10 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @return list all ticket orber by satuts.
    */
   @Query(value = FIND_BY_DEPARTMENT_NEW, nativeQuery = true)
-  List<Ticket> findByDepartmentNew(Integer departId, Integer offSet, Integer pageSize);
+  List<Ticket> findByDepartmentNew(
+      Integer departId,
+      Integer offSet,
+      Integer pageSize);
 
   /**
    * created by user.

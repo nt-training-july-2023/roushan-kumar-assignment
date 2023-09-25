@@ -139,8 +139,8 @@ function ChangePassword() {
             </input>
           </div>
           <div className='input_field'>
-            <input type="submit" value={"clear"} className='btnNew btnNewCancle' onClick={clearHandler}></input>
-            <input type="submit" value={"save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
+            <input type="submit" value={"Clear"} className='btnNew btnNewCancle' onClick={clearHandler}></input>
+            <input type="submit" value={"Save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
 
           </div>
         </form>

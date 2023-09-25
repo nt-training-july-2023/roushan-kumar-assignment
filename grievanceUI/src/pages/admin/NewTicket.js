@@ -4,6 +4,8 @@ import api from '../../service/axios';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewTicketValid from '../../validations/NewTicketValid';
 import { allTicketType } from '../../service/ticketType';
+import OkMessage from '../../component/OkMessage';
+import { allDepartment } from '../../service/departmentService';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
@@ -28,10 +30,22 @@ function NewTicket() {
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
 
+    const [okBox, setOkBox] = useState(false);
+    const [sucessMessage, setSucessMessage] = useState({
+        "message":"",
+        "title":"",
+    })
+
     const getAllDepartment = async () => {
         try {
-            const url = '/department/all';
-            const res = await api.get(url);
+           
+            const params = {
+                params: {
+                    offSet: 0,
+                    pageSize: 0
+                }
+            }
+            const res = await allDepartment(params)
             if (res.data) {
                 setDeptData(res.data);
             }
@@ -120,10 +134,13 @@ function NewTicket() {
             const url = "/ticket/save" ;
             const result = await api.post(url,ticket);
             if (result.data.id != null) {
-                setNotificationMessage("New Ticket created.")
-                setShow("show")
+                setSucessMessage({
+                    "message":"New Ticket Created",
+                    "title":"Created",
+                })
+                setOkBox(true)
                 clearNewTicketForm();
-                console.log("New Ticket created.")
+               
             }
         }
         catch (error) {
@@ -135,10 +152,14 @@ function NewTicket() {
     const handleClose = () => {
         setShow("");
     }
+    const closeOkBoxHandler = () => {
+        setOkBox(false)
+    }
 
     return (
         <>
             <ErrorMessage message={notificationMessage} show={show} onClick={handleClose} />
+            {okBox && <OkMessage onClick={closeOkBoxHandler} message={sucessMessage} />}
             <div className='wrapper'>
                 <div className='title'>
                     Add New Ticket
@@ -218,8 +239,8 @@ function NewTicket() {
                         <label>Status</label>
                         <div className='custom_select' >
                             <select disabled="true">
-                                <option value={"0"}>select</option>
-                                <option value={"1"}>open</option>
+                            
+                                <option value={"1"}>OPEN</option>
                                 <option value={"2"}>in progress</option>
                                 <option value={"3"}>complete</option>
                             </select>
@@ -231,24 +252,24 @@ function NewTicket() {
                     <div className='input_field'>
                         <input
                             type="submit"
-                            value={"clear"}
+                            value={"Clear"}
                             className='btnNew btnClear'
                             onClick={clearNewTicketForm} >
 
                         </input>
                         <input
                             type="submit"
-                            value={"save"}
+                            value={"Save"}
                             className='btnNew btnSave'
                             onClick={newTicketHandler}>
 
                         </input>
-                        <input
+                        {/* <input
                             type="submit"
                             value={"back"}
                             className='btnNew btnBack' >
 
-                        </input>
+                        </input> */}
                     </div>
 
                 </div>

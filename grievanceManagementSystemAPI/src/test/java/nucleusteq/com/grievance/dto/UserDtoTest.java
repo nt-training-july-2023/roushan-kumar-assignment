@@ -23,8 +23,8 @@ public class UserDtoTest {
     userDto.setUserId(1);
     assertEquals(new Integer(1), userDto.getUserId());
 
-    userDto.setUsername("testUser");
-    assertEquals("testUser", userDto.getUsername());
+    userDto.setUsername("Roushan");
+    assertEquals("Roushan", userDto.getUsername());
 
     userDto.setFullName("Roushan Kumar");
     assertEquals("Roushan Kumar", userDto.getFullName());
@@ -35,7 +35,7 @@ public class UserDtoTest {
     userDto.setPassword("password123");
     assertEquals("password123", userDto.getPassword());
 
-    userDto.setInitalPassword(123456);
+    userDto.setInitialPassword(123456);
     assertEquals(new Integer(123456), userDto.getInitialPassword());
 
     // Create a Role instance for testing
@@ -65,5 +65,30 @@ public class UserDtoTest {
     assertNull(userDto.getRole());
     assertNull(userDto.getDepartment());
   }
+  
+  
+  @Test
+  public void testToString() {
+      // Create a UserDto object with sample data
+      UserDto userDto = new UserDto();
+      userDto.setUserId(1);
+      userDto.setUsername("Roushan");
+      userDto.setFullName("John Doe");
+      userDto.setEmail("johndoe@example.com");
+      userDto.setPassword("password123");
+      userDto.setInitialPassword(123456);
+     
+      userDto.setRole(new Role());
+      userDto.setDepartment(new Department());
+
+     
+      
+      String expectedToString = "UserDto [userId=1, username=Roushan, fullName=John Doe, email=johndoe@example.com, password=password123, initalPassword=123456, role=Role [roleId=null, name=null], department=Department [deptId=null, deptName=null]]";
+
+      
+      assertEquals(expectedToString, userDto.toString());
+  }
+
+ 
 }
 
