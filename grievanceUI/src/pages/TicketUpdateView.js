@@ -152,7 +152,7 @@ function TicketUpdateView(props) {
                         </div>
                         <div className='label'><strong>Created Date :</strong> {ticket.creationDate}</div>
                         <div className='label'><strong>Created time :</strong> {ticket.creationTime}</div>
-                        <div className='label'><strong>Assign By    :</strong> {ticket.fullName}</div>
+                        <div className='label'><strong>Assigned by  :</strong> {ticket.fullName}</div>
                         
                     </div>
                     <div className='form'>

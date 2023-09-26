@@ -5,12 +5,21 @@ import logout from '../../assets/svg/box-arrow-in-right.svg'
 import edit from '../../assets/svg/pencil-square.svg'
 import person from '../../assets/svg/person.svg'
 import navlogo1 from '../../assets/img/navlogo1.png'
+import { useNavigate } from 'react-router-dom'
 function Header(props) {
+    const navigate = useNavigate();
     function toggleMenu(){
         
        let subMenu = document.getElementById("subMenu")
        subMenu.classList.toggle("open-menu")
    }
+
+   const logOut = ()=> {
+    sessionStorage.clear();
+       
+    navigate("/")
+   }
+
   return (
     <>
         <div className="navbar">
@@ -29,19 +38,16 @@ function Header(props) {
                 <div className="user-info">
                     <img src={user}/>
                     <h2>{sessionStorage.getItem("username")}</h2>
+                    
                 </div>
                 <hr/>
-                <a href="#" className="sub-menu-link">
-                    <img src={person}/>
-                    <p>View profile</p>
-                    <span>&gt;</span>
-                </a>
+               
                 <a href="#" className="sub-menu-link">
                     <img src={edit}/>
-                    <p>Edit Profile</p>
+                    <p>Change password</p>
                     <span>&gt;</span>
                 </a>
-                <a href="#" className="sub-menu-link">
+                <a href="#" className="sub-menu-link" onClick={logOut}>
                     <img src={logout} />
                     <p>Log Out</p>
                     <span>&gt;</span>

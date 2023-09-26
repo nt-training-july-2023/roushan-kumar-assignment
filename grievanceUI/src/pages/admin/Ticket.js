@@ -105,7 +105,7 @@ function Ticket() {
                         <DepartmentDropdown
                          className={'custom_select_ticket'}
                          onChange={setDepartmentIdHandler}
-                         defaultName={"All Department"}/>
+                         defaultName={"All Departments"}/>
                         }
                         <div className='custom_select_ticket' >
                             <select id='statusId'  onChange={filterByStatus}>
@@ -133,7 +133,7 @@ function Ticket() {
                                 <th className="">Ticket title</th>
                                 <th className="">Department</th>
                                 <th className="">Status</th>
-                                <th className="">Assign By</th>
+                                <th className="">Assigned by</th>
                                 <th className="">Last Updated Time</th>
                                 <th className="">Action</th>
 

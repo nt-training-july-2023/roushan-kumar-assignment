@@ -12,6 +12,12 @@ function AddDepartment({ onClick , closeDepartment}) {
   }
   const submitHandler = async (e) => {
     e.preventDefault();
+    if(department === "" || department === null)
+    {
+      setErrorMessage("Department name is required")
+      setShow("show")
+      return 
+    }
     try {
       const requestBody = {
         "deptName": department,
@@ -50,10 +56,11 @@ function AddDepartment({ onClick , closeDepartment}) {
       <div id="add_Department_Div" className='initial_pass wrapper_pass'>
         <div className='title'>
           Add Department
+          
         </div>
         <form className='form'  >
           <div className='input_field'>
-            <label>Department Name</label>
+            <label>Department Name <span className='error'>*</span></label>
             <input type="text"
               className='input'
               id="deptName"

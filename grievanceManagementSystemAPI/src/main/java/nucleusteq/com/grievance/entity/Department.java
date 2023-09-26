@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.log4j.Logger;
+
 /**
  * Represents a Department entity for the grievance management system.
  */
@@ -76,7 +78,7 @@ public class Department {
 
 
   /**
-   * get department Id.
+   * Get department Id.
    *
    * @return the deptId
    */
@@ -85,7 +87,7 @@ public class Department {
   }
 
   /**
-   * set department department id.
+   * Set department department id.
    *
    * @param deptIdParam the deptId to set
    */
@@ -116,6 +118,10 @@ public class Department {
    */
   @Override
   public String toString() {
+
+    Logger logger = Logger.getLogger(Department.class);
+    logger.info(users);
+    logger.info(allTickets);
     return "Department [deptId=" + deptId + ", deptName=" + deptName + "]";
   }
 

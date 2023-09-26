@@ -4,17 +4,29 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.RETURNS_MOCKS;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
+import nucleusteq.com.grievance.dto.AllUsersDto;
 import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
@@ -24,6 +36,8 @@ import nucleusteq.com.grievance.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
+  
+  private MockMvc mockMvc;
   @Mock
   private UserService userService;
   @Mock 
@@ -31,6 +45,13 @@ public class UserControllerTest {
 
   @InjectMocks
   private UsersController usersController;
+  
+  @BeforeEach
+  public void setUp()
+  {
+    MockitoAnnotations.openMocks(this);
+    mockMvc = MockMvcBuilders.standaloneSetup(usersController).build();
+  }
   
   @Test
   public void saveUserTest()
@@ -106,6 +127,49 @@ public class UserControllerTest {
     
     assertEquals(userDto.getUsername(), user.getUsername());
     
+  }
+
+  @Test
+  public void testGetAllUser() throws Exception
+  {
+    List<AllUsersDto> allUsersdto = new ArrayList<AllUsersDto>();
+    allUsersdto.add(new AllUsersDto(
+        1,
+        1,
+        "roushan",
+        "Roushan kumar",
+        "email.example@nucleusteq.com",
+        new Role(1, "Admin"),
+        new Department(1, "HR")));
+
+    Page<AllUsersDto> page = new PageImpl<>(allUsersdto);
+    when(userService.getAllUser(0,1)).thenReturn(page);
+    mockMvc.perform(get("/user/all")
+            .param("offSet", "0")
+            .param("pageSize", "1"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.content").isArray())
+            .andExpect(jsonPath("$.content[0].serialNumber").value(1))
+            .andExpect(jsonPath("$.content[0].userId").value(1))
+            .andExpect(jsonPath("$.content[0].email").value("email.example@nucleusteq.com"));
+  }
+
+  @Test
+  public void testDeleteUserById() throws Exception
+  {
+    when(userService.deleteById(1)).thenReturn(true);
+    
+    ResponseEntity<?> response = usersController.deteleUser(1);
+     System.out.println(response.getBody());
+  }
+  
+  @Test
+  public void testDeleteUserByIdUnsuccess() throws Exception
+  {
+    when(userService.deleteById(1)).thenReturn(false);
+    
+    ResponseEntity<?> response = usersController.deteleUser(1);
+     System.out.println(response.getBody());
   }
 }
 

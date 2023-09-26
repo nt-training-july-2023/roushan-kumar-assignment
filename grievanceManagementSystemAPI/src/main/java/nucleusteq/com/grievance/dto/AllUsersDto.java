@@ -46,7 +46,36 @@ public class AllUsersDto {
 
   }
 
-  /**
+ /**
+ * All argument constructor.
+ *
+ * @param serialNumberParam
+ * @param userIdParam
+ * @param usernameParam
+ * @param fullNameParam
+ * @param emailParam
+ * @param roleParam
+ * @param departmentParam
+ */
+  public AllUsersDto(
+    final Integer serialNumberParam,
+    final Integer userIdParam,
+    final String usernameParam,
+    final String fullNameParam,
+    final String emailParam,
+    final Role roleParam,
+    final Department departmentParam) {
+   super();
+   this.serialNumber = serialNumberParam;
+   this.userId = userIdParam;
+   this.username = usernameParam;
+   this.fullName = fullNameParam;
+   this.email = emailParam;
+   this.role = roleParam;
+   this.department = departmentParam;
+  }
+
+/**
    * get user id.
    *
    * @return the userId

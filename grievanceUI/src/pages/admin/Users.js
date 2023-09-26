@@ -67,6 +67,10 @@ function Users() {
         setConfirmShow(false);
 
         try {
+            if(allUsers.length == 1) {
+                setOffsetHadlerPrev();
+            }
+            
             const res = await deleteUser(
                 userId,
                 sessionStorage.getItem("password"),
@@ -79,7 +83,9 @@ function Users() {
                     "title":"Deleted",
                 })
                 setOkBox(true);
+                
                 getAllUsers();
+                
             }
         } catch (error) {
             alert(error.message)

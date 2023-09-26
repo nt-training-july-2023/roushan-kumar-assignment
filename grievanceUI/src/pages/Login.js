@@ -30,12 +30,12 @@ function Login() {
         e.preventDefault();
         if (userLogin.username === '') {
 
-            setErrorMessage("username is requied")
+            setErrorMessage("Username is requied")
             setShow("show")
             return
         }
         if (password === '') {
-            setErrorMessage("password is requied")
+            setErrorMessage("Password is requied")
             setShow("show")
             return
         }
@@ -63,7 +63,7 @@ function Login() {
         }
         else {
             console.log(res.data);
-            setErrorMessage("Invalid credential")
+            setErrorMessage("Invalid credentials.")
             setShow("show")
         }
     }

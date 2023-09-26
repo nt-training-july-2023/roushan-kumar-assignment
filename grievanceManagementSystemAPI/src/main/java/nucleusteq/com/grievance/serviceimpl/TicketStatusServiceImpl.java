@@ -54,7 +54,7 @@ public class TicketStatusServiceImpl implements TicketStatusService {
   @Override
   public TicketStatus getById(
       final Integer statusId) {
-
+    LOGGER.info("Getting status by id.");
     return ticketStatusRepo.findById(statusId).get();
   }
 

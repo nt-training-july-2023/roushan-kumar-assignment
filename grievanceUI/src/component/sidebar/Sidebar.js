@@ -50,9 +50,9 @@ function Sidebar({ children }) {
                                 )
                             })
                         }
-                        <li>
+                        {/* <li>
                         <button className='logout-button' onClick={logout}>Log out</button>
-                        </li>
+                        </li> */}
                     </ul>
                     <ul>
                        

@@ -105,10 +105,10 @@ function NewUser() {
         document.getElementById("password").value=null;
 
         const $selectDept = document.querySelector('#department');
-        $selectDept.querySelectorAll('option')[0].selected = '--select Department--'
+        $selectDept.querySelectorAll('option')[0].selected = '--Select Department--'
 
         const $selectUserType = document.querySelector('#role');
-        $selectUserType.querySelectorAll('option')[0].selected = '--select user type--'
+        $selectUserType.querySelectorAll('option')[0].selected = '--Select User Type--'
     }
 
     const newUserHandler = async (e) => {
@@ -166,7 +166,7 @@ function NewUser() {
                             name="fullName"
                             value={fullName}
                             onChange={inputHandler}
-                            placeholder='full name'
+                            placeholder='Full name'
                             required>
 
                         </input>
@@ -180,7 +180,7 @@ function NewUser() {
                             name="username"
                             value={username}
                             onChange={inputHandler}
-                            placeholder='username'
+                            placeholder='Username'
                             required>
 
                         </input>
@@ -200,7 +200,7 @@ function NewUser() {
                         >
                         </input>
 
-                        {/* <span className='defaut_domain'>@nucleusteq.com</span> */}
+                        
 
 
                     </div>
@@ -213,7 +213,7 @@ function NewUser() {
                             name="password"
                             value={password}
                             onChange={inputHandler}
-                            placeholder='password'
+                            placeholder='Password'
                             required
                         >
 
@@ -224,7 +224,7 @@ function NewUser() {
                         <label>User Type  <span className='error'>*</span></label>
                         <div name="role" id="role" className='custom_select' onChange={inputRoleHandler}>
                             <select>
-                                <option value="0">--select user type--</option>
+                                <option value="0">--Select User Type--</option>
                                 {
                                     roleAllData.map((role) => (
                                         <option key={role.roleId}
@@ -241,7 +241,7 @@ function NewUser() {
                         <label>Department  <span className='error'>*</span></label>
                         <div name="department" id="department" className='custom_select' onChange={inputDeptHandler}>
                             <select>
-                                <option value="0">--select Department--</option>
+                                <option value="0">--Select Department--</option>
                                 {
                                     deptData.map((dept) => (
                                         <option key={dept.deptId}

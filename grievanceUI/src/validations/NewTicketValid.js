@@ -1,15 +1,14 @@
 function NewTicketValid(ticket) {
-   console.log("validation on "+ticket.title);
   if (ticket.title.trim() === "") {
-    return "Ticket title is required";
+    return "Ticket Title is required";
   }
   if (ticket.description.trim() === "") {
-    return "Ticket description is required";
+    return "Ticket Description is required";
   }
   if (ticket.department.deptId === "0" || ticket.department.deptId === "" )
-    return "Select department."
+    return "Select Department."
   if (ticket.ticketType.ticketName === "0" || ticket.ticketType.ticketName === "" )
-    return "Select ticket type."
+    return "Select Ticket Type."
 
   return false;
 }

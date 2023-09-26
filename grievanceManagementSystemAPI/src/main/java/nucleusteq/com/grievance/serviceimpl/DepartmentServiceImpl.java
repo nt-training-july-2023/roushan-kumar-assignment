@@ -123,10 +123,10 @@ public class DepartmentServiceImpl implements DepartmentService {
   public void delete(
       final Integer deptId) {
       if (!departmentRepo.findById(deptId).isPresent()) {
+        LOGGER.info("Department not found!");
         throw new InternalServerError("Department not found!");
       }
       departmentRepo.deleteById(deptId);
-    return;
   }
 
   /**
@@ -136,7 +136,7 @@ public class DepartmentServiceImpl implements DepartmentService {
    * @return Department.
    */
   @Override
-  public Department getDepartmentById(Integer id) {
+  public Department getDepartmentById(final Integer id) {
   Optional<Department> department = departmentRepo.findById(id);
   if (department.isPresent()) {
      return department.get();

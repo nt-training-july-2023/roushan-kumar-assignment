@@ -113,10 +113,10 @@ function NewTicket() {
         document.getElementById("titleInput").value=null;
 
         const $selectDept = document.querySelector('#department');
-        $selectDept.querySelectorAll('option')[0].selected = '--select Department--'
+        $selectDept.querySelectorAll('option')[0].selected = '--Select Department--'
 
         const $selectTicketType = document.querySelector('#ticketType');
-        $selectTicketType.querySelectorAll('option')[0].selected = '--select Ticket Type--'
+        $selectTicketType.querySelectorAll('option')[0].selected = '--Select Ticket Type--'
 
     }
 
@@ -178,7 +178,7 @@ function NewTicket() {
                             onChange={inputTicketType}
                              >
                             <select>
-                                <option value="0">--select Ticket Type--</option>
+                                <option value="0">--Select Ticket Type--</option>
                                 {
                                     ticketTypeData.map((tickType) => (
                                         <option key={tickType.ticketTypeId}
@@ -217,29 +217,13 @@ function NewTicket() {
 
                     <div className='input_field'>
                         <label>Assign To  <span className='error'>*</span></label>
-                        {/* <div
-                            className='custom_select'
-                            id='department'
-                            name='department'
-                            onChange={inputDepartment}>
-                            <select>
-                                <option value="0">--select Department--</option>
-                                {
-                                    deptData.map((dept) => (
-                                        <option key={dept.deptId}
-                                            value={dept.deptName}
-                                        >{dept.deptName}
-                                        </option>
-                                    ))
-                                }
-                            </select>
-                        </div> */}
+                        
                         <DepartmentDropdown
                          id='department'
                          name='department'
                          className='custom_select'
                          onChange={inputDepartment}
-                         defaultName={"--select Department--"}/>
+                         defaultName={"--Select Department--"}/>
                         
                     </div>
 

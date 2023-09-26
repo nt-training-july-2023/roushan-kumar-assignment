@@ -1,16 +1,18 @@
 import React from 'react'
 import arrowIcon from '../assets/svg/caret-right-fill.svg'
 import homeIcon from '../assets/svg/house-door-fill.svg'
+import addTicket from '../assets/svg/ticket.svg'
+import tickets from '../assets/svg/ticket-perforated-fill.svg'
 export const MSidebarData = [
   {
-    title: "Rise Ticket",
+    title: "Raise a Ticket",
     link: "/member/riseticket",
-    icon: <img src={arrowIcon}></img>
+    icon: <img src={addTicket}></img>
   },
   {
-    title: "Ticket",
+    title: "Tickets",
     link: "/member/ticket",
-    icon: <img src={arrowIcon}></img>
+    icon: <img src={tickets}></img>
   },
 
 

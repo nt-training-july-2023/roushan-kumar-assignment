@@ -41,8 +41,9 @@ main.table
     background-color: #fff4;
     padding:  .8rem 1rem;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
+    
 }
 
 .table__header label{
@@ -226,7 +227,7 @@ tbody tr:nth-child(even)
 }
 
 .inProgress{
-    color: #ff00a2ce;
+    color: #3c49bbce;
     font-weight: 500;
 }
 

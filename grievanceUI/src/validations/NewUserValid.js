@@ -5,7 +5,7 @@ function NewUserValid(user) {
  console.log(reg.test(userEmail));
 
   if (user.username.trim() === "") {
-    return "username is required";
+    return "Username is required";
   }
 
   if (user.fullName.trim() === "") {
@@ -16,7 +16,7 @@ function NewUserValid(user) {
     return "Password is required."
 
   } else if (user.password.length < 8) {
-    return "Password should be min 8 charactor";
+    return "The password should be a minimum of 8 characters.";
   } 
 
   if(user.email.trim() === "")
@@ -27,10 +27,10 @@ function NewUserValid(user) {
   }
 
  if (user.role.name === "0" || user.role.name === "" )
-    return "Select user type.";
+    return "Select User Type.";
 
   if (user.department.deptName === "0" || user.department.deptName === "" )
-    return "Select department.";
+    return "Select Department.";
 
   return false;
 }

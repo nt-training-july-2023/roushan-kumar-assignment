@@ -63,12 +63,12 @@ nav ul li a{
     width: 320px;
     max-height: 0px;
     overflow: hidden;
-    z-index: 2;
+    z-index: 10;
     transition: max-height 0.5s;
 }
 
 .sub-menu-wrap.open-menu{
-    z-index: 2;
+    
     max-height: 400px;
 
 }

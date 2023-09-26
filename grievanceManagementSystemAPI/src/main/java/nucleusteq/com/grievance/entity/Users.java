@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.log4j.Logger;
+
 /**
  * Represents a user entity for the grievance management system.
  */
@@ -278,6 +280,9 @@ public class Users {
   */
   @Override
   public String toString() {
+
+    Logger logger = Logger.getLogger(Users.class);
+    logger.info(tickets);
     return "Users [userId=" + userId + ", username="
       + username + ", fullName=" + fullName + ", email="
       + email + ", password=" + password + ", initialPassword="
