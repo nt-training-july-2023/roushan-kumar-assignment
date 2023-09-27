@@ -174,6 +174,9 @@ public class TicketServiceImpl implements TicketService {
       } else {
         throw new BadRequestError("Status Not Found.");
       }
+
+      comments.setTime(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a")
+           .format(lastUpdateTime));
       ticketData.addComments(comments);
       ticketRepo.save(ticketData);
       ResponseDto response = new ResponseDto(ticketId,

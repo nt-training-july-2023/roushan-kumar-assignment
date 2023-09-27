@@ -105,7 +105,11 @@ function Ticket() {
                         <DepartmentDropdown
                          className={'custom_select_ticket'}
                          onChange={setDepartmentIdHandler}
-                         defaultName={"All Departments"}/>
+                         defaultName={"All Departments"}
+                         hidden= {createdByMe}
+                         disabled = {createdByMe}
+                         />
+                        
                         }
                         <div className='custom_select_ticket' >
                             <select id='statusId'  onChange={filterByStatus}>

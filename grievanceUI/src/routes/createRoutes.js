@@ -61,6 +61,10 @@ export default createBrowserRouter([
                 path: "ticket-update-view",
                 element:  <TicketUpdateView />
             },
+            {
+                path:"changepassword",
+                element:<ChangePassword/>,
+            },
         ]
     },
 
@@ -76,6 +80,10 @@ export default createBrowserRouter([
                 path: "ticket",
                 element: <Ticket/>,
             },
+            {
+                path:"changepassword",
+                element:<ChangePassword/>,
+            }
         ]
     },
     {

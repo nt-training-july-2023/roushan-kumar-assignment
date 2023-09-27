@@ -96,7 +96,7 @@ public class Department {
   }
 
   /**
-   * get department name.
+   * Get department name.
    *
    * @return the deptName
    */
@@ -105,7 +105,7 @@ public class Department {
   }
 
   /**
-   * set department name.
+   * Set department name.
    *
    * @param deptNameParam the deptName to set
    */
@@ -138,8 +138,8 @@ public class Department {
    * Indicates whether some other object is "equal to" this one.
    *
    * @param obj The reference object with which to compare.
-   * @return {@code true} if this object is the same as the obj argument;
-   *         {@code false} otherwise.
+   * @return true if this object is the same as the obj argument;
+   *         false otherwise.
    */
   @Override
   public boolean equals(final Object obj) {

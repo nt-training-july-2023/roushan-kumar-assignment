@@ -9,11 +9,16 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import nucleusteq.com.grievance.dto.AllUsersDto;
 import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.LoginDto;
 import nucleusteq.com.grievance.dto.ResponseDto;
@@ -35,6 +40,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -376,5 +384,45 @@ public class UserServiceImplTest {
     when(userRepo.getByUserName(userDto.getUsername())).thenReturn(tempUser1);
     //System.out.println(">>>" +userServiceImpl.authenticateIsAdmin(userDto));
     assertTrue(userServiceImpl.authenticateIsAdmin(userDto));
+  }
+
+  @Test
+  public void testGetAllUser() {
+
+      List<Users> allUsers = IntStream.rangeClosed(1, 10)
+              .mapToObj(i -> {
+                  Users user = new Users();
+                  user.setUserId(i);
+                  user.setUsername("user" + i);
+                  user.setEmail("user" + i + "@example.com");
+                  user.setFullName("User " + i);
+                  user.setRole(new Role(1,"Admin"));
+                  user.setDepartment(new Department(1, "HR"));
+                  return user;
+              })
+              .collect(Collectors.toList());
+      Page<Users> page = new PageImpl<>(allUsers);
+      Mockito.when(userRepo.findAll(any(PageRequest.class))).thenReturn(page);
+      Page<AllUsersDto> result = userServiceImpl.getAllUser(0, 10);
+      assertEquals(10, result.getContent().size());
+  }
+
+  @Test
+  public void testDeleteByIdUserExists() {
+      int userId = 1;
+      Users user = new Users();
+      user.setUserId(userId);
+      when(userRepo.findById(userId)).thenReturn(Optional.of(user));
+      boolean result = userServiceImpl.deleteById(userId);
+      assertTrue(result);
+      Mockito.verify(userRepo).deleteById(userId);
+  }
+
+  @Test
+  public void testDeleteByIdUserNotExists() {
+      int userId = 1;
+      when(userRepo.findById(userId)).thenReturn(Optional.empty());
+      assertThrows(InternalServerError.class, () -> userServiceImpl.deleteById(userId));
+      Mockito.verify(userRepo, Mockito.never()).deleteById(userId);
   }
 }

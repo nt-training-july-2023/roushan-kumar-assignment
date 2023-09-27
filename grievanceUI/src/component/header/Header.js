@@ -5,7 +5,8 @@ import logout from '../../assets/svg/box-arrow-in-right.svg'
 import edit from '../../assets/svg/pencil-square.svg'
 import person from '../../assets/svg/person.svg'
 import navlogo1 from '../../assets/img/navlogo1.png'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import ChangePassword from '../ChangePassword'
 function Header(props) {
     const navigate = useNavigate();
     function toggleMenu(){
@@ -20,6 +21,10 @@ function Header(props) {
     navigate("/")
    }
 
+   const ChangePasswordHandler = () =>{
+    navigate("/changepassword")
+   }
+   const userURL = sessionStorage.getItem("userType") == "Admin" ? "admin" : "member";
   return (
     <>
         <div className="navbar">
@@ -42,11 +47,11 @@ function Header(props) {
                 </div>
                 <hr/>
                
-                <a href="#" className="sub-menu-link">
+                <Link to={"/"+userURL+"/changepassword"} className="sub-menu-link" >
                     <img src={edit}/>
                     <p>Change password</p>
                     <span>&gt;</span>
-                </a>
+                </Link>
                 <a href="#" className="sub-menu-link" onClick={logOut}>
                     <img src={logout} />
                     <p>Log Out</p>

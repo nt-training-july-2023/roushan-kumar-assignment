@@ -114,7 +114,7 @@ function TicketUpdateView(props) {
 
         if (comment.comments.trim() === "") {
             console.log()
-            setNotificationMessage("Add comment before update.")
+            setNotificationMessage("Comment before update.")
             setShow("show")
             return;
         }
@@ -239,7 +239,7 @@ function TicketUpdateView(props) {
                                 value={comment.comments}
                                 onChange={inputHandler}
                                 disabled = { onlyValidUser.current }
-                                placeholder='comment of ticket...'>
+                                placeholder='Comment of ticket...'>
                             </textarea>
                         </div>
 
@@ -284,7 +284,13 @@ function TicketUpdateView(props) {
                             ticket.comments?.map((comments, id) => {
 
                                 return <>
-                                    <p><strong>{comments.commentedBy} </strong> : {comments.comments}</p>
+                                    <div className="comments"><strong>{comments.commentedBy} </strong> 
+                                       <br></br> 
+                                       {comments.comments}
+                                       <br>
+                                       </br>
+                                    <p className='timeAndDate'>  {comments.time}</p>
+                                    </div>
 
                                 </>
                             })

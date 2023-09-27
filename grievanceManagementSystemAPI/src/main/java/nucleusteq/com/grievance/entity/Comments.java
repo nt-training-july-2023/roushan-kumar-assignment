@@ -32,6 +32,10 @@ public class Comments {
   private String commentedBy;
 
   /**
+   * Commented Time.
+   */
+  private String time;
+  /**
    * No args constructor.
    */
   public Comments() {
@@ -99,6 +103,20 @@ public class Comments {
    */
   public void setCommentedBy(final String commentedByParam) {
    this.commentedBy = commentedByParam;
+  }
+
+  /**
+  * @return the time
+  */
+  public String getTime() {
+  return time;
+  }
+
+  /**
+  * @param time the time to set
+  */
+  public void setTime(String time) {
+  this.time = time;
   }
 
   /**

@@ -193,7 +193,7 @@
     overflow-y: auto;
 }
 
-.comment-container p{
+.comment-container .comments{
     height: auto;
     width: 95%;
     background-color: #FFFFFF;
@@ -202,6 +202,11 @@
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
     word-break: break-all;
     border-radius: 5px;
+}
+
+.timeAndDate{
+    font-size: 12px;
+    margin-top: 12px;
 }
 
 .custom_select_ticket{
