@@ -24,35 +24,35 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Ticket {
 
   /**
-   * ticket id as integer.
+   * Ticket id as integer.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer ticketId;
 
   /**
-   * ticket titel as string.
+   * Ticket title as string.
    */
   private String title;
 
   /**
-   * description as string.
+   * Description as string.
    */
   private String description;
 
   /**
-   * creationTime as LocalDateTime.
+   * CreationTime as LocalDateTime.
    */
   private LocalDateTime creationTime;
 
   /**
-   * lastUpdateTime as LocalDateTime.
+   * LastUpdateTime as LocalDateTime.
    */
   @UpdateTimestamp
   private LocalDateTime lastUpdateTime;
 
   /**
-   * department class.
+   * Department.
    */
   @ManyToOne(
       cascade = {
@@ -65,7 +65,7 @@ public class Ticket {
   private Department department;
 
   /**
-   * ticket Type.
+   * Ticket Type.
    */
   @ManyToOne(
       cascade = {
@@ -78,7 +78,7 @@ public class Ticket {
   private TicketType ticketType;
 
   /**
-   * ticket Status.
+   * Ticket Status.
    */
   @ManyToOne(
       cascade = {
@@ -104,7 +104,7 @@ public class Ticket {
   private Collection<Comments> comments;
 
   /**
-   * user entity.
+   * User entity.
    */
   @ManyToOne(
       cascade = {
@@ -125,14 +125,14 @@ public class Ticket {
   /**
    * Get ticket Id.
    *
-   * @return the ticketId
+   * @return The ticket id
    */
   public Integer getTicketId() {
     return ticketId;
   }
 
   /**
-   * set Ticket id.
+   * Set Ticket id.
    *
    * @param ticketIdParam the ticketId to set
    */
@@ -143,14 +143,14 @@ public class Ticket {
   /**
    * Get tilte.
    *
-   * @return the title
+   * @return The title
    */
   public String getTitle() {
     return title;
   }
 
   /**
-   * set Tilte.
+   * Set Tilte.
    *
    * @param titleParam the title to set
    */
@@ -159,16 +159,16 @@ public class Ticket {
   }
 
   /**
-   * get description.
+   * Get description.
    *
-   * @return the description
+   * @return The description
    */
   public String getDescription() {
     return description;
   }
 
   /**
-   * set description.
+   * Set description.
    *
    * @param descriptionParam the description to set
    */
@@ -177,16 +177,16 @@ public class Ticket {
   }
 
   /**
-   * get CreationTime.
+   * Get creation time.
    *
-   * @return the creationTime
+   * @return The creation time
    */
   public LocalDateTime getCreationTime() {
     return creationTime;
   }
 
   /**
-   * set CreationTime.
+   * Set creation time.
    *
    * @param creationTimeParam the creationTime to set
    */
@@ -195,16 +195,16 @@ public class Ticket {
   }
 
   /**
-   * get Last Update Time.
+   * Get Last Update Time.
    *
-   * @return the lastUpdateTime
+   * @return The last updated time
    */
   public LocalDateTime getLastUpdateTime() {
     return lastUpdateTime;
   }
 
   /**
-   * set Last Update Time.
+   * Set last update time.
    *
    * @param lastUpdateTimeParam the lastUpdateTime to set
    */
@@ -215,14 +215,14 @@ public class Ticket {
   /**
    * Get department.
    *
-   * @return the department
+   * @return The department
    */
   public Department getDepartment() {
     return department;
   }
 
   /**
-   * set department.
+   * Set department.
    *
    * @param departmentParam the department to set
    */
@@ -231,16 +231,16 @@ public class Ticket {
   }
 
   /**
-   * get Ticket Type.
+   * Get Ticket Type.
    *
-   * @return the ticketType
+   * @return The ticketType
    */
   public TicketType getTicketType() {
     return ticketType;
   }
 
   /**
-   * set Ticket Type.
+   * Set Ticket Type.
    *
    * @param ticketTypeParam the ticketType to set
    */
@@ -249,16 +249,16 @@ public class Ticket {
   }
 
   /**
-   * get Ticket Status.
+   * Get Ticket Status.
    *
-   * @return the ticketStatus
+   * @return The ticketStatus
    */
   public TicketStatus getTicketStatus() {
     return ticketStatus;
   }
 
   /**
-   * set Ticket Status.
+   * Set Ticket Status.
    *
    * @param ticketStatusParam the ticketStatus to set
    */
@@ -267,16 +267,16 @@ public class Ticket {
   }
 
   /**
-   * get Comments.
+   * Get Comments.
    *
-   * @return the comments
+   * @return The list of comments
    */
   public Collection<Comments> getComments() {
     return comments;
   }
 
   /**
-   * set Comments.
+   * Set Comment.
    *
    * @param commentsParam the comments to set
    */
@@ -285,7 +285,7 @@ public class Ticket {
   }
 
   /**
-  * getUser.
+  * Get User.
   *
   * @return the user
   */
@@ -294,7 +294,7 @@ public class Ticket {
   }
 
   /**
-   * set User.
+   * Set User.
    *
    * @param userParam the user to set
    */
@@ -316,7 +316,7 @@ public class Ticket {
   }
 
   /**
-   * ticket details.
+   * Ticket details.
    */
   @Override
   public String toString() {

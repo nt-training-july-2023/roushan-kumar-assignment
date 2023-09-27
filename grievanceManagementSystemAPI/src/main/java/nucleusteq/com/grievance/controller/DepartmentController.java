@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import nucleusteq.com.grievance.dto.DepartmentDto;
 import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.service.DepartmentService;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * UserController.
+ * Department controller.
  *
  * @author Roushan Kumar
  * @version 1.0.0
@@ -29,6 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/department")
 @CrossOrigin(origins = "http://localhost:3000")
 public class DepartmentController {
+
+  /**
+   * Logger instance for the TicketServiceImpl class.
+   */
+  private static final Logger LOGGER = Logger
+      .getLogger(DepartmentController.class);
 
 /**
    * Service for managing departments.
@@ -47,6 +55,7 @@ public class DepartmentController {
   public List<DepartmentDto> getAllDepartment(
       @RequestParam(name = "offSet") final int offSet,
       @RequestParam(name = "pageSize") final int pageSize) {
+    LOGGER.info("Getting all departments.");
     return departmentService.getAllDepartment(offSet, pageSize);
   }
 

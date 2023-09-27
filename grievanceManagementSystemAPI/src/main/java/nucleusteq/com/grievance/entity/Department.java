@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 )
 public class Department {
   /**
-   * DeptId is Integer.
+   * Department id as integer.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +63,7 @@ public class Department {
   }
 
   /**
-   * All arg Constructor.
+   * All args Constructor.
    *
    * @param deptIdParam department id.
    * @param deptNameParam department name.
@@ -80,7 +80,7 @@ public class Department {
   /**
    * Get department Id.
    *
-   * @return the deptId
+   * @return The deptId
    */
   public Integer getDeptId() {
     return deptId;

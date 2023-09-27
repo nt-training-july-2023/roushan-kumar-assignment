@@ -1,22 +1,22 @@
 package nucleusteq.com.grievance.dto;
 
 /**
- * Response dto.
+ * Response class.
  */
 public class ResponseDto {
 
   /**
-   * id is integer.
+   * Id as integer.
    */
   private Integer id;
 
   /**
-   * message as string.
+   * Message as string.
    */
   private String message;
 
   /**
-   * status as string.
+   * Status as string.
    */
   private String status;
 

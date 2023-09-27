@@ -12,9 +12,9 @@ import nucleusteq.com.grievance.entity.Role;
 import nucleusteq.com.grievance.service.RoleService;
 
 /**
- * UserController.
+ * Role controller.
  *
- * @author roush
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 
@@ -30,7 +30,7 @@ public class RoleController {
   private RoleService roleService;
 
   /**
-   * get all role.
+   * Get all role.
    *
    * @return return all roles.
    */

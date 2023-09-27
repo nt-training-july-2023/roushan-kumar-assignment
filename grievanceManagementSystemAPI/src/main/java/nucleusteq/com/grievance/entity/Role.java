@@ -51,7 +51,7 @@ public class Role {
   }
 
   /**
-   * get role id.
+   * Get role id.
    *
    * @return the roleId
    */
@@ -60,7 +60,7 @@ public class Role {
   }
 
   /**
-   * setRoleId.
+   * Set role id.
    *
    * @param roleIdParam the roleId to set
    */
@@ -69,7 +69,7 @@ public class Role {
   }
 
   /**
-   * get name.
+   * Get name.
    *
    * @return the name
    */
@@ -78,7 +78,7 @@ public class Role {
   }
 
   /**
-   * set name.
+   * Set name.
    *
    * @param nameParam the name to set
    */
@@ -87,7 +87,7 @@ public class Role {
   }
 
   /**
-   * Role.
+   * Role details.
    */
   @Override
   public String toString() {

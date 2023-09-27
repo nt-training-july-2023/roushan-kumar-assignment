@@ -9,15 +9,15 @@ import nucleusteq.com.grievance.entity.Department;
 import nucleusteq.com.grievance.entity.Role;
 
 /**
- * userDto class.
+ * User class.
  *
- * @author roushan Kumar
- *
+ * @author Roushan Kumar
+ * @version 1.0.0
  */
 
 public class UserDto {
   /**
-   *class variable.
+   *Class variable.
    */
   private Integer userId;
 
@@ -29,13 +29,13 @@ public class UserDto {
   private String username;
 
   /**
-   * full name.
+   * Full name.
    */
   @NotEmpty(message = "full name is required")
   private String fullName;
 
   /**
-   * email in string.
+   * Email as string.
    */
   @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$",
       message = "Email address invalid")
@@ -43,13 +43,13 @@ public class UserDto {
   private String email;
 
   /**
-   * Password in string.
+   * Password as string.
    */
   @NotNull(message = "Password is required")
   private String password;
 
   /**
-  * initialPassword is integer.
+  * Initial password is integer.
   */
   private Integer initialPassword;
 
@@ -64,7 +64,7 @@ public class UserDto {
   private Department department;
 
   /**
-   * no argument constructor.
+   * No arguments constructor.
    * Users data transfer object
    */
   public UserDto() {
@@ -72,16 +72,16 @@ public class UserDto {
   }
 
   /**
-   * get user id.
+   * Get user id.
    *
-   * @return the userId
+   * @return The userId
    */
   public Integer getUserId() {
     return userId;
   }
 
   /**
-   * set user id.
+   * Set user id.
    *
    * @param userIdParam the userId to set
    */
@@ -90,16 +90,16 @@ public class UserDto {
   }
 
   /**
-   * get username.
+   * Get username.
    *
-   * @return the username
+   * @return The username
    */
   public String getUsername() {
     return username;
   }
 
   /**
-   * set username.
+   * Set username.
    *
    * @param usernameParam the username to set
    */
@@ -108,16 +108,16 @@ public class UserDto {
   }
 
   /**
-   * get first name.
+   * Get first name.
    *
-   * @return the firstName
+   * @return The fullname.
    */
   public String getFullName() {
     return fullName;
   }
 
   /**
-   * set first name.
+   * Set full name.
    *
    * @param firstNameParam the firstName to set
    */
@@ -144,16 +144,16 @@ public class UserDto {
   }
 
   /**
-   * getPassword.
+   * Get password.
    *
-   * @return the password
+   * @return The password
    */
   public String getPassword() {
     return password;
   }
 
   /**
-   * setPassword.
+   * Set password.
    *
    * @param passwordParam the password to set
    */
@@ -162,7 +162,7 @@ public class UserDto {
   }
 
   /**
-   * getInitalPassword.
+   * Get inital password.
    *
    * @return the initalPassword
    */
@@ -171,7 +171,7 @@ public class UserDto {
   }
 
   /**
-   * setInitalPassword.
+   * Set inital password.
    *
    * @param initialPasswordParam the initalPassword to set
    */
@@ -180,16 +180,16 @@ public class UserDto {
   }
 
   /**
-   * getRole.
+   * Get role.
    *
-   * @return the role
+   * @return The role
    */
   public Role getRole() {
     return role;
   }
 
   /**
-   * setRole.
+   * Set role.
    *
    * @param roleParam the role to set
    */
@@ -198,7 +198,7 @@ public class UserDto {
   }
 
   /**
-  * get Department.
+  * Get Department.
   *
   * @return the department
   */
@@ -207,7 +207,7 @@ public class UserDto {
   }
 
   /**
-  * set department.
+  * Set department.
   *
   * @param departmentParam the department to set
   */

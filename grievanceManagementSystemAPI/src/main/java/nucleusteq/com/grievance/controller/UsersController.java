@@ -7,6 +7,8 @@ import nucleusteq.com.grievance.dto.ChangePassword;
 import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.UserDto;
 import nucleusteq.com.grievance.service.UserService;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -36,7 +38,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController {
 
   /**
-   * userService interface.
+   * Logger instance for the TicketServiceImpl class.
+   */
+  private static final Logger LOGGER = Logger
+      .getLogger(UsersController.class);
+
+  /**
+   * Class variable.
    */
   @Autowired
   private UserService userService;
@@ -45,9 +53,6 @@ public class UsersController {
    * UserController.
    *
    * @param userServiceParam userservice.
-   *
-   *
-   *
    */
   public UsersController(final UserService userServiceParam) {
     super();
@@ -59,22 +64,23 @@ public class UsersController {
    *
    * @param offSet
    * @param pageSize
-   * @return all users.
+   * @return All users.
    */
   @GetMapping("/all")
   public Page<AllUsersDto> getAllUsers(
       @RequestParam(name = "offSet") final int offSet,
       @RequestParam(name = "pageSize") final int pageSize
       ) {
+    LOGGER.info("Fetching all users.");
     return userService.getAllUser(offSet, pageSize);
   }
 
   /**
-   * save user.
+   * Save a user.
    *
    * @param userDto userDto.
    * @param errors BindingResult error.
-   * @return response.
+   * @return Response.
    */
   @PostMapping("/admin/save")
   public ResponseEntity<?> saveUser(
@@ -87,6 +93,7 @@ public class UsersController {
 
     if (userService.save(userDto) != null) {
     ResponseDto response = new ResponseDto(1, "New user created", "SAVE");
+    LOGGER.info("Saving new user.");
     return ResponseEntity.ok(response);
     } else {
       ResponseDto response = new ResponseDto(0, "User not created", "NOT_SAVE");
@@ -96,10 +103,10 @@ public class UsersController {
   }
 
   /**
-   * find by username.
+   * Find by username.
    *
    * @param username username to find.
-   * @return return user.
+   * @return User.
    */
   @GetMapping("/byUsername/{username}")
   public UserDto getUserByUsername(
@@ -111,7 +118,7 @@ public class UsersController {
    * Change password.
    *
    * @param changePassword object.
-   * @return response.
+   * @return Response.
    */
   @PutMapping("/changepassword")
   public ResponseDto changePassword(
@@ -130,6 +137,7 @@ public class UsersController {
       @PathVariable("userId") final Integer userId) {
     boolean result = userService.deleteById(userId);
     if (result) {
+      LOGGER.info("Deleting a user.");
       return ResponseEntity.ok(new ResponseDto(1,
           "User deleted successfully.", "DELETE"));
     }

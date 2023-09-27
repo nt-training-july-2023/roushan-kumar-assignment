@@ -15,14 +15,14 @@ import javax.persistence.Table;
 public class Comments {
 
   /**
-   * coments Id.
+   * Comments Id.
   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer commentId;
 
   /**
-   * comments.
+   * Comments.
    */
   @Column
   private String comments;
@@ -58,7 +58,7 @@ public class Comments {
   /**
    * return comment id.
    *
-   * @return the commentsId
+   * @return The commentsId
    */
   public Integer getCommentsId() {
     return commentId;
@@ -74,16 +74,16 @@ public class Comments {
   }
 
   /**
-   * return comment.
+   * Return comment.
    *
-   * @return the comments
+   * @return The comments
    */
   public String getComments() {
     return comments;
   }
 
   /**
-   * set comments.
+   * Set comments.
    *
    * @param commentsParam the comments to set
    */
@@ -92,7 +92,7 @@ public class Comments {
   }
 
   /**
-  * @return the commentedBy
+  * @return The commented by
   */
   public String getCommentedBy() {
    return commentedBy;
@@ -113,10 +113,10 @@ public class Comments {
   }
 
   /**
-  * @param time the time to set
+  * @param dateTime the time to set
   */
-  public void setTime(String time) {
-  this.time = time;
+  public void setTime(final String dateTime) {
+  this.time = dateTime;
   }
 
   /**

@@ -11,10 +11,10 @@ import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
 
 /**
- * TicketDto class.
+ * Ticket class.
  *
- * @author roushan Kumar
- *
+ * @author Roushan Kumar
+ * @version 1.0.0
  */
 
 public class TicketDto {

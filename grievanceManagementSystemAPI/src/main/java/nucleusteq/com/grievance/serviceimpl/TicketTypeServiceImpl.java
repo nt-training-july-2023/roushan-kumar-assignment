@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class TicketTypeServiceImpl implements TicketTypeService {
 
   /**
-   * ticket Type Repo.
+   * Ticket Type Repo.
    */
   @Autowired
   private TicketTypeRepo ticketTypeRepo;

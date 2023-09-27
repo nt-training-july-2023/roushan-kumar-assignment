@@ -14,17 +14,17 @@ public class AllUsersDto {
   private Integer userId;
 
   /**
-   * username.
+   * Username.
    */
   private String username;
 
   /**
-   * full name.
+   * Full name.
    */
   private String fullName;
 
   /**
-   * email in string.
+   * Email in string.
    */
   private String email;
 
@@ -39,7 +39,7 @@ public class AllUsersDto {
   private Department department;
 
   /**
-   * no argument constructor.
+   * No arguments constructor.
    * Users data transfer object
    */
   public AllUsersDto() {
@@ -47,7 +47,7 @@ public class AllUsersDto {
   }
 
  /**
- * All argument constructor.
+ * All arguments constructor.
  *
  * @param serialNumberParam
  * @param userIdParam
@@ -76,16 +76,16 @@ public class AllUsersDto {
   }
 
 /**
-   * get user id.
+   * Get user id.
    *
-   * @return the userId
+   * @return The userId
    */
   public Integer getUserId() {
     return userId;
   }
 
   /**
-   * set user id.
+   * Set user id.
    *
    * @param userIdParam the userId to set
    */
@@ -94,16 +94,16 @@ public class AllUsersDto {
   }
 
   /**
-   * get username.
+   * Get username.
    *
-   * @return the username
+   * @return The username
    */
   public String getUsername() {
     return username;
   }
 
   /**
-   * set username.
+   * Set username.
    *
    * @param usernameParam the username to set
    */
@@ -112,16 +112,16 @@ public class AllUsersDto {
   }
 
   /**
-   * get first name.
+   * Get first name.
    *
-   * @return the firstName
+   * @return The firstName
    */
   public String getFullName() {
     return fullName;
   }
 
   /**
-   * set first name.
+   * Set first name.
    *
    * @param firstNameParam the firstName to set
    */
@@ -130,16 +130,16 @@ public class AllUsersDto {
   }
 
   /**
-   * getEmail.
+   * Get email.
    *
-   * @return the email
+   * @return The email
    */
   public String getEmail() {
     return email;
   }
 
   /**
-   * setEmail.
+   * Set email.
    *
    * @param emailParam the email to set
    */
@@ -148,16 +148,16 @@ public class AllUsersDto {
   }
 
   /**
-   * getRole.
+   * Get role.
    *
-   * @return the role
+   * @return The role
    */
   public Role getRole() {
     return role;
   }
 
   /**
-   * setRole.
+   * Set role.
    *
    * @param roleParam the role to set
    */
@@ -166,7 +166,7 @@ public class AllUsersDto {
   }
 
   /**
-  * get Department.
+  * Get Department.
   *
   * @return the department
   */
@@ -175,7 +175,7 @@ public class AllUsersDto {
   }
 
   /**
-  * set department.
+  * Set department.
   *
   * @param departmentParam the department to set
   */
@@ -185,7 +185,7 @@ public class AllUsersDto {
   }
 
   /**
-   * @return the serialNumber
+   * @return The serialNumber
    */
   public Integer getSerialNumber() {
     return serialNumber;

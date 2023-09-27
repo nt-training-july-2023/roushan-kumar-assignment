@@ -42,7 +42,7 @@ public class DepartmentDto {
   }
 
   /**
-   * @return the deptId
+   * @return The department id.
    */
   public Integer getDeptId() {
     return deptId;
@@ -56,7 +56,7 @@ public class DepartmentDto {
   }
 
   /**
-   * @return the deptName
+   * @return The department name.
    */
   public String getDeptName() {
     return deptName;
@@ -70,7 +70,7 @@ public class DepartmentDto {
   }
 
   /**
-   * @return the serialNumber
+   * @return The serial number
    */
   public Integer getSerialNumber() {
     return serialNumber;

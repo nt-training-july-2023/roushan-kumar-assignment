@@ -11,9 +11,9 @@ import nucleusteq.com.grievance.service.UserService;
 @Configuration
 public class FilterConfiguration {
 
-   /**
-    *
-    */
+  /**
+   * Class variable.
+   */
    @Autowired
    private UserService userService;
 

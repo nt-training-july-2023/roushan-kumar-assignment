@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * UserController.
+ * Ticket type controller.
  *
- * @author roush
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 
@@ -24,13 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class TicketTypeController {
 
   /**
-   * class variables.
+   * Class variables.
    */
   @Autowired
   private TicketTypeService ticketTypeService;
 
   /**
-   * get all tickets type.
+   * Get all tickets type.
    *
    * @return all tickets type.
    */
@@ -40,10 +40,10 @@ public class TicketTypeController {
   }
 
   /**
-   * save ticket type.
+   * Save a ticket type.
    *
-   * @param ticketType type of ticket.
-   * @return type of ticket.
+   * @param ticketType Type of ticket.
+   * @return Type of ticket.
    */
   @PostMapping("/save")
   public TicketType saveTicketType(

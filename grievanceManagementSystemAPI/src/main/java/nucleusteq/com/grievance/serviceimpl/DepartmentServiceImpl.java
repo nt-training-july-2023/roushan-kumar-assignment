@@ -77,7 +77,7 @@ public class DepartmentServiceImpl implements DepartmentService {
       department = departmentRepo.getDepartmentByName(name);
       return department;
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
     return null;
   }

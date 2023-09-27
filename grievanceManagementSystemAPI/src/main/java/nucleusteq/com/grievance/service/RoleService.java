@@ -5,16 +5,16 @@ import java.util.List;
 import nucleusteq.com.grievance.entity.Role;
 
 /**
- * RoleService.
+ * Role Service.
  *
- * @author roush
+ * @author Roushan Kumar
  * @version 1.0.0
  */
 
 public interface RoleService {
 
   /**
-   * get role by role type.
+   * Get role by role type.
    *
    * @param name role type.
    * @return role.

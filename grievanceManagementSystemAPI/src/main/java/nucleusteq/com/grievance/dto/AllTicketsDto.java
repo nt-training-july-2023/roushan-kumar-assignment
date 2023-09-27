@@ -11,7 +11,7 @@ import nucleusteq.com.grievance.entity.TicketType;
  * AllTicketsDto class without comments.
  *
  * @author Roushan Kumar
- *
+ * @version 1.0.0
  */
 
 public class AllTicketsDto {
@@ -70,7 +70,7 @@ public class AllTicketsDto {
   private String date;
 
   /**
-   * last updated time.
+   * Last updated time.
    */
   private String time;
 
@@ -266,7 +266,7 @@ public class AllTicketsDto {
   /**
    * Get last updated date.
    *
-   * @return the date
+   * @return Date
    */
   public String getDate() {
     return date;
@@ -275,7 +275,7 @@ public class AllTicketsDto {
   /**
    * Set last updated date.
    *
-   * @param dateParam the date to set.
+   * @param dateParam The date to set.
    */
   public void setDate(
       final String dateParam) {
@@ -285,7 +285,7 @@ public class AllTicketsDto {
   /**
    * Get last updated time.
    *
-   * @return the time
+   * @return The time
    */
   public String getTime() {
     return time;
@@ -304,7 +304,7 @@ public class AllTicketsDto {
   /**
    * Get creation time.
    *
-   * @return the createrTime
+   * @return The createrTime
    */
   public String getCreationTime() {
     return creationTime;

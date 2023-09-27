@@ -33,31 +33,31 @@ public class Users {
   private Integer userId;
 
   /**
-  * user name in string and uique.
+  * User name as string and uique.
   */
   @Column(name = "username")
   private String username;
 
   /**
-  * fullname in String.
+  * Fullname as String.
   */
   @Column
   private String fullName;
 
   /**
-  * email in string.
+  * Email as string.
   */
   @Column(nullable = false, unique = true)
   private String email;
 
   /**
-  * password in string.
+  * Password as string.
   */
   @Column
   private String password;
 
   /**
-  * intialPassword in Integer.
+  * Initial password as Integer.
   */
   @Column
   private Integer initialPassword;
@@ -98,7 +98,7 @@ public class Users {
   private List<Ticket> tickets;
 
   /**
-   * No arg constructor.
+   * No args constructor.
    */
   public Users() {
   }
@@ -258,16 +258,16 @@ public class Users {
   }
 
   /**
-  * get department.
+  * Get department.
   *
-  * @return the department
+  * @return The department
   */
   public Department getDepartment() {
     return department;
   }
 
   /**
-  * set Department.
+  * Set Department.
   *
   * @param departmentParam the department to set
   */

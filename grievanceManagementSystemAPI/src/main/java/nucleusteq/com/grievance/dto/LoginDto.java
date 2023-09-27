@@ -3,12 +3,12 @@ package nucleusteq.com.grievance.dto;
 public class LoginDto {
 
   /**
-   * username.
+   * Username.
    */
   private String username;
 
   /**
-   * password.
+   * Password.
    */
   private String password;
 
@@ -69,7 +69,7 @@ public class LoginDto {
   }
 
   /**
-   * Login dto details.
+   * Login details.
    */
   @Override
   public String toString() {

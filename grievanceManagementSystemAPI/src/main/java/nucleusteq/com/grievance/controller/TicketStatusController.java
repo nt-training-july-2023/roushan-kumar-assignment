@@ -32,7 +32,7 @@ public class TicketStatusController {
   /**
    * Get list of all status.
    *
-   * @return list of all status.
+   * @return List of all status.
    */
   @GetMapping("/all")
   public List<TicketStatus> getAllStatus() {

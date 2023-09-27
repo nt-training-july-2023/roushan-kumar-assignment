@@ -101,7 +101,7 @@ public class UsersServiceImpl implements UserService {
       });
       return allUsersDto;
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
     return null;
   }
@@ -171,7 +171,7 @@ public class UsersServiceImpl implements UserService {
         return true;
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
     return false;
   }
@@ -179,24 +179,22 @@ public class UsersServiceImpl implements UserService {
   /**
    * Authenticate user is Admin.
    * @param userDto user.
-   * @return boolean is admin.
+   * @return Boolean is admin.
    */
   public boolean authenticateIsAdmin(
       final UserDto userDto) {
     try {
       Users tempUser;
       tempUser = userRepo.getByUserName(userDto.getUsername());
-      System.out.println("pass " + tempUser.getRole().getName());
       byte[] decodedBytes = Base64.getDecoder().decode(tempUser.getPassword());
       String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
-      System.out.println("decodedString  " + decodedString);
       if (tempUser.getUserId() != null
           && decodedString.equals(userDto.getPassword())
           && tempUser.getRole().getName().equals("Admin")) {
         return true;
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
     return false;
   }
@@ -226,13 +224,13 @@ public class UsersServiceImpl implements UserService {
         return "Power User Added";
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
     return "Unable to create power user";
   }
 
   /**
-   * get user by username.
+   * Get user by username.
    *
    * @param username as string.
    */

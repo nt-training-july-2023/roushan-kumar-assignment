@@ -9,6 +9,8 @@ import nucleusteq.com.grievance.dto.ResponseDto;
 import nucleusteq.com.grievance.dto.TicketDto;
 import nucleusteq.com.grievance.entity.Comments;
 import nucleusteq.com.grievance.service.TicketService;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * UserController.
+ * Ticket controller.
  *
  * @author Roushan Kumar
  * @version 1.0.0
@@ -35,17 +37,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class TicketController {
 
   /**
+   * Logger instance for the TicketServiceImpl class.
+   */
+  private static final Logger LOGGER = Logger
+      .getLogger(TicketController.class);
+
+  /**
    * Ticket service object.
    */
   @Autowired
   private TicketService ticketService;
 
   /**
-   * save ticket .
+   * Save a ticket.
    *
-   * @param ticketDto ticket.
+   * @param ticketDto Ticket.
    * @param errors BindingResult errors.
-   * @return respone of save ticket.
+   * @return Respone of save ticket.
    */
   @PostMapping("/save")
   public ResponseEntity<?> saveTicket(
@@ -56,6 +64,7 @@ public class TicketController {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(errors.getAllErrors());
     }
+    LOGGER.info("Saving new ticket.");
     return ResponseEntity.ok(ticketService.save(ticketDto));
   }
 
@@ -65,7 +74,7 @@ public class TicketController {
    * @param statusId changed ticket status id.
    * @param comments comment for tickets
    * @param ticketId id of ticket.
-   * @return response of method.
+   * @return Response of method.
    */
   @PutMapping("/updates/ticketcomments/{ticketId}")
   public ResponseDto updateTicketComments(
@@ -84,7 +93,7 @@ public class TicketController {
    * @param offset
    * @param pageSize
    * @param status Status of Ticket.
-   * @return return all tickets according to condition.
+   * @return All tickets according to condition.
    */
   @GetMapping("/all/new/{userId}")
   public List<AllTicketsDto> getAllTicketsNew(
@@ -112,6 +121,7 @@ public class TicketController {
   @GetMapping("/{ticketId}")
   public TicketDto getTicket(
       @PathVariable("ticketId") final Integer ticketId) {
+    LOGGER.info("Getting ticket by ticket id.");
     return ticketService.getByTicketId(ticketId);
   }
 }

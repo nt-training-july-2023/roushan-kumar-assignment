@@ -8,17 +8,17 @@ public class ChangePassword {
   private Integer userId;
 
   /**
-   * oldPassword as string.
+   * Old password as a string.
    */
   private String oldPassword;
 
   /**
-   * newPassword as string.
+   * New password as a string.
    */
   private String newPassword;
 
   /**
-  * @return the userId
+  * @return The userId
   */
   public Integer getUserId() {
     return userId;
@@ -33,7 +33,7 @@ public class ChangePassword {
   }
 
   /**
-   * @return the oldPassword
+   * @return The old password
    */
   public String getOldPassword() {
     return oldPassword;
@@ -48,7 +48,7 @@ public class ChangePassword {
   }
 
   /**
-   * @return the newPassword
+   * @return The new password
    */
   public String getNewPassword() {
     return newPassword;
