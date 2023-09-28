@@ -1,5 +1,6 @@
 import React from 'react'
 import '../assets/css/confirmBox.css'
+import Button from './Button'
 
 
 function ConfirmBox(props) {
@@ -19,8 +20,8 @@ function ConfirmBox(props) {
             Are you sure to proceed?
         </label>
         <div className="btns">
-            <button className="btn1" onClick={props.onClickCancel}>Cancel</button>
-            <button className="btn2" onClick={props.onClickDelete}>Delete</button>
+            <Button className="btn1" onClick={props.onClickCancel} value={'Cancel'} name={'Cancel'}></Button>
+            <Button className="btn2" onClick={props.onClickDelete} value={'Delete'} name={'Delete'}></Button>
         </div>
         </div>
     </>

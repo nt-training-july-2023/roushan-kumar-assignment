@@ -4,8 +4,9 @@ import '../assets/css/ticketUpdateView.css';
 import ErrorMessage from '../component/ErrorMessage';
 import { allTicketStatus } from '../service/ticketStatusType';
 import { useRef } from 'react';
+import OkMessage from '../component/OkMessage';
 function TicketUpdateView(props) {
-    // console.log(props.ticketData)
+
     const initialVal = {
         "ticketId": 0,
         "title": "",
@@ -31,18 +32,25 @@ function TicketUpdateView(props) {
         "comments": []
     }
 
-    // const UID = sessionStorage.getItem("userId");
     const [ticketStatus, setTicketStatus] = useState([]);
     const [ticket, setTicket] = useState(initialVal);
     const [show, setShow] = useState("");
     const [notificationMessage, setNotificationMessage] = useState("");
-    // const [onlyValidUser, setOnlyValidUser] = useState(true)
     const elRef = useRef(null);
     const onlyValidUser = useRef(true);
     const [comment, setComment] = useState({
         "comments": "",
         "commentedBy": sessionStorage.getItem("username")
     });
+
+    const [inableOnChange, setInableOnChange] = useState(false)
+
+    const [okBox, setOkBox] = useState(false);
+    const [sucessMessage, setSucessMessage] = useState({
+        "message":"",
+        "title":"",
+    })
+
     const [statusId, setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
     const getTicket = async () => {
         try {
@@ -71,7 +79,7 @@ function TicketUpdateView(props) {
 
 
     }
-    const executeScroll = () => elRef.current?.scrollIntoView({ behavior: 'smooth' });//{ behavior: 'smooth' }
+    const executeScroll = () => elRef.current?.scrollIntoView({ behavior: 'smooth' });
 
     const getAllTicketStatus = async () => {
         try {
@@ -112,8 +120,8 @@ function TicketUpdateView(props) {
     const updateTicketHandler = async (e) => {
         e.preventDefault();
 
-        if (comment.comments.trim() === "") {
-            console.log()
+        if (comment.comments.trim() === "" && statusId == 3) {
+            
             setNotificationMessage("Comment before update.")
             setShow("show")
             return;
@@ -124,7 +132,16 @@ function TicketUpdateView(props) {
             if (result.data.id) {
                 getTicket();
                 clearNewTicketForm();
-                executeScroll();
+                if( (statusId == 1 || statusId == 2 ) && comment.comments === "")
+                {
+                    setSucessMessage({
+                        "message":"Ticket status updated",
+                        "title":"Updated",
+                    })
+                    setOkBox(true)
+                } else {
+                   executeScroll();
+                }
             }
         }
         catch (error) {
@@ -135,13 +152,15 @@ function TicketUpdateView(props) {
     const handleClose = () => {
         setShow("");
     }
-
+    const closeOkBoxHandler = () => {
+        setOkBox(false)
+    }
 
 
     return (
         <>
             <ErrorMessage message={notificationMessage} show={show} onClick={handleClose} />
-            
+            {okBox && <OkMessage onClick={closeOkBoxHandler} message={sucessMessage} />}
             <div className='ticket-update-view'>
 
                 <div className='wrapper-TUV'>
@@ -230,7 +249,7 @@ function TicketUpdateView(props) {
                             </div>
                         </div>
                         <div className='input_field'>
-                            <label>Comment  <span className='error'>*</span></label>
+                            <label>Comment</label>
                             <textarea
                                 type="text"
                                 className='input'
@@ -255,6 +274,7 @@ function TicketUpdateView(props) {
                                 type="submit"
                                 value={"Update "}
                                 className='btnNew btnSave'
+                                disabled = {inableOnChange}
                                 hidden={ onlyValidUser.current }
                                 onClick={updateTicketHandler}
                             >

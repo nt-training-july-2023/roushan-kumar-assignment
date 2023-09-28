@@ -3,29 +3,24 @@ import '../assets/css/initialpass.css'
 import api from '../service/axios';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from './ErrorMessage';
+import Input from './Input';
 function ChangePassword() {
   const navigate = useNavigate();
+  
   const UID = sessionStorage.getItem("userId");
+ 
   const [show, setShow] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const initialData = {
+    "userId": UID,
+    "oldPassword": "",
+    "newPassword": "",
+    "conPassword": ""
+  }
   const [changePassword, setChangePassword] = useState(
-    {
-      "userId": UID,
-      "oldPassword": "",
-      "newPassword": "",
-      "conPassword": ""
-    }
+    initialData
   );
 
-  const [request, setRequest] = useState(
-    {
-      "userId": "",
-      "oldPassword": "",
-      "newPassword": ""
-      
-    }
-  );
-  
   const inputHandler = (e) =>{
     setChangePassword({...changePassword,[e.target.name]:e.target.value})
   }
@@ -82,9 +77,17 @@ function ChangePassword() {
   }
   const clearHandler = (e) => {
     e.preventDefault();
+    setChangePassword(initialData);
+
   }
   const handleClose = () => {
     setShow("");
+}
+
+if(UID === null || UID === "")
+{ 
+   
+  window.location.href = "http://localhost:3000/";
 }
   return (
     <div>
@@ -96,7 +99,7 @@ function ChangePassword() {
         <form className='form'  >
           <div className='input_field'>
             <label>Old Password</label>
-            <input type="password"
+            <Input type="password"
               className='input'
               id="oldPassword"
               name="oldPassword"
@@ -105,11 +108,11 @@ function ChangePassword() {
               placeholder='Old Password'
             >
 
-            </input>
+            </Input>
           </div>
           <div className='input_field'>
             <label>New Password</label>
-            <input type="password"
+            <Input type="password"
               className='input'
               id="newPassword"
               name="newPassword"
@@ -118,11 +121,11 @@ function ChangePassword() {
               placeholder='New Password'
             >
 
-            </input>
+            </Input>
           </div>
           <div className='input_field'>
             <label>Confirm Password</label>
-            <input type="password"
+            <Input type="password"
               className='input'
               id="conPassword"
               name="conPassword"
@@ -131,11 +134,11 @@ function ChangePassword() {
               placeholder='Confirm Password'
             >
 
-            </input>
+            </Input>
           </div>
           <div className='input_field'>
-            <input type="submit" value={"Clear"} className='btnNew btnNewCancle' onClick={clearHandler}></input>
-            <input type="submit" value={"Save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
+            <Input type="submit" value={"Clear"} className='btnNew btnClear' onClick={clearHandler}></Input>
+            <Input type="submit" value={"Save"} className='btnNew  btnSave' onClick={submitHandler}></Input>
 
           </div>
         </form>

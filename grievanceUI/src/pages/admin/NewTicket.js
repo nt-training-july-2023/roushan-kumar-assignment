@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/css/forms.css';
-import api from '../../service/axios';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewTicketValid from '../../validations/NewTicketValid';
 import { allTicketType } from '../../service/ticketType';
 import OkMessage from '../../component/OkMessage';
 import { allDepartment } from '../../service/departmentService';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
+import { saveTicket } from '../../service/ticketService';
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
@@ -132,8 +132,8 @@ function NewTicket() {
         console.log("result val"+val)
         console.log("before hit api" + ticket);
         try {
-            const url = "/ticket/save" ;
-            const result = await api.post(url,ticket);
+            
+            const result = await saveTicket(ticket);
             if (result.data.id != null) {
                 setSucessMessage({
                     "message":"New Ticket Created",
@@ -233,8 +233,6 @@ function NewTicket() {
                             <select disabled="true">
                             
                                 <option value={"1"}>OPEN</option>
-                                <option value={"2"}>in progress</option>
-                                <option value={"3"}>complete</option>
                             </select>
                         </div>
                     </div>

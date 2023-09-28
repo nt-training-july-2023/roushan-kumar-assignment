@@ -94,3 +94,18 @@
     border: 1px solid #cc0000;
  
 }
+
+.wrapper_pass .form .input_field .btnSave{
+    background-color: #6593ee;
+}
+.wrapper_pass .form .input_field .btnSave:hover{
+    background-color: #2055bf;
+    font-weight: 700;
+}
+
+.wrapper_pass .form .input_field .btnClear{
+    background-color: rgb(67, 89, 100);
+}
+.wrapper_pass .form .input_field .btnClear:hover{
+    background-color: rgb(76, 86, 91);
+}

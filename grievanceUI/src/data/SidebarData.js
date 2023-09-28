@@ -9,7 +9,7 @@ import tickets from '../assets/svg/ticket-perforated-fill.svg'
 export const SidebarData = [
  
   {
-    title: "Add User",
+    title: "Add a User",
     link: "/admin/newuser",
     icon:  <img src={persionAdd} ></img>
   },

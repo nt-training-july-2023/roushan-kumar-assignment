@@ -146,6 +146,11 @@
     background-color: #7299e7;
 }
 
+.wrapper-TUV .form .input_field .btnSave:disabled{
+    background-color: rgb(179, 190, 211);
+    cursor: no-drop;
+}
+
 .wrapper-TUV .form .input_field .btnClear{
     background-color: rgb(67, 89, 100);
 }

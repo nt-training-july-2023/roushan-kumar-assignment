@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { saveDepartment } from '../service/departmentService.js';
 import ErrorMessage from './ErrorMessage.js';
+import Input from './Input.js';
 function AddDepartment({ onClick , closeDepartment}) {
 
   const [department, setDepartment] = useState("");
@@ -74,8 +75,8 @@ function AddDepartment({ onClick , closeDepartment}) {
           </div>
 
           <div className='input_field'>
-            <input type="submit" value={"Close"} className='btnNew btnNewCancle ' onClick={onClick}></input>
-            <input type="submit" value={"Save"} className='btnNew btnNewOk' onClick={submitHandler}></input>
+            <Input type="submit" value={"Close"} className='btnNew btnNewCancle ' onClick={onClick}></Input>
+            <Input type="submit" value={"Save"} className='btnNew btnSave' onClick={submitHandler}></Input>
 
           </div>
         </form>

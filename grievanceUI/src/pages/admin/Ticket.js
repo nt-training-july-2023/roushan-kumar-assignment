@@ -3,6 +3,7 @@ import api from '../../service/axios';
 import TicketUpdateView from '../TicketUpdateView';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
 import { allTicketStatus } from '../../service/ticketStatusType';
+import Button from '../../component/Button';
 
 function Ticket() {
   const UID = sessionStorage.getItem("userId");
@@ -165,7 +166,8 @@ function Ticket() {
                                             <td>{ticket.date +" "+ticket.time}</td>
                                             <td>
                                                 <div>
-                                                    <button id="buttonEdit" className='btn button_edit' onClick={()=>{viewUpdateTicketPage(ticket)}} ></button>
+                                                    {/* icon button */}
+                                                    <Button id="buttonEdit" className='btn button_edit' onClick={()=>{viewUpdateTicketPage(ticket)}} ></Button>
                                                     {/* <button id="buttonDet" className='btn button_delete' ></button> */}
                                                 </div>
                                             </td>

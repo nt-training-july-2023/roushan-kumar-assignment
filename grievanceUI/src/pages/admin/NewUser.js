@@ -6,6 +6,7 @@ import OkMessage from '../../component/OkMessage';
 import { saveUser } from '../../service/userService';
 import { allDepartment } from '../../service/departmentService';
 import { allUsersType } from '../../service/userType';
+import Input from '../../component/Input';
 function NewUser() {
 
     const roleData = {
@@ -159,7 +160,7 @@ function NewUser() {
                 <form className='form' onSubmit={newUserHandler} >
                     <div className='input_field'>
                         <label>Name  <span className='error'>*</span></label>
-                        <input type="text"
+                        <Input type="text"
                             className='input'
                             id="fullname"
                             name="fullName"
@@ -168,12 +169,12 @@ function NewUser() {
                             placeholder='Full name'
                             required>
 
-                        </input>
+                        </Input>
                     </div>
 
                     <div className='input_field'>
                         <label>User Name  <span className='error'>*</span></label>
-                        <input type="text"
+                        <Input type="text"
                             className='input'
                             id="username"
                             name="username"
@@ -182,13 +183,13 @@ function NewUser() {
                             placeholder='Username'
                             required>
 
-                        </input>
+                        </Input>
                     </div>
 
                     <div className='input_field  '>
                         <label>Email  <span className='error'>*</span></label>
 
-                        <input type="text"
+                        <Input type="text"
                             className='input'
                             id="email"
                             name="email"
@@ -197,7 +198,7 @@ function NewUser() {
                             placeholder='firstname.lastname.@nucleusteq.com'
                             required
                         >
-                        </input>
+                        </Input>
 
                         
 
@@ -206,7 +207,7 @@ function NewUser() {
 
                     <div className='input_field'>
                         <label>Initial Password  <span className='error'>*</span></label>
-                        <input type="password"
+                        <Input type="password"
                             className='input'
                             id="password"
                             name="password"
@@ -216,7 +217,7 @@ function NewUser() {
                             required
                         >
 
-                        </input>
+                        </Input>
                     </div>
 
                     <div className='input_field'>
@@ -254,9 +255,9 @@ function NewUser() {
                     </div>
 
                     <div className='input_field'>
-                        {/* <input type="submit" value={"clear"} className='btnNew'></input> */}
-                        <input type="submit" value={"Save"} className='btnNew btnSave'></input>
-                        {/* <input type="submit" value={"back"} className='btnNew'></input> */}
+                        {/* <Input type="submit" value={"clear"} className='btnNew'></Input> */}
+                        <Input type="submit" value={"Save"} className='btnNew btnSave'></Input>
+                        {/* <Input type="submit" value={"back"} className='btnNew'></Input> */}
                     </div>
 
                 </form>
