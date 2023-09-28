@@ -1,6 +1,4 @@
 import React from 'react'
-import arrowIcon from '../assets/svg/caret-right-fill.svg'
-import homeIcon from '../assets/svg/house-door-fill.svg'
 import addTicket from '../assets/svg/ticket.svg'
 import tickets from '../assets/svg/ticket-perforated-fill.svg'
 export const MSidebarData = [

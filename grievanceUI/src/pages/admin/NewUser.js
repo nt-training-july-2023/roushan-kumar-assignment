@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import '../../assets/css/forms.css'
-import { Link } from 'react-router-dom';
 import ErrorMessage from '../../component/ErrorMessage';
 import NewUserValid from '../../validations/NewUserValid';
 import OkMessage from '../../component/OkMessage';

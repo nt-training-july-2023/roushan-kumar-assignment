@@ -5,7 +5,6 @@ import ConfirmBox from '../../component/ConfirmBox';
 import OkMessage from '../../component/OkMessage';
 import { allDepartment, deleteDepartment } from '../../service/departmentService';
 import ErrorMessage from '../../component/ErrorMessage';
-import { async } from 'q';
 function Department() {
 
     const [deptData, setDeptData] = useState([]);

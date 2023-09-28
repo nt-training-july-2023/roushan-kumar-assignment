@@ -1,6 +1,4 @@
 import React from 'react'
-import arrowIcon from '../assets/svg/caret-right-fill.svg'
-import homeIcon from '../assets/svg/house-door-fill.svg'
 import persionAdd from '../assets/svg/person-add.svg'
 import peopleFill from '../assets/svg/people-fill.svg'
 import departmentFill from '../assets/svg/department-3.svg'

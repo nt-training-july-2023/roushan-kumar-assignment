@@ -151,7 +151,6 @@ public class UsersServiceImpl implements UserService {
     userSend.setEmail(savedUser.getEmail());
     userSend.setFullName(savedUser.getFullName());
     userSend.setPassword(savedUser.getPassword());
-    // userSend.setInitalPassword(savedUser.getInitialPassword());
     userSend.setRole(savedUser.getRole());
     userSend.setDepartment(savedUser.getDepartment());
     return userSend;

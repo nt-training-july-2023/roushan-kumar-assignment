@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../assets/css/notification.css';
 function ErrorMessage(props) {
     return (

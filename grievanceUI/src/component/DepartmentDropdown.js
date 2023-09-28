@@ -36,10 +36,8 @@ function DepartmentDropdown(props) {
                 
                 id={props.id}
                 name={props.name}
-                // onChange={inputDepartment}
                 className={props.className}
                 onChange={props.onChange}
-                // hidden = {props.hidden}
                 >
                 <select disabled = {props.disabled} >
                     <option key={0} value="0">{props.defaultName}</option>

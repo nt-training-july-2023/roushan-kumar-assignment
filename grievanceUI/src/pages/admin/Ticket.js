@@ -90,6 +90,7 @@ function Ticket() {
   }
   
   const ticketByUser = () =>{
+    setOffset(0);
     setCreatedByMe(!createdByMe);
   }
 

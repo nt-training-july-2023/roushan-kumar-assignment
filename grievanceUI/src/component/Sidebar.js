@@ -1,12 +1,11 @@
 import React from 'react'
-import './sidebar.css'
-import { SidebarData as adminSidebar } from '../../data/SidebarData'
-import { MSidebarData as  memberSidebar} from '../../data/MSidebarData'
-import { NavLink, useNavigate } from 'react-router-dom'
+import '../assets/css/sidebar.css'
+import { SidebarData as adminSidebar } from '../data/SidebarData'
+import { MSidebarData as  memberSidebar} from '../data/MSidebarData'
+import { NavLink } from 'react-router-dom'
 
 function Sidebar({ children }) {
 
-  const navigate = useNavigate();
     let SidebarData;
     if(sessionStorage.getItem('userType') === 'Admin' && sessionStorage.getItem("isFisrt") == 0)
     {
@@ -19,12 +18,6 @@ function Sidebar({ children }) {
     }
     else{
        window.location.href = "http://localhost:3000/session-expired";
-    }
-
-    const logout = ()=>{
-        sessionStorage.clear();
-       
-        navigate("/")
     }
 
     return (
@@ -50,9 +43,7 @@ function Sidebar({ children }) {
                                 )
                             })
                         }
-                        {/* <li>
-                        <button className='logout-button' onClick={logout}>Log out</button>
-                        </li> */}
+                       
                     </ul>
                     <ul>
                        

@@ -33,11 +33,6 @@ function ChangePassword() {
   {
     if(changePassword.conPassword === changePassword.newPassword)
     {
-      // setRequest({
-      //   userId:UID,
-      //   newPassword:changePassword.newPassword,
-      //   oldPassword:changePassword.oldPassword
-      // })
       return true;
     }
     
@@ -72,8 +67,8 @@ function ChangePassword() {
       console.log(changePassword);
       const url = '/user/changepassword';
       const res = await api.put(url,changePassword);
-      console.log(res.data);
       if (res.data.id) {
+        sessionStorage.setItem("password",btoa(changePassword.newPassword))
         navigate('/')
       }
       else{

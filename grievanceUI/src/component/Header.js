@@ -1,12 +1,10 @@
 import React from 'react'
-import '../../component/header/header.css'
-import user from '../../assets/svg/person-circle.svg'
-import logout from '../../assets/svg/box-arrow-in-right.svg'
-import edit from '../../assets/svg/pencil-square.svg'
-import person from '../../assets/svg/person.svg'
-import navlogo1 from '../../assets/img/navlogo1.png'
+import '../assets/css/header.css'
+import user from '../assets/svg/person-circle.svg'
+import logout from '../assets/svg/box-arrow-in-right.svg'
+import edit from '../assets/svg/pencil-square.svg'
+import navlogo1 from '../assets/img/navlogo1.png'
 import { Link, useNavigate } from 'react-router-dom'
-import ChangePassword from '../ChangePassword'
 function Header(props) {
     const navigate = useNavigate();
     function toggleMenu(){
@@ -21,9 +19,6 @@ function Header(props) {
     navigate("/")
    }
 
-   const ChangePasswordHandler = () =>{
-    navigate("/changepassword")
-   }
    const userURL = sessionStorage.getItem("userType") == "Admin" ? "admin" : "member";
   return (
     <>
