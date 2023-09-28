@@ -7,6 +7,8 @@ import OkMessage from '../../component/OkMessage';
 import { allDepartment } from '../../service/departmentService';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
 import { saveTicket } from '../../service/ticketService';
+import Input from '../../component/Input'
+
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
@@ -139,6 +141,7 @@ function NewTicket() {
                     "message":"New Ticket Created",
                     "title":"Created",
                 })
+                setShow("");
                 setOkBox(true)
                 clearNewTicketForm();
                
@@ -193,13 +196,13 @@ function NewTicket() {
 
                     <div className='input_field'>
                         <label>Title  <span className='error'>*</span></label>
-                        <input
+                        <Input
                             type="text"
                             className='input'
                             id='titleInput'
                             name='title'
                             onChange={inputHandler}
-                            placeholder='Title of ticket'></input>
+                            placeholder='Title of ticket'></Input>
                     </div>
 
                     <div className='input_field'>
@@ -240,26 +243,26 @@ function NewTicket() {
 
 
                     <div className='input_field'>
-                        <input
+                        <Input
                             type="submit"
                             value={"Clear"}
                             className='btnNew btnClear'
                             onClick={clearNewTicketForm} >
 
-                        </input>
-                        <input
+                        </Input>
+                        <Input
                             type="submit"
                             value={"Save"}
                             className='btnNew btnSave'
                             onClick={newTicketHandler}>
 
-                        </input>
-                        {/* <input
+                        </Input>
+                        {/* <Input
                             type="submit"
                             value={"back"}
                             className='btnNew btnBack' >
 
-                        </input> */}
+                        </Input> */}
                     </div>
 
                 </div>

@@ -131,11 +131,13 @@ function NewUser() {
                 "message":"New User Added",
                 "title":"Saved",
             })
+            setShow("");
             setOkBox(true)
             resetForm();
           }
         } catch (error) {
-           alert(error)
+            setErrorMessage(error.response.data)
+            setShow("show")
         }
 
     }
