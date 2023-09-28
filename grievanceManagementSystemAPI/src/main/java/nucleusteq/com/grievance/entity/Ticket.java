@@ -376,8 +376,8 @@ public class Ticket {
   * - user
   *
   * @param obj The reference object with which to compare.
-  * @return {@code true} if this object is the same as the obj argument;
-  *         {@code false} otherwise.
+  * @return true if this object is the same as the obj argument;
+  *         false otherwise.
   */
   @Override
   public boolean equals(final Object obj) {

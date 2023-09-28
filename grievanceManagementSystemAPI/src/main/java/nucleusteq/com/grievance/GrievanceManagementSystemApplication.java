@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * GrievanceManagementSystemApplication.
  *
+ * @author Roushan Kumar
+ * @version 1.0.0
  */
 @SpringBootApplication
 public class GrievanceManagementSystemApplication {

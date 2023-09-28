@@ -177,7 +177,9 @@ public class TicketServiceImpl implements TicketService {
 
       comments.setTime(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a")
            .format(lastUpdateTime));
+      if (!comments.getComments().equals("")) {
       ticketData.addComments(comments);
+      }
       ticketRepo.save(ticketData);
       ResponseDto response = new ResponseDto(ticketId,
           "Ticket Comments Added",
