@@ -71,7 +71,6 @@ public class AuthenticationFilter implements Filter {
     if (username == null || password == null) {
       throw new UserNotFoundException("Header not found !!");
     }
-    System.out.println("In filter " + username + " " + password);
     UserDto user = new UserDto();
     user.setUsername(username);
     user.setPassword(password);
@@ -82,7 +81,6 @@ public class AuthenticationFilter implements Filter {
     byte[] decodedBytes = Base64.getDecoder().decode(password);
     String decodedString = new String(decodedBytes,
         StandardCharsets.UTF_8);
-    System.out.println("Decode pass " + decodedString);
     userWithPasswordEncrypted.setPassword(decodedString);
 
     if (authenticationService.authenticateIsAdmin(user)) {
@@ -91,7 +89,6 @@ public class AuthenticationFilter implements Filter {
         authenticateIsAdmin(userWithPasswordEncrypted)) {
       chain.doFilter(request, response);
     } else {
-      System.err.println("in fffff");
       HttpServletResponse httpResponse = (HttpServletResponse) response;
       httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
           "Invalid credentials Form filter");

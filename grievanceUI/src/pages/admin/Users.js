@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { allUsersService, deleteUser } from '../../service/userService';
 import OkMessage from '../../component/OkMessage';
 import ConfirmBox from '../../component/ConfirmBox';
+import Table from '../../component/Table';
 
 function Users() {
 
@@ -15,9 +16,20 @@ function Users() {
     const [confirmShow, setConfirmShow] = useState(false);
     const [okBox, setOkBox] = useState(false);
     const [sucessMessage, setSucessMessage] = useState({
-        "message":"",
-        "title":"",
+        "message": "",
+        "title": "",
     })
+
+    const columns = [
+        "S.No",
+        "Username",
+        "Full Name",
+        "Email",
+        "Role",
+        "Department",
+        "Action"
+    ]
+
     const getAllUsers = async () => {
         try {
             const params = {
@@ -30,6 +42,8 @@ function Users() {
             if (res.data.content.length > 0) {
                 setAllUsers(res.data.content);
             }
+           
+            
         } catch (error) {
 
         }
@@ -53,7 +67,7 @@ function Users() {
     }
 
     const DeleteHandle = (userIdToDelete) => {
-       
+
         setuserId(userIdToDelete);
         setConfirmShow(true);
 
@@ -67,30 +81,29 @@ function Users() {
         setConfirmShow(false);
 
         try {
-            if(allUsers.length == 1) {
+            if (allUsers.length == 1) {
                 setOffsetHadlerPrev();
             }
-            
+
             const res = await deleteUser(
                 userId,
                 sessionStorage.getItem("password"),
                 sessionStorage.getItem("username"),
-                );
-            if(res.data.id)
-            {
+            );
+            if (res.data.id) {
                 setSucessMessage({
-                    "message":"User deleted",
-                    "title":"Deleted",
+                    "message": "User deleted",
+                    "title": "Deleted",
                 })
                 setOkBox(true);
-                
+
                 getAllUsers();
-                
+
             }
         } catch (error) {
             alert(error.message)
         }
-         
+
     }
     const closeOkBoxHandler = () => {
         setOkBox(false)
@@ -98,9 +111,9 @@ function Users() {
 
     return (
         <>
-            {okBox && <OkMessage 
-                        message={sucessMessage}
-                        onClick={closeOkBoxHandler} />
+            {okBox && <OkMessage
+                message={sucessMessage}
+                onClick={closeOkBoxHandler} />
             }
             {confirmShow && <ConfirmBox
                 onClickCancel={confirmCancel}
@@ -113,60 +126,34 @@ function Users() {
 
                 </section>
                 <section className="table__body">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className="">S.No</th>
-                                <th className="">Username</th>
-                                <th className="">Full Name</th>
-                                <th className="">Email</th>
-                                <th className="">Role</th>
-                                <th className="">Department</th>
-
-
-                                <th className="">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {allUsers && allUsers.length > 0 ? (
-                                allUsers?.map((user, id) => {
-                                    return <>
-                                        <tr key={id}>
-                                            <td>{user.serialNumber}</td>
-                                            <td>{user.username}</td>
-                                            <td>{user.fullName}</td>
-                                            <td>{user.email}</td>
-                                            <td>{user.role.name}</td>
-                                            <td>{user.department.deptName}</td>
-                                            <td>
-                                                <div>
-                                                    <button id="buttonEdit" className='btn button_edit' hidden={true}  ></button>
-                                                    <button 
-                                                    id="buttonDet"
-                                                    className='btn button_delete' 
-                                                    hidden = {user.username === sessionStorage.getItem("username")}
-                                                    onClick={()=>{DeleteHandle(user.userId)}} ></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </>
-                                })
-                            ) :
-                                <tr >
-                                    <td colSpan="5">No data found...  </td>
-                                </tr>
+                    
+                    <Table columns={columns} data={
+                        allUsers.map((user) => (
+                            {
+                                "S.No":user.serialNumber,
+                                "Username":user.username,
+                                "Full Name":user.fullName,
+                                "Email":user.email,
+                                "Role":user.role.name,
+                                "Department":user.department.deptName,
+                                "Action":
+                                <div>
+                                <button id="buttonEdit" className='btn button_edit' hidden={true}  ></button>
+                                <button
+                                    id="buttonDet"
+                                    className='btn button_delete'
+                                    hidden={user.username === sessionStorage.getItem("username")}
+                                    onClick={() => { DeleteHandle(user.userId) }} ></button>
+                                </div>,
                             }
-
-                        </tbody>
-                    </table>
+                        ))
+                    }></Table>
                     <div className='tablefooter'>
                         <ul>
                             <li>
                                 <button className='prev' onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-
+                            
                             <li>
                                 <button className='next' onClick={setOffsetHadlerNext}>Next</button>
                             </li>

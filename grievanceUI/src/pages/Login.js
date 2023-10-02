@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import MessageSucess from '../component/ErrorMessage.js';
 function Login() {
 
-
-    
-
-
     const navigate = useNavigate();
     const initailLogin = {
         isSubmiting: false,
@@ -15,7 +11,6 @@ function Login() {
         password: "",
     }
 
-    
     const [userLogin, setUserLogin] = useState(initailLogin);
     const [show, setShow] = useState("");
     const [errorMessage, setErrorMessage] = useState("");

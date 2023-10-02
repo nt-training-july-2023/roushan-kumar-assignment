@@ -233,7 +233,7 @@ function NewTicket() {
                     <div className='input_field'>
                         <label>Status</label>
                         <div className='custom_select' >
-                            <select disabled="true">
+                            <select disabled={true}>
                             
                                 <option value={"1"}>OPEN</option>
                             </select>

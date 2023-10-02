@@ -4,6 +4,10 @@ import Sidebar from '../../component/Sidebar'
 import Header from '../../component/Header'
 
 function Member() {
+  if(sessionStorage.getItem('userType') !== 'Member' )
+  {
+       window.location.href = "http://localhost:3000/page-not-found";
+  }
   return (
     <div>
         <div >

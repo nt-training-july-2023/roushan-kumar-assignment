@@ -120,7 +120,7 @@ function TicketUpdateView(props) {
     const updateTicketHandler = async (e) => {
         e.preventDefault();
 
-        if (comment.comments.trim() === "" && statusId == 3) {
+        if (comment.comments.trim() === "") {
             
             setNotificationMessage("Comment before update.")
             setShow("show")
@@ -132,16 +132,8 @@ function TicketUpdateView(props) {
             if (result.data.id) {
                 getTicket();
                 clearNewTicketForm();
-                if( (statusId == 1 || statusId == 2 ) && comment.comments === "")
-                {
-                    setSucessMessage({
-                        "message":"Ticket status updated",
-                        "title":"Updated",
-                    })
-                    setOkBox(true)
-                } else {
-                   executeScroll();
-                }
+                executeScroll();
+                
             }
         }
         catch (error) {
@@ -249,7 +241,7 @@ function TicketUpdateView(props) {
                             </div>
                         </div>
                         <div className='input_field'>
-                            <label>Comment</label>
+                            <label>Comment <span className='error'>*</span></label>
                             <textarea
                                 type="text"
                                 className='input'
