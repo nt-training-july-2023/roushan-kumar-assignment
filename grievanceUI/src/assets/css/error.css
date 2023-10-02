@@ -1,0 +1,86 @@
+.parant_div{
+    
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    
+}
+.error_page{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../img/error/page404.jpg');
+    background-position: center;
+    background-size: cover;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    filter: blur(4px);
+  -webkit-filter: blur(4px);
+  z-index: -1;
+}
+
+.error_box{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20%;
+    height: 400px;
+    width: 800px;
+    background-image: url('../img/error/page404.jpg');
+    background-position: center;
+    background-size: cover;   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error_no{
+    color: rgb(255, 245, 197);
+    font-size: 150px;
+    font-family: fantasy;
+    letter-spacing: 2.5px;
+}
+.error_head{
+    color: rgb(255, 245, 197);
+    font-size: 20px;
+    letter-spacing: 2.5px;
+    font-family: fantasy;
+    margin-bottom: 10px;
+}
+.error_paragragh{
+    background-color: #000;
+    width: 100%;
+    color: rgb(195, 192, 187);
+    font-family: "Source Sans Pro", "Arial", sans-serif;
+    font-weight: 800;
+    text-align: center;
+}
+
+.back_button{
+    margin-top: 10px;
+    width: 160px;
+    height: 45px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    padding: 5px;
+}
+
+.back_button:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(+7px);
+  }

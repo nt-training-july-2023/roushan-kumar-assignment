@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Montaga&display=swap');
+.ticket-update-view{
+    position: absolute;
+    z-index: 5;
+   height: 88vh;
+   width: 80%;
+   /* background-color: rgb(255 255 255); */
+   background-color: rgb(220,223,229);
+   border-radius: 5px;
+   
+}
+.wrapper-TUV{
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
+    float: left;
+    
+}
+.wrapper-TUV .label{
+    margin-bottom: .2rem;
+}
+.wrapper-TUV .title{
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: rgb(63, 63, 63) ;
+    text-align: center;
+}
+
+.wrapper-TUV .form{
+    width: 100%;
+}
+
+.wrapper-TUV .form .input_field{
+        margin-bottom: .4rem;
+        display: flex;
+        align-items: center;
+}
+
+
+.wrapper-TUV .form .input_field label{
+    width: 200px;
+    margin-right: 10px;
+    font-size: 15px; 
+    font-style: 700;
+}
+.form .email_field{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+.email_field label{
+    width: 200px;
+    margin-right: 10px;
+    font-size: 15px; 
+    font-style: 700;
+}
+.email_field input{
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #bac5ec;
+    font-size: 15px;
+    border-radius: 3px; 
+}
+/* .email_field::after{
+    content: '@nucleuteq.com';
+    font-size: 14px;
+    position: fixed;
+    left: 500px;
+    
+} */
+
+
+.wrapper-TUV .form .input_field input,
+.wrapper-TUV .form .input_field textarea
+{
+   width: 100%;
+   padding: 8px 10px;
+   border: 1px solid #bac5ec;
+   font-size: 15px;
+   border-radius: 3px; 
+   
+}
+.wrapper-TUV .form .input_field textarea{
+    resize: none;
+    height: 100px;
+    outline: none;
+}
+
+.wrapper-TUV .form .input_field .custom_select
+{
+    position: relative;
+    width: 100%;
+    height: 37px;
+}
+
+.wrapper-TUV .form .input_field .custom_select select
+{
+    
+    width: 100%;
+    height: 100%;
+    padding: 8px 10px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #bac5ec;
+}
+
+.wrapper-TUV .form .input_field .input:focus,
+.wrapper-TUV .form .input_field .textarea:focus,
+.wrapper-TUV .form .input_field select:focus
+{
+    border: 1px solid rgb(3, 131, 178);
+}
+
+.email_field .input:focus{
+    border: 1px solid rgb(3, 131, 178);
+}
+
+
+.wrapper-TUV .form .input_field .btnNew{
+ width: 100%;
+ padding: 8px 10px;
+ font-size: 15px;
+ font-weight: 500;
+ border: none;
+ border-radius: 3px;
+ cursor: pointer;
+ margin-right: 1px;
+ color: white;
+}
+
+.wrapper-TUV .form .input_field .btnBack{
+    background-color: rgb(26, 59, 76);
+}
+.wrapper-TUV .form .input_field .btnBack:hover{
+    background-color: rgb(35, 81, 104);
+}
+
+
+.wrapper-TUV .form .input_field .btnSave{
+    background-color: #4681f4;
+}
+.wrapper-TUV .form .input_field .btnSave:hover{
+    background-color: #7299e7;
+}
+
+.wrapper-TUV .form .input_field .btnSave:disabled{
+    background-color: rgb(179, 190, 211);
+    cursor: no-drop;
+}
+
+.wrapper-TUV .form .input_field .btnClear{
+    background-color: rgb(67, 89, 100);
+}
+.wrapper-TUV .form .input_field .btnClear:hover{
+    background-color: rgb(76, 86, 91);
+}
+
+.wrapper-TUV .form .input_field:last-child
+{
+    margin-bottom: 0;
+}
+
+@media (max-width:500px)
+{
+    .wrapper-TUV .form .input_field 
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .wrapper-TUV .form .input_field label
+    {
+       margin-bottom: 5px;
+    }
+
+    .wrapper-TUV .form .input_field .btnNew{
+        
+        margin-bottom: 10px;
+       }
+
+ 
+}
+
+
+
+.error{
+    color: red;
+    font-size: 15px;
+    font-weight: 900;
+    align-items: center;
+}
+
+.comment-container{
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.comment-container .comments{
+    height: auto;
+    width: 95%;
+    background-color: #FFFFFF;
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.125);
+    word-break: break-all;
+    border-radius: 5px;
+}
+
+.timeAndDate{
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.custom_select_ticket{
+    position: relative;
+    width: 100%;
+    height: 37px;
+   
+}
+
+.custom_select_ticket select{
+    width: auto;
+    height: 100%;
+    border-radius: 3px;
+    outline: none;
+    padding: 8px 8px;
+    border: 1px solid #848586;
+    background-color: #b5babe;
+}
+
+.my-button {
+    width: 100%;
+    height: 100%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: none;
+    background-color: rgb(14, 124, 180);
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 1px;
+   }
+.head-ticket-search{
+   
+    display: flex;
+    position: absolute;
+    right: 10%;
+}   
