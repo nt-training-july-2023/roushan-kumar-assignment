@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import api from '../../service/axios';
 import TicketUpdateView from '../TicketUpdateView';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
 import { allTicketStatus } from '../../service/ticketStatusType';
 import Button from '../../component/Button';
 import Table from '../../component/Table';
+import { tickets } from '../../service/ticketService';
 
 function Ticket() {
     const UID = sessionStorage.getItem("userId");
@@ -15,6 +16,7 @@ function Ticket() {
     const [departmentId, SetDepartmentId] = useState(0);
     const [statusName, setStatusName] = useState("0");
     const [offset, setOffset] = useState(0)
+    const [pageNumber,setPageNumber] = useState(1);
     const pageSize = 10;
     const columns = [
         "S.No",
@@ -25,12 +27,18 @@ function Ticket() {
         "Last Updated Time",
         "Action",
     ]
-    const getAllTickets = async () => {
+    const getAllTickets = useCallback(async () => {
         try {
-
-            const url = "/ticket/all/new/" + UID + "?departId=" + departmentId + "&createdByMe=" + createdByMe + "&offset=" + offset + "&pageSize=10&status=" + statusName;
-
-            const res = await api.get(url)
+            const params = {
+                params: {
+                    departId: departmentId,
+                    createdByMe: createdByMe,
+                    offset:offset,
+                    pageSize:10,
+                    status:statusName
+                }
+            }
+            const res = await tickets(params,UID)
             if (res.data) {
                 setAllTickets(res.data)
             }
@@ -41,10 +49,10 @@ function Ticket() {
         } catch (error) {
             console.log(error.response);
         }
-    }
+    },[offset, departmentId, statusName, createdByMe,UID])
 
     const [ticketStatus, setTicketStatus] = useState([]);
-    const getAllTicketStatus = async () => {
+    const getAllTicketStatus = useCallback(async () => {
         try {
             const res = await allTicketStatus();
             if (res.data) {
@@ -53,17 +61,18 @@ function Ticket() {
         } catch (error) {
             console.log(error.response.data);
         }
-    }
+    },[]);
+
 
     useEffect(() => {
         getAllTickets();
-    }, [offset, departmentId, statusName, createdByMe, showTicketUpdate]);
+    }, [getAllTickets,showTicketUpdate]);
 
     useEffect(() => {
         getAllTicketStatus();
         getAllTickets();
 
-    }, [])
+    }, [getAllTickets,getAllTicketStatus])
 
     const viewUpdateTicketPage = (ticket) => {
         setTicket(ticket);
@@ -83,6 +92,7 @@ function Ticket() {
 
         if (offset > 0) {
             setOffset(offset - 10)
+            setPageNumber(pageNumber-1)
             
         }
     }
@@ -90,6 +100,7 @@ function Ticket() {
         const nPage = allTickets.length
         if (nPage === pageSize) {
             setOffset(offset + 10)
+            setPageNumber(pageNumber+1)
         }
     }
 
@@ -102,6 +113,7 @@ function Ticket() {
     const ticketByUser = () => {
         setOffset(0);
         setCreatedByMe(!createdByMe);
+        setPageNumber(1)
     }
 
     return (
@@ -168,11 +180,11 @@ function Ticket() {
                     <div className='tablefooter'>
                         <ul>
                             <li>
-                                <Button className='prev' onClick={setOffsetHadlerPrev} name={'Prev'}></Button>
+                                <Button className='prev' hidden = {offset === 0 } onClick={setOffsetHadlerPrev} name={'Prev'}></Button>
                             </li>
-
+                            {pageNumber}
                             <li>
-                                <Button className='next' onClick={setOffsetHadlerNext} name={'Next'}></Button>
+                                <Button className='next' hidden = {allTickets.length < 10 } onClick={setOffsetHadlerNext} name={'Next'}></Button>
                             </li>
 
                         </ul>

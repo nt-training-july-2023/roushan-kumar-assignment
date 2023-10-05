@@ -14,7 +14,7 @@ import nucleusteq.com.grievance.service.TicketStatusService;
 /**
  * Ticket Status Controller.
  *
- * @author roushan
+ * @author Roushan
  * @version 1.0.0
  */
 
@@ -24,7 +24,7 @@ import nucleusteq.com.grievance.service.TicketStatusService;
 public class TicketStatusController {
 
   /**
-   * Ticket status serivec variable.
+   * Ticket status service variable.
    */
   @Autowired
   private TicketStatusService statusService;

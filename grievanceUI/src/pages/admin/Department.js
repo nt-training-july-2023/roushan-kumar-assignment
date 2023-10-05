@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import '../../assets/css/table.css'
 import AddDepartment from '../../component/AddDepartment';
 import ConfirmBox from '../../component/ConfirmBox';
@@ -17,6 +17,7 @@ function Department() {
     const [okBox, setOkBox] = useState(false);
     const [offset, setOffset] = useState(0)
     const pageSize = 10;
+    const [pageNumber,setPageNumber] = useState(1);
     const [sucessMessage, setSucessMessage] = useState({
         "message": "",
         "title": "",
@@ -28,7 +29,7 @@ function Department() {
         "Action"
     ]
 
-    const getAllDepartment = async () => {
+    const getAllDepartment = useCallback(async () => {
         try {
             const params = {
                 params: {
@@ -45,10 +46,11 @@ function Department() {
             setErrorMessage(error.response.data)
             setShow("show")
         }
-    }
+    },[offset,pageSize])
+
     useEffect(() => {
         getAllDepartment();
-    }, [showDept, offset])
+    }, [getAllDepartment,showDept])
 
     const closeDeptHandler = () => {
         setShowDept(false);
@@ -93,7 +95,7 @@ function Department() {
                     "title": "Deleted",
                 })
                 setOkBox(true)
-                if (deptData.length == 1) {
+                if (deptData.length === 1) {
                     setOffsetHadlerPrev();
                 }
                 getAllDepartment();
@@ -121,6 +123,7 @@ function Department() {
 
         if (offset > 0) {
             setOffset(offset - 10)
+            setPageNumber(pageNumber-1)
         }
     }
     const setOffsetHadlerNext = async () => {
@@ -128,6 +131,7 @@ function Department() {
         if (nPage === pageSize) {
             
             setOffset(offset + 10)
+            setPageNumber(pageNumber+1)
 
         }
 
@@ -180,7 +184,7 @@ function Department() {
                                     <button
                                         id="buttonDet"
                                         className='btn button_delete'
-                                        hidden={department.deptId == sessionStorage.getItem("departmentId")}
+                                        hidden={department.deptId.toString() === sessionStorage.getItem("departmentId")}
                                         onClick={() => { deptDeleteHandle(department.deptId) }}
                                     >
                                     </button>
@@ -191,11 +195,11 @@ function Department() {
                     <div className='tablefooter'>
                         <ul>
                             <li>
-                                <button className='prev' onClick={setOffsetHadlerPrev}>Prev</button>
+                                <button className='prev' hidden = { offset === 0  } onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-
+                            {pageNumber}
                             <li>
-                                <button className='next' onClick={setOffsetHadlerNext}>Next</button>
+                                <button className='next' hidden = { deptData.length < 10  } onClick={setOffsetHadlerNext}>Next</button>
                             </li>
 
                         </ul>

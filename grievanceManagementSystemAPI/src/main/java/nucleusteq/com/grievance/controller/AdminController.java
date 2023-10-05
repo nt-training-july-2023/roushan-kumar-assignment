@@ -48,7 +48,7 @@ public class AdminController {
    * @return string.
    */
   @PutMapping("/create/poweruser/{key}")
-  public String createPowerUser(@PathVariable final int key) {
+  public String createPowerUser(@PathVariable final Integer key) {
     LOGGER.info("Creating a power user.");
     return userService.savePowerUser(key);
   }

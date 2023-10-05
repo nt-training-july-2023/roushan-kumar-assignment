@@ -59,7 +59,6 @@ function ChangePassword() {
     }
 
     try {
-      console.log(changePassword);
       const url = '/user/changepassword';
       const res = await api.put(url,changePassword);
       if (res.data.id) {
@@ -86,7 +85,6 @@ function ChangePassword() {
 
 if(UID === null || UID === "")
 { 
-   
   window.location.href = "http://localhost:3000/";
 }
   return (

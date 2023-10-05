@@ -91,10 +91,32 @@ thead th{
     opacity: 1;
 }
 
+tbody tr{
+    border: 1px solid rgba(169, 167, 167, 0.469);
+}
+
 tbody tr:nth-child(even)
 {
-    background-color: #0000000b;
+    /* background-color: #0000000b; */
 }
+
+
+tbody tr:nth-child(1)::after,
+tbody tr:nth-child(2)::after,
+tbody tr:nth-child(3)::after,
+tbody tr:nth-child(4)::after,
+tbody tr:nth-child(5)::after,
+tbody tr:nth-child(6)::after,
+tbody tr:nth-child(7)::after,
+tbody tr:nth-child(8)::after,
+tbody tr:nth-child(9)::after,
+tbody tr:nth-child(10)::after {
+  content: '';
+  display: table-row;
+  height: 40px;
+  
+}
+
 /* tbody tr:hover
 {
     background-color: #fff6;

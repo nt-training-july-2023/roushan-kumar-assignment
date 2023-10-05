@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { allUsersService, deleteUser } from '../../service/userService';
@@ -11,8 +11,9 @@ function Users() {
     const [allUsers, setAllUsers] = useState([])
     const [userId, setuserId] = useState(0)
     const [offSet, setOffSet] = useState(0)
-    const [pageSize, setPageSize] = useState(10)
-
+    const [pageSize] = useState(10)
+    const [totalPage,setTotalPage] = useState(0)
+    const [currentPage,setCurrentPage] = useState(1)
     const [confirmShow, setConfirmShow] = useState(false);
     const [okBox, setOkBox] = useState(false);
     const [sucessMessage, setSucessMessage] = useState({
@@ -30,7 +31,7 @@ function Users() {
         "Action"
     ]
 
-    const getAllUsers = async () => {
+    const getAllUsers = useCallback(async () => {
         try {
             const params = {
                 params: {
@@ -42,27 +43,34 @@ function Users() {
             if (res.data.content.length > 0) {
                 setAllUsers(res.data.content);
             }
-           
+
+            if(res.data.totalPages)
+            {
+                setTotalPage(res.data.totalPages)
+            }
+
             
         } catch (error) {
 
         }
-    }
+    },[offSet,pageSize])
 
     useEffect(() => {
         getAllUsers();
-    }, [offSet])
+    }, [getAllUsers])
 
     const setOffsetHadlerPrev = () => {
 
         if (offSet > 0) {
             setOffSet(offSet - 1)
+            setCurrentPage(currentPage-1);
         }
     }
     const setOffsetHadlerNext = async () => {
         const nPage = allUsers.length
-        if (nPage === pageSize) {
+        if (currentPage < totalPage) {
             setOffSet(offSet + 1)
+            setCurrentPage(currentPage + 1);
         }
     }
 
@@ -81,7 +89,7 @@ function Users() {
         setConfirmShow(false);
 
         try {
-            if (allUsers.length == 1) {
+            if (allUsers.length === 1) {
                 setOffsetHadlerPrev();
             }
 
@@ -151,11 +159,12 @@ function Users() {
                     <div className='tablefooter'>
                         <ul>
                             <li>
-                                <button className='prev' onClick={setOffsetHadlerPrev}>Prev</button>
+                                <button className='prev'  onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-                            
+                            {currentPage + " of "}
+                             { totalPage}
                             <li>
-                                <button className='next' onClick={setOffsetHadlerNext}>Next</button>
+                                <button className='next' hidden = { allUsers.length < 10 } onClick={setOffsetHadlerNext}>Next</button>
                             </li>
 
                         </ul>

@@ -209,3 +209,7 @@ input:focus {
     background-color: #80808021;
     inset: 0px;
 }
+
+button:disabled {
+    cursor: no-drop;
+}

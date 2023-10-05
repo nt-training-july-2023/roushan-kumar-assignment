@@ -7,6 +7,7 @@ function Button({
     onClick,
     type,
     value,
+    hidden,
 }) {
     return (
         <>
@@ -17,6 +18,7 @@ function Button({
                 onClick={onClick}
                 type={type}
                 value={value}
+                hidden = {hidden}
             >
                 {name}
             </button>

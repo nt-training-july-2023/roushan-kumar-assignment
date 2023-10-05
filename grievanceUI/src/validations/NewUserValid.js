@@ -1,16 +1,22 @@
 function NewUserValid(user) {
- console.log("validation on user "+user.email);
+ console.log("validation on user "+user.username);
  const userEmail = user.email.trim();
  const reg = new RegExp("^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$");
+ const regUserName = new RegExp("^[a-zA-Z0-9_]+$");
+ const fullname = new RegExp("^[a-zA-Z ]+$");
  console.log(reg.test(userEmail));
 
-  if (user.username.trim() === "") {
+  if (user.username.trim() === "" ) {
     return "Username is required";
+  } else if(!regUserName.test(user.username)) {
+    return "Only alphabets and underscores are allowed for the username.";
   }
 
   if (user.fullName.trim() === "") {
     return "FullName is required";
-  } 
+  } else if(!fullname.test(user.fullName)) {
+    return "Only alphabets are allowed for the full name.";
+  }
 
   if(user.password.trim() === "") {
     return "Password is required."

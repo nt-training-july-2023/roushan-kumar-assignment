@@ -43,7 +43,7 @@ function TicketUpdateView(props) {
         "commentedBy": sessionStorage.getItem("username")
     });
 
-    const [inableOnChange, setInableOnChange] = useState(false)
+    const [enableOnChange, setInableOnChange] = useState(false)
 
     const [okBox, setOkBox] = useState(false);
     const [sucessMessage, setSucessMessage] = useState({
@@ -56,11 +56,9 @@ function TicketUpdateView(props) {
         try {
             const url = "ticket/" + props.ticketData.ticketId;
             const res = await api.get(url)
-            console.log(res.data);
+            
             if (res.data) {
-                setTicket(res.data)
-                console.log(res.data.department.deptId +" "+sessionStorage.getItem("departmentId"))
-                
+                setTicket(res.data)    
                 if (res.data.userId == sessionStorage.getItem("userId")) {
                     onlyValidUser.current  = false
                    
@@ -148,6 +146,9 @@ function TicketUpdateView(props) {
         setOkBox(false)
     }
 
+    const clearHandler = ()=> {
+        clearNewTicketForm();
+    }
 
     return (
         <>
@@ -259,14 +260,15 @@ function TicketUpdateView(props) {
                             <input
                                 type="submit"
                                 value={"Clear"}
-                                className='btnNew btnClear' >
+                                className='btnNew btnClear'
+                                onClick={clearHandler} >
 
                             </input>
                             <input
                                 type="submit"
                                 value={"Update "}
                                 className='btnNew btnSave'
-                                disabled = {inableOnChange}
+                                disabled = {enableOnChange}
                                 hidden={ onlyValidUser.current }
                                 onClick={updateTicketHandler}
                             >

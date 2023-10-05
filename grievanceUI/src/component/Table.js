@@ -15,7 +15,6 @@ function Table({
                     </tr>
                 </thead>
                 <tbody>
-                
                     {
                         data && data.length > 0 ? (
                         data?.map((row, index) => (
@@ -24,11 +23,26 @@ function Table({
                                 <td key={index}>{row[column]}</td>
                             ))}
                         </tr>
-                    ))):
+                        
+                    )))
+                    
+                    :
+                    
                     <tr>
-                        <td colSpan="7">No data found...  </td>
+                        <td colSpan="7" style={{textAlign:"center"}}> <span > No data found... </span></td>
                     </tr>
                  }
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                    
                 
                 </tbody>
             </table>

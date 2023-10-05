@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import api from '../service/axios.js';
 import { useNavigate } from 'react-router-dom';
 import MessageSucess from '../component/ErrorMessage.js';
 function Login() {
+    if (sessionStorage.getItem('userType') === 'Admin' && sessionStorage.getItem("isFisrt") == 0 ) {
+
+        // navigate("/admin/ticket");
+        window.location.href = "http://localhost:3000/admin/ticket";
+
+
+    } else if (sessionStorage.getItem('userType') === 'Member' && sessionStorage.getItem("isFisrt") == 0 ) {
+
+        // navigate("/member/ticket");
+        window.location.href = "http://localhost:3000/member/ticket";
+
+    } 
 
     const navigate = useNavigate();
     const initailLogin = {
