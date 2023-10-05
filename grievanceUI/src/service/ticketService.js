@@ -7,7 +7,7 @@ export  const saveTicket = async (ticket)=> {
 }
 
 export const tickets = async (params,UID) => {
-        const url = "/ticket/all/new/" + UID;
+        const url = "/ticket/all/" + UID;
         const res = await api.get(url, params)
         return res;
 }

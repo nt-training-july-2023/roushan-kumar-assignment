@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/ticketType")
+@RequestMapping("/ticket-type")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TicketTypeController {
 

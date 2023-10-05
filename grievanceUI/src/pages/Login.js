@@ -49,7 +49,7 @@ function Login() {
         const url = '/login/authorization';
         const res = await api.post(url,{username:userLogin.username,password:btoa(userLogin.password)})
         if (res.data !== "Invalid credential") {
-            const urlVal = '/user/byUsername/' + username;
+            const urlVal = '/user/' + username;
             const userData = await api.get(urlVal)
             console.log(userData.data);
             sessionStorage.setItem("userId", userData.data.userId);

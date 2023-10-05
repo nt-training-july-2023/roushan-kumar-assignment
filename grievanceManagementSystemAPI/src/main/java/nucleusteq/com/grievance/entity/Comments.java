@@ -42,7 +42,7 @@ public class Comments {
   }
 
   /**
-   * All arg constructor.
+   * Comment id and comments args constructor.
    *
    * @param commentsIdParam id.
    * @param commentsParam comments.

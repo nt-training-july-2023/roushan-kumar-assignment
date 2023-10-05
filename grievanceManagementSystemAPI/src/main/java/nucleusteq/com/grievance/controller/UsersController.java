@@ -108,7 +108,7 @@ public class UsersController {
    * @param username username to find.
    * @return User.
    */
-  @GetMapping("/byUsername/{username}")
+  @GetMapping("/{username}")
   public UserDto getUserByUsername(
       @PathVariable("username") final String username) {
     return userService.getByUsername(username);
@@ -120,7 +120,7 @@ public class UsersController {
    * @param changePassword object.
    * @return Response.
    */
-  @PutMapping("/changepassword")
+  @PutMapping("/change-password")
   public ResponseDto changePassword(
       @RequestBody final ChangePassword changePassword) {
       return userService.changePassword(changePassword);

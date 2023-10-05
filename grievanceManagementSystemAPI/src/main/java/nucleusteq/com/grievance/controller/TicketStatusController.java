@@ -19,7 +19,7 @@ import nucleusteq.com.grievance.service.TicketStatusService;
  */
 
 @RestController
-@RequestMapping("/ticketStatus")
+@RequestMapping("/ticket-status")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TicketStatusController {
 
