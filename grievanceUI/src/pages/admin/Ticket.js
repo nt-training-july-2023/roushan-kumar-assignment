@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import api from '../../service/axios';
 import TicketUpdateView from '../TicketUpdateView';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
 import { allTicketStatus } from '../../service/ticketStatusType';

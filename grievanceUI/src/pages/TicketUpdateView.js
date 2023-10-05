@@ -5,6 +5,7 @@ import ErrorMessage from '../component/ErrorMessage';
 import { allTicketStatus } from '../service/ticketStatusType';
 import { useRef } from 'react';
 import OkMessage from '../component/OkMessage';
+import { ticketById, updateTicket } from '../service/ticketService';
 function TicketUpdateView(props) {
 
     const initialVal = {
@@ -54,8 +55,7 @@ function TicketUpdateView(props) {
     const [statusId, setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
     const getTicket = async () => {
         try {
-            const url = "ticket/" + props.ticketData.ticketId;
-            const res = await api.get(url)
+            const res = await ticketById(props.ticketData.ticketId);
             
             if (res.data) {
                 setTicket(res.data)    
@@ -125,8 +125,13 @@ function TicketUpdateView(props) {
             return;
         }
         try {
-            const url = "ticket/updates/ticketcomments/" + ticket.ticketId + "?statusId=" + statusId;
-            const result = await api.put(url, comment);
+            const params = {
+                params: {
+                    statusId: statusId
+                }
+            }
+
+            const result = await updateTicket(ticket.ticketId, comment, params);
             if (result.data.id) {
                 getTicket();
                 clearNewTicketForm();

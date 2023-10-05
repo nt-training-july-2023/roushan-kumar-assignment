@@ -4,6 +4,7 @@ import api from '../service/axios';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from './ErrorMessage';
 import Input from './Input';
+import { updatePassword } from '../service/userService';
 function ChangePassword() {
   const navigate = useNavigate();
   
@@ -57,10 +58,8 @@ function ChangePassword() {
       setShow("show")
     return false;
     }
-
     try {
-      const url = '/user/changepassword';
-      const res = await api.put(url,changePassword);
+      const res = await updatePassword(changePassword);
       if (res.data.id) {
         sessionStorage.setItem("password",btoa(changePassword.newPassword))
         navigate('/')

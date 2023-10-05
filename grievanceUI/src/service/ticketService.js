@@ -1,3 +1,4 @@
+import { async } from "q";
 import api from "./axios";
 
 export  const saveTicket = async (ticket)=> {
@@ -12,3 +13,14 @@ export const tickets = async (params,UID) => {
         return res;
 }
 
+export const updateTicket = async (ticketId, comment, params) => {
+    const url = "/ticket/updates/ticket-comments/" + ticketId;
+    const result = await api.put(url, comment , params);
+    return result
+}
+
+export const ticketById = async (ticketId) => {
+    const url = "ticket/" + ticketId;
+    const res = await api.get(url)
+    return res;
+}
