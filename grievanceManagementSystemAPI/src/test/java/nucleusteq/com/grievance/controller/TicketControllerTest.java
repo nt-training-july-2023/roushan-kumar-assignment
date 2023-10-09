@@ -126,7 +126,7 @@ public class TicketControllerTest {
     	when(ticketService.getAllByCondition(10, 0, false,0,1,"OPEN"))
     	    .thenReturn(allTicketsDto);
     	
-       mockMvc.perform(get("/ticket/all/new/10?departId=0&createdByMe=false&offset=0&pageSize=1&status=OPEN"))
+       mockMvc.perform(get("/ticket/all/10?departId=0&createdByMe=false&offset=0&pageSize=1&status=OPEN"))
               .andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
               .andExpect(jsonPath("$[0].ticketId").value(1))

@@ -55,7 +55,7 @@ public class TicketTypeControllerTest {
 
       when(ticketTypeService.getAll()).thenReturn(ticketTypes);
 
-      mockMvc.perform(get("/ticketType/all"))
+      mockMvc.perform(get("/ticket-type/all"))
               .andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
               .andExpect(jsonPath("$[0].ticketTypeId").value(1))
@@ -77,7 +77,7 @@ public class TicketTypeControllerTest {
       when(ticketTypeService.save(any(TicketType.class))).thenReturn(ticketType);
 
       // Perform the POST request
-      mockMvc.perform(post("/ticketType/save")
+      mockMvc.perform(post("/ticket-type/save")
           .contentType(MediaType.APPLICATION_JSON)
           .content(ticketTypeJson))
           .andExpect(status().isOk())

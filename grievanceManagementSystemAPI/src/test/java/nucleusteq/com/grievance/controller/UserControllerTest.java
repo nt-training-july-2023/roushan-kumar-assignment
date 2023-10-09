@@ -67,7 +67,7 @@ public class UserControllerTest {
     userDto.setRole(new Role(1,"Admin"));
     when(userService.save(userDto)).thenReturn(userDto);
 
-    ResponseEntity<?> res = usersController.saveUser(userDto,errors );
+    ResponseEntity<?> res = usersController.saveUser(userDto);
     
     System.out.println(res.toString());
 
@@ -86,7 +86,7 @@ public class UserControllerTest {
     userDto.setDepartment(new Department(1,"HR"));
     userDto.setRole(new Role(1,"Admin"));
 
-    ResponseEntity<?> res = usersController.saveUser(userDto,errors );
+    ResponseEntity<?> res = usersController.saveUser(userDto);
     
     System.out.println(res.getBody());
     if(res.getBody().equals("Fields required"))

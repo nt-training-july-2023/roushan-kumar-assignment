@@ -73,11 +73,13 @@ public class UserDto {
   /**
    * Role is Class.
    */
+  @NotNull(message = "Role is required.")
   private Role role;
 
   /**
    * Department is Class.
    */
+  @NotNull(message = "Department is required.")
   private Department department;
 
   /**

@@ -16,6 +16,7 @@ function Ticket() {
     const [statusName, setStatusName] = useState("0");
     const [offset, setOffset] = useState(0)
     const [pageNumber,setPageNumber] = useState(1);
+    const [defaultDepartmentSelect] = useState("All Departments")
     const pageSize = 10;
     const columns = [
         "S.No",
@@ -42,11 +43,13 @@ function Ticket() {
                 setAllTickets(res.data)
             }
             else {
-                console.log("No data found")
+                
                 setAllTickets([])
             }
         } catch (error) {
-            console.log(error.response);
+            console.log("No data found!.")
+            console.log(error.response.data);
+            setAllTickets([]);
         }
     },[offset, departmentId, statusName, createdByMe,UID])
 
@@ -113,6 +116,7 @@ function Ticket() {
         setOffset(0);
         setCreatedByMe(!createdByMe);
         setPageNumber(1)
+        
     }
 
     return (
@@ -127,7 +131,7 @@ function Ticket() {
                             <DepartmentDropdown
                                 className={'custom_select_ticket'}
                                 onChange={setDepartmentIdHandler}
-                                defaultName={"All Departments"}
+                                defaultName={defaultDepartmentSelect}
                                 hidden={createdByMe}
                                 disabled={createdByMe}
                             />

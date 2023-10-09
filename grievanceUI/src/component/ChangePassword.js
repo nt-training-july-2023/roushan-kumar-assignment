@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import '../assets/css/initialpass.css'
-import api from '../service/axios';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from './ErrorMessage';
 import Input from './Input';
@@ -59,7 +58,14 @@ function ChangePassword() {
     return false;
     }
     try {
-      const res = await updatePassword(changePassword);
+      const res = await updatePassword(
+        {
+          "userId": UID,
+          "oldPassword": btoa(changePassword.oldPassword),
+          "newPassword": btoa(changePassword.newPassword),
+          "conPassword": btoa(changePassword.conPassword)
+        }
+      );
       if (res.data.id) {
         sessionStorage.setItem("password",btoa(changePassword.newPassword))
         navigate('/')

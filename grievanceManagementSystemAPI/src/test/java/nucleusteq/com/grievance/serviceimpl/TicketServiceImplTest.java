@@ -35,6 +35,7 @@ import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
 import nucleusteq.com.grievance.entity.Users;
 import nucleusteq.com.grievance.exception.BadRequestError;
+import nucleusteq.com.grievance.exception.NotFoundException;
 import nucleusteq.com.grievance.repository.TicketRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.TicketStatusService;
@@ -261,9 +262,11 @@ public class TicketServiceImplTest {
       when(userService.getById(1)).thenReturn(user);
       when(ticketRepo.findByDepartmentNew(1,0,1,1)).thenReturn(sampleTickets);
 
-      List<AllTicketsDto> result = ticketServiceImpl.getAllByCondition(1, 1, false,0,1,"OPEN");
-
-      assertNull(result);
+      //List<AllTicketsDto> result = ticketServiceImpl.getAllByCondition(1, 1, false,0,1,"OPEN");
+      assertThrows(NotFoundException.class, ()->{
+        ticketServiceImpl.getAllByCondition(1, 1, false,0,1,"OPEN");
+      });
+      //assertNull(result);
       verify(userService, times(1)).getById(1);
       verify(ticketRepo, times(1)).findByDepartmentNew(1,0,1,1);
      
