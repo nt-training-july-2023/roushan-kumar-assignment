@@ -8,6 +8,7 @@ function Button({
     type,
     value,
     hidden,
+    disabled,
 }) {
     return (
         <>
@@ -19,6 +20,7 @@ function Button({
                 type={type}
                 value={value}
                 hidden = {hidden}
+                disabled = {disabled}
             >
                 {name}
             </button>

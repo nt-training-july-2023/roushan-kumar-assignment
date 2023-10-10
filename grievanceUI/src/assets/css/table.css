@@ -95,10 +95,10 @@ tbody tr{
     border: 1px solid rgba(169, 167, 167, 0.469);
 }
 
-tbody tr:nth-child(even)
+/* tbody tr:nth-child(even)
 {
-    /* background-color: #0000000b; */
-}
+    background-color: #0000000b;
+} */
 
 
 tbody tr:nth-child(1)::after,
@@ -215,7 +215,7 @@ tbody tr:nth-child(10)::after {
 
 .tablefooter ul{
     width: 100%;
-    text-align: right;
+    text-align: center;
 
 }
 
@@ -223,6 +223,7 @@ tbody tr:nth-child(10)::after {
     display: inline-block;
     list-style: none;
     margin: 5px 5px;
+    color: white;
 }
 
 .tablefooter button{

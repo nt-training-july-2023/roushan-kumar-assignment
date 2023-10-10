@@ -54,6 +54,7 @@ function Login() {
             console.log(userData.data);
             sessionStorage.setItem("userId", userData.data.userId);
             sessionStorage.setItem("username", userData.data.username);
+            sessionStorage.setItem("fullName", userData.data.fullName);
             sessionStorage.setItem("userType", userData.data.role.name);
             sessionStorage.setItem("password", userData.data.password);
             sessionStorage.setItem("departmentId", userData.data.department.deptId);

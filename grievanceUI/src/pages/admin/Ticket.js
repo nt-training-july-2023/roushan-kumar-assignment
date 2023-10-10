@@ -20,6 +20,7 @@ function Ticket() {
     const pageSize = 10;
     const columns = [
         "S.No",
+        "Id",
         "Ticket title",
         "Department",
         "Status",
@@ -160,6 +161,7 @@ function Ticket() {
                         allTickets.map((ticket) => (
                             {
                                 "S.No": ticket.serialNumber,
+                                "Id"  :ticket.ticketId,
                                 "Ticket title": ticket.title,
                                 "Department": ticket.department.deptName,
                                 "Status": <span className={ticket.ticketStatus.ticketStatusName === "OPEN" ? 'open' :
@@ -183,11 +185,12 @@ function Ticket() {
                     <div className='tablefooter'>
                         <ul>
                             <li>
-                                <Button className='prev' hidden = {offset === 0 } onClick={setOffsetHadlerPrev} name={'Prev'}></Button>
+                                <Button className='prev' disabled = {offset === 0 } onClick={setOffsetHadlerPrev} name={'Prev'}></Button>
                             </li>
-                            {pageNumber}
+                            <li>{pageNumber}</li>
+                            
                             <li>
-                                <Button className='next' hidden = {allTickets.length < 10 } onClick={setOffsetHadlerNext} name={'Next'}></Button>
+                                <Button className='next' disabled = {allTickets.length < 10 } onClick={setOffsetHadlerNext} name={'Next'}></Button>
                             </li>
 
                         </ul>

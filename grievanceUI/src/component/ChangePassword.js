@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../assets/css/initialpass.css'
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from './ErrorMessage';
+import SuccessMessage from './SuccessMessage'; 
 import Input from './Input';
 import { updatePassword } from '../service/userService';
 function ChangePassword() {
@@ -11,6 +12,9 @@ function ChangePassword() {
  
   const [show, setShow] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [showSuccess, setShowSuccess] = useState("");
+  const [successMessage, setSuccessMessage] = useState("Password has been changed, and you are being redirected to the main page.");
   const initialData = {
     "userId": UID,
     "oldPassword": "",
@@ -68,7 +72,11 @@ function ChangePassword() {
       );
       if (res.data.id) {
         sessionStorage.setItem("password",btoa(changePassword.newPassword))
-        navigate('/')
+        setShowSuccess('show')
+        setTimeout(()=>{
+          navigate('/')
+        },5000)
+       
       }
       else{
         setErrorMessage(res.data.message)
@@ -86,6 +94,10 @@ function ChangePassword() {
   }
   const handleClose = () => {
     setShow("");
+ }
+
+const handleSuccessClose = () =>{
+  setShowSuccess("")
 }
 
 if(UID === null || UID === "")
@@ -95,6 +107,7 @@ if(UID === null || UID === "")
   return (
     <div>
       <ErrorMessage message={errorMessage} show={show} onClick={handleClose} />
+      <SuccessMessage message={successMessage} show={showSuccess} onClick={handleSuccessClose} />
       <div className='initial_pass wrapper_pass'>
         <div className='title'>
           Change Password

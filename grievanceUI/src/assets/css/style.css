@@ -212,4 +212,9 @@ input:focus {
 
 button:disabled {
     cursor: no-drop;
+    visibility: hidden;
+}
+
+.hidden {
+    visibility: hidden;
 }

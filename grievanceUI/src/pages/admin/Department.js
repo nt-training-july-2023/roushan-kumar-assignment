@@ -184,7 +184,7 @@ function Department() {
                                     <button
                                         id="buttonDet"
                                         className='btn button_delete'
-                                        hidden={department.deptId.toString() === sessionStorage.getItem("departmentId")}
+                                        disabled={department.deptId.toString() === sessionStorage.getItem("departmentId")}
                                         onClick={() => { deptDeleteHandle(department.deptId) }}
                                     >
                                     </button>
@@ -195,11 +195,13 @@ function Department() {
                     <div className='tablefooter'>
                         <ul>
                             <li>
-                                <button className='prev' hidden = { offset === 0  } onClick={setOffsetHadlerPrev}>Prev</button>
+                                <button className='prev' disabled = { offset === 0  } onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-                            {pageNumber}
                             <li>
-                                <button className='next' hidden = { deptData.length < 10  } onClick={setOffsetHadlerNext}>Next</button>
+                            {pageNumber}
+                            </li>
+                            <li>
+                                <button className='next' disabled = { deptData.length < 10  } onClick={setOffsetHadlerNext}>Next</button>
                             </li>
 
                         </ul>

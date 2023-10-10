@@ -150,7 +150,7 @@ function Users() {
                                 <button
                                     id="buttonDet"
                                     className='btn button_delete'
-                                    hidden={user.username === sessionStorage.getItem("username")}
+                                    disabled={user.username === sessionStorage.getItem("username")}
                                     onClick={() => { DeleteHandle(user.userId) }} ></button>
                                 </div>,
                             }
@@ -159,12 +159,14 @@ function Users() {
                     <div className='tablefooter'>
                         <ul>
                             <li>
-                                <button className='prev'  onClick={setOffsetHadlerPrev}>Prev</button>
+                                <button className='prev' disabled = { offSet === 0 }  onClick={setOffsetHadlerPrev}>Prev</button>
                             </li>
-                            {currentPage + " of "}
-                             { totalPage}
                             <li>
-                                <button className='next' hidden = { allUsers.length < 10 } onClick={setOffsetHadlerNext}>Next</button>
+                            {currentPage + " of "}
+                            { totalPage}
+                             </li>
+                            <li>
+                                <button className='next' disabled = { allUsers.length < 10 } onClick={setOffsetHadlerNext}>Next</button>
                             </li>
 
                         </ul>

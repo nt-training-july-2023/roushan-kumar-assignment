@@ -32,6 +32,9 @@ function Header(props) {
             <li><a href="#">Home</a></li>
             <li><a href="#">Home</a></li> */}
         </ul>
+        <ul>
+            <li><p>Welcome, {sessionStorage.getItem("fullName")}</p></li>
+        </ul>
         <img id="user-pid-id" src = {user} className="user-pic" onClick={toggleMenu} />
         <div className="sub-menu-wrap" id ="subMenu" onMouseLeave={toggleMenu}>
             <div className="sub-menu">

@@ -91,7 +91,7 @@ public class AuthenticationFilter implements Filter {
     } else {
       HttpServletResponse httpResponse = (HttpServletResponse) response;
       httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-          "Invalid credentials Form filter");
+          "Invalid credentials");
     }
    }
   }

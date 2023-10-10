@@ -165,7 +165,7 @@ function TicketUpdateView(props) {
 
                     <div>
                         <div className='title'>
-                            Ticket
+                            Ticket ID : {ticket.ticketId}
                         </div>
                         <div className='label'><strong>Created Date :</strong> {ticket.creationDate}</div>
                         <div className='label'><strong>Created time :</strong> {ticket.creationTime}</div>
