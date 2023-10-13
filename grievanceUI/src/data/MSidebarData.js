@@ -4,7 +4,7 @@ import tickets from '../assets/svg/ticket-perforated-fill.svg'
 export const MSidebarData = [
   {
     title: "Raise a Ticket",
-    link: "/member/riseticket",
+    link: "/member/raiseticket",
     icon: <img src={addTicket}></img>
   },
   {

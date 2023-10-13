@@ -76,7 +76,7 @@ public class TicketController {
    * @param ticketId id of ticket.
    * @return Response of method.
    */
-  @PutMapping("/updates/ticketcomments/{ticketId}")
+  @PutMapping("/updates/ticket-comments/{ticketId}")
   public ResponseDto updateTicketComments(
      @RequestParam(name = "statusId") final Integer statusId,
      @RequestBody final  Comments comments,
@@ -95,7 +95,7 @@ public class TicketController {
    * @param status Status of Ticket.
    * @return All tickets according to condition.
    */
-  @GetMapping("/all/new/{userId}")
+  @GetMapping("/all/{userId}")
   public List<AllTicketsDto> getAllTicketsNew(
       @PathVariable("userId") final Integer userId,
       @RequestParam(name = "departId", required = false) final Integer departId,

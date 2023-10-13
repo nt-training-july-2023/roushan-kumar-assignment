@@ -5,6 +5,7 @@ import ErrorMessage from '../component/ErrorMessage';
 import { allTicketStatus } from '../service/ticketStatusType';
 import { useRef } from 'react';
 import OkMessage from '../component/OkMessage';
+import { ticketById, updateTicket } from '../service/ticketService';
 function TicketUpdateView(props) {
 
     const initialVal = {
@@ -43,7 +44,7 @@ function TicketUpdateView(props) {
         "commentedBy": sessionStorage.getItem("username")
     });
 
-    const [inableOnChange, setInableOnChange] = useState(false)
+    const [enableOnChange, setInableOnChange] = useState(false)
 
     const [okBox, setOkBox] = useState(false);
     const [sucessMessage, setSucessMessage] = useState({
@@ -54,13 +55,10 @@ function TicketUpdateView(props) {
     const [statusId, setStatusId] = useState(props.ticketData.ticketStatus.ticketStatusId);
     const getTicket = async () => {
         try {
-            const url = "ticket/" + props.ticketData.ticketId;
-            const res = await api.get(url)
-            console.log(res.data);
+            const res = await ticketById(props.ticketData.ticketId);
+            
             if (res.data) {
-                setTicket(res.data)
-                console.log(res.data.department.deptId +" "+sessionStorage.getItem("departmentId"))
-                
+                setTicket(res.data)    
                 if (res.data.userId == sessionStorage.getItem("userId")) {
                     onlyValidUser.current  = false
                    
@@ -120,28 +118,25 @@ function TicketUpdateView(props) {
     const updateTicketHandler = async (e) => {
         e.preventDefault();
 
-        if (comment.comments.trim() === "" && statusId == 3) {
+        if (comment.comments.trim() === "") {
             
             setNotificationMessage("Comment before update.")
             setShow("show")
             return;
         }
         try {
-            const url = "ticket/updates/ticketcomments/" + ticket.ticketId + "?statusId=" + statusId;
-            const result = await api.put(url, comment);
+            const params = {
+                params: {
+                    statusId: statusId
+                }
+            }
+
+            const result = await updateTicket(ticket.ticketId, comment, params);
             if (result.data.id) {
                 getTicket();
                 clearNewTicketForm();
-                if( (statusId == 1 || statusId == 2 ) && comment.comments === "")
-                {
-                    setSucessMessage({
-                        "message":"Ticket status updated",
-                        "title":"Updated",
-                    })
-                    setOkBox(true)
-                } else {
-                   executeScroll();
-                }
+                executeScroll();
+                
             }
         }
         catch (error) {
@@ -156,6 +151,9 @@ function TicketUpdateView(props) {
         setOkBox(false)
     }
 
+    const clearHandler = ()=> {
+        clearNewTicketForm();
+    }
 
     return (
         <>
@@ -167,7 +165,7 @@ function TicketUpdateView(props) {
 
                     <div>
                         <div className='title'>
-                            Ticket
+                            Ticket ID : {ticket.ticketId}
                         </div>
                         <div className='label'><strong>Created Date :</strong> {ticket.creationDate}</div>
                         <div className='label'><strong>Created time :</strong> {ticket.creationTime}</div>
@@ -249,7 +247,7 @@ function TicketUpdateView(props) {
                             </div>
                         </div>
                         <div className='input_field'>
-                            <label>Comment</label>
+                            <label>Comment <span className='error'>*</span></label>
                             <textarea
                                 type="text"
                                 className='input'
@@ -267,14 +265,15 @@ function TicketUpdateView(props) {
                             <input
                                 type="submit"
                                 value={"Clear"}
-                                className='btnNew btnClear' >
+                                className='btnNew btnClear'
+                                onClick={clearHandler} >
 
                             </input>
                             <input
                                 type="submit"
                                 value={"Update "}
                                 className='btnNew btnSave'
-                                disabled = {inableOnChange}
+                                disabled = {enableOnChange}
                                 hidden={ onlyValidUser.current }
                                 onClick={updateTicketHandler}
                             >

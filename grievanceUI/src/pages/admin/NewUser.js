@@ -121,7 +121,14 @@ function NewUser() {
         }
         try {
             const result = await saveUser(
-                user,
+                {
+                    "username": user.username,
+                    "fullName": user.fullName,
+                    "email": user.email,
+                    "password": btoa(user.password),
+                    "role": user.role,
+                    "department": user.department
+                },
                 sessionStorage.getItem("password"),
                 sessionStorage.getItem("username"),
 
@@ -131,11 +138,13 @@ function NewUser() {
                 "message":"New User Added",
                 "title":"Saved",
             })
+            setShow("");
             setOkBox(true)
             resetForm();
           }
         } catch (error) {
-           alert(error)
+            setErrorMessage(error.response.data)
+            setShow("show")
         }
 
     }

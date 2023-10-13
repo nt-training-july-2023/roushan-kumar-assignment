@@ -114,12 +114,9 @@ public class UsersServiceImpl implements UserService {
     Users tempUser = new Users();
     UserDto userSend = new UserDto();
     tempUser.setUsername(userDto.getUsername());
-    tempUser.setFullName(userDto.getFullName());
+    tempUser.setFullName(userDto.getFullName().trim());
     tempUser.setEmail(userDto.getEmail());
-    byte[] encrypPassByte = Base64.getEncoder().encode(userDto.getPassword()
-        .getBytes(StandardCharsets.UTF_8));
-    String encryptPass = new String(encrypPassByte, StandardCharsets.UTF_8);
-    tempUser.setPassword(encryptPass);
+    tempUser.setPassword(userDto.getPassword());
     tempUser.setInitialPassword(1);
     Role role = roleService.getRoleByName(userDto.getRole().getName());
     if (role != null) {
@@ -283,23 +280,12 @@ public class UsersServiceImpl implements UserService {
     Users users;
     if (user.isPresent()) {
       users = user.get();
-      byte[] encodeNewPassword = Base64.getEncoder()
-          .encode(changePassword.getNewPassword()
-              .getBytes(StandardCharsets.UTF_8));
-      String newPassword = new String(encodeNewPassword,
-          StandardCharsets.UTF_8);
-
-      byte[] decodeOldPassword = Base64.getDecoder()
-          .decode(users.getPassword());
-      String oldPassword = new String(decodeOldPassword,
-          StandardCharsets.UTF_8);
-
-      if (oldPassword.equals(changePassword.getOldPassword())) {
-        if (oldPassword.equals(changePassword.getNewPassword())) {
+      if (users.getPassword().equals(changePassword.getOldPassword())) {
+        if (users.getPassword().equals(changePassword.getNewPassword())) {
           return new ResponseDto(null,
               "New password should not same as old password.", "NOT_UPDATE");
         }
-        users.setPassword(newPassword);
+        users.setPassword(changePassword.getNewPassword());
         users.setInitialPassword(0);
         userRepo.save(users);
         return new ResponseDto(changePassword.getUserId(),

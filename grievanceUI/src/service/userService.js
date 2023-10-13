@@ -1,3 +1,4 @@
+import { async } from "q";
 import api from "./axios";
 
 export const saveUser = async (user , password , username)=>{
@@ -28,4 +29,10 @@ export const deleteUser = async (userId, password ,username)=>{
 
         const result = await api.delete(url, {headers});
         return result;
+}
+
+export const updatePassword = async (changePasswordObj) => {
+      const url = '/user/change-password';
+      const res = await api.put(url,changePasswordObj)
+      return res
 }

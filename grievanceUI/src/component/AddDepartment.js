@@ -13,12 +13,18 @@ function AddDepartment({ onClick , closeDepartment}) {
   }
   const submitHandler = async (e) => {
     e.preventDefault();
+    const departmentName = new RegExp("^[a-zA-Z]+$");
     if(department === "" || department === null)
     {
       setErrorMessage("Department name is required")
       setShow("show")
       return 
+    } else if(!departmentName.test(department)) {
+      setErrorMessage("Only alphabets are allowed")
+      setShow("show")
+      return 
     }
+
     try {
       const requestBody = {
         "deptName": department,
@@ -45,9 +51,7 @@ function AddDepartment({ onClick , closeDepartment}) {
     }
 
   }
-  const clearHandler = (e) => {
-    e.preventDefault();
-  }
+
   const handleClose = () => {
     setShow("");
   }

@@ -19,6 +19,7 @@ import nucleusteq.com.grievance.entity.TicketStatus;
 import nucleusteq.com.grievance.entity.TicketType;
 import nucleusteq.com.grievance.entity.Users;
 import nucleusteq.com.grievance.exception.BadRequestError;
+import nucleusteq.com.grievance.exception.NotFoundException;
 import nucleusteq.com.grievance.repository.TicketRepo;
 import nucleusteq.com.grievance.service.DepartmentService;
 import nucleusteq.com.grievance.service.TicketService;
@@ -307,8 +308,9 @@ public class TicketServiceImpl implements TicketService {
           pageSize, statusId);
     }
 
-    if (allTickets.size() <= 0) {
-      return null;
+    if (allTickets.isEmpty()) {
+      System.out.println("Size");
+      throw new NotFoundException("Record not found!.");
     }
     List<AllTicketsDto> allTicketsDto = new ArrayList<AllTicketsDto>();
     for (Ticket t : allTickets) {

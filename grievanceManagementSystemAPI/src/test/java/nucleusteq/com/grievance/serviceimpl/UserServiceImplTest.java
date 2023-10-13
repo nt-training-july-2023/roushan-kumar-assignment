@@ -318,7 +318,7 @@ public class UserServiceImplTest {
       
       Users mockUser = new Users();
       
-      mockUser.setPassword(Base64.getEncoder().encodeToString("oldPassword".getBytes(StandardCharsets.UTF_8)));
+      mockUser.setPassword("oldPassword");
       Mockito.when(userRepo.findById(changePassword.getUserId())).thenReturn(Optional.of(mockUser));
 
       
@@ -382,7 +382,6 @@ public class UserServiceImplTest {
     tempUser1.setDepartment(dept);
     
     when(userRepo.getByUserName(userDto.getUsername())).thenReturn(tempUser1);
-    //System.out.println(">>>" +userServiceImpl.authenticateIsAdmin(userDto));
     assertTrue(userServiceImpl.authenticateIsAdmin(userDto));
   }
 

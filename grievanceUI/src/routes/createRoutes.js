@@ -73,7 +73,7 @@ export default createBrowserRouter([
         element:<Member/>,
         children:[
             {
-                path: "/member/riseticket",
+                path: "/member/raiseticket",
                 element: <NewTicket/>,
             },
             {

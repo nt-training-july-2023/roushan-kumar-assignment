@@ -4,13 +4,13 @@ import ErrorMessage from '../../component/ErrorMessage';
 import NewTicketValid from '../../validations/NewTicketValid';
 import { allTicketType } from '../../service/ticketType';
 import OkMessage from '../../component/OkMessage';
-import { allDepartment } from '../../service/departmentService';
 import DepartmentDropdown from '../../component/DepartmentDropdown';
 import { saveTicket } from '../../service/ticketService';
+import Input from '../../component/Input'
+
 function NewTicket() {
     const UID = sessionStorage.getItem("userId");
     const initialVal = {
-
         "title": "",
         "description": "",
         "department": {
@@ -23,9 +23,8 @@ function NewTicket() {
     }
 
     const [ticket, setTicket] = useState(initialVal);
-    const { title, description, department, ticketType, userId } = ticket;
+    const { department, ticketType } = ticket;
 
-    const [deptData, setDeptData] = useState([]);
     const [ticketTypeData, setTicketTypeData] = useState([]);
 
     const [show, setShow] = useState("");
@@ -36,30 +35,6 @@ function NewTicket() {
         "message":"",
         "title":"",
     })
-
-    const getAllDepartment = async () => {
-        try {
-           
-            const params = {
-                params: {
-                    offSet: 0,
-                    pageSize: 0
-                }
-            }
-            const res = await allDepartment(params)
-            if (res.data) {
-                setDeptData(res.data);
-            }
-            
-        } catch (error) {
-            console.log(error.response.data);
-        }
-
-
-    }
-    useEffect(() => {
-        getAllDepartment();
-    }, [])
 
     const getAllTicketType = async () => {
         try {
@@ -139,6 +114,7 @@ function NewTicket() {
                     "message":"New Ticket Created",
                     "title":"Created",
                 })
+                setShow("");
                 setOkBox(true)
                 clearNewTicketForm();
                
@@ -193,13 +169,13 @@ function NewTicket() {
 
                     <div className='input_field'>
                         <label>Title  <span className='error'>*</span></label>
-                        <input
+                        <Input
                             type="text"
                             className='input'
                             id='titleInput'
                             name='title'
                             onChange={inputHandler}
-                            placeholder='Title of ticket'></input>
+                            placeholder='Title of ticket'></Input>
                     </div>
 
                     <div className='input_field'>
@@ -230,7 +206,7 @@ function NewTicket() {
                     <div className='input_field'>
                         <label>Status</label>
                         <div className='custom_select' >
-                            <select disabled="true">
+                            <select disabled={true}>
                             
                                 <option value={"1"}>OPEN</option>
                             </select>
@@ -240,26 +216,26 @@ function NewTicket() {
 
 
                     <div className='input_field'>
-                        <input
+                        <Input
                             type="submit"
                             value={"Clear"}
                             className='btnNew btnClear'
                             onClick={clearNewTicketForm} >
 
-                        </input>
-                        <input
+                        </Input>
+                        <Input
                             type="submit"
                             value={"Save"}
                             className='btnNew btnSave'
                             onClick={newTicketHandler}>
 
-                        </input>
-                        {/* <input
+                        </Input>
+                        {/* <Input
                             type="submit"
                             value={"back"}
                             className='btnNew btnBack' >
 
-                        </input> */}
+                        </Input> */}
                     </div>
 
                 </div>

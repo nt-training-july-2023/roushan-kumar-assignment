@@ -3,6 +3,7 @@ package nucleusteq.com.grievance.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import nucleusteq.com.grievance.entity.Department;
@@ -26,12 +27,16 @@ public class UserDto {
    */
   @NotEmpty(message = "username is required size > 2")
   @Size(min = 2)
+  @Pattern(regexp = "^[a-zA-Z0-9_]+$",
+  message = "Only alphabets and underscores are allowed for the username.")
   private String username;
 
   /**
    * Full name.
    */
   @NotEmpty(message = "full name is required")
+  @Pattern(regexp = "^[a-zA-Z ]+$",
+  message = "Only alphabets are allowed for the full name.")
   private String fullName;
 
   /**
@@ -39,13 +44,25 @@ public class UserDto {
    */
   @Email(regexp = "^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@nucleusteq\\.com$",
       message = "Email address invalid")
-  @NotNull(message = "email is required")
+  @NotNull(message = "Email is required")
   private String email;
 
   /**
+   * MIN_PASSWORD_LENGTH.
+   */
+  public static final int MIN_PASSWORD_LENGTH = 8;
+
+  /**
+   * MAX_PASSWORD_LENGTH.
+   */
+  public static final int MAX_PASSWORD_LENGTH = 18;
+  /**
    * Password as string.
    */
-  @NotNull(message = "Password is required")
+  @NotEmpty(message = "Password is required")
+  @Size(min = MIN_PASSWORD_LENGTH,
+        max = MAX_PASSWORD_LENGTH,
+        message = "Password should be between 8 to 18.")
   private String password;
 
   /**
@@ -56,11 +73,13 @@ public class UserDto {
   /**
    * Role is Class.
    */
+  @NotNull(message = "Role is required.")
   private Role role;
 
   /**
    * Department is Class.
    */
+  @NotNull(message = "Department is required.")
   private Department department;
 
   /**

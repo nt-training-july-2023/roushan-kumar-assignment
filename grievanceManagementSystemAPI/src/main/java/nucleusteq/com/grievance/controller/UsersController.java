@@ -11,9 +11,7 @@ import nucleusteq.com.grievance.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,17 +77,11 @@ public class UsersController {
    * Save a user.
    *
    * @param userDto userDto.
-   * @param errors BindingResult error.
    * @return Response.
    */
   @PostMapping("/admin/save")
   public ResponseEntity<?> saveUser(
-      @RequestBody @Valid final UserDto userDto,
-      final BindingResult errors) {
-    if (errors.hasErrors()) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-      .body(errors.getAllErrors());
-    }
+      @RequestBody @Valid final UserDto userDto) {
 
     if (userService.save(userDto) != null) {
     ResponseDto response = new ResponseDto(1, "New user created", "SAVE");
@@ -99,7 +91,6 @@ public class UsersController {
       ResponseDto response = new ResponseDto(0, "User not created", "NOT_SAVE");
       return ResponseEntity.ok(response);
     }
-
   }
 
   /**
@@ -108,7 +99,7 @@ public class UsersController {
    * @param username username to find.
    * @return User.
    */
-  @GetMapping("/byUsername/{username}")
+  @GetMapping("/{username}")
   public UserDto getUserByUsername(
       @PathVariable("username") final String username) {
     return userService.getByUsername(username);
@@ -120,7 +111,7 @@ public class UsersController {
    * @param changePassword object.
    * @return Response.
    */
-  @PutMapping("/changepassword")
+  @PutMapping("/change-password")
   public ResponseDto changePassword(
       @RequestBody final ChangePassword changePassword) {
       return userService.changePassword(changePassword);

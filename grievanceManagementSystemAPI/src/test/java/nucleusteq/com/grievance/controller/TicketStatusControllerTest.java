@@ -49,7 +49,7 @@ public class TicketStatusControllerTest {
       when(ticketStatusService.getAll()).thenReturn(ticketStatusList);
 
 
-        mockMvc.perform(get("/ticketStatus/all"))
+        mockMvc.perform(get("/ticket-status/all"))
                 .andExpect(status().isOk())
                  .andReturn();
         

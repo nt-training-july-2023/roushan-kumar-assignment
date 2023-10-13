@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import api from '../service/axios.js';
 import { useNavigate } from 'react-router-dom';
 import MessageSucess from '../component/ErrorMessage.js';
 function Login() {
+    if (sessionStorage.getItem('userType') === 'Admin' && sessionStorage.getItem("isFisrt") == 0 ) {
+
+        
+        window.location.href = "http://localhost:3000/admin/ticket";
 
 
-    
+    } else if (sessionStorage.getItem('userType') === 'Member' && sessionStorage.getItem("isFisrt") == 0 ) {
 
+        // navigate("/member/ticket");
+        window.location.href = "http://localhost:3000/member/ticket";
+
+    } 
 
     const navigate = useNavigate();
     const initailLogin = {
@@ -15,7 +23,6 @@ function Login() {
         password: "",
     }
 
-    
     const [userLogin, setUserLogin] = useState(initailLogin);
     const [show, setShow] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -42,11 +49,12 @@ function Login() {
         const url = '/login/authorization';
         const res = await api.post(url,{username:userLogin.username,password:btoa(userLogin.password)})
         if (res.data !== "Invalid credential") {
-            const urlVal = '/user/byUsername/' + username;
+            const urlVal = '/user/' + username;
             const userData = await api.get(urlVal)
             console.log(userData.data);
             sessionStorage.setItem("userId", userData.data.userId);
             sessionStorage.setItem("username", userData.data.username);
+            sessionStorage.setItem("fullName", userData.data.fullName);
             sessionStorage.setItem("userType", userData.data.role.name);
             sessionStorage.setItem("password", userData.data.password);
             sessionStorage.setItem("departmentId", userData.data.department.deptId);

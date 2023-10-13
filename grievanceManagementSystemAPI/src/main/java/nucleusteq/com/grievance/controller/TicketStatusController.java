@@ -14,17 +14,17 @@ import nucleusteq.com.grievance.service.TicketStatusService;
 /**
  * Ticket Status Controller.
  *
- * @author roushan
+ * @author Roushan
  * @version 1.0.0
  */
 
 @RestController
-@RequestMapping("/ticketStatus")
+@RequestMapping("/ticket-status")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TicketStatusController {
 
   /**
-   * Ticket status serivec variable.
+   * Ticket status service variable.
    */
   @Autowired
   private TicketStatusService statusService;
