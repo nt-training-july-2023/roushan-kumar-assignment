@@ -5,7 +5,7 @@ import MessageSucess from '../component/ErrorMessage.js';
 function Login() {
     if (sessionStorage.getItem('userType') === 'Admin' && sessionStorage.getItem("isFisrt") == 0 ) {
 
-        // navigate("/admin/ticket");
+        
         window.location.href = "http://localhost:3000/admin/ticket";
 
 

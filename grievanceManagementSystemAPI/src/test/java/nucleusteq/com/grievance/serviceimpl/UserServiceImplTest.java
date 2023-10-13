@@ -382,7 +382,6 @@ public class UserServiceImplTest {
     tempUser1.setDepartment(dept);
     
     when(userRepo.getByUserName(userDto.getUsername())).thenReturn(tempUser1);
-    //System.out.println(">>>" +userServiceImpl.authenticateIsAdmin(userDto));
     assertTrue(userServiceImpl.authenticateIsAdmin(userDto));
   }
 

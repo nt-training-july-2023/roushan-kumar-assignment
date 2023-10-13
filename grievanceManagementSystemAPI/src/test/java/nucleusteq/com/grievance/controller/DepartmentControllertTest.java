@@ -31,7 +31,6 @@ public class DepartmentControllertTest {
 
   @BeforeEach
   public void setUp() {
-  	System.out.println("setUp() method executed");
     MockitoAnnotations.openMocks(this);
     mockMvc = MockMvcBuilders.standaloneSetup(departmentController).build();
   }
